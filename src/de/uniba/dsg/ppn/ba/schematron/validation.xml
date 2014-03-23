@@ -7,9 +7,9 @@
     <iso:ns prefix='ppn' uri='http://ppn.lspi.uni-bamberg.de'/>
     
     <!-- Your constraints go here -->
-    <iso:pattern>
-        <iso:rule context="chapter">
-            <iso:assert test="title">A chapter should have a title</iso:assert>
+    <iso:pattern name="EXT.101">
+        <iso:rule context="startEvent">
+            <iso:assert test="outgoing">A startEvent must have a outoging subelement</iso:assert>
         </iso:rule>
     </iso:pattern>
 </iso:schema> 
