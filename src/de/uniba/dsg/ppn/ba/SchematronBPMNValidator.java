@@ -36,9 +36,7 @@ public class SchematronBPMNValidator {
 		XmlReader r = new XmlReader();
 		String text = r.readXmlFile(f);
 
-		System.out.println(text);
-
 		boolean check = SchematronBPMNValidator.validateViaPureSchematron(text);
-		System.out.println("File is valid? " + check);
+		System.out.println("Is File " + f.getName() + " valid? " + check);
 	}
 }
