@@ -4,11 +4,11 @@
     xmlns:ppn="http://ppn.lspi.uni-bamberg.de" 
     queryBinding="xslt2" schemaVersion="ISO19757-3">
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
-    <iso:ns prefix='ppn' uri='http://ppn.lspi.uni-bamberg.de'/>
+    <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
     
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.101">
-        <iso:rule context="startEvent">
+        <iso:rule context="bpmn:startEvent">
             <iso:assert test="outgoing">A startEvent must have a outoging subelement</iso:assert>
         </iso:rule>
     </iso:pattern>
