@@ -9,7 +9,7 @@
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.101">
         <iso:rule context="bpmn:startEvent">
-            <iso:assert test="outgoing">A startEvent must have a outoging subelement</iso:assert>
+            <iso:assert test="bpmn:outgoing">A startEvent must have a outoging subelement</iso:assert>
         </iso:rule>
     </iso:pattern>
 </iso:schema> 
