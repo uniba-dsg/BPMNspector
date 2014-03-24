@@ -27,10 +27,16 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File("E:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn");
+		// File f = new File("E:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn");
+		File f = new File(
+				"E:\\Philipp\\BA\\dump\\bpmn-by-example\\eMail Voting\\Email Voting 2.bpmn");
+		// File f = new
+		// File("E:\\Philipp\\BA\\testprocesses\\101\\success.bpmn");
 
 		XmlReader r = new XmlReader();
 		String text = r.readXmlFile(f);
+
+		System.out.println(text);
 
 		boolean check = SchematronBPMNValidator.validateViaPureSchematron(text);
 		System.out.println("File is valid? " + check);
