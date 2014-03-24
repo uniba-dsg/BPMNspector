@@ -1,11 +1,15 @@
 package de.uniba.dsg.ppn.ba;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.transform.stream.StreamSource;
 
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
+
+import de.uniba.dsg.ppn.ba.xml.XmlReader;
+import de.uniba.dsg.ppn.ba.xml.XmlWriter;
 
 public class SchematronBPMNValidator {
 
@@ -22,9 +26,17 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		boolean check = SchematronBPMNValidator
-				.validateViaPureSchematron(new File(
-						"E:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn"));
+		File f = new File("E:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn");
+
+		XmlReader r = new XmlReader();
+		List<String> lineList = r.readXmlFile(f);
+
+		f = new File("temp.xml");
+
+		XmlWriter w = new XmlWriter();
+		w.writeXml(f, lineList);
+
+		boolean check = SchematronBPMNValidator.validateViaPureSchematron(f);
 		System.out.println("File is valid? " + check);
 	}
 }
