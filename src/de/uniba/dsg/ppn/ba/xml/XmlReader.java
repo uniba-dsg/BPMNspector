@@ -16,11 +16,9 @@ public class XmlReader {
 				file))) {
 			String line = null;
 			while ((line = inputReader.readLine()) != null) {
-				if (line.contains("bpmndi:")) {
-					text.append("</definitions>" + "\r\n");
-					break;
+				if (!line.contains("bpmndi:")) {
+					text.append(line + "\r\n");
 				}
-				text.append(line + "\r\n");
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
