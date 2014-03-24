@@ -5,13 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class XmlReader {
 
-	public ArrayList<String> readXmlFile(File file) {
+	public String readXmlFile(File file) {
 
-		ArrayList<String> lineList = new ArrayList<String>();
+		StringBuffer text = new StringBuffer();
 
 		try (BufferedReader inputReader = new BufferedReader(new FileReader(
 				file))) {
@@ -24,7 +23,7 @@ public class XmlReader {
 					if (!line.contains("?xml")) {
 						line = line.substring(2);
 					}
-					lineList.add(line);
+					text.append(line + "\r\n");
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -35,6 +34,6 @@ public class XmlReader {
 			e.printStackTrace();
 		}
 
-		return lineList;
+		return text.toString();
 	}
 }
