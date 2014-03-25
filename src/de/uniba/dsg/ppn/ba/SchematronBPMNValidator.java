@@ -17,7 +17,7 @@ public class SchematronBPMNValidator {
 
 	private static StringBuffer error = new StringBuffer();
 
-	public static boolean validateViaPureSchematron(String xml)
+	public static boolean validateViaPureSchematron(File xmlFile)
 			throws Exception {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
@@ -25,6 +25,9 @@ public class SchematronBPMNValidator {
 		if (!schematronSchema.isValidSchematron()) {
 			throw new IllegalArgumentException("Invalid Schematron!");
 		}
+
+		XmlReader r = new XmlReader();
+		String xml = r.readXmlFile(xmlFile);
 
 		boolean valid = schematronSchema.getSchematronValidity(
 				new StreamSource(
@@ -50,16 +53,13 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File("E:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn");
+		File f = new File("D:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn");
 		// File f = new File(
 		// "E:\\Philipp\\BA\\dump\\bpmn-by-example\\eMail Voting\\Email Voting 2.bpmn");
 		// File f = new
 		// File("E:\\Philipp\\BA\\testprocesses\\101\\success.bpmn");
 
-		XmlReader r = new XmlReader();
-		String text = r.readXmlFile(f);
-
-		boolean check = SchematronBPMNValidator.validateViaPureSchematron(text);
+		boolean check = SchematronBPMNValidator.validateViaPureSchematron(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
 		if (!check) {
 			System.out.println(error);
