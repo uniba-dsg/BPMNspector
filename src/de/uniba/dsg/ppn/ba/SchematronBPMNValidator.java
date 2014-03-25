@@ -26,6 +26,8 @@ public class SchematronBPMNValidator {
 			throw new IllegalArgumentException("Invalid Schematron!");
 		}
 
+		error = new StringBuffer();
+
 		XmlReader r = new XmlReader();
 		String xml = r.readXmlFile(xmlFile);
 
@@ -52,12 +54,13 @@ public class SchematronBPMNValidator {
 		return valid;
 	}
 
+	public static String getErrors() {
+		return error.toString().trim();
+	}
+
 	public static void main(String[] args) throws Exception {
-		File f = new File("D:\\Philipp\\BA\\testprocesses\\101\\fail.bpmn");
-		// File f = new File(
-		// "E:\\Philipp\\BA\\dump\\bpmn-by-example\\eMail Voting\\Email Voting 2.bpmn");
-		// File f = new
-		// File("E:\\Philipp\\BA\\testprocesses\\101\\success.bpmn");
+		File f = new File(
+				"D:\\Philipp\\BA\\testprocesses\\099\\fail_call_ref_process.bpmn");
 
 		boolean check = SchematronBPMNValidator.validateViaPureSchematron(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
