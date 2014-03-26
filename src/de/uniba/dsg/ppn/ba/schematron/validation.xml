@@ -12,4 +12,10 @@
             <iso:assert test="bpmn:outgoing">A startEvent must have a outgoing subelement</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <iso:pattern name="EXT.099">
+        <iso:rule context="bpmn:callActivity[//process]">
+            <iso:assert test="bpmn:process[@id=current()/@calledElement and not(child::node()/startEvent/eventDefinitionRef)]">Referenced process must have at least one None Start Event</iso:assert>
+        </iso:rule>
+    </iso:pattern>
 </iso:schema> 
