@@ -22,6 +22,18 @@
             <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">An Artifact MUST NOT be a source for a Sequence Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
+
+    <iso:pattern name="EXT.008">
+        <iso:rule context="bpmn:messageFlow[@targetRef]">
+            <iso:assert test="not((string(./@targetRef) = $associations/@id) or (string(./@targetRef) = $textAnnotations/@id) or (string(./@targetRef) = $groups/@id))">An Artifact MUST NOT be a target for a Message Flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.009">
+        <iso:rule context="bpmn:messageFlow[@sourceRef]">
+            <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">An Artifact MUST NOT be a source for a Message Flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
     
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
