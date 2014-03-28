@@ -7,6 +7,30 @@
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
     
     <!-- Your constraints go here -->
+    <iso:pattern name="EXT.036">
+        <iso:rule context="bpmn:process">
+            <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A Process must not contain Choreography Activities</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.056">
+        <iso:rule context="bpmn:subProcess">
+            <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A SubProcess must not contain Choreography Activities</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.079">
+        <iso:rule context="bpmn:subProcess">
+            <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.096">
+        <iso:rule context="bpmn:startEvent">
+            <iso:assert test="not(bpmn:incoming)">A Start Event must not have an incoming sequence flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+        
     <iso:pattern name="EXT.101">
         <iso:rule context="bpmn:startEvent">
             <iso:assert test="bpmn:outgoing">A startEvent must have a outgoing subelement</iso:assert>
@@ -15,7 +39,19 @@
     
     <iso:pattern name="EXT.099">
         <iso:rule context="bpmn:callActivity">
-            <iso:assert test="//bpmn:process[string(current()/@calledElement) = ./@id] [not(count(./startEvent) = count(./startEvent/eventDefinitionRef))]">Referenced process must have at least one None Start Event</iso:assert>
+            <iso:assert test="//bpmn:process[string(current()/@calledElement) = ./@id]">Referenced process must have at least one None Start Event</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.104">
+        <iso:rule context="bpmn:endEvent">
+            <iso:assert test="not(bpmn:outgoing)">An End Event must not have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.107">
+        <iso:rule context="bpmn:endEvent">
+            <iso:assert test="bpmn:incoming">An End Event MUST have at least one incoming Sequence Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
 </iso:schema> 
