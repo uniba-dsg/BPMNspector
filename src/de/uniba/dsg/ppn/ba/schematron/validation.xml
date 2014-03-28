@@ -5,6 +5,7 @@
     queryBinding="xslt2" schemaVersion="ISO19757-3">
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
+    <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensationEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
     
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.036">
@@ -40,7 +41,7 @@
     
     <iso:pattern name="EXT.100">
         <iso:rule context="bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent">
-            <iso:assert test="not(./bpmn:eventDefinitionRef or ./bpmn:messageEventDefinition or ./bpmn:timerEventDefinition or ./bpmn:escalationEventDefinition or ./bpmn:conditionalEventDefinition or ./bpmn:linkEventDefinition or ./bpmn:errorEventDefinition or ./bpmn:cancelEventDefinition or ./bpmn:compensationEventDefinition or ./bpmn:signalEventDefinition or ./bpmn:terminateEventDefinition)">No EventDefinition is allowed for Start Events in Sub-Process definitions</iso:assert>
+            <iso:assert test="not(./$eventDefinitions)">No EventDefinition is allowed for Start Events in Sub-Process definitions</iso:assert>
         </iso:rule>
     </iso:pattern>
         
