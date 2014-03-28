@@ -36,11 +36,11 @@
             <iso:assert test="bpmn:outgoing">A startEvent must have a outgoing subelement</iso:assert>
         </iso:rule>
     </iso:pattern>
-       
+    
     <iso:pattern name="EXT.099">
-        <let name="processes" value="//bpmn:process"/>
-        <iso:rule context="bpmn:callActivity">
-            <iso:assert test="string(current()/@calledElement) = $processes/@id)">Referenced process must have at least one None Start Event</iso:assert>
+        <let name="callActivities" value="//bpmn:callActivity"/>
+        <iso:rule context="bpmn:process[./@id = string($callActivities/@calledElement)]">
+            <iso:assert test="not(count(./bpmn:startEvent) = count(./bpmn:startEvent/bpmn:eventDefinitionRef))">Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
     
