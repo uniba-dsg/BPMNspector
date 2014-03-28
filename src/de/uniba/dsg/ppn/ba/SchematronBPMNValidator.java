@@ -40,7 +40,6 @@ public class SchematronBPMNValidator {
 			SchematronOutputType sot = schematronSchema
 					.applySchematronValidationToSVRL(new StreamSource(
 							new ByteArrayInputStream(xml.getBytes("UTF-8"))));
-
 			for (int i = 0; i < sot
 					.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
 				if (sot.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
