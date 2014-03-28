@@ -14,8 +14,8 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.099">
-        <iso:rule context="bpmn:callActivity[//process]">
-            <iso:assert test="bpmn:process[@id=current()/@calledElement and not(child::node()/startEvent/eventDefinitionRef)]">Referenced process must have at least one None Start Event</iso:assert>
+        <iso:rule context="bpmn:callActivity">
+            <iso:assert test="//bpmn:process[string(current()/@calledElement) = ./@id] [not(count(./startEvent) = count(./startEvent/eventDefinitionRef))]">Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
 </iso:schema> 
