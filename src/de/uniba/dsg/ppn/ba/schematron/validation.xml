@@ -30,12 +30,6 @@
             <iso:assert test="not(bpmn:incoming)">A Start Event must not have an incoming sequence flow</iso:assert>
         </iso:rule>
     </iso:pattern>
-        
-    <iso:pattern name="EXT.101">
-        <iso:rule context="bpmn:startEvent">
-            <iso:assert test="bpmn:outgoing">A startEvent must have a outgoing subelement</iso:assert>
-        </iso:rule>
-    </iso:pattern>
     
     <iso:pattern name="EXT.099">
         <let name="callActivities" value="//bpmn:callActivity"/>
@@ -43,7 +37,13 @@
             <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))">Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
-    
+        
+    <iso:pattern name="EXT.101">
+        <iso:rule context="bpmn:startEvent">
+            <iso:assert test="bpmn:outgoing">A startEvent must have a outgoing subelement</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+       
     <iso:pattern name="EXT.104">
         <iso:rule context="bpmn:endEvent">
             <iso:assert test="not(bpmn:outgoing)">An End Event must not have an outgoing sequence flow</iso:assert>
