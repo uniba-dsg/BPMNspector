@@ -40,7 +40,7 @@
     <iso:pattern name="EXT.099">
         <let name="callActivities" value="//bpmn:callActivity"/>
         <iso:rule context="bpmn:process[./@id = string($callActivities/@calledElement)]">
-            <iso:assert test="not(count(./bpmn:startEvent) = count(./bpmn:startEvent/bpmn:eventDefinitionRef))">Referenced process must have at least one None Start Event</iso:assert>
+            <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))">Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
     
