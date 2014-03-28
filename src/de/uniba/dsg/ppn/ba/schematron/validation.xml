@@ -11,6 +11,18 @@
     <let name="groups" value="//bpmn:group" />
     
     <!-- Your constraints go here -->
+    <iso:pattern name="EXT.006">
+        <iso:rule context="bpmn:sequenceFlow[@targetRef]">
+            <iso:assert test="not((string(./@targetRef) = $associations/@id) or (string(./@targetRef) = $textAnnotations/@id) or (string(./@targetRef) = $groups/@id))">An Artifact MUST NOT be a target for a Sequence Flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.007">
+        <iso:rule context="bpmn:sequenceFlow[@sourceRef]">
+            <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">An Artifact MUST NOT be a source for a Sequence Flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A Process must not contain Choreography Activities</iso:assert>
