@@ -37,6 +37,12 @@
             <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))">Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <iso:pattern name="EXT.100">
+        <iso:rule context="bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent">
+            <iso:assert test="not(./bpmn:eventDefinitionRef or ./bpmn:messageEventDefinition or ./bpmn:timerEventDefinition or ./bpmn:escalationEventDefinition or ./bpmn:conditionalEventDefinition or ./bpmn:linkEventDefinition or ./bpmn:errorEventDefinition or ./bpmn:cancelEventDefinition or ./bpmn:compensationEventDefinition or ./bpmn:signalEventDefinition or ./bpmn:terminateEventDefinition)">No EventDefinition is allowed for Start Events in Sub-Process definitions</iso:assert>
+        </iso:rule>
+    </iso:pattern>
         
     <iso:pattern name="EXT.101">
         <iso:rule context="bpmn:startEvent">
