@@ -12,6 +12,10 @@
     <let name="task" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask"/>
     <let name="subProcess" value="bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>
     <let name="activity" value="$task | $subProcess | bpmn:callActivity"/>
+    <let name="event" value="bpmn:startEvent | bpmn:endEvent | bpmn:intermediateThrowEvent | bpmn:intermediateCatchEvent | bpmn:boundaryEvent"/>
+    <let name="gateway" value="bpmn:exclusiveGateway | bpmn:parallelGateway | bpmn:inclusiveGateway | bpmn:complexGateway | bpmn:eventBasedGateway"/>
+    
+    <let name="sequenceFlows" value="//bpmn:sequenceFlow"/>
     
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.006">
