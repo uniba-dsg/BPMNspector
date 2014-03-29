@@ -10,8 +10,8 @@ public class Ext007 {
 
 	@Test
 	public void testConstraintAssociationFail() throws Exception {
-		File f = new File(
-				"D:\\Philipp\\BA\\testprocesses\\007\\Fail_association.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "\\testprocesses\\007\\Fail_association.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -21,8 +21,8 @@ public class Ext007 {
 
 	@Test
 	public void testConstraintGroupFail() throws Exception {
-		File f = new File(
-				"D:\\Philipp\\BA\\testprocesses\\007\\Fail_group.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "\\testprocesses\\007\\Fail_group.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -32,8 +32,8 @@ public class Ext007 {
 
 	@Test
 	public void testConstraintTextAnnotationFail() throws Exception {
-		File f = new File(
-				"D:\\Philipp\\BA\\testprocesses\\007\\Fail_text_annotation.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "\\testprocesses\\007\\Fail_text_annotation.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(

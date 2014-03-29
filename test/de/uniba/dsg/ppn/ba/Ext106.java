@@ -10,8 +10,8 @@ public class Ext106 {
 
 	@Test
 	public void testConstraintEventFail() throws Exception {
-		File f = new File(
-				"D:\\Philipp\\BA\\testprocesses\\106\\fail_cancel_end_event.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "\\testprocesses\\106\\fail_cancel_end_event.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -21,8 +21,8 @@ public class Ext106 {
 
 	@Test
 	public void testConstraintEventRefFail() throws Exception {
-		File f = new File(
-				"D:\\Philipp\\BA\\testprocesses\\106\\fail_sub_process.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "\\testprocesses\\106\\fail_sub_process.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -32,7 +32,8 @@ public class Ext106 {
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
-		File f = new File("D:\\Philipp\\BA\\testprocesses\\106\\success.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "\\testprocesses\\106\\success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
