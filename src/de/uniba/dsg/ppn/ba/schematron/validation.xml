@@ -9,6 +9,9 @@
     <let name="associations" value="//bpmn:association" />
     <let name="textAnnotations" value="//bpmn:textAnnotation" />
     <let name="groups" value="//bpmn:group" />
+    <let name="task" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask"/>
+    <let name="subProcess" value="bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>
+    <let name="activity" value="$task | $subProcess | bpmn:callActivity"/>
     
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.006">
