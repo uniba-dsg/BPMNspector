@@ -58,8 +58,8 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File(
-				"D:\\Philipp\\BA\\testprocesses\\099\\fail_call_ref_process.bpmn");
+		File f = new File(TestHelper.getTestFilePath()
+				+ "056\\fail_choreography_task_transaction.bpmn");
 
 		boolean check = SchematronBPMNValidator.validateViaPureSchematron(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
