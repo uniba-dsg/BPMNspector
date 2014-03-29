@@ -124,4 +124,10 @@
             <iso:assert test="not(string(./@targetRef) = $endEvents/@id)">An End Event MUST NOT be a target for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <iso:pattern name="EXT.135">
+        <iso:rule context="bpmn:parallelGateway">
+            <iso:assert test="count(bpmn:incoming) > 1 or count(bpmn:outgoing) > 1">A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows</iso:assert>
+        </iso:rule>
+    </iso:pattern>
 </iso:schema> 
