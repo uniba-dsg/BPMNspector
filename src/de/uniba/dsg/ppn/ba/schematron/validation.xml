@@ -42,6 +42,26 @@
         </iso:rule>
     </iso:pattern>
     
+    <!--
+    <iso:pattern name="EXT.021">
+        <let name="subProcesses" value="//bpmn:subProcess"/>
+        <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@sourceRef)]">
+            <iso:assert test="./@id = $activity/@id or ./@id = $gateway/@id or ./@id = $event/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
+        </iso:rule>
+    </iso:pattern> -->
+    
+    <!--
+    <iso:pattern name="EXT.023">
+        <let name="allElements" value="//bpmn:*"/>
+        <iso:rule context="bpmn:sequenceFlow">
+            <iso:assert test="$allElements[@id = string(./@targetRef) and ./@id = string(@incoming)]">The source and target element of the sequence flow must reference the SequenceFlow definition using their incoming/outcoming attributes.</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:sequenceFlow">
+            <iso:assert test="string(./@sourceRef) = $allElements/@id and ./@id = string($allElements/@outgoing)">The source and target element of the sequence flow must reference the SequenceFlow definition using their incoming/outcoming attributes.</iso:assert>
+        </iso:rule>
+    </iso:pattern> 
+    -->
+           
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A Process must not contain Choreography Activities</iso:assert>
@@ -59,6 +79,15 @@
             <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <!--
+    <iso:pattern name="EXT.084">
+        <let name="inputSets" value="//bpmn:InputSet"/>
+        <iso:rule context="bpmn:dataInput">
+            <iso:assert test="./id = $inputSets/bpmn:dataInputRefs">A DataInput must be referenced by at least one InputSet</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    -->
     
     <iso:pattern name="EXT.096">
         <iso:rule context="bpmn:startEvent">
