@@ -29,6 +29,17 @@ public class Ext056 {
 	}
 
 	@Test
+	public void testConstraintChoreographyTaskTransactionFail()
+			throws Exception {
+		File f = new File(TestHelper.getTestFilePath()
+				+ "056\\fail_choreography_task_transaction.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertEquals(valid, false);
+		assertEquals(SchematronBPMNValidator.getErrors(),
+				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+	}
+
+	@Test
 	public void testConstraintSubChoreographyFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath()
 				+ "056\\fail_sub_choreography.bpmn");
