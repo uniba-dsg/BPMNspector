@@ -100,6 +100,12 @@
         </iso:rule>
     </iso:pattern>
     
+    <iso:pattern name="EXT.105">
+        <iso:rule context="bpmn:startEvent">
+            <iso:assert test="parent::*/bpmn:endEvent">An end event must be present when a start event is used in the same process level</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.106">
         <iso:rule context="bpmn:cancelEventDefinition">
             <iso:assert test="ancestor::bpmn:transaction">A cancel EndEvent is only allowed in a transaction sub-process</iso:assert>
