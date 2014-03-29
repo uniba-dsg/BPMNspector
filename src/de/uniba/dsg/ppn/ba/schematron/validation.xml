@@ -45,13 +45,13 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.056">
-        <iso:rule context="bpmn:subProcess">
+        <iso:rule context="$subProcess">
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A SubProcess must not contain Choreography Activities</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.079">
-        <iso:rule context="bpmn:subProcess">
+        <iso:rule context="$subProcess">
             <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
         </iso:rule>
     </iso:pattern>
