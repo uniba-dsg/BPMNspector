@@ -10,8 +10,7 @@ public class Ext101 {
 
 	@Test
 	public void testConstraintFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "\\testprocesses\\101\\fail.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "101\\fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(SchematronBPMNValidator.getErrors(),
@@ -20,8 +19,7 @@ public class Ext101 {
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "\\testprocesses\\101\\success.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "101\\success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
