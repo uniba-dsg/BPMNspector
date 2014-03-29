@@ -62,6 +62,12 @@
         </iso:rule>
     </iso:pattern>
     
+    <iso:pattern name="EXT.097">
+        <iso:rule context="bpmn:endEvent">
+            <iso:assert test="parent::*/bpmn:startEvent">A Start event must be present when an End event is used in the same process level</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.099">
         <let name="callActivities" value="//bpmn:callActivity"/>
         <iso:rule context="bpmn:process[./@id = string($callActivities/@calledElement)]">
