@@ -9,6 +9,7 @@ import org.junit.Test;
 public class Ext026 {
 
 	// TODO: test all elements
+	// TODO: add error messages assert
 
 	@Test
 	public void testConstraintActivityFail() throws Exception {
