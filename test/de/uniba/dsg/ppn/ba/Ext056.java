@@ -9,6 +9,7 @@ import org.junit.Test;
 public class Ext056 {
 
 	// FIXME: error message due to ext.023 decision
+	// FIXME: for every $subprocess element does not work
 
 	@Test
 	public void testConstraintCallChoreographyFail() throws Exception {
@@ -30,7 +31,6 @@ public class Ext056 {
 		// "//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 
-	// FIXME: for every $subprocess element does not work
 	// @Test
 	// public void testConstraintChoreographyTaskTransactionFail()
 	// throws Exception {
