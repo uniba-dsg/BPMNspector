@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class Ext079 {
 
+	// FIXME: constraint check should work for every $subProcess
+
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "079\\fail.bpmn");
