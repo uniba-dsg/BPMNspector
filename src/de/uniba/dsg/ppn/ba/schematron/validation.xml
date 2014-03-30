@@ -109,6 +109,13 @@
         </iso:rule>
     </iso:pattern>
     
+    <iso:pattern name="EXT.088">
+        <let name="outputSets" value="//bpmn:outputSet"/>
+        <iso:rule context="bpmn:dataOutput">
+            <iso:assert test="$outputSets/bpmn:dataOutputRefs = ./@id">A DataOutput must be referenced by at least one OutputSet</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.096">
         <iso:rule context="bpmn:startEvent">
             <iso:assert test="not(bpmn:incoming)">A Start Event must not have an incoming sequence flow</iso:assert>
