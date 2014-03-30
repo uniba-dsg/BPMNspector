@@ -67,6 +67,15 @@
             <iso:assert test="$sequenceFlows[@id = string(./@default) and ./@id = string(@sourceRef)]">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <!--
+    <iso:pattern name="EXT.028 and EXT.152">
+        <let name="elements" value="//bpmn:*"/>
+        <iso:rule context="bpmn:sequenceFlow">
+            <iso:assert test="parent::$elements[@id = string(./@sourceRef)]/@id = parent::$elements[@id = string(./@targetRef)]/@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    -->
        
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
@@ -79,6 +88,15 @@
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A SubProcess must not contain Choreography Activities</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <!--
+    <iso:pattern name="EXT.076">
+        <let name="dataObjects" value="//bpmn:dataObject"/>
+        <iso:rule context="bpmn:dataObjectReference[@name]">
+            <iso:assert test="$dataObjects[@id = ./@id and ./@name = string(@name [./@state])]">Naming Convention: name = Data Object Name [Data Object Reference State]</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    -->
     
     <iso:pattern name="EXT.079">
         <iso:rule context="$subProcess">
