@@ -102,14 +102,12 @@
         </iso:rule>
     </iso:pattern>
     
-    <!--
     <iso:pattern name="EXT.084">
-        <let name="inputSets" value="//bpmn:InputSet"/>
+        <let name="inputSets" value="//bpmn:inputSet"/>
         <iso:rule context="bpmn:dataInput">
-            <iso:assert test="./id = $inputSets/bpmn:dataInputRefs">A DataInput must be referenced by at least one InputSet</iso:assert>
+            <iso:assert test="$inputSets/bpmn:dataInputRefs = ./@id">A DataInput must be referenced by at least one InputSet</iso:assert>
         </iso:rule>
     </iso:pattern>
-    -->
     
     <iso:pattern name="EXT.096">
         <iso:rule context="bpmn:startEvent">
