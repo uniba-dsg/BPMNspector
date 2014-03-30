@@ -97,7 +97,7 @@
     -->
     
     <iso:pattern name="EXT.079">
-        <iso:rule context="$subProcess">
+        <iso:rule context="bpmn:subProcess">
             <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
         </iso:rule>
     </iso:pattern>
