@@ -61,7 +61,13 @@
         </iso:rule>
     </iso:pattern> 
     -->
-           
+    
+    <iso:pattern name="EXT.026">
+        <iso:rule context="bpmn:task[@default] | bpmn:exklusiveGateway[@default]">
+            <iso:assert test="$sequenceFlows[@id = string(./@default) and ./@id = string(@sourceRef)]">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+       
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A Process must not contain Choreography Activities</iso:assert>
@@ -163,4 +169,5 @@
             <iso:assert test="count(bpmn:incoming) > 1 or count(bpmn:outgoing) > 1">A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows</iso:assert>
         </iso:rule>
     </iso:pattern>
+    
 </iso:schema> 
