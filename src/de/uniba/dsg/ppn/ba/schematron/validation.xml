@@ -50,17 +50,15 @@
         </iso:rule>
     </iso:pattern> -->
     
-    <!--
     <iso:pattern name="EXT.023">
         <let name="allElements" value="//bpmn:*"/>
-        <iso:rule context="bpmn:sequenceFlow">
-            <iso:assert test="$allElements[@id = string(./@targetRef) and ./@id = string(@incoming)]">The source and target element of the sequence flow must reference the SequenceFlow definition using their incoming/outcoming attributes.</iso:assert>
+        <iso:rule context="bpmn:sequenceFlow[@targetRef]">
+            <iso:assert test="$allElements/@id = string(./@targetRef) and ./@id = string($allElements/bpmn:incoming)">The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:sequenceFlow">
-            <iso:assert test="string(./@sourceRef) = $allElements/@id and ./@id = string($allElements/@outgoing)">The source and target element of the sequence flow must reference the SequenceFlow definition using their incoming/outcoming attributes.</iso:assert>
+        <iso:rule context="bpmn:sequenceFlow[@sourceRef]">
+            <iso:assert test="$allElements/@id = string(./@sourceRef) and ./@id = string($allElements/bpmn:outgoing)">The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.</iso:assert>
         </iso:rule>
     </iso:pattern> 
-    -->
     
     <iso:pattern name="EXT.026">
         <iso:rule context="bpmn:task[@default] | bpmn:exklusiveGateway[@default]">
