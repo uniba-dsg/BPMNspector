@@ -69,7 +69,13 @@
         <iso:rule context="bpmn:sequenceFlow[@sourceRef]">
             <iso:assert test="$allElements/@id = string(./@sourceRef) and ./@id = $allElements/bpmn:outgoing">The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.</iso:assert>
         </iso:rule>
-    </iso:pattern> 
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.025">
+        <iso:rule context="bpmn:sequenceFlow[bpmn:conditionExpression]">
+            <iso:assert test="$tasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1]">An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present</iso:assert>
+        </iso:rule>
+    </iso:pattern>
     
     <iso:pattern name="EXT.026">
         <iso:rule context="bpmn:exclusiveGateway[@default]">
