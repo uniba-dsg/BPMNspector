@@ -15,6 +15,8 @@
     <let name="event" value="bpmn:startEvent | bpmn:endEvent | bpmn:intermediateThrowEvent | bpmn:intermediateCatchEvent | bpmn:boundaryEvent"/>
     <let name="gateway" value="bpmn:exclusiveGateway | bpmn:parallelGateway | bpmn:inclusiveGateway | bpmn:complexGateway | bpmn:eventBasedGateway"/>
     
+    
+    <!-- Flows -->
     <let name="sequenceFlows" value="//bpmn:sequenceFlow"/>
     
     <!-- Tasks! -->
@@ -29,6 +31,9 @@
     
     <!-- SubProcesses -->
     <let name="subProcesses" value="//bpmn:subProcess"/>
+    
+    <!-- All -->
+    <let name="allElements" value="//bpmn:*"/>
         
 
     <!-- Your constraints go here -->
@@ -55,7 +60,7 @@
             <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">An Artifact MUST NOT be a source for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
-    
+    <!--
     <iso:pattern name="EXT.021">
         <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@sourceRef)]">
             <iso:assert test="./@id = $tasks/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
@@ -67,9 +72,8 @@
             <iso:assert test="./@id = $tasks/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target</iso:assert>
         </iso:rule>
     </iso:pattern>
-    
+    -->
     <iso:pattern name="EXT.023">
-        <let name="allElements" value="//bpmn:*"/>
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
             <iso:assert test="$allElements/@id = string(./@targetRef) and ./@id = $allElements/bpmn:incoming">The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.</iso:assert>
         </iso:rule>
@@ -99,7 +103,7 @@
         </iso:rule>
     </iso:pattern>
     -->
-       
+         
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A Process must not contain Choreography Activities</iso:assert>
@@ -136,6 +140,13 @@
         <let name="outputSets" value="//bpmn:outputSet"/>
         <iso:rule context="bpmn:dataOutput">
             <iso:assert test="$outputSets/bpmn:dataOutputRefs = ./@id">A DataOutput must be referenced by at least one OutputSet</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.095">
+        <let name="eventDefinitionRefs" value="//bpmn:eventDefinitionRef"/>
+        <iso:rule context="bpmn:endEvent/bpmn:messageEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
         </iso:rule>
     </iso:pattern>
     
