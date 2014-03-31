@@ -6,9 +6,6 @@
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
     <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensationEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
-    <let name="task" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask"/>
-    <let name="subProcess" value="bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>
-    <let name="activity" value="$task | $subProcess | bpmn:callActivity"/>
     <let name="event" value="bpmn:startEvent | bpmn:endEvent | bpmn:intermediateThrowEvent | bpmn:intermediateCatchEvent | bpmn:boundaryEvent"/>
     <let name="gateway" value="bpmn:exclusiveGateway | bpmn:parallelGateway | bpmn:inclusiveGateway | bpmn:complexGateway | bpmn:eventBasedGateway"/>
     
@@ -21,6 +18,8 @@
     <let name="sequenceFlows" value="//bpmn:sequenceFlow"/>
     <let name="messageFlows" value="//bpmn:messageFlow"/>
     
+    <let name="callActivities" value="//bpmn:callActivity"/>
+    
     <!-- Tasks! -->
     <let name="tasks" value="//bpmn:task"/>
     <let name="sendTasks" value="//bpmn:sendTask"/>
@@ -30,15 +29,19 @@
     <let name="manualTasks" value="//bpmn:manualTask"/>
     <let name="scriptTasks" value="//bpmn:scriptTask"/>
     <let name="businessTasks" value="//bpmn:businessRuleTask"/>
-    
+      
     <!-- SubProcesses -->
     <let name="subProcesses" value="//bpmn:subProcess"/>
+    <let name="transactions" value="//bpmn:transaction"/>
+    <let name="adHocSubProcesses" value="//bpmn:adHocSubProcess"/>      
     
     <!-- All -->
     <let name="allElements" value="//bpmn:*"/>
     
     <!-- Events -->
     <let name="startEvents" value="//bpmn:startEvent"/>
+    <let name="boundaryEvents" value="//bpmn:boundaryEvent"/>
+    <let name="intermediateCatchEvents" value="//bpmn:intermediateCatchEvent"/>
     <let name="endEvents" value="//bpmn:endEvent"/>
     
     <!-- EventDefinitions -->
@@ -191,7 +194,6 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.099">
-        <let name="callActivities" value="//bpmn:callActivity"/>
         <iso:rule context="bpmn:process[./@id = string($callActivities/@calledElement)]">
             <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))">Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
@@ -268,6 +270,12 @@
             <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
             <iso:assert test="not(./bpmn:conditionalEventDefinition or ./bpmn:eventDefinitionRef = $conditionalEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
             <iso:assert test="not(./bpmn:timerEventDefinition or ./bpmn:eventDefinitionRef = $timerEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+       
+    <iso:pattern name="EXT.150">
+        <iso:rule context="bpmn:process[/bpmn:startEvent]">
+            <iso:assert test="(ancestor::*/@id = $startEvents/@id or ancestor::*/@id = $boundaryEvents/@id or ((ancestor::*/@id = $tasks/@id or ancestor::*/@id = $sendTasks/@id or ancestor::*/@id = $receiveTasks/@id or ancestor::*/@id = $serviceTasks/@id or ancestor::*/@id = $userTasks/@id or ancestor::*/@id = $manualTasks/@id or ancestor::*/@id = $scriptTasks/@id or ancestor::*/@id = $businessTasks/@id or ancestor::*/@id = $callActivities/@id or ancestor::*/@id = $transactions/@id or ancestor::*/@id = $adHocSubProcesses/@id or ancestor::*/@id = $subProcesses/@id and ancestor::*/@isForCompensation = 'true')) or (ancestor::*/@id = $subProcesses/@id and ancestor::*/@triggeredByEvent = 'true') or (ancestor::*/@id = $intermediateCatchEvents/@id and (ancestor::*/bpmn:linkEventDefinition or ancestor::*/bpmn:linkEventDefinitionRef = $linkEventDefinitions/@id))) or ancestor::*/bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
