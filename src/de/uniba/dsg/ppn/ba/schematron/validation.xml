@@ -62,6 +62,12 @@
         </iso:rule>
     </iso:pattern>
     
+    <iso:pattern name="EXT.022">
+        <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@targetRef)]">
+            <iso:assert test="./@id = $tasks/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.023">
         <let name="allElements" value="//bpmn:*"/>
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
