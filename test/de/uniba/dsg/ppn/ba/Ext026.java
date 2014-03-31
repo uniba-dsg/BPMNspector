@@ -17,6 +17,7 @@ public class Ext026 {
 				+ "026\\fail_activity.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
+		// assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 
 	// @Test
@@ -25,6 +26,7 @@ public class Ext026 {
 	// + "026\\fail_gateway.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 	// assertEquals(valid, false);
+	// assertEquals(SchematronBPMNValidator.getErrors(), "");
 	// }
 
 	@Test
