@@ -17,8 +17,9 @@ public class Ext056 {
 				+ "fail_call_choreography.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target\r\n//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 
 	@Test
@@ -27,8 +28,9 @@ public class Ext056 {
 				+ "fail_choreography_task.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target\r\n//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 
 	// @Test
@@ -48,7 +50,8 @@ public class Ext056 {
 				+ "fail_sub_choreography.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target\r\n//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 }
