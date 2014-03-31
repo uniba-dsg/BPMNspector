@@ -6,8 +6,6 @@
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
     <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensationEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
-    <let name="event" value="bpmn:startEvent | bpmn:endEvent | bpmn:intermediateThrowEvent | bpmn:intermediateCatchEvent | bpmn:boundaryEvent"/>
-    <let name="gateway" value="bpmn:exclusiveGateway | bpmn:parallelGateway | bpmn:inclusiveGateway | bpmn:complexGateway | bpmn:eventBasedGateway"/>
     
     <!-- Artifacts -->
     <let name="associations" value="//bpmn:association" />
@@ -18,9 +16,10 @@
     <let name="sequenceFlows" value="//bpmn:sequenceFlow"/>
     <let name="messageFlows" value="//bpmn:messageFlow"/>
     
+    <!-- Activities -->
     <let name="callActivities" value="//bpmn:callActivity"/>
     
-    <!-- Tasks! -->
+    <!-- Tasks -->
     <let name="tasks" value="//bpmn:task"/>
     <let name="sendTasks" value="//bpmn:sendTask"/>
     <let name="receiveTasks" value="//bpmn:receiveTask"/>
@@ -34,14 +33,12 @@
     <let name="subProcesses" value="//bpmn:subProcess"/>
     <let name="transactions" value="//bpmn:transaction"/>
     <let name="adHocSubProcesses" value="//bpmn:adHocSubProcess"/>      
-    
-    <!-- All -->
-    <let name="allElements" value="//bpmn:*"/>
-    
+         
     <!-- Events -->
     <let name="startEvents" value="//bpmn:startEvent"/>
     <let name="boundaryEvents" value="//bpmn:boundaryEvent"/>
     <let name="intermediateCatchEvents" value="//bpmn:intermediateCatchEvent"/>
+    <let name="intermediateThrowEvents" value="//bpmn:intermediateThrowEvent"/>
     <let name="endEvents" value="//bpmn:endEvent"/>
     
     <!-- EventDefinitions -->
@@ -55,7 +52,16 @@
     <let name="cancelEventDefinitions" value="//bpmn:cancelEventDefinition"/>
     <let name="compensateEventDefinitions" value="//bpmn:compensateEventDefinition"/>
     <let name="terminateEventDefinitions" value="//bpmn:terminateEventDefinition"/>
-        
+    
+    <!-- Gateways -->
+    <let name="exclusiveGateways" value="//bpmn:exclusiveGateway"/>
+    <let name="parallelGateways" value="//bpmn:parallelGateway"/>
+    <let name="inclusiveGateways" value="//bpmn:inclusiveGateway"/>
+    <let name="complexGateways" value="//bpmn:complexGateway"/>
+    <let name="eventBasedGateways" value="//bpmn:eventBasedGateway"/> 
+    
+    <!-- All -->
+    <let name="allElements" value="//bpmn:*"/>
 
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.006">
@@ -81,16 +87,23 @@
             <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">An Artifact MUST NOT be a source for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
-    <!--
+        
+    <!-- Gateways -->
+    <let name="exclusiveGateways" value="//bpmn:exclusiveGateway"/>
+    <let name="parallelGateways" value="//bpmn:parallelGateway"/>
+    <let name="inclusiveGateways" value="//bpmn:inclusiveGateway"/>
+    <let name="complexGateways" value="//bpmn:complexGateway"/>
+    <let name="eventBasedGateways" value="//bpmn:eventBasedGateway"/> 
+    
     <iso:pattern name="EXT.021">
         <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@sourceRef)]">
-            <iso:assert test="./@id = $tasks/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
+            <iso:assert test="(./@id = $tasks/@id or ./@id = $sendTasks/@id or ./@id = $receiveTasks/@id or ./@id = $serviceTasks/@id or ./@id = $userTasks/@id or ./@id = $manualTasks/@id or ./@id = $scriptTasks/@id or ./@id = $businessTasks/@id or ./@id = $subProcesses/@id or ./@id = $transactions/@id or ./@id = $adHocSubProcesses/@id or ./@id = $callActivities/@id or ./@id = $startEvents/@id or ./@id = $boundaryEvents/@id or ./@id = $intermediateCatchEvents/@id or ./@id = $intermediateThrowEvents/@id or ./@id = $endEvents/@id or ./@id = $exclusiveGateways/@id or ./@id = $parallelGateways/@id or ./@id = $inclusiveGateways/@id or ./@id = $complexGateways/@id or ./@id = $eventBasedGateways/@id) and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.022">
         <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@targetRef)]">
-            <iso:assert test="./@id = $tasks/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target</iso:assert>
+            <iso:assert test="(./@id = $tasks/@id or ./@id = $sendTasks/@id or ./@id = $receiveTasks/@id or ./@id = $serviceTasks/@id or ./@id = $userTasks/@id or ./@id = $manualTasks/@id or ./@id = $scriptTasks/@id or ./@id = $businessTasks/@id or ./@id = $subProcesses/@id or ./@id = $transactions/@id or ./@id = $adHocSubProcesses/@id or ./@id = $callActivities/@id or ./@id = $startEvents/@id or ./@id = $boundaryEvents/@id or ./@id = $intermediateCatchEvents/@id or ./@id = $intermediateThrowEvents/@id or ./@id = $endEvents/@id or ./@id = $exclusiveGateways/@id or ./@id = $parallelGateways/@id or ./@id = $inclusiveGateways/@id or ./@id = $complexGateways/@id or ./@id = $eventBasedGateways/@id) and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target</iso:assert>
         </iso:rule>
     </iso:pattern>
     -->
@@ -272,11 +285,13 @@
             <iso:assert test="not(./bpmn:timerEventDefinition or ./bpmn:eventDefinitionRef = $timerEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
         </iso:rule>
     </iso:pattern>
-       
+    
+    <!--
     <iso:pattern name="EXT.150">
-        <iso:rule context="bpmn:process[/bpmn:startEvent]">
+        <iso:rule context="bpmn:process">
             <iso:assert test="(ancestor::*/@id = $startEvents/@id or ancestor::*/@id = $boundaryEvents/@id or ((ancestor::*/@id = $tasks/@id or ancestor::*/@id = $sendTasks/@id or ancestor::*/@id = $receiveTasks/@id or ancestor::*/@id = $serviceTasks/@id or ancestor::*/@id = $userTasks/@id or ancestor::*/@id = $manualTasks/@id or ancestor::*/@id = $scriptTasks/@id or ancestor::*/@id = $businessTasks/@id or ancestor::*/@id = $callActivities/@id or ancestor::*/@id = $transactions/@id or ancestor::*/@id = $adHocSubProcesses/@id or ancestor::*/@id = $subProcesses/@id and ancestor::*/@isForCompensation = 'true')) or (ancestor::*/@id = $subProcesses/@id and ancestor::*/@triggeredByEvent = 'true') or (ancestor::*/@id = $intermediateCatchEvents/@id and (ancestor::*/bpmn:linkEventDefinition or ancestor::*/bpmn:linkEventDefinitionRef = $linkEventDefinitions/@id))) or ancestor::*/bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
     </iso:pattern>
+    -->
     
 </iso:schema> 
