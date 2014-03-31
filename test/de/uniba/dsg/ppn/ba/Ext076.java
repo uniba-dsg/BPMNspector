@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext076 {
 
-	// TODO: constraint validation
-
 	@Test
 	public void testConstraintFail1() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
