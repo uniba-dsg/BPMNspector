@@ -249,6 +249,12 @@
         </iso:rule>
     </iso:pattern>
     
+    <iso:pattern name="EXT.109">
+        <iso:rule context="bpmn:endEvent[@id = string($messageFlows/@sourceRef)]">
+            <iso:assert test="./bpmn:messageEventDefinition or ./bpmn:eventDefinitionRef = $messageEventDefinitions/@id">If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.135">
         <iso:rule context="bpmn:parallelGateway">
             <iso:assert test="count(bpmn:incoming) > 1 or count(bpmn:outgoing) > 1">A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows</iso:assert>
