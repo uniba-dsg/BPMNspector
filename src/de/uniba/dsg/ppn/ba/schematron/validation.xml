@@ -162,6 +162,23 @@
         </iso:rule>
     </iso:pattern>
     
+    <iso:pattern name="EXT.098">
+        <let name="linkEventDefinitions" value="//bpmn:linkEventDefinition"/>
+        <let name="escalationEventDefinitions" value="//bpmn:escalationEventDefinition"/>
+        <let name="errorEventDefinitions" value="//bpmn:errorEventDefinition"/>
+        <let name="cancelEventDefinitions" value="//bpmn:cancelEventDefinition"/>
+        <let name="compensateEventDefinitions" value="//bpmn:compensateEventDefinition"/>
+        <let name="terminateEventDefinitions" value="//bpmn:terminateEventDefinition"/>
+        <iso:rule context="bpmn:startEvent[parent::bpmn:process]">
+            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:escalationEventDefinition or ./bpmn:eventDefinitionRef = $escalationEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:errorEventDefinition or ./bpmn:eventDefinitionRef = $errorEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:cancelEventDefinition or ./bpmn:eventDefinitionRef = $cancelEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:compensateEventDefinition or ./bpmn:eventDefinitionRef = $compensateEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+            <iso:assert test="not(./bpmn:terminateEventDefinition or ./bpmn:eventDefinitionRef = $terminateEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
     <iso:pattern name="EXT.099">
         <let name="callActivities" value="//bpmn:callActivity"/>
         <iso:rule context="bpmn:process[./@id = string($callActivities/@calledElement)]">
