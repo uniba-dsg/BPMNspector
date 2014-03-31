@@ -17,6 +17,17 @@
     
     <let name="sequenceFlows" value="//bpmn:sequenceFlow"/>
     
+    <!-- Tasks! -->
+    <let name="tasks" value="//bpmn:task"/>
+    <let name="sendTasks" value="//bpmn:sendTask"/>
+    <let name="receiveTasks" value="//bpmn:receiveTask"/>
+    <let name="serviceTasks" value="//bpmn:serviceTask"/>
+    <let name="userTasks" value="//bpmn:userTask"/>
+    <let name="manualTasks" value="//bpmn:manualTask"/>
+    <let name="scriptTasks" value="//bpmn:scriptTask"/>
+    <let name="businessTasks" value="//bpmn:businessRuleTask"/>
+        
+
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.006">
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
