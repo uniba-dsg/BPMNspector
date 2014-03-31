@@ -87,14 +87,12 @@
         </iso:rule>
     </iso:pattern>
     
-    <!--
     <iso:pattern name="EXT.076">
         <let name="dataObjects" value="//bpmn:dataObject"/>
         <iso:rule context="bpmn:dataObjectReference[@name]">
-            <iso:assert test="$dataObjects[@id = ./@id and ./@name = concat(@name,' [', ./bpmn:dataState/@name, ']')]">Naming Convention: name = Data Object Name [Data Object Reference State]</iso:assert>
+            <iso:assert test="$dataObjects/@id = ./@dataObjectRef and ./@name = concat($dataObjects/@name,' [', ./bpmn:dataState/@name, ']')">Naming Convention: name = Data Object Name [Data Object Reference State]</iso:assert>
         </iso:rule>
     </iso:pattern>
-    -->
     
     <iso:pattern name="EXT.079">
         <iso:rule context="bpmn:subProcess">
