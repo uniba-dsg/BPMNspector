@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -20,15 +22,13 @@ public class Ext026 {
 	// assertEquals(SchematronBPMNValidator.getErrors(), "");
 	// }
 
-
-
 	@Test
 	public void testConstraintGatewayFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "fail_gateway.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
-		//assertEquals(SchematronBPMNValidator.getErrors(), "");
+		assertFalse(valid);
+		// assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 
 	@Test
@@ -36,7 +36,7 @@ public class Ext026 {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

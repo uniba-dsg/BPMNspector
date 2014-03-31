@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -15,7 +17,7 @@ public class Ext079 {
 		File f = new File(TestHelper.getTestFilePath() + "079" + File.separator
 				+ "fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:subProcess[0]: InputOutputSpecifications are not allowed in SubProcesses");
@@ -26,7 +28,7 @@ public class Ext079 {
 		File f = new File(TestHelper.getTestFilePath() + "079" + File.separator
 				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

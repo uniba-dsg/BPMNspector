@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -13,7 +15,7 @@ public class Ext088 {
 		File f = new File(TestHelper.getTestFilePath() + "088" + File.separator
 				+ "fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:dataOutput[0]: A DataOutput must be referenced by at least one OutputSet");
@@ -24,7 +26,7 @@ public class Ext088 {
 		File f = new File(TestHelper.getTestFilePath() + "088" + File.separator
 				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

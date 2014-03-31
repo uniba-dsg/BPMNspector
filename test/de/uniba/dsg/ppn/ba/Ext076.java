@@ -1,6 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -15,7 +16,7 @@ public class Ext076 {
 	// File f = new File(TestHelper.getTestFilePath() + "076" + File.separator +
 	// "fail_1.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
+	// assertFalse(valid);
 	// assertEquals(
 	// SchematronBPMNValidator.getErrors(),
 	// "//bpmn:dataObjectReference[@name][0]: Naming Convention: name = Data Object Name [Data Object Reference State]");
@@ -26,7 +27,7 @@ public class Ext076 {
 	// File f = new File(TestHelper.getTestFilePath() + "076" + File.separator +
 	// "fail_2.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
+	// assertFalse(valid);
 	// assertEquals(
 	// SchematronBPMNValidator.getErrors(),
 	// "//bpmn:dataObjectReference[@name][0]: Naming Convention: name = Data Object Name [Data Object Reference State]");
@@ -37,7 +38,7 @@ public class Ext076 {
 	// File f = new File(TestHelper.getTestFilePath() + "076" + File.separator +
 	// "fail_3.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
+	// assertFalse(valid);
 	// assertEquals(
 	// SchematronBPMNValidator.getErrors(),
 	// "//bpmn:dataObjectReference[@name][0]: Naming Convention: name = Data Object Name [Data Object Reference State]");
@@ -48,7 +49,7 @@ public class Ext076 {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
 				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

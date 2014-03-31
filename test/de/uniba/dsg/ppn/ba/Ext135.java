@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -15,7 +17,7 @@ public class Ext135 {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows\r\n//bpmn:parallelGateway[1]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
@@ -26,7 +28,7 @@ public class Ext135 {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "fail_no_connection.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
@@ -37,7 +39,7 @@ public class Ext135 {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "success_multiple_in_and_out.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 
@@ -46,7 +48,7 @@ public class Ext135 {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "success_multiple_out.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -13,7 +15,7 @@ public class Ext104 {
 		File f = new File(TestHelper.getTestFilePath() + "104" + File.separator
 				+ "fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(),
 				"//bpmn:endEvent[0]: An End Event must not have an outgoing sequence flow");
 	}
@@ -23,7 +25,7 @@ public class Ext104 {
 		File f = new File(TestHelper.getTestFilePath() + "104" + File.separator
 				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

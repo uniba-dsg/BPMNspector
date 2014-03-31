@@ -1,6 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 
@@ -15,7 +16,7 @@ public class Ext056 {
 		File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
 				+ "fail_call_choreography.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(),
 				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
@@ -25,7 +26,7 @@ public class Ext056 {
 		File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
 				+ "fail_choreography_task.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(),
 				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
@@ -36,7 +37,7 @@ public class Ext056 {
 	// File f = new File(TestHelper.getTestFilePath()
 	// + "056" + File.separator + "fail_choreography_task_transaction.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
+	// assertFalse(valid);
 	// assertEquals(SchematronBPMNValidator.getErrors(),
 	// "//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	// }
@@ -46,7 +47,7 @@ public class Ext056 {
 		File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
 				+ "fail_sub_choreography.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(),
 				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}

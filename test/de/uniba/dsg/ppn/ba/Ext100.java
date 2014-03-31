@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -15,7 +17,7 @@ public class Ext100 {
 		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
 				+ "fail_event.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
@@ -26,7 +28,7 @@ public class Ext100 {
 	// File f = new File(TestHelper.getTestFilePath()
 	// + "100" + File.separator + "fail_event_transaction.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
+	// assertFalse(valid);
 	// assertEquals(
 	// SchematronBPMNValidator.getErrors(),
 	// "//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
@@ -37,7 +39,7 @@ public class Ext100 {
 		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
 				+ "fail_event_ref.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
@@ -48,7 +50,7 @@ public class Ext100 {
 		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
 				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }

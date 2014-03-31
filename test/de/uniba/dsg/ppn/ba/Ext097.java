@@ -1,6 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -13,7 +15,7 @@ public class Ext097 {
 		File f = new File(TestHelper.getTestFilePath() + "097" + File.separator
 				+ "fail_end_without_sub-events.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:endEvent[0]: A Start event must be present when an End event is used in the same process level");
@@ -24,7 +26,7 @@ public class Ext097 {
 		File f = new File(TestHelper.getTestFilePath() + "097" + File.separator
 				+ "fail_with_sub-endevent.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, false);
+		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:endEvent[0]: A Start event must be present when an End event is used in the same process level");
@@ -35,7 +37,7 @@ public class Ext097 {
 		File f = new File(TestHelper.getTestFilePath() + "097" + File.separator
 				+ "success_with_sub-events.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 
@@ -44,7 +46,7 @@ public class Ext097 {
 		File f = new File(TestHelper.getTestFilePath() + "097" + File.separator
 				+ "success_without_sub-events.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-		assertEquals(valid, true);
+		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 }
