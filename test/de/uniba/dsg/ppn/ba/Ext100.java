@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class Ext100 {
 
+	// FIXME: every subprocess element must be evaluated
+
 	@Test
 	public void testConstraintEventFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
@@ -19,7 +21,6 @@ public class Ext100 {
 				"//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
 	}
 
-	// FIXME: constraint check should work for every $subProcess
 	// @Test
 	// public void testConstraintTransactionEventFail() throws Exception {
 	// File f = new File(TestHelper.getTestFilePath()

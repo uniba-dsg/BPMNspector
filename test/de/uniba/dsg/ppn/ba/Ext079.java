@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class Ext079 {
 
-	// FIXME: constraint check should work for every $subProcess
+	// FIXME: every subprocess element must be evaluated
 
 	@Test
 	public void testConstraintFail() throws Exception {
