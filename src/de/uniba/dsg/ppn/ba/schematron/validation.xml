@@ -61,8 +61,8 @@
     </iso:pattern> 
     
     <iso:pattern name="EXT.026">
-        <iso:rule context="bpmn:task[@default] | bpmn:exclusiveGateway[@default]">
-            <iso:assert test="$sequenceFlows[@id = string(./@default) and ./@id = string(@sourceRef)]">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        <iso:rule context="bpmn:exclusiveGateway[@default] | bpmn:task[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
     </iso:pattern>
     

@@ -20,14 +20,14 @@ public class Ext026 {
 		// assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 
-	// @Test
-	// public void testConstraintGatewayFail() throws Exception {
-	// File f = new File(TestHelper.getTestFilePath()
-	// + "026" + File.separator + "fail_gateway.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
-	// assertEquals(SchematronBPMNValidator.getErrors(), "");
-	// }
+	@Test
+	public void testConstraintGatewayFail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
+				+ "fail_gateway.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertEquals(valid, false);
+		//assertEquals(SchematronBPMNValidator.getErrors(), "");
+	}
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
