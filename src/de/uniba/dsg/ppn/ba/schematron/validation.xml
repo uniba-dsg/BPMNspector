@@ -202,13 +202,13 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.102">
-        <iso:rule context="bpmn:messageFlow[@targetRef]">
+        <iso:rule context="bpmn:messageFlow[@sourceRef]">
             <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)">A Start Event MUST NOT be a source for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
-    <iso:pattern name="EXT.102">
-        <iso:rule context="bpmn:messageFlow[@sourceRef]">
+    <iso:pattern name="EXT.103">
+        <iso:rule context="bpmn:messageFlow[@targetRef]">
             <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)">A Start Event MUST NOT be a source for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
