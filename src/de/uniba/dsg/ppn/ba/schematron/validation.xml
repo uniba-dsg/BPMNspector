@@ -118,7 +118,7 @@
     
     <iso:pattern name="EXT.025">
         <iso:rule context="bpmn:sequenceFlow[bpmn:conditionExpression]">
-            <iso:assert test="$tasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1]">An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present</iso:assert>
+            <iso:assert test="$tasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $sendTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $receiveTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $serviceTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $userTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $manualTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $scriptTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $businessTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $callActivities[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $subProcesses[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $transactions[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $adHocSubProcesses[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1]">An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present</iso:assert>
         </iso:rule>
     </iso:pattern>
     
