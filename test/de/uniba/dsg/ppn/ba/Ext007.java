@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class Ext007 {
 
+	// FIXME: error message due to ext.023 decision
+
 	@Test
 	public void testConstraintAssociationFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath()

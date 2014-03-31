@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class Ext006 {
 
-	// FIXME: discussion
+	// FIXME: error message due to ext.023 decision
 
 	@Test
 	public void testConstraintAssociationFail() throws Exception {
