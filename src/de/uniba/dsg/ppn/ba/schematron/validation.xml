@@ -39,6 +39,7 @@
     
     <!-- Events -->
     <let name="startEvents" value="//bpmn:startEvent"/>
+    <let name="endEvents" value="//bpmn:endEvent"/>
     
     <!-- EventDefinitions -->
     <let name="eventDefinitionRefs" value="//bpmn:eventDefinitionRef"/>
@@ -243,7 +244,6 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.108">
-        <let name="endEvents" value="//bpmn:endEvent"/>
         <iso:rule context="bpmn:messageFlow[@targetRef]">
             <iso:assert test="not(string(./@targetRef) = $endEvents/@id)">An End Event MUST NOT be a target for a message flow</iso:assert>
         </iso:rule>
