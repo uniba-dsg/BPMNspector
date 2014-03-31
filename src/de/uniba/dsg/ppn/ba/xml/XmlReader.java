@@ -8,7 +8,8 @@ import java.io.IOException;
 
 public class XmlReader {
 
-	public String readXmlFile(File file) {
+	public String readXmlFile(File file) throws FileNotFoundException,
+			IOException {
 
 		StringBuffer text = new StringBuffer();
 
@@ -20,12 +21,6 @@ public class XmlReader {
 					text.append(line + "\r\n");
 				}
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		return text.toString();
