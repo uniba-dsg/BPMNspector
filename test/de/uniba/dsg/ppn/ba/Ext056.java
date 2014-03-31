@@ -8,8 +8,7 @@ import org.junit.Test;
 
 public class Ext056 {
 
-	// FIXME: error message due to ext.023 decision
-	// FIXME: for every $subprocess element does not work
+	// FIXME: every subprocess element must be evaluated
 
 	@Test
 	public void testConstraintCallChoreographyFail() throws Exception {
@@ -17,8 +16,8 @@ public class Ext056 {
 				+ "fail_call_choreography.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
-		// assertEquals(SchematronBPMNValidator.getErrors(),
-		// "//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+		assertEquals(SchematronBPMNValidator.getErrors(),
+				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 
 	@Test
@@ -27,8 +26,8 @@ public class Ext056 {
 				+ "fail_choreography_task.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
-		// assertEquals(SchematronBPMNValidator.getErrors(),
-		// "//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+		assertEquals(SchematronBPMNValidator.getErrors(),
+				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 
 	// @Test
@@ -48,7 +47,7 @@ public class Ext056 {
 				+ "fail_sub_choreography.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
-		// assertEquals(SchematronBPMNValidator.getErrors(),
-		// "//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
+		assertEquals(SchematronBPMNValidator.getErrors(),
+				"//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 }
