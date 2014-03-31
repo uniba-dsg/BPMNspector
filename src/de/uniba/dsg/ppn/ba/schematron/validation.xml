@@ -44,6 +44,8 @@
     <!-- EventDefinitions -->
     <let name="eventDefinitionRefs" value="//bpmn:eventDefinitionRef"/>
     <let name="messageEventDefinitions" value="//bpmn:messageEventDefinition"/>
+    <let name="conditionalEventDefinitions" value="//bpmn:conditionalEventDefinition"/>
+    <let name="timerEventDefinitions" value="//bpmn:timerEventDefinition"/>
     <let name="linkEventDefinitions" value="//bpmn:linkEventDefinition"/>
     <let name="escalationEventDefinitions" value="//bpmn:escalationEventDefinition"/>
     <let name="errorEventDefinitions" value="//bpmn:errorEventDefinition"/>
@@ -258,6 +260,14 @@
     <iso:pattern name="EXT.135">
         <iso:rule context="bpmn:parallelGateway">
             <iso:assert test="count(bpmn:incoming) > 1 or count(bpmn:outgoing) > 1">A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
+    <iso:pattern name="EXT.146">
+        <iso:rule context="bpmn:endEvent">
+            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
+            <iso:assert test="not(./bpmn:conditionalEventDefinition or ./bpmn:eventDefinitionRef = $conditionalEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
+            <iso:assert test="not(./bpmn:timerEventDefinition or ./bpmn:eventDefinitionRef = $timerEventDefinitions/@id)">Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events</iso:assert>
         </iso:rule>
     </iso:pattern>
     
