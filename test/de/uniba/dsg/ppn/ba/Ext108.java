@@ -10,7 +10,8 @@ public class Ext108 {
 
 	@Test
 	public void testConstraintFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "108\\Fail.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "108" + File.separator
+				+ "Fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(

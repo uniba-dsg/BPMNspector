@@ -10,7 +10,8 @@ public class Ext135 {
 
 	@Test
 	public void testConstraintFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "135\\fail.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
+				+ "fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -20,8 +21,8 @@ public class Ext135 {
 
 	@Test
 	public void testConstraintSubFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "135\\fail_no_connection.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
+				+ "fail_no_connection.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -31,8 +32,8 @@ public class Ext135 {
 
 	@Test
 	public void testConstraintBothMultipleSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "135\\success_multiple_in_and_out.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
+				+ "success_multiple_in_and_out.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
@@ -40,8 +41,8 @@ public class Ext135 {
 
 	@Test
 	public void testConstraintOutMultipleSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "135\\success_multiple_out.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
+				+ "success_multiple_out.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");

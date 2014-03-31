@@ -12,7 +12,8 @@ public class Ext099 {
 
 	@Test
 	public void testConstraintEventFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "099\\fail_event.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
+				+ "fail_event.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -22,8 +23,8 @@ public class Ext099 {
 
 	@Test
 	public void testConstraintEventRefFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "099\\fail_eventref.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
+				+ "fail_eventref.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -33,7 +34,8 @@ public class Ext099 {
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "099\\success.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
+				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
@@ -41,8 +43,8 @@ public class Ext099 {
 
 	@Test
 	public void testConstraintGlobalSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "099\\success_global.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
+				+ "success_global.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");

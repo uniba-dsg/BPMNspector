@@ -10,7 +10,8 @@ public class Ext100 {
 
 	@Test
 	public void testConstraintEventFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "100\\fail_event.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
+				+ "fail_event.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -22,7 +23,7 @@ public class Ext100 {
 	// @Test
 	// public void testConstraintTransactionEventFail() throws Exception {
 	// File f = new File(TestHelper.getTestFilePath()
-	// + "100\\fail_event_transaction.bpmn");
+	// + "100" + File.separator + "fail_event_transaction.bpmn");
 	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 	// assertEquals(valid, false);
 	// assertEquals(
@@ -32,8 +33,8 @@ public class Ext100 {
 
 	@Test
 	public void testConstraintEventRefFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "100\\fail_event_ref.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
+				+ "fail_event_ref.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, false);
 		assertEquals(
@@ -43,7 +44,8 @@ public class Ext100 {
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "100\\success.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
+				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertEquals(valid, true);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
