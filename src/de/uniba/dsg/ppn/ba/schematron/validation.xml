@@ -6,18 +6,20 @@
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
     <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensationEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
-    <let name="associations" value="//bpmn:association" />
-    <let name="textAnnotations" value="//bpmn:textAnnotation" />
-    <let name="groups" value="//bpmn:group" />
     <let name="task" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask"/>
     <let name="subProcess" value="bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>
     <let name="activity" value="$task | $subProcess | bpmn:callActivity"/>
     <let name="event" value="bpmn:startEvent | bpmn:endEvent | bpmn:intermediateThrowEvent | bpmn:intermediateCatchEvent | bpmn:boundaryEvent"/>
     <let name="gateway" value="bpmn:exclusiveGateway | bpmn:parallelGateway | bpmn:inclusiveGateway | bpmn:complexGateway | bpmn:eventBasedGateway"/>
     
+    <!-- Artifacts -->
+    <let name="associations" value="//bpmn:association" />
+    <let name="textAnnotations" value="//bpmn:textAnnotation" />
+    <let name="groups" value="//bpmn:group" />
     
     <!-- Flows -->
     <let name="sequenceFlows" value="//bpmn:sequenceFlow"/>
+    <let name="messageFlows" value="//bpmn:messageFlow"/>
     
     <!-- Tasks! -->
     <let name="tasks" value="//bpmn:task"/>
@@ -37,6 +39,16 @@
     
     <!-- Events -->
     <let name="startEvents" value="//bpmn:startEvent"/>
+    
+    <!-- EventDefinitions -->
+    <let name="eventDefinitionRefs" value="//bpmn:eventDefinitionRef"/>
+    <let name="messageEventDefinitions" value="//bpmn:messageEventDefinition"/>
+    <let name="linkEventDefinitions" value="//bpmn:linkEventDefinition"/>
+    <let name="escalationEventDefinitions" value="//bpmn:escalationEventDefinition"/>
+    <let name="errorEventDefinitions" value="//bpmn:errorEventDefinition"/>
+    <let name="cancelEventDefinitions" value="//bpmn:cancelEventDefinition"/>
+    <let name="compensateEventDefinitions" value="//bpmn:compensateEventDefinition"/>
+    <let name="terminateEventDefinitions" value="//bpmn:terminateEventDefinition"/>
         
 
     <!-- Your constraints go here -->
@@ -147,7 +159,6 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.095">
-        <let name="eventDefinitionRefs" value="//bpmn:eventDefinitionRef"/>
         <iso:rule context="bpmn:endEvent/bpmn:messageEventDefinition">
             <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
         </iso:rule>
@@ -166,12 +177,6 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.098">
-        <let name="linkEventDefinitions" value="//bpmn:linkEventDefinition"/>
-        <let name="escalationEventDefinitions" value="//bpmn:escalationEventDefinition"/>
-        <let name="errorEventDefinitions" value="//bpmn:errorEventDefinition"/>
-        <let name="cancelEventDefinitions" value="//bpmn:cancelEventDefinition"/>
-        <let name="compensateEventDefinitions" value="//bpmn:compensateEventDefinition"/>
-        <let name="terminateEventDefinitions" value="//bpmn:terminateEventDefinition"/>
         <iso:rule context="bpmn:startEvent[parent::bpmn:process]">
             <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
             <iso:assert test="not(./bpmn:escalationEventDefinition or ./bpmn:eventDefinitionRef = $escalationEventDefinitions/@id)">Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events</iso:assert>
@@ -203,12 +208,6 @@
     
     <iso:pattern name="EXT.102">
         <iso:rule context="bpmn:messageFlow[@sourceRef]">
-            <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)">A Start Event MUST NOT be a source for a message flow</iso:assert>
-        </iso:rule>
-    </iso:pattern>
-    
-    <iso:pattern name="EXT.103">
-        <iso:rule context="bpmn:messageFlow[@targetRef]">
             <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)">A Start Event MUST NOT be a source for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
