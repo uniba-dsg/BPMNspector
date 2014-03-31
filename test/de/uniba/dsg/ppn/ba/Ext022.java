@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext022 {
 
-	// TODO: validate all allowed arguments
-
 	@Test
 	public void testConstraintEventSubProcessFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
@@ -23,23 +21,23 @@ public class Ext022 {
 				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target");
 	}
 
-	// @Test
-	// public void testConstraintEventsSuccess() throws Exception {
-	// File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
-	// + "success_events.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertTrue(valid);
-	// assertEquals(SchematronBPMNValidator.getErrors(), "");
-	// }
-	//
-	// @Test
-	// public void testConstraintGatewaysSuccess() throws Exception {
-	// File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
-	// + "success_gateways.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertTrue(valid);
-	// assertEquals(SchematronBPMNValidator.getErrors(), "");
-	// }
+	@Test
+	public void testConstraintEventsSuccess() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
+				+ "success_events.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertTrue(valid);
+		assertEquals(SchematronBPMNValidator.getErrors(), "");
+	}
+
+	@Test
+	public void testConstraintGatewaysSuccess() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
+				+ "success_gateways.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertTrue(valid);
+		assertEquals(SchematronBPMNValidator.getErrors(), "");
+	}
 
 	@Test
 	public void testConstraintTasksSuccess() throws Exception {
