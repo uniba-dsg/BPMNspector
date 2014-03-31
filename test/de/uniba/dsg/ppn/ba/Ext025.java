@@ -18,7 +18,7 @@ public class Ext025 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:sequenceFlow[bpmn:conditionExpression][0]: An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present");
+				"//bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=//bpmn:exclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:parallelGateway/@id)] [not(string(@sourceRef)=//bpmn:inclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:complexGateway/@id)] [not(string(@sourceRef)=//bpmn:eventBasedGateway/@id)][0]: An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present");
 	}
 
 	@Test
