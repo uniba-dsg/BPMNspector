@@ -26,6 +26,9 @@
     <let name="manualTasks" value="//bpmn:manualTask"/>
     <let name="scriptTasks" value="//bpmn:scriptTask"/>
     <let name="businessTasks" value="//bpmn:businessRuleTask"/>
+    
+    <!-- SubProcesses -->
+    <let name="subProcesses" value="//bpmn:subProcess"/>
         
 
     <!-- Your constraints go here -->
@@ -53,13 +56,11 @@
         </iso:rule>
     </iso:pattern>
     
-    <!--
     <iso:pattern name="EXT.021">
-        <let name="subProcesses" value="//bpmn:subProcess"/>
         <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@sourceRef)]">
-            <iso:assert test="./@id = $activity/@id or ./@id = $gateway/@id or ./@id = $event/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
+            <iso:assert test="./@id = $tasks/@id and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])">For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
         </iso:rule>
-    </iso:pattern> -->
+    </iso:pattern>
     
     <iso:pattern name="EXT.023">
         <let name="allElements" value="//bpmn:*"/>
@@ -85,9 +86,10 @@
     
     <!--
     <iso:pattern name="EXT.028 and EXT.152">
-        <let name="elements" value="//bpmn:*"/>
+        <let name="elements1" value="//bpmn:*"/>
+        <let name="elements2" value="//bpmn:*"/>
         <iso:rule context="bpmn:sequenceFlow">
-            <iso:assert test="parent::$elements[@id = string(./@sourceRef)]/@id = parent::$elements[@id = string(./@targetRef)]/@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$elements1/@id = string(./@sourceRef) and $elements1[/../@id = $elements2/../@id]">A Sequence Flow must not cross the border of a Pool</iso:assert>
         </iso:rule>
     </iso:pattern>
     -->
