@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class Ext135 {
 
+	// TODO: include all gateways to validation
+
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
