@@ -28,7 +28,9 @@ public class Ext026 {
 				+ "fail_gateway.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
-		// assertEquals(SchematronBPMNValidator.getErrors(), "");
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:exclusiveGateway[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
 	}
 
 	@Test
