@@ -87,13 +87,6 @@
             <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">An Artifact MUST NOT be a source for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
-        
-    <!-- Gateways -->
-    <let name="exclusiveGateways" value="//bpmn:exclusiveGateway"/>
-    <let name="parallelGateways" value="//bpmn:parallelGateway"/>
-    <let name="inclusiveGateways" value="//bpmn:inclusiveGateway"/>
-    <let name="complexGateways" value="//bpmn:complexGateway"/>
-    <let name="eventBasedGateways" value="//bpmn:eventBasedGateway"/> 
     
     <iso:pattern name="EXT.021">
         <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@sourceRef)]">
