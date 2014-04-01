@@ -347,4 +347,70 @@
         </iso:rule>
     </iso:pattern>
     
+        <iso:pattern name="EXT.151">
+        <iso:rule context="bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:sendTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:receiveTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:serviceTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:userTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:manualTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:scriptTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:businessRuleTask[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:transaction[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:adHocSubProcess[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id] [parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:exclusiveGateway[parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:parallelGateway[parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:inclusiveGateway[parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:complexGateway[parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:eventBasedGatewayGateway[parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:endEvent]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:endEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
+            <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:boundaryEvent">
+            <iso:assert test="not(bpmn:outgoing)">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
+    
 </iso:schema> 
