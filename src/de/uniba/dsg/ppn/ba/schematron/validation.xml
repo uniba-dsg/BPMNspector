@@ -121,12 +121,9 @@
         </iso:rule>
     </iso:pattern>
     
-   
 <!--     <iso:pattern name="EXT.028 and EXT.152"> -->
-<!--         <let name="elements1" value="//bpmn:*"/> -->
-<!--         <let name="elements2" value="//bpmn:*"/> -->
 <!--         <iso:rule context="bpmn:sequenceFlow"> -->
-<!--             <iso:assert test="$elements1/@id = string(./@sourceRef) and $elements1[/../@id = $elements2/../@id]">A Sequence Flow must not cross the border of a Pool</iso:assert> -->
+<!--             <iso:assert test="count(//bpmn:*[@id = current()/@sourceRef and /../@id=//bpmn:*[@id = current()/@targetRef]/../@id]) > 0">A Sequence Flow must not cross the border of a Pool</iso:assert> -->
 <!--         </iso:rule> -->
 <!--     </iso:pattern> -->
 
@@ -287,10 +284,70 @@
         </iso:rule>
     </iso:pattern>
     
-<!--     <iso:pattern name="EXT.150"> -->
-<!--         <iso:rule context="bpmn:process"> -->
-<!--             <iso:assert test="descendant::bpmn:startEvent or descendant::*/bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert> -->
-<!--         </iso:rule> -->
-<!--     </iso:pattern> -->
+    <iso:pattern name="EXT.150">
+        <iso:rule context="bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:sendTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:receiveTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:serviceTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:userTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:manualTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:scriptTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:businessRuleTask[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:transaction[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:adHocSubProcess[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id] [parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:exclusiveGateway[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:parallelGateway[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:inclusiveGateway[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:complexGateway[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:eventBasedGatewayGateway[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:startEvent]">
+            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:boundaryEvent">
+            <iso:assert test="not(bpmn:incoming)">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
+        </iso:rule>
+    </iso:pattern>
     
 </iso:schema> 
