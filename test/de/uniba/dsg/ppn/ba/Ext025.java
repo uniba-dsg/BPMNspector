@@ -22,6 +22,17 @@ public class Ext025 {
 	}
 
 	@Test
+	public void testConstraintNoIncomingFail2() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
+				+ "fail_2.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertFalse(valid);
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=//bpmn:exclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:parallelGateway/@id)] [not(string(@sourceRef)=//bpmn:inclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:complexGateway/@id)] [not(string(@sourceRef)=//bpmn:eventBasedGateway/@id)][0]: An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present");
+	}
+
+	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
 				+ "success.bpmn");
