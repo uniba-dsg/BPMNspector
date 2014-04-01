@@ -321,9 +321,6 @@
         <iso:rule context="bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent]">
             <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:intermediateCatchEvent[/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id] [parent::*/bpmn:startEvent]">
-            <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
-        </iso:rule>
         <iso:rule context="bpmn:exclusiveGateway[parent::*/bpmn:startEvent]">
             <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
@@ -342,7 +339,7 @@
         <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:startEvent]">
             <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:startEvent]">
+        <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:startEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:incoming">If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:boundaryEvent">
