@@ -408,9 +408,6 @@
         <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:endEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:boundaryEvent">
-            <iso:assert test="not(bpmn:outgoing)">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
-        </iso:rule>
     </iso:pattern>
     
 </iso:schema> 
