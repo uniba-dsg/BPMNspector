@@ -20,7 +20,7 @@ public class Ext100 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
 	}
 
 	// @Test
@@ -42,13 +42,22 @@ public class Ext100 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
 	}
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
 				+ "success.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertTrue(valid);
+		assertEquals(SchematronBPMNValidator.getErrors(), "");
+	}
+
+	@Test
+	public void testConstraintEventSubProcessSuccess() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
+				+ "success_event_sub.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
