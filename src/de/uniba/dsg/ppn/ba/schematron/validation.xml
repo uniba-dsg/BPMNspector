@@ -132,10 +132,10 @@
 
     <iso:pattern name="EXT.031">
         <iso:rule context="bpmn:messageFlow">
-        	<iso:assert test="@sourceRef!=@targetRef">failure circle</iso:assert>
-        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@sourceRef]/@processRef]/descendant::*[@id=current()/@targetRef])=0">failure target in source</iso:assert>
-        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@targetRef]/@processRef]/descendant::*[@id=current()/@sourceRef])=0">failure source in target</iso:assert>
-			<iso:assert test="not(//bpmn:process[*[@id=current()/@sourceRef]]=//bpmn:process[*[@id=current()/@targetRef]])">failure in same pool</iso:assert>
+        	<iso:assert test="@sourceRef!=@targetRef">A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@sourceRef]/@processRef]/descendant::*[@id=current()/@targetRef])=0">A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@targetRef]/@processRef]/descendant::*[@id=current()/@sourceRef])=0">A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+			<iso:assert test="not(//bpmn:process[*[@id=current()/@sourceRef]]=//bpmn:process[*[@id=current()/@targetRef]])">A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
         </iso:rule>
     </iso:pattern>
          
