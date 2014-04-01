@@ -118,7 +118,7 @@
     
     <iso:pattern name="EXT.025">
         <iso:rule context="bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=$exclusiveGateways/@id)] [not(string(@sourceRef)=$parallelGateways/@id)] [not(string(@sourceRef)=$inclusiveGateways/@id)] [not(string(@sourceRef)=$complexGateways/@id)] [not(string(@sourceRef)=$eventBasedGateways/@id)]">
-            <iso:assert test="$tasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $sendTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $receiveTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $serviceTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $userTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $manualTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $scriptTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $businessTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $callActivities[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $subProcesses[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $transactions[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $adHocSubProcesses[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1]">An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present</iso:assert>
+            <iso:assert test="$tasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $sendTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $receiveTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $serviceTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $userTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $manualTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $scriptTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $businessTasks[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $callActivities[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $subProcesses[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $transactions[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1] or $adHocSubProcesses[string(bpmn:outgoing)=(current()/@id)] [count(bpmn:outgoing) > 1]">An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -128,15 +128,25 @@
         </iso:rule>
     </iso:pattern>
     
-    <!--
+   
     <iso:pattern name="EXT.028 and EXT.152">
         <let name="elements1" value="//bpmn:*"/>
         <let name="elements2" value="//bpmn:*"/>
         <iso:rule context="bpmn:sequenceFlow">
-            <iso:assert test="$elements1/@id = string(./@sourceRef) and $elements1[/../@id = $elements2/../@id]">A Sequence Flow must not cross the border of a Pool</iso:assert>
+<!--         //process[@id=//participant[@id=current()/@sourceRef]/@processRef] -->
+        	<iso:assert test="@sourceRef!=@targetRef">A Sequence Flow must not cross the border of a Pool</iso:assert>
+<!--             <iso:assert test="$elements1/@id = string(./@sourceRef) and $elements1[/../@id = $elements2/../@id]">A Sequence Flow must not cross the border of a Pool</iso:assert> -->
         </iso:rule>
     </iso:pattern>
-    -->
+
+    <iso:pattern name="EXT.031">
+        <iso:rule context="bpmn:messageFlow">
+        	<iso:assert test="@sourceRef!=@targetRef">failure circle</iso:assert>
+        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@sourceRef]/@processRef]/descendant::*[@id=current()/@targetRef])=0">failure target in source</iso:assert>
+        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@targetRef]/@processRef]/descendant::*[@id=current()/@sourceRef])=0">failure source in target</iso:assert>
+			<iso:assert test="not(//bpmn:process[*[@id=current()/@sourceRef]]=//bpmn:process[*[@id=current()/@targetRef]])">failure in same pool</iso:assert>
+        </iso:rule>
+    </iso:pattern>
          
     <iso:pattern name="EXT.036">
         <iso:rule context="bpmn:process">
