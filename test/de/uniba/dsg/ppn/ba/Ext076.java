@@ -13,7 +13,7 @@ public class Ext076 {
 	@Test
 	public void testConstraintFail1() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-				+ "fail_1.bpmn");
+				+ "Fail_1.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
 		assertEquals(
@@ -24,7 +24,7 @@ public class Ext076 {
 	@Test
 	public void testConstraintFail2() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-				+ "fail_2.bpmn");
+				+ "Fail_2.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
 		assertEquals(
@@ -35,7 +35,7 @@ public class Ext076 {
 	@Test
 	public void testConstraintFail3() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-				+ "fail_3.bpmn");
+				+ "Fail_3.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
 		assertEquals(
@@ -46,7 +46,7 @@ public class Ext076 {
 	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-				+ "success.bpmn");
+				+ "Success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");

@@ -13,7 +13,7 @@ public class Ext109 {
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "109" + File.separator
-				+ "fail.bpmn");
+				+ "Fail.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertFalse(valid);
 		assertEquals(
@@ -24,7 +24,7 @@ public class Ext109 {
 	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "109" + File.separator
-				+ "success.bpmn");
+				+ "Success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
@@ -33,7 +33,7 @@ public class Ext109 {
 	@Test
 	public void testConstraintRefSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "109" + File.separator
-				+ "success_ref.bpmn");
+				+ "Success_ref.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
