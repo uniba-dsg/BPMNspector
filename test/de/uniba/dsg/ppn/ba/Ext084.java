@@ -23,7 +23,7 @@ public class Ext084 {
 	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "084" + File.separator
-				+ "Success.bpmn");
+				+ "success.bpmn");
 		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
 		assertTrue(valid);
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
