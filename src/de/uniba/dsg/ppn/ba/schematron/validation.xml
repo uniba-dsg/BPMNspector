@@ -119,6 +119,54 @@
         <iso:rule context="bpmn:exclusiveGateway[@default]">
             <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
+        <iso:rule context="bpmn:parallelGateway[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:inclusiveGateway[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:complexGateway[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:eventBasedGateway[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:task[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:sendTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:receiveTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:serviceTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:userTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:manualTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:scriptTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:businessRuleTask[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:subProcess[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:transaction[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:adHocSubProcess[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:callActivity[@default]">
+            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id">If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+        </iso:rule>        
     </iso:pattern>
     
     <iso:pattern name="EXT.028 and EXT.152">
@@ -472,6 +520,5 @@
         <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:endEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:outgoing">If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
-    </iso:pattern>
-    
+    </iso:pattern>   
 </iso:schema> 

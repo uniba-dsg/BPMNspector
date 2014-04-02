@@ -10,17 +10,16 @@ import org.junit.Test;
 
 public class Ext026 {
 
-	// FIXME: add validation for all gateways and activities
-	// TODO: add error messages assert
-
-	// @Test
-	// public void testConstraintActivityFail() throws Exception {
-	// File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
-	// + "fail_activity.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertEquals(valid, false);
-	// assertEquals(SchematronBPMNValidator.getErrors(), "");
-	// }
+	@Test
+	public void testConstraintActivityFail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
+				+ "fail_activity.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertEquals(valid, false);
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:task[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
+	}
 
 	@Test
 	public void testConstraintGatewayFail() throws Exception {
