@@ -159,6 +159,12 @@
         <iso:rule context="bpmn:subProcess">
             <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
         </iso:rule>
+        <iso:rule context="bpmn:transaction">
+            <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:adHocSubProcess">
+            <iso:assert test="not(bpmn:ioSpecification)">InputOutputSpecifications are not allowed in SubProcesses</iso:assert>
+        </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.084">

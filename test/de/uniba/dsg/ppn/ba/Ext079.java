@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext079 {
 
-	// FIXME: every subprocess element must be evaluated
-
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "079" + File.separator
