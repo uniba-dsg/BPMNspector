@@ -63,7 +63,6 @@ public class Ext150 {
 		assertEquals(SchematronBPMNValidator.getErrors(), "");
 	}
 
-	// FIXME: test fails
 	@Test
 	public void testConstraintSuccess2() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "150" + File.separator
