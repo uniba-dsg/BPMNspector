@@ -2,11 +2,21 @@ package de.uniba.dsg.ppn.ba;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
@@ -31,6 +41,15 @@ public class SchematronBPMNValidator {
 		XmlReader r = new XmlReader();
 		String xml = r.readXmlFile(xmlFile);
 
+		String errorMessage = checkConstraint001(xml, xmlFile.getParentFile());
+		if (!errorMessage.isEmpty()) {
+			error.append(errorMessage);
+		}
+		errorMessage = checkConstraint002(xml);
+		if (!errorMessage.isEmpty()) {
+			error.append(errorMessage);
+		}
+
 		boolean valid = schematronSchema.getSchematronValidity(
 				new StreamSource(
 						new ByteArrayInputStream(xml.getBytes("UTF-8"))))
@@ -50,7 +69,61 @@ public class SchematronBPMNValidator {
 			}
 		}
 
+		if (!error.toString().isEmpty()) {
+			valid = false;
+		}
+
 		return valid;
+	}
+
+	private static String checkConstraint001(String xml, File folder)
+			throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+		Document doc = docBuilder.parse(new InputSource(new StringReader(xml)));
+		NodeList importList = doc.getElementsByTagName("import");
+
+		boolean valid = true;
+		for (int i = 0; i < importList.getLength(); i++) {
+			Node importFile = importList.item(i);
+			File f = new File(folder.getPath()
+					+ File.separator
+					+ importFile.getAttributes().getNamedItem("location")
+							.getTextContent());
+			if (!f.exists()) {
+				valid = false;
+				break;
+			}
+		}
+
+		String message = valid ? "" : "One imported file does not exist";
+
+		return message;
+	}
+
+	private static String checkConstraint002(String xml)
+			throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+		Document doc = docBuilder.parse(new InputSource(new StringReader(xml)));
+
+		String namespace = doc.getDocumentElement().getAttribute("xmlns:ns1");
+		NodeList importList = doc.getElementsByTagName("import");
+
+		boolean valid = true;
+		for (int i = 0; i < importList.getLength(); i++) {
+			Node importFile = importList.item(i);
+			if (importFile.getAttributes().getNamedItem("namespace")
+					.getTextContent().equals(namespace)) {
+				// TODO: id duplicate check
+			}
+		}
+
+		String message = valid ? "" : "One imported file does not exist";
+
+		return message;
 	}
 
 	public static String getErrors() {
@@ -58,8 +131,7 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "056\\fail_choreography_task_transaction.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "001\\success.bpmn");
 
 		boolean check = SchematronBPMNValidator.validateViaPureSchematron(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
