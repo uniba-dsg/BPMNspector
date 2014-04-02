@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class Ext026 {
 
-	// FIXME: add validation for all gateways
+	// FIXME: add validation for all gateways and activities
 	// TODO: add error messages assert
 
 	// @Test

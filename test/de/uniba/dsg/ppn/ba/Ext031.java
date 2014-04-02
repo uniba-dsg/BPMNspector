@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext031 {
 
-	// TODO: adapt algorithm description to current implementation
-
 	@Test
 	public void testConstraintCircleFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "031" + File.separator

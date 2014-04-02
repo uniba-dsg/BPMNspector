@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext028 {
 
-	// TODO: adapt algorithm description to current implementation
-
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "028" + File.separator
