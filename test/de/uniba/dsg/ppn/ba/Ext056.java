@@ -33,16 +33,17 @@ public class Ext056 {
 				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target\r\n//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
 	}
 
-	// @Test
-	// public void testConstraintChoreographyTaskTransactionFail()
-	// throws Exception {
-	// File f = new File(TestHelper.getTestFilePath()
-	// + "056" + File.separator + "fail_choreography_task_transaction.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertFalse(valid);
-	// assertEquals(SchematronBPMNValidator.getErrors(),
-	// "//bpmn:subProcess[0]: A SubProcess must not contain Choreography Activities");
-	// }
+	@Test
+	public void testConstraintChoreographyTaskTransactionFail()
+			throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
+				+ "fail_choreography_task_transaction.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertFalse(valid);
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target\r\n//bpmn:transaction[0]: A SubProcess must not contain Choreography Activities");
+	}
 
 	@Test
 	public void testConstraintSubChoreographyFail() throws Exception {

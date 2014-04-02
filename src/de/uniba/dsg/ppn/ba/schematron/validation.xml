@@ -146,6 +146,12 @@
         <iso:rule context="bpmn:subProcess">
             <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A SubProcess must not contain Choreography Activities</iso:assert>
         </iso:rule>
+        <iso:rule context="bpmn:transaction">
+            <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A SubProcess must not contain Choreography Activities</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:adHocSubProcess">
+            <iso:assert test="not(bpmn:choreographyTask or bpmn:subChoreography or bpmn:callChoreography)">A SubProcess must not contain Choreography Activities</iso:assert>
+        </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.076">
