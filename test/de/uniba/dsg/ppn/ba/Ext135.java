@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class Ext135 {
 
-	// TODO: include all gateways to validation
+	// FIXME: add tests for all gateways
 
 	@Test
 	public void testConstraintFail() throws Exception {

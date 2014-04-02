@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class Ext026 {
 
-	// TODO: test all elements
+	// FIXME: add validation for all gateways
 	// TODO: add error messages assert
 
 	// @Test

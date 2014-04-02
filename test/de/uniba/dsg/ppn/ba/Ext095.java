@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class Ext095 {
 
-	// TODO: validate other elements
+	// FIXME: validate other elements
 
 	// @Test
 	// public void testConstraintFail() throws Exception {
