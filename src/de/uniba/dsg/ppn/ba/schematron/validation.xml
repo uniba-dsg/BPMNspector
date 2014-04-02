@@ -123,7 +123,7 @@
     
     <iso:pattern name="EXT.028 and EXT.152">
         <iso:rule context="bpmn:sequenceFlow">
-            <iso:assert test="count(//bpmn:*[@id = current()/@sourceRef and parent::*/@id=//bpmn:*[@id = current()/@targetRef]/../@id]) > 0">A Sequence Flow must not cross the border of a Pool</iso:assert>
+            <iso:assert test="//bpmn:*[@id = current()/@sourceRef and parent::*/@id=//bpmn:*[@id = current()/@targetRef]/../@id]">A Sequence Flow must not cross the border of a Pool</iso:assert>
         </iso:rule>
     </iso:pattern>
 
