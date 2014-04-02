@@ -191,6 +191,39 @@
         <iso:rule context="bpmn:endEvent/bpmn:messageEventDefinition">
             <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
         </iso:rule>
+        <iso:rule context="bpmn:endEvent/bpmn:escalationEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:endEvent/bpmn:errorEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:endEvent/bpmn:cancelEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:endEvent/bpmn:compensationEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:endEvent/bpmn:signalEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:endEvent/bpmn:terminateEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent/bpmn:messageEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent/bpmn:escalationEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent/bpmn:linkEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent/bpmn:compensationEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateThrowEvent/bpmn:signalEventDefinition">
+            <iso:assert test="not(./@id = $eventDefinitionRefs)">EventDefinitions defined in a throw event are only valid within this element</iso:assert>
+        </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.096">
