@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext100 {
 
-	// FIXME: every subprocess element must be evaluated
-
 	@Test
 	public void testConstraintEventFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
@@ -20,19 +18,19 @@ public class Ext100 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
 	}
 
-	// @Test
-	// public void testConstraintTransactionEventFail() throws Exception {
-	// File f = new File(TestHelper.getTestFilePath()
-	// + "100" + File.separator + "fail_event_transaction.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertFalse(valid);
-	// assertEquals(
-	// SchematronBPMNValidator.getErrors(),
-	// "//bpmn:subProcess/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
-	// }
+	@Test
+	public void testConstraintTransactionEventFail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "100" + File.separator
+				+ "fail_event_transaction.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertFalse(valid);
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:transaction/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+	}
 
 	@Test
 	public void testConstraintEventRefFail() throws Exception {
@@ -42,7 +40,7 @@ public class Ext100 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent | bpmn:transaction/bpmn:startEvent | bpmn:adHocSubProcess/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
 	}
 
 	@Test
