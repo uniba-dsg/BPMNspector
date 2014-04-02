@@ -121,11 +121,11 @@
         </iso:rule>
     </iso:pattern>
     
-<!--     <iso:pattern name="EXT.028 and EXT.152"> -->
-<!--         <iso:rule context="bpmn:sequenceFlow"> -->
-<!--             <iso:assert test="count(//bpmn:*[@id = current()/@sourceRef and /../@id=//bpmn:*[@id = current()/@targetRef]/../@id]) > 0">A Sequence Flow must not cross the border of a Pool</iso:assert> -->
-<!--         </iso:rule> -->
-<!--     </iso:pattern> -->
+    <iso:pattern name="EXT.028 and EXT.152">
+        <iso:rule context="bpmn:sequenceFlow">
+            <iso:assert test="count(//bpmn:*[@id = current()/@sourceRef and parent::*/@id=//bpmn:*[@id = current()/@targetRef]/../@id]) > 0">A Sequence Flow must not cross the border of a Pool</iso:assert>
+        </iso:rule>
+    </iso:pattern>
 
     <iso:pattern name="EXT.031">
         <iso:rule context="bpmn:messageFlow">
