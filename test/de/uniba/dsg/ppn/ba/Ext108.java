@@ -17,6 +17,6 @@ public class Ext108 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:messageFlow[@targetRef][0]: An End Event MUST NOT be a target for a message flow");
+				"//bpmn:messageFlow[0]: A message flow must connect ’InteractionNodes’ from different Pools\r\n//bpmn:messageFlow[@targetRef][0]: An End Event MUST NOT be a target for a message flow");
 	}
 }

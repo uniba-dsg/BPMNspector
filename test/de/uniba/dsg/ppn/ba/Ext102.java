@@ -17,6 +17,6 @@ public class Ext102 {
 		assertFalse(valid);
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
-				"//bpmn:messageFlow[@sourceRef][0]: A Start Event MUST NOT be a source for a message flow");
+				"//bpmn:messageFlow[0]: A message flow must connect ’InteractionNodes’ from different Pools\r\n//bpmn:messageFlow[@sourceRef][0]: A Start Event MUST NOT be a source for a message flow");
 	}
 }
