@@ -9,8 +9,6 @@ import org.junit.Test;
 
 public class Ext056 {
 
-	// FIXME: every subprocess element must be evaluated
-
 	@Test
 	public void testConstraintCallChoreographyFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "056" + File.separator

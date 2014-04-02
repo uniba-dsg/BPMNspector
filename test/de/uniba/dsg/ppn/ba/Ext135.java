@@ -10,8 +10,6 @@ import org.junit.Test;
 
 public class Ext135 {
 
-	// FIXME: add tests for all gateways
-
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
@@ -32,6 +30,17 @@ public class Ext135 {
 		assertEquals(
 				SchematronBPMNValidator.getErrors(),
 				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
+	}
+
+	@Test
+	public void testConstraintEXSubFail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
+				+ "fail_ex_no_connection.bpmn");
+		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		assertFalse(valid);
+		assertEquals(
+				SchematronBPMNValidator.getErrors(),
+				"//bpmn:exclusiveGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
 	}
 
 	@Test
