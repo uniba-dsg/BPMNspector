@@ -183,8 +183,8 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	public static void printXpathResult(Object result) {
-		NodeList nodes = (NodeList) result;
+	public static void printXpathResult(NodeList result) {
+		NodeList nodes = result;
 		for (int i = 0; i < nodes.getLength(); i++) {
 			System.out.println(nodes.item(i).getNodeValue());
 		}
