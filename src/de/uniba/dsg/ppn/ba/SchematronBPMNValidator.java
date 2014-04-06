@@ -30,7 +30,31 @@ import de.uniba.dsg.ppn.ba.xml.XmlReader;
 
 public class SchematronBPMNValidator {
 
-	private static StringBuffer error = new StringBuffer();
+	private static StringBuffer error;
+	private static XmlReader xmlReader;
+	private static DocumentBuilderFactory documentBuilderFactory;
+	private static DocumentBuilder documentBuilder;
+	private static XPathFactory xPathFactory;
+	private static XPath xpath;
+	private static XPathExpression xPathExpr;
+
+	static {
+		error = new StringBuffer();
+		xmlReader = new XmlReader();
+		documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		try {
+			documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			// ignore
+		}
+		xPathFactory = XPathFactory.newInstance();
+		xpath = xPathFactory.newXPath();
+		try {
+			xPathExpr = xpath.compile("//*/@id");
+		} catch (XPathExpressionException e) {
+			// ignore
+		}
+	}
 
 	public static boolean validateViaPureSchematron(File xmlFile)
 			throws Exception {
@@ -43,8 +67,7 @@ public class SchematronBPMNValidator {
 
 		error = new StringBuffer();
 
-		XmlReader r = new XmlReader();
-		String xml = r.readXmlFile(xmlFile);
+		String xml = xmlReader.readXmlFile(xmlFile);
 
 		String errorMessage = checkConstraint001(xml, xmlFile.getParentFile());
 		if (!errorMessage.isEmpty()) {
@@ -83,10 +106,8 @@ public class SchematronBPMNValidator {
 
 	private static String checkConstraint001(String xml, File folder)
 			throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-				.newInstance();
-		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse(new InputSource(new StringReader(xml)));
+		Document doc = documentBuilder.parse(new InputSource(new StringReader(
+				xml)));
 		NodeList importList = doc.getElementsByTagName("import");
 
 		boolean valid = true;
@@ -110,10 +131,8 @@ public class SchematronBPMNValidator {
 	private static String checkConstraint002(String xml, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-				.newInstance();
-		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse(new InputSource(new StringReader(xml)));
+		Document doc = documentBuilder.parse(new InputSource(new StringReader(
+				xml)));
 
 		String namespace = doc.getDocumentElement().getAttribute(
 				"targetNamespace");
@@ -122,16 +141,13 @@ public class SchematronBPMNValidator {
 		boolean valid = true;
 		for (int i = 0; i < importList.getLength(); i++) {
 			Node importFile = importList.item(i);
-			XPathFactory xPathFactory = XPathFactory.newInstance();
-			XPath xpath = xPathFactory.newXPath();
-			XPathExpression xPathExpr = xpath.compile("//*/@id");
 			NodeList result = (NodeList) xPathExpr.evaluate(doc,
 					XPathConstants.NODESET);
 			File f = new File(folder.getPath()
 					+ File.separator
 					+ importFile.getAttributes().getNamedItem("location")
 							.getTextContent());
-			Document importDoc = docBuilder.parse(new InputSource(
+			Document importDoc = documentBuilder.parse(new InputSource(
 					new StringReader(new XmlReader().readXmlFile(f))));
 			NodeList importResult = (NodeList) xPathExpr.evaluate(importDoc,
 					XPathConstants.NODESET);
@@ -160,8 +176,9 @@ public class SchematronBPMNValidator {
 							+ File.separator
 							+ importFile.getAttributes()
 									.getNamedItem("location").getTextContent());
-					Document importDoc2 = docBuilder.parse(new InputSource(
-							new StringReader(new XmlReader().readXmlFile(f2))));
+					Document importDoc2 = documentBuilder
+							.parse(new InputSource(new StringReader(
+									new XmlReader().readXmlFile(f2))));
 					NodeList importResult2 = (NodeList) xPathExpr.evaluate(
 							importDoc2, XPathConstants.NODESET);
 					for (int k = 1; k < importResult.getLength(); k++) {
