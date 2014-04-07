@@ -6,18 +6,32 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class Ext023 {
+
+	SchematronBPMNValidator validator = null;
+
+	@Before
+	public void setUp() throws Exception {
+		validator = new SchematronBPMNValidator();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		validator = null;
+	}
 
 	@Test
 	public void testConstraintNoIncomingFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "023" + File.separator
 				+ "fail_no_incoming.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertFalse(valid);
 		assertEquals(
-				SchematronBPMNValidator.getErrors(),
+				validator.getErrors(),
 				"//bpmn:sequenceFlow[@targetRef][0]: The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.");
 	}
 
@@ -25,10 +39,10 @@ public class Ext023 {
 	public void testConstraintNoOutgoingFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "023" + File.separator
 				+ "fail_no_outgoing.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertFalse(valid);
 		assertEquals(
-				SchematronBPMNValidator.getErrors(),
+				validator.getErrors(),
 				"//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.");
 	}
 
@@ -36,8 +50,8 @@ public class Ext023 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "023" + File.separator
 				+ "success.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertTrue(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(), "");
+		assertEquals(validator.getErrors(), "");
 	}
 }

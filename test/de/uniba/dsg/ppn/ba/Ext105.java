@@ -6,18 +6,32 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class Ext105 {
+
+	SchematronBPMNValidator validator = null;
+
+	@Before
+	public void setUp() throws Exception {
+		validator = new SchematronBPMNValidator();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		validator = null;
+	}
 
 	@Test
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "fail_end_without_sub-events.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertFalse(valid);
 		assertEquals(
-				SchematronBPMNValidator.getErrors(),
+				validator.getErrors(),
 				"//bpmn:startEvent[0]: An end event must be present when a start event is used in the same process level");
 	}
 
@@ -25,10 +39,10 @@ public class Ext105 {
 	public void testConstraintSubFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "fail_with_sub-startevent.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertFalse(valid);
 		assertEquals(
-				SchematronBPMNValidator.getErrors(),
+				validator.getErrors(),
 				"//bpmn:startEvent[1]: An end event must be present when a start event is used in the same process level");
 	}
 
@@ -36,17 +50,17 @@ public class Ext105 {
 	public void testConstraintSubSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "success_with_sub-events.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertTrue(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(), "");
+		assertEquals(validator.getErrors(), "");
 	}
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "success_without_sub-events.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertTrue(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(), "");
+		assertEquals(validator.getErrors(), "");
 	}
 }

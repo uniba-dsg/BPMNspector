@@ -6,18 +6,32 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class Ext026 {
+
+	SchematronBPMNValidator validator = null;
+
+	@Before
+	public void setUp() throws Exception {
+		validator = new SchematronBPMNValidator();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		validator = null;
+	}
 
 	@Test
 	public void testConstraintActivityFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "fail_activity.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertEquals(valid, false);
 		assertEquals(
-				SchematronBPMNValidator.getErrors(),
+				validator.getErrors(),
 				"//bpmn:task[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
 	}
 
@@ -25,10 +39,10 @@ public class Ext026 {
 	public void testConstraintGatewayFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "fail_gateway.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertFalse(valid);
 		assertEquals(
-				SchematronBPMNValidator.getErrors(),
+				validator.getErrors(),
 				"//bpmn:exclusiveGateway[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
 	}
 
@@ -36,8 +50,8 @@ public class Ext026 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "success.bpmn");
-		boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
+		boolean valid = validator.validate(f);
 		assertTrue(valid);
-		assertEquals(SchematronBPMNValidator.getErrors(), "");
+		assertEquals(validator.getErrors(), "");
 	}
 }

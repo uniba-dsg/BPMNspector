@@ -30,15 +30,15 @@ import de.uniba.dsg.ppn.ba.xml.XmlReader;
 
 public class SchematronBPMNValidator {
 
-	private static StringBuffer error;
-	private static XmlReader xmlReader;
-	private static DocumentBuilderFactory documentBuilderFactory;
-	private static DocumentBuilder documentBuilder;
-	private static XPathFactory xPathFactory;
-	private static XPath xpath;
-	private static XPathExpression xPathExpr;
+	private StringBuffer error;
+	private XmlReader xmlReader;
+	private DocumentBuilderFactory documentBuilderFactory;
+	private DocumentBuilder documentBuilder;
+	private XPathFactory xPathFactory;
+	private XPath xpath;
+	private XPathExpression xPathExpr;
 
-	static {
+	{
 		error = new StringBuffer();
 		xmlReader = new XmlReader();
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -56,8 +56,7 @@ public class SchematronBPMNValidator {
 		}
 	}
 
-	public static boolean validateViaPureSchematron(File xmlFile)
-			throws Exception {
+	public boolean validate(File xmlFile) throws Exception {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
 						"schematron/validation.xml").getPath());
@@ -104,7 +103,7 @@ public class SchematronBPMNValidator {
 		return valid;
 	}
 
-	private static String checkConstraint001(String xml, File folder)
+	private String checkConstraint001(String xml, File folder)
 			throws ParserConfigurationException, SAXException, IOException {
 		Document doc = documentBuilder.parse(new InputSource(new StringReader(
 				xml)));
@@ -128,7 +127,7 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	private static String checkConstraint002(String xml, File folder)
+	private String checkConstraint002(String xml, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
 		Document doc = documentBuilder.parse(new InputSource(new StringReader(
@@ -207,18 +206,18 @@ public class SchematronBPMNValidator {
 		}
 	}
 
-	public static String getErrors() {
+	public String getErrors() {
 		return error.toString().trim();
 	}
 
 	public static void main(String[] args) throws Exception {
 		File f = new File(TestHelper.getTestFilePath()
 				+ "002\\fail_import2.bpmn");
-
-		boolean check = SchematronBPMNValidator.validateViaPureSchematron(f);
+		SchematronBPMNValidator validator = new SchematronBPMNValidator();
+		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
 		if (!check) {
-			System.out.println(error);
+			System.out.println(validator.getErrors());
 		}
 	}
 }
