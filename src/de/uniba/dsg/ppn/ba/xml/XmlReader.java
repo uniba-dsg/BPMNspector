@@ -17,7 +17,8 @@ public class XmlReader {
 				file))) {
 			String line = null;
 			while ((line = inputReader.readLine()) != null) {
-				if (!line.contains("bpmndi:")) {
+				if (!line.contains("bpmndi:") && !line.contains("dc:Bounds")
+						&& !line.contains("di:waypoint")) {
 					text.append(line + "\r\n");
 				}
 			}
@@ -25,4 +26,25 @@ public class XmlReader {
 
 		return text.toString();
 	}
+
+	public String readImportedXmlFile(File file) throws FileNotFoundException,
+			IOException {
+		StringBuffer text = new StringBuffer();
+
+		try (BufferedReader inputReader = new BufferedReader(new FileReader(
+				file))) {
+			String line = null;
+			while ((line = inputReader.readLine()) != null) {
+				if (!line.contains("bpmndi:") && !line.contains("definitions")
+						&& !line.contains("?xml version")
+						&& !line.contains("dc:Bounds")
+						&& !line.contains("di:waypoint")) {
+					text.append(line + "\r\n");
+				}
+			}
+		}
+
+		return text.toString();
+	}
+
 }

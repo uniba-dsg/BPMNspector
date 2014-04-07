@@ -78,6 +78,8 @@ public class SchematronBPMNValidator {
 			error.append(errorMessage);
 		}
 
+		xmlString = doPreprocessing(xmlString, parentFolder);
+
 		boolean valid = schematronSchema.getSchematronValidity(
 				new StreamSource(new ByteArrayInputStream(xmlString
 						.getBytes("UTF-8")))).isValid();
@@ -216,6 +218,36 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
+	private String doPreprocessing(String xmlString, File folder)
+			throws SAXException, IOException {
+		Document headFileDocument = documentBuilder.parse(new InputSource(
+				new StringReader(xmlString)));
+		NodeList importedFilesList = headFileDocument
+				.getElementsByTagName("import");
+		File[] importedFiles = new File[importedFilesList.getLength()];
+
+		for (int i = 0; i < importedFilesList.getLength(); i++) {
+			Node importedFileNode = importedFilesList.item(i);
+			importedFiles[i] = new File(folder.getPath()
+					+ File.separator
+					+ importedFileNode.getAttributes().getNamedItem("location")
+							.getTextContent());
+		}
+
+		int lastRowStart = xmlString.lastIndexOf("</definitions");
+		// TODO: replace ns:ids with ns_ids
+		String oneFilePreprocessedString = xmlString.substring(0, lastRowStart);
+		for (int i = 0; i < importedFiles.length; i++) {
+			String importedXml = xmlReader
+					.readImportedXmlFile(importedFiles[i]);
+			oneFilePreprocessedString += importedXml;
+			// TODO: replace id by ns+id
+		}
+		oneFilePreprocessedString += xmlString.substring(lastRowStart);
+
+		return oneFilePreprocessedString;
+	}
+
 	public static void printXpathResult(NodeList result) {
 		NodeList nodes = result;
 		for (int i = 0; i < nodes.getLength(); i++) {
@@ -229,7 +261,7 @@ public class SchematronBPMNValidator {
 
 	public static void main(String[] args) throws Exception {
 		File f = new File(TestHelper.getTestFilePath()
-				+ "002\\fail_import2.bpmn");
+				+ "099\\fail_call_ref_process.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
