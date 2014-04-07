@@ -116,11 +116,11 @@ public class SchematronBPMNValidator {
 		boolean valid = true;
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
 			Node importedFileNode = importedFilesList.item(i);
-			File headFile = new File(folder.getPath()
+			File importedFile = new File(folder.getPath()
 					+ File.separator
 					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent());
-			if (!headFile.exists()) {
+			if (!importedFile.exists()) {
 				valid = false;
 				break;
 			}
@@ -147,14 +147,14 @@ public class SchematronBPMNValidator {
 			Node importedFileNode = importedFilesList.item(i);
 			NodeList foundNodesHeadFile = (NodeList) xPathExpr.evaluate(
 					headFileDocument, XPathConstants.NODESET);
-			File headFile = new File(folder.getPath()
+			File importedFile = new File(folder.getPath()
 					+ File.separator
 					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent());
-			if (headFile.exists()) {
+			if (importedFile.exists()) {
 				Document importedFileDocument = documentBuilder
 						.parse(new InputSource(new StringReader(new XmlReader()
-								.readXmlFile(headFile))));
+								.readXmlFile(importedFile))));
 				NodeList foundNodesImportedFile = (NodeList) xPathExpr
 						.evaluate(importedFileDocument, XPathConstants.NODESET);
 				if (importedFileNode.getAttributes().getNamedItem("namespace")
