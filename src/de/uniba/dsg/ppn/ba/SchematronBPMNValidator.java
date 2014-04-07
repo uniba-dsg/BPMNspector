@@ -66,32 +66,33 @@ public class SchematronBPMNValidator {
 
 		error = new StringBuffer();
 
-		String xml = xmlReader.readXmlFile(xmlFile);
+		String xmlString = xmlReader.readXmlFile(xmlFile);
 
-		String errorMessage = checkConstraint001(xml, xmlFile.getParentFile());
+		File parentFolder = xmlFile.getParentFile();
+		String errorMessage = checkConstraint001(xmlString, parentFolder);
 		if (!errorMessage.isEmpty()) {
 			error.append(errorMessage);
 		}
-		errorMessage = checkConstraint002(xml, xmlFile.getParentFile());
+		errorMessage = checkConstraint002(xmlString, parentFolder);
 		if (!errorMessage.isEmpty()) {
 			error.append(errorMessage);
 		}
 
 		boolean valid = schematronSchema.getSchematronValidity(
 				new StreamSource(
-						new ByteArrayInputStream(xml.getBytes("UTF-8"))))
+						new ByteArrayInputStream(xmlString.getBytes("UTF-8"))))
 				.isValid();
 
 		if (!valid) {
-			SchematronOutputType sot = schematronSchema
+			SchematronOutputType schematronOutputType = schematronSchema
 					.applySchematronValidationToSVRL(new StreamSource(
-							new ByteArrayInputStream(xml.getBytes("UTF-8"))));
-			for (int i = 0; i < sot
+							new ByteArrayInputStream(xmlString.getBytes("UTF-8"))));
+			for (int i = 0; i < schematronOutputType
 					.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
-				if (sot.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-					FailedAssert f = (FailedAssert) sot
+				if (schematronOutputType.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
+					FailedAssert failedAssert = (FailedAssert) schematronOutputType
 							.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-					error.append(f.getLocation() + ": " + f.getText() + "\r\n");
+					error.append(failedAssert.getLocation() + ": " + failedAssert.getText() + "\r\n");
 				}
 			}
 		}
@@ -105,18 +106,19 @@ public class SchematronBPMNValidator {
 
 	private String checkConstraint001(String xml, File folder)
 			throws ParserConfigurationException, SAXException, IOException {
-		Document doc = documentBuilder.parse(new InputSource(new StringReader(
-				xml)));
-		NodeList importList = doc.getElementsByTagName("import");
+		Document headFileDocument = documentBuilder.parse(new InputSource(
+				new StringReader(xml)));
+		NodeList importedFilesList = headFileDocument
+				.getElementsByTagName("import");
 
 		boolean valid = true;
-		for (int i = 0; i < importList.getLength(); i++) {
-			Node importFile = importList.item(i);
-			File f = new File(folder.getPath()
+		for (int i = 0; i < importedFilesList.getLength(); i++) {
+			Node importedFileNode = importedFilesList.item(i);
+			File headFile = new File(folder.getPath()
 					+ File.separator
-					+ importFile.getAttributes().getNamedItem("location")
+					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent());
-			if (!f.exists()) {
+			if (!headFile.exists()) {
 				valid = false;
 				break;
 			}
@@ -130,65 +132,72 @@ public class SchematronBPMNValidator {
 	private String checkConstraint002(String xml, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
-		Document doc = documentBuilder.parse(new InputSource(new StringReader(
-				xml)));
+		Document headFileDocument = documentBuilder.parse(new InputSource(
+				new StringReader(xml)));
 
-		String namespace = doc.getDocumentElement().getAttribute(
-				"targetNamespace");
-		NodeList importList = doc.getElementsByTagName("import");
+		String headFileNamespace = headFileDocument.getDocumentElement()
+				.getAttribute("targetNamespace");
+		NodeList importedFilesList = headFileDocument
+				.getElementsByTagName("import");
 
 		boolean valid = true;
-		for (int i = 0; i < importList.getLength(); i++) {
-			Node importFile = importList.item(i);
-			NodeList result = (NodeList) xPathExpr.evaluate(doc,
-					XPathConstants.NODESET);
-			File f = new File(folder.getPath()
+		for (int i = 0; i < importedFilesList.getLength(); i++) {
+			Node importedFileNode = importedFilesList.item(i);
+			NodeList foundNodesHeadFile = (NodeList) xPathExpr.evaluate(
+					headFileDocument, XPathConstants.NODESET);
+			File headFile = new File(folder.getPath()
 					+ File.separator
-					+ importFile.getAttributes().getNamedItem("location")
+					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent());
-			if (f.exists()) {
-				Document importDoc = documentBuilder.parse(new InputSource(
-						new StringReader(new XmlReader().readXmlFile(f))));
-				NodeList importResult = (NodeList) xPathExpr.evaluate(
-						importDoc, XPathConstants.NODESET);
-				if (importFile.getAttributes().getNamedItem("namespace")
-						.getTextContent().equals(namespace)) {
-					for (int k = 1; k < result.getLength(); k++) {
-						String resultId = result.item(k).getNodeValue();
-						for (int l = 1; l < importResult.getLength(); l++) {
-							String importResultId = importResult.item(l)
-									.getNodeValue();
-							if (resultId.equals(importResultId)) {
+			if (headFile.exists()) {
+				Document importedFileDocument = documentBuilder
+						.parse(new InputSource(new StringReader(new XmlReader()
+								.readXmlFile(headFile))));
+				NodeList foundNodesImportedFile = (NodeList) xPathExpr
+						.evaluate(importedFileDocument, XPathConstants.NODESET);
+				if (importedFileNode.getAttributes().getNamedItem("namespace")
+						.getTextContent().equals(headFileNamespace)) {
+					for (int k = 1; k < foundNodesHeadFile.getLength(); k++) {
+						String headFileId = foundNodesHeadFile.item(k)
+								.getNodeValue();
+						for (int l = 1; l < foundNodesImportedFile.getLength(); l++) {
+							String importedFileId = foundNodesImportedFile
+									.item(l).getNodeValue();
+							if (headFileId.equals(importedFileId)) {
 								valid = false;
 							}
 						}
 					}
 				}
-				for (int j = i + 1; j < importList.getLength(); j++) {
-					Node importFile2 = importList.item(j);
-					if (importFile
+				for (int j = i + 1; j < importedFilesList.getLength(); j++) {
+					Node importedFile2Node = importedFilesList.item(j);
+					if (importedFileNode
 							.getAttributes()
 							.getNamedItem("namespace")
 							.getTextContent()
-							.equals(importFile2.getAttributes()
+							.equals(importedFile2Node.getAttributes()
 									.getNamedItem("namespace").getTextContent())) {
-						File f2 = new File(folder.getPath()
+						// TODO: f2.exist check
+						File importedFile2 = new File(folder.getPath()
 								+ File.separator
-								+ importFile.getAttributes()
+								+ importedFileNode.getAttributes()
 										.getNamedItem("location")
 										.getTextContent());
-						Document importDoc2 = documentBuilder
+						Document importedFile2Document = documentBuilder
 								.parse(new InputSource(new StringReader(
-										new XmlReader().readXmlFile(f2))));
-						NodeList importResult2 = (NodeList) xPathExpr.evaluate(
-								importDoc2, XPathConstants.NODESET);
-						for (int k = 1; k < importResult.getLength(); k++) {
-							String resultId = importResult.item(k)
-									.getNodeValue();
-							for (int l = 1; l < importResult2.getLength(); l++) {
-								String importResultId = importResult2.item(l)
-										.getNodeValue();
-								if (resultId.equals(importResultId)) {
+										new XmlReader()
+												.readXmlFile(importedFile2))));
+						NodeList foundNodesImportedFile2 = (NodeList) xPathExpr
+								.evaluate(importedFile2Document,
+										XPathConstants.NODESET);
+						for (int k = 1; k < foundNodesImportedFile.getLength(); k++) {
+							String importedFile1Id = foundNodesImportedFile
+									.item(k).getNodeValue();
+							for (int l = 1; l < foundNodesImportedFile2
+									.getLength(); l++) {
+								String importedFile2Id = foundNodesImportedFile2
+										.item(l).getNodeValue();
+								if (importedFile1Id.equals(importedFile2Id)) {
 									valid = false;
 								}
 							}
