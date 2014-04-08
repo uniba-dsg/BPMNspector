@@ -219,7 +219,7 @@ public class SchematronBPMNValidator {
 	}
 
 	private String doPreprocessing(String xmlString, File folder)
-			throws SAXException, IOException {
+			throws SAXException, IOException, XPathExpressionException {
 		Document headFileDocument = documentBuilder.parse(new InputSource(
 				new StringReader(xmlString)));
 		NodeList importedFilesList = headFileDocument
@@ -235,13 +235,21 @@ public class SchematronBPMNValidator {
 		}
 
 		int lastRowStart = xmlString.lastIndexOf("</definitions");
-		// TODO: replace ns:ids with ns_ids
 		String oneFilePreprocessedString = xmlString.substring(0, lastRowStart);
 		for (int i = 0; i < importedFiles.length; i++) {
 			String importedXml = xmlReader
 					.readImportedXmlFile(importedFiles[i]);
+			Document importedDocument = documentBuilder.parse(new InputSource(
+					new StringReader(importedXml)));
+			NodeList foundNodesImportedFile = (NodeList) xPathExpr.evaluate(
+					importedDocument, XPathConstants.NODESET);
+			for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
+				Node idNode = foundNodesImportedFile.item(j);
+				String newId = "id=" + '"' + "ns" + i + "_"
+						+ idNode.getNodeValue() + '"';
+				importedXml = importedXml.replace(idNode.toString(), newId);
+			}
 			oneFilePreprocessedString += importedXml;
-			// TODO: replace id by ns+id
 		}
 		oneFilePreprocessedString += xmlString.substring(lastRowStart);
 
