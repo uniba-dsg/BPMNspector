@@ -252,6 +252,7 @@ public class SchematronBPMNValidator {
 				importedXml = importedXml.replace(idNode.toString(), (idNode
 						.toString().replace(idNode.getNodeValue(), newId)));
 			}
+			// TODO: add all affected attributes
 			XPathExpression xPathReplaceSubelements = xpath
 					.compile("//incoming | //outgoing");
 			foundNodesImportedFile = (NodeList) xPathReplaceSubelements
