@@ -235,7 +235,18 @@ public class SchematronBPMNValidator {
 		}
 
 		int lastRowStart = xmlString.lastIndexOf("</definitions");
+		// TODO: add all affected attributes
+		XPathExpression xPathChangeNamespaceIds = xpath
+				.compile("//*/@calledElement");
+		NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
+				.evaluate(headFileDocument, XPathConstants.NODESET);
+		for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
+			Node idNode = foundNodesHeadFile.item(j);
+			xmlString = xmlString.replace(idNode.toString(),
+					(idNode.toString().replace(":", "_")));
+		}
 		String oneFilePreprocessedString = xmlString.substring(0, lastRowStart);
+
 		for (int i = 0; i < importedFiles.length; i++) {
 			String importedXml = xmlReader
 					.readImportedXmlFile(importedFiles[i]);
