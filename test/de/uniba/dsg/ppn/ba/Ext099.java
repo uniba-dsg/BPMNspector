@@ -46,17 +46,16 @@ public class Ext099 {
 				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
 	}
 
-	// FIXME: should work somewhen
-	// @Test
-	// public void testConstraintImportedProcessFail() throws Exception {
-	// File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
-	// + "fail_call_ref_process.bpmn");
-	// boolean valid = SchematronBPMNValidator.validateViaPureSchematron(f);
-	// assertFalse(valid);
-	// assertEquals(
-	// validator.getErrors(),
-	// "//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
-	// }
+	@Test
+	public void testConstraintImportedProcessFail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
+				+ "fail_call_ref_process.bpmn");
+		boolean valid = validator.validate(f);
+		assertFalse(valid);
+		assertEquals(
+				validator.getErrors(),
+				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
+	}
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
