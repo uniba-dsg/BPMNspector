@@ -248,34 +248,44 @@ public class SchematronBPMNValidator {
 		String oneFilePreprocessedString = xmlString.substring(0, lastRowStart);
 
 		for (int i = 0; i < importedFiles.length; i++) {
-			String importedXml = xmlReader
-					.readImportedXmlFile(importedFiles[i]);
-			Document importedDocument = documentBuilder.parse(new InputSource(
-					new StringReader(importedXml)));
-			// TODO: add all affected attributes
-			XPathExpression xPathReplaceIds = xpath
-					.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
-			NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
-					.evaluate(importedDocument, XPathConstants.NODESET);
-			for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
-				Node idNode = foundNodesImportedFile.item(j);
-				String newId = "ns" + (i + 1) + "_" + idNode.getNodeValue();
-				importedXml = importedXml.replace(idNode.toString(), (idNode
-						.toString().replace(idNode.getNodeValue(), newId)));
+			if (importedFiles[i].exists()) {
+				String importedXml = xmlReader
+						.readImportedXmlFile(importedFiles[i]);
+				if (!importedXml.isEmpty()) {
+					Document importedDocument = documentBuilder
+							.parse(new InputSource(
+									new StringReader(importedXml)));
+					// TODO: add all affected attributes
+					XPathExpression xPathReplaceIds = xpath
+							.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
+					NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
+							.evaluate(importedDocument, XPathConstants.NODESET);
+					for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
+						Node idNode = foundNodesImportedFile.item(j);
+						String newId = "ns" + (i + 1) + "_"
+								+ idNode.getNodeValue();
+						importedXml = importedXml.replace(
+								idNode.toString(),
+								(idNode.toString().replace(
+										idNode.getNodeValue(), newId)));
+					}
+					// TODO: add all affected attributes
+					XPathExpression xPathReplaceSubelements = xpath
+							.compile("//incoming | //outgoing");
+					foundNodesImportedFile = (NodeList) xPathReplaceSubelements
+							.evaluate(importedDocument, XPathConstants.NODESET);
+					for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
+						Node idNode = foundNodesImportedFile.item(j);
+						String newId = "ns" + (i + 1) + "_"
+								+ idNode.getTextContent();
+						importedXml = importedXml.replace(
+								"<" + idNode.getNodeName() + ">"
+										+ idNode.getTextContent(),
+								"<" + idNode.getNodeName() + ">" + newId);
+					}
+					oneFilePreprocessedString += importedXml;
+				}
 			}
-			// TODO: add all affected attributes
-			XPathExpression xPathReplaceSubelements = xpath
-					.compile("//incoming | //outgoing");
-			foundNodesImportedFile = (NodeList) xPathReplaceSubelements
-					.evaluate(importedDocument, XPathConstants.NODESET);
-			for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
-				Node idNode = foundNodesImportedFile.item(j);
-				String newId = "ns" + (i + 1) + "_" + idNode.getTextContent();
-				importedXml = importedXml.replace("<" + idNode.getNodeName()
-						+ ">" + idNode.getTextContent(),
-						"<" + idNode.getNodeName() + ">" + newId);
-			}
-			oneFilePreprocessedString += importedXml;
 		}
 		oneFilePreprocessedString += xmlString.substring(lastRowStart);
 
@@ -294,8 +304,10 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File(TestHelper.getTestFilePath()
-				+ "099\\fail_call_ref_process.bpmn");
+		// File f = new File(TestHelper.getTestFilePath()
+		// + "099\\fail_call_ref_process.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
+				+ "Fail.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
