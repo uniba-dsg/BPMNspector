@@ -241,13 +241,15 @@ public class SchematronBPMNValidator {
 					.readImportedXmlFile(importedFiles[i]);
 			Document importedDocument = documentBuilder.parse(new InputSource(
 					new StringReader(importedXml)));
-			NodeList foundNodesImportedFile = (NodeList) xPathExpr.evaluate(
-					importedDocument, XPathConstants.NODESET);
+			XPathExpression xPathReplaceIds = xpath
+					.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
+			NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
+					.evaluate(importedDocument, XPathConstants.NODESET);
 			for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
 				Node idNode = foundNodesImportedFile.item(j);
-				String newId = "id=" + '"' + "ns" + i + "_"
-						+ idNode.getNodeValue() + '"';
-				importedXml = importedXml.replace(idNode.toString(), newId);
+				String newId = "ns" + i + "_" + idNode.getNodeValue();
+				importedXml = importedXml.replace(idNode.toString(), (idNode
+						.toString().replace(idNode.getNodeValue(), newId)));
 			}
 			oneFilePreprocessedString += importedXml;
 		}
