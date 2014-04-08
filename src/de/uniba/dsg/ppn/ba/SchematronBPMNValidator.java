@@ -241,6 +241,7 @@ public class SchematronBPMNValidator {
 					.readImportedXmlFile(importedFiles[i]);
 			Document importedDocument = documentBuilder.parse(new InputSource(
 					new StringReader(importedXml)));
+			// TODO: add all affected attributes
 			XPathExpression xPathReplaceIds = xpath
 					.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
 			NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
