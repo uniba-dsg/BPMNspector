@@ -248,7 +248,7 @@ public class SchematronBPMNValidator {
 					.evaluate(importedDocument, XPathConstants.NODESET);
 			for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
 				Node idNode = foundNodesImportedFile.item(j);
-				String newId = "ns" + i + "_" + idNode.getNodeValue();
+				String newId = "ns" + (i + 1) + "_" + idNode.getNodeValue();
 				importedXml = importedXml.replace(idNode.toString(), (idNode
 						.toString().replace(idNode.getNodeValue(), newId)));
 			}
@@ -259,12 +259,11 @@ public class SchematronBPMNValidator {
 					.evaluate(importedDocument, XPathConstants.NODESET);
 			for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
 				Node idNode = foundNodesImportedFile.item(j);
-				String newId = "ns" + i + "_" + idNode.getTextContent();
+				String newId = "ns" + (i + 1) + "_" + idNode.getTextContent();
 				importedXml = importedXml.replace("<" + idNode.getNodeName()
 						+ ">" + idNode.getTextContent(),
 						"<" + idNode.getNodeName() + ">" + newId);
 			}
-			System.out.println(importedXml);
 			oneFilePreprocessedString += importedXml;
 		}
 		oneFilePreprocessedString += xmlString.substring(lastRowStart);
