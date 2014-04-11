@@ -1,47 +1,48 @@
 package de.uniba.dsg.ppn.ba;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.oclc.purl.dsdl.svrl.FailedAssert;
-import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
 
-import de.uniba.dsg.ppn.ba.xml.XmlReader;
-
 public class SchematronBPMNValidator {
 
 	private StringBuffer error;
-	private XmlReader xmlReader;
 	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
 	private XPathFactory xPathFactory;
 	private XPath xpath;
 	private XPathExpression xPathExpr;
+	private static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 
 	{
 		error = new StringBuffer();
-		xmlReader = new XmlReader();
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		documentBuilderFactory.setNamespaceAware(true);
 		try {
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
@@ -64,42 +65,43 @@ public class SchematronBPMNValidator {
 			throw new IllegalArgumentException("Invalid Schematron!");
 		}
 
-		error = new StringBuffer();
-
-		String xmlString = xmlReader.readXmlFile(xmlFile);
+		Document headFileDocument = documentBuilder.parse(xmlFile);
 
 		File parentFolder = xmlFile.getParentFile();
-		String errorMessage = checkConstraint001(xmlString, parentFolder);
+		String errorMessage = checkConstraint001(headFileDocument, parentFolder);
 		if (!errorMessage.isEmpty()) {
 			error.append(errorMessage);
 		}
-		errorMessage = checkConstraint002(xmlString, parentFolder);
+		errorMessage = checkConstraint002(headFileDocument, parentFolder);
 		if (!errorMessage.isEmpty()) {
 			error.append(errorMessage);
 		}
 
-		xmlString = doPreprocessing(xmlString, parentFolder);
+		String xmlString = doPreprocessing(headFileDocument, parentFolder);
 
-		boolean valid = schematronSchema.getSchematronValidity(
-				new StreamSource(new ByteArrayInputStream(xmlString
-						.getBytes("UTF-8")))).isValid();
+		// boolean valid = schematronSchema.getSchematronValidity(
+		// new StreamSource(new ByteArrayInputStream(xmlString
+		// .getBytes("UTF-8")))).isValid();
+		//
+		// if (!valid) {
+		// SchematronOutputType schematronOutputType = schematronSchema
+		// .applySchematronValidationToSVRL(new StreamSource(
+		// new ByteArrayInputStream(xmlString
+		// .getBytes("UTF-8"))));
+		// for (int i = 0; i < schematronOutputType
+		// .getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
+		// if (schematronOutputType
+		// .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof
+		// FailedAssert) {
+		// FailedAssert failedAssert = (FailedAssert) schematronOutputType
+		// .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
+		// error.append(failedAssert.getLocation() + ": "
+		// + failedAssert.getText() + "\r\n");
+		// }
+		// }
+		// }
 
-		if (!valid) {
-			SchematronOutputType schematronOutputType = schematronSchema
-					.applySchematronValidationToSVRL(new StreamSource(
-							new ByteArrayInputStream(xmlString
-									.getBytes("UTF-8"))));
-			for (int i = 0; i < schematronOutputType
-					.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
-				if (schematronOutputType
-						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-					FailedAssert failedAssert = (FailedAssert) schematronOutputType
-							.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-					error.append(failedAssert.getLocation() + ": "
-							+ failedAssert.getText() + "\r\n");
-				}
-			}
-		}
+		boolean valid = true;
 
 		if (!error.toString().isEmpty()) {
 			valid = false;
@@ -108,12 +110,10 @@ public class SchematronBPMNValidator {
 		return valid;
 	}
 
-	private String checkConstraint001(String xml, File folder)
+	private String checkConstraint001(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException {
-		Document headFileDocument = documentBuilder.parse(new InputSource(
-				new StringReader(xml)));
-		NodeList importedFilesList = headFileDocument
-				.getElementsByTagName("import");
+		NodeList importedFilesList = headFileDocument.getElementsByTagNameNS(
+				bpmnNamespace, "import");
 
 		boolean valid = true;
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
@@ -133,16 +133,13 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	private String checkConstraint002(String xml, File folder)
+	private String checkConstraint002(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
-		Document headFileDocument = documentBuilder.parse(new InputSource(
-				new StringReader(xml)));
-
+		NodeList importedFilesList = headFileDocument.getElementsByTagNameNS(
+				bpmnNamespace, "import");
 		String headFileNamespace = headFileDocument.getDocumentElement()
 				.getAttribute("targetNamespace");
-		NodeList importedFilesList = headFileDocument
-				.getElementsByTagName("import");
 
 		boolean valid = true;
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
@@ -155,8 +152,7 @@ public class SchematronBPMNValidator {
 							.getTextContent());
 			if (importedFile.exists()) {
 				Document importedFileDocument = documentBuilder
-						.parse(new InputSource(new StringReader(new XmlReader()
-								.readXmlFile(importedFile))));
+						.parse(importedFile);
 				NodeList foundNodesImportedFile = (NodeList) xPathExpr
 						.evaluate(importedFileDocument, XPathConstants.NODESET);
 				if (importedFileNode.getAttributes().getNamedItem("namespace")
@@ -188,9 +184,7 @@ public class SchematronBPMNValidator {
 										.getTextContent());
 						if (importedFile2.exists()) {
 							Document importedFile2Document = documentBuilder
-									.parse(new InputSource(
-											new StringReader(new XmlReader()
-													.readXmlFile(importedFile2))));
+									.parse(importedFile2);
 							NodeList foundNodesImportedFile2 = (NodeList) xPathExpr
 									.evaluate(importedFile2Document,
 											XPathConstants.NODESET);
@@ -218,23 +212,29 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	private String doPreprocessing(String xmlString, File folder)
-			throws SAXException, IOException, XPathExpressionException {
-		Document headFileDocument = documentBuilder.parse(new InputSource(
-				new StringReader(xmlString)));
-		NodeList importedFilesList = headFileDocument
-				.getElementsByTagName("import");
-		File[] importedFiles = new File[importedFilesList.getLength()];
+	private String doPreprocessing(Document headFileDocument, File folder)
+			throws SAXException, IOException, XPathExpressionException,
+			TransformerException {
+		Element definitionsNode = headFileDocument.getDocumentElement();
+		NodeList importedFilesList = headFileDocument.getElementsByTagNameNS(
+				bpmnNamespace, "import");
+		Object[][] importedFiles = new Object[importedFilesList.getLength()][2];
 
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
 			Node importedFileNode = importedFilesList.item(i);
-			importedFiles[i] = new File(folder.getPath()
+			importedFiles[i][0] = new File(folder.getPath()
 					+ File.separator
 					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent());
+			importedFiles[i][1] = definitionsNode
+					.lookupPrefix(importedFileNode.getAttributes()
+							.getNamedItem("namespace").getTextContent());
 		}
 
-		int lastRowStart = xmlString.lastIndexOf("</definitions");
+		NodeList bpmnDiagramNode = headFileDocument
+				.getElementsByTagName("bpmndi:BPMNDiagram");
+		definitionsNode.removeChild(bpmnDiagramNode.item(0));
+
 		// TODO: add all affected attributes
 		XPathExpression xPathChangeNamespaceIds = xpath
 				.compile("//*/@calledElement");
@@ -242,58 +242,79 @@ public class SchematronBPMNValidator {
 				.evaluate(headFileDocument, XPathConstants.NODESET);
 		for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
 			Node idNode = foundNodesHeadFile.item(j);
-			xmlString = xmlString.replace(idNode.toString(),
-					(idNode.toString().replace(":", "_")));
+			idNode.setNodeValue(idNode.getNodeValue().replace(":", "_"));
 		}
-		String oneFilePreprocessedString = xmlString.substring(0, lastRowStart);
 
 		for (int i = 0; i < importedFiles.length; i++) {
-			if (importedFiles[i].exists()) {
-				String importedXml = xmlReader
-						.readImportedXmlFile(importedFiles[i]);
-				if (!importedXml.isEmpty()) {
-					Document importedDocument = documentBuilder
-							.parse(new InputSource(
-									new StringReader(importedXml)));
-					// TODO: add all affected attributes
-					XPathExpression xPathReplaceIds = xpath
-							.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
-					NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
-							.evaluate(importedDocument, XPathConstants.NODESET);
-					for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
-						Node idNode = foundNodesImportedFile.item(j);
-						String newId = "ns" + (i + 1) + "_"
-								+ idNode.getNodeValue();
-						importedXml = importedXml.replace(
-								idNode.toString(),
-								(idNode.toString().replace(
-										idNode.getNodeValue(), newId)));
-					}
-					// TODO: add all affected attributes
-					XPathExpression xPathReplaceSubelements = xpath
-							.compile("//incoming | //outgoing");
-					foundNodesImportedFile = (NodeList) xPathReplaceSubelements
-							.evaluate(importedDocument, XPathConstants.NODESET);
-					for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
-						Node idNode = foundNodesImportedFile.item(j);
-						String newId = "ns" + (i + 1) + "_"
-								+ idNode.getTextContent();
-						importedXml = importedXml.replace(
-								"<" + idNode.getNodeName() + ">"
-										+ idNode.getTextContent(),
-								"<" + idNode.getNodeName() + ">" + newId);
-					}
-					oneFilePreprocessedString += importedXml;
+			if (((File) importedFiles[i][0]).exists()) {
+				Document importedDocument = documentBuilder
+						.parse((File) importedFiles[i][0]);
+				Node importDefinitionsNode = importedDocument
+						.getElementsByTagNameNS(bpmnNamespace, "definitions")
+						.item(0);
+				NodeList bpmnDiagramNodes = importedDocument
+						.getElementsByTagName("bpmndi:BPMNDiagram");
+				importDefinitionsNode.removeChild(bpmnDiagramNodes.item(0));
+				// TODO: add all affected attributes
+				XPathExpression xPathReplaceIds = xpath
+						.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
+				NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
+						.evaluate(importedDocument, XPathConstants.NODESET);
+				for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
+					Node idNode = foundNodesImportedFile.item(j);
+					String newId = importedFiles[i][1] + "_"
+							+ idNode.getNodeValue();
+					idNode.setNodeValue(newId);
 				}
+				// TODO: add all affected attributes
+				XPathExpression xPathReplaceSubelements = xpath
+						.compile("//incoming | //outgoing");
+				foundNodesImportedFile = (NodeList) xPathReplaceSubelements
+						.evaluate(importedDocument, XPathConstants.NODESET);
+				for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
+					Node idNode = foundNodesImportedFile.item(j);
+					String newId = importedFiles[i][1] + "_"
+							+ idNode.getTextContent();
+					idNode.setTextContent(newId);
+				}
+
+				for (int j = 0; j < importDefinitionsNode.getChildNodes()
+						.getLength(); j++) {
+					Node importedNode = headFileDocument
+							.importNode(importDefinitionsNode.getChildNodes()
+									.item(j), true);
+					definitionsNode.appendChild(importedNode);
+
+				}
+				printDocument(importedDocument, System.out);
 			}
 		}
-		oneFilePreprocessedString += xmlString.substring(lastRowStart);
+		// oneFilePreprocessedString += xmlString.substring(lastRowStart);
 
-		return oneFilePreprocessedString;
+		return null;
 	}
 
-	public static void printXpathResult(NodeList result) {
-		NodeList nodes = result;
+	private void integrateImports(File f) {
+
+	}
+
+	public static void printDocument(Document doc, OutputStream out)
+			throws IOException, TransformerException {
+		TransformerFactory tf = TransformerFactory.newInstance();
+		Transformer transformer = tf.newTransformer();
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+		transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+		transformer.setOutputProperty(
+				"{http://xml.apache.org/xslt}indent-amount", "4");
+
+		transformer.transform(new DOMSource(doc), new StreamResult(
+				new OutputStreamWriter(out, "UTF-8")));
+	}
+
+	public static void printXpathResult(Object result) {
+		NodeList nodes = (NodeList) result;
 		for (int i = 0; i < nodes.getLength(); i++) {
 			System.out.println(nodes.item(i).getNodeValue());
 		}
@@ -306,8 +327,8 @@ public class SchematronBPMNValidator {
 	public static void main(String[] args) throws Exception {
 		// File f = new File(TestHelper.getTestFilePath()
 		// + "099\\fail_call_ref_process.bpmn");
-		File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
-				+ "Fail.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
+				+ "fail_call_ref_process.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
