@@ -34,6 +34,15 @@ public class Ext001 {
 	}
 
 	@Test
+	public void testConstraintFail2() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
+				+ "Fail2.bpmn");
+		boolean valid = validator.validate(f);
+		assertFalse(valid);
+		assertEquals(validator.getErrors(), "One imported file does not exist");
+	}
+
+	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
 				+ "Success.bpmn");
