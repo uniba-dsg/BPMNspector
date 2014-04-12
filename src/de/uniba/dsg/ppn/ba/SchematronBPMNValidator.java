@@ -273,10 +273,9 @@ public class SchematronBPMNValidator {
 
 				// TODO: add all affected attributes
 				XPathExpression xPathReplaceSubelements = xpath
-						.compile("//incoming | //outgoing");
+						.compile("//*[local-name()='incoming'] | //*[local-name()='outgoing']");
 				foundNodesImportedFile = (NodeList) xPathReplaceSubelements
 						.evaluate(importedDocument, XPathConstants.NODESET);
-				System.out.println(foundNodesImportedFile.getLength());
 				for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
 					Node idNode = foundNodesImportedFile.item(j);
 					String newId = importedFiles[i][1] + "_"
