@@ -315,7 +315,18 @@ public class SchematronBPMNValidator {
 		return importedFiles;
 	}
 
-	private void integrateImports(File f) {
+	private Document addNodesToDocument(Node importDefinitionsNode,
+			Document headFileDocument) {
+		Element definitionsNode = headFileDocument.getDocumentElement();
+
+		for (int j = 0; j < importDefinitionsNode.getChildNodes().getLength(); j++) {
+			Node importedNode = headFileDocument.importNode(
+					importDefinitionsNode.getChildNodes().item(j), true);
+			definitionsNode.appendChild(importedNode);
+		}
+
+		return headFileDocument;
+	}
 
 	}
 
