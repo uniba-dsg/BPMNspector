@@ -231,6 +231,12 @@ public class SchematronBPMNValidator {
 		return os.toString("UTF-8");
 	}
 
+	private Document integrateImports(Document headFileDocument, File folder)
+			throws XPathExpressionException, SAXException, IOException,
+			TransformerException {
+		Object[][] importedFiles = selectImportedFiles(headFileDocument, folder);
+		removeBPMNNode(headFileDocument);
+
 		// TODO: add all affected attributes
 		XPathExpression xPathChangeNamespaceIds = xpath
 				.compile("//*/@calledElement");
@@ -248,9 +254,15 @@ public class SchematronBPMNValidator {
 						.parse((File) importedFiles[i][0]);
 				Element importDefinitionsNode = importedDocument
 						.getDocumentElement();
-				NodeList bpmnDiagramNodes = importedDocument
-						.getElementsByTagName("bpmndi:BPMNDiagram");
-				importDefinitionsNode.removeChild(bpmnDiagramNodes.item(0));
+				removeBPMNNode(importedDocument);
+				Object[][] importedFiles2 = selectImportedFiles(
+						importedDocument, folder);
+				for (int j = 0; j < importedFiles2.length; j++) {
+					Element integrationDefinitionsNode = integrateImports(
+							importedDocument, folder).getDocumentElement();
+					addNodesToDocument(integrationDefinitionsNode,
+							importedDocument);
+				}
 				// TODO: add all affected attributes
 				XPathExpression xPathReplaceIds = xpath
 						.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
@@ -275,23 +287,13 @@ public class SchematronBPMNValidator {
 					idNode.setTextContent(newId);
 				}
 
-				for (int j = 0; j < importDefinitionsNode.getChildNodes()
-						.getLength(); j++) {
-					Node importedNode = headFileDocument
-							.importNode(importDefinitionsNode.getChildNodes()
-									.item(j), true);
-					definitionsNode.appendChild(importedNode);
-				}
-				printDocument(importedDocument, System.out);
+				headFileDocument = addNodesToDocument(importDefinitionsNode,
+						headFileDocument);
 			}
 		}
 
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
-		Transformer transformer = transformerFactory.newTransformer();
-		transformer.transform(new DOMSource(headFileDocument),
-				new StreamResult(new OutputStreamWriter(os, "UTF-8")));
+		return headFileDocument;
+	}
 
 		return os.toString("UTF-8");
 	}
