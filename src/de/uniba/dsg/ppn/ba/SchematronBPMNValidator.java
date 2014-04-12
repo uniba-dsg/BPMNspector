@@ -256,12 +256,6 @@ public class SchematronBPMNValidator {
 				Element importDefinitionsNode = importedDocument
 						.getDocumentElement();
 				removeBPMNNode(importedDocument);
-				Object[][] importedFiles2 = selectImportedFiles(
-						importedDocument, folder);
-				for (int j = 0; j < importedFiles2.length; j++) {
-					importedDocument = integrateImports(importedDocument,
-							folder);
-				}
 
 				XPathExpression xPathReplaceIds = xpath
 						.compile("//*/@id | //*/@sourceRef | //*/@targetRef | //*/@processRef | //*/@dataStoreRef | //*/@categoryRef | //*/eventDefinitionRef");
@@ -272,6 +266,13 @@ public class SchematronBPMNValidator {
 						.compile("//*[local-name()='incoming'] | //*[local-name()='outgoing'] | //*[local-name()='dataInputRefs'] | //*[local-name()='dataOutputRefs']");
 				renameIds(xPathReplaceSubelements, importedDocument,
 						(String) importedFiles[i][1]);
+
+				Object[][] importedFiles2 = selectImportedFiles(
+						importedDocument, folder);
+				for (int j = 0; j < importedFiles2.length; j++) {
+					importedDocument = integrateImports(importedDocument,
+							folder);
+				}
 
 				headFileDocument = addNodesToDocument(importDefinitionsNode,
 						headFileDocument);
