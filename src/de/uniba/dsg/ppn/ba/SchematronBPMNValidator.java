@@ -62,6 +62,7 @@ public class SchematronBPMNValidator {
 		}
 	}
 
+	// TODO: REFACTOR!!
 	public boolean validate(File xmlFile) throws Exception {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
@@ -135,6 +136,7 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
+	// TODO: REFACTOR
 	private String checkConstraint002(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
@@ -327,8 +329,6 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// File f = new File(TestHelper.getTestFilePath()
-		// + "099\\fail_call_ref_process.bpmn");
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "fail_call_ref_process.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
