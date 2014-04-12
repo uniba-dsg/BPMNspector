@@ -141,8 +141,6 @@ public class SchematronBPMNValidator {
 	private String checkConstraint002(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
-		// TODO: checks of ext.002 for all imports too!!!
-
 		List<Document> importedFileList = searchForImports(headFileDocument,
 				folder);
 
@@ -172,12 +170,12 @@ public class SchematronBPMNValidator {
 			throws SAXException, IOException {
 		Object[][] importedFiles = selectImportedFiles(document, folder);
 		List<Document> importedFileList = new ArrayList<>();
+		importedFileList.add(document);
 
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (((File) importedFiles[i][0]).exists()) {
 				Document importedDocument = documentBuilder
 						.parse((File) importedFiles[i][0]);
-				importedFileList.add(importedDocument);
 				importedFileList.addAll(searchForImports(importedDocument,
 						folder));
 			}
