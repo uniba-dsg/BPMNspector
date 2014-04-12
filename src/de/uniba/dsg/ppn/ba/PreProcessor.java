@@ -63,7 +63,7 @@ public class PreProcessor {
 			}
 
 			@Override
-			public Iterator getPrefixes(String uri) {
+			public Iterator<?> getPrefixes(String uri) {
 				return null;
 			}
 		});
