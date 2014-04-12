@@ -295,7 +295,24 @@ public class SchematronBPMNValidator {
 		return headFileDocument;
 	}
 
-		return os.toString("UTF-8");
+	private Object[][] selectImportedFiles(Document document, File folder) {
+		Element definitionsNode = document.getDocumentElement();
+		NodeList importedFilesList = document.getElementsByTagNameNS(
+				bpmnNamespace, "import");
+		Object[][] importedFiles = new Object[importedFilesList.getLength()][2];
+
+		for (int i = 0; i < importedFilesList.getLength(); i++) {
+			Node importedFileNode = importedFilesList.item(i);
+			importedFiles[i][0] = new File(folder.getPath()
+					+ File.separator
+					+ importedFileNode.getAttributes().getNamedItem("location")
+							.getTextContent());
+			importedFiles[i][1] = definitionsNode
+					.lookupPrefix(importedFileNode.getAttributes()
+							.getNamedItem("namespace").getTextContent());
+		}
+
+		return importedFiles;
 	}
 
 	private void integrateImports(File f) {
