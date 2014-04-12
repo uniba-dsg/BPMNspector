@@ -219,21 +219,14 @@ public class SchematronBPMNValidator {
 	private String doPreprocessing(Document headFileDocument, File folder)
 			throws SAXException, IOException, XPathExpressionException,
 			TransformerException {
-		Element definitionsNode = headFileDocument.getDocumentElement();
-		NodeList importedFilesList = headFileDocument.getElementsByTagNameNS(
-				bpmnNamespace, "import");
-		Object[][] importedFiles = new Object[importedFilesList.getLength()][2];
+		headFileDocument = integrateImports(headFileDocument, folder);
 
-		for (int i = 0; i < importedFilesList.getLength(); i++) {
-			Node importedFileNode = importedFilesList.item(i);
-			importedFiles[i][0] = new File(folder.getPath()
-					+ File.separator
-					+ importedFileNode.getAttributes().getNamedItem("location")
-							.getTextContent());
-			importedFiles[i][1] = definitionsNode
-					.lookupPrefix(importedFileNode.getAttributes()
-							.getNamedItem("namespace").getTextContent());
-		}
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer.transform(new DOMSource(headFileDocument),
+				new StreamResult(new OutputStreamWriter(os, "UTF-8")));
 
 		NodeList bpmnDiagramNode = headFileDocument
 				.getElementsByTagName("bpmndi:BPMNDiagram");
