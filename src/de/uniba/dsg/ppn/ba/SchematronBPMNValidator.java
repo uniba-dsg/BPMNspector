@@ -81,32 +81,21 @@ public class SchematronBPMNValidator {
 		String xmlString = preProcessor.preProcess(headFileDocument,
 				parentFolder);
 
-		boolean valid = schematronSchema.getSchematronValidity(
-				new StreamSource(new ByteArrayInputStream(xmlString
-						.getBytes("UTF-8")))).isValid();
-
-		if (!valid) {
-			SchematronOutputType schematronOutputType = schematronSchema
-					.applySchematronValidationToSVRL(new StreamSource(
-							new ByteArrayInputStream(xmlString
-									.getBytes("UTF-8"))));
-			for (int i = 0; i < schematronOutputType
-					.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
-				if (schematronOutputType
-						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-					FailedAssert failedAssert = (FailedAssert) schematronOutputType
-							.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-					error.append(failedAssert.getLocation() + ": "
-							+ failedAssert.getText() + "\r\n");
-				}
+		SchematronOutputType schematronOutputType = schematronSchema
+				.applySchematronValidationToSVRL(new StreamSource(
+						new ByteArrayInputStream(xmlString.getBytes("UTF-8"))));
+		for (int i = 0; i < schematronOutputType
+				.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
+			if (schematronOutputType
+					.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
+				FailedAssert failedAssert = (FailedAssert) schematronOutputType
+						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
+				error.append(failedAssert.getLocation() + ": "
+						+ failedAssert.getText() + "\r\n");
 			}
 		}
 
-		if (!error.toString().isEmpty()) {
-			valid = false;
-		}
-
-		return valid;
+		return error.toString().isEmpty();
 	}
 
 	private String checkConstraint001(Document headFileDocument, File folder)
