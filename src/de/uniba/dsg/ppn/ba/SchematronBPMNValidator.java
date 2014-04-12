@@ -73,6 +73,7 @@ public class SchematronBPMNValidator {
 
 		Document headFileDocument = documentBuilder.parse(xmlFile);
 
+		// TODO: checks of ext.001 and ext.002 for all imports too!!!
 		File parentFolder = xmlFile.getParentFile();
 		String errorMessage = checkConstraint001(headFileDocument, parentFolder);
 		if (!errorMessage.isEmpty()) {
@@ -136,7 +137,6 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	// TODO: REFACTOR
 	private String checkConstraint002(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
@@ -161,17 +161,8 @@ public class SchematronBPMNValidator {
 						.evaluate(importedFileDocument, XPathConstants.NODESET);
 				if (importedFileNode.getAttributes().getNamedItem("namespace")
 						.getTextContent().equals(headFileNamespace)) {
-					for (int k = 1; k < foundNodesHeadFile.getLength(); k++) {
-						String headFileId = foundNodesHeadFile.item(k)
-								.getNodeValue();
-						for (int l = 1; l < foundNodesImportedFile.getLength(); l++) {
-							String importedFileId = foundNodesImportedFile
-									.item(l).getNodeValue();
-							if (headFileId.equals(importedFileId)) {
-								valid = false;
-							}
-						}
-					}
+					valid = checkNamespacesAndIdDuplicates(foundNodesHeadFile,
+							importedFile);
 				}
 				for (int j = i + 1; j < importedFilesList.getLength(); j++) {
 					Node importedFile2Node = importedFilesList.item(j);
@@ -187,24 +178,8 @@ public class SchematronBPMNValidator {
 										.getNamedItem("location")
 										.getTextContent());
 						if (importedFile2.exists()) {
-							Document importedFile2Document = documentBuilder
-									.parse(importedFile2);
-							NodeList foundNodesImportedFile2 = (NodeList) xPathExpr
-									.evaluate(importedFile2Document,
-											XPathConstants.NODESET);
-							for (int k = 1; k < foundNodesImportedFile
-									.getLength(); k++) {
-								String importedFile1Id = foundNodesImportedFile
-										.item(k).getNodeValue();
-								for (int l = 1; l < foundNodesImportedFile2
-										.getLength(); l++) {
-									String importedFile2Id = foundNodesImportedFile2
-											.item(l).getNodeValue();
-									if (importedFile1Id.equals(importedFile2Id)) {
-										valid = false;
-									}
-								}
-							}
+							valid = checkNamespacesAndIdDuplicates(
+									foundNodesImportedFile, importedFile2);
 						}
 					}
 				}
@@ -216,12 +191,30 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
+	private boolean checkNamespacesAndIdDuplicates(NodeList foundNodes1,
+			File importedFile) throws XPathExpressionException, SAXException,
+			IOException {
+		Document importedFile2Document = documentBuilder.parse(importedFile);
+		NodeList foundNodes2 = (NodeList) xPathExpr.evaluate(
+				importedFile2Document, XPathConstants.NODESET);
+		boolean valid = true;
+		for (int k = 1; k < foundNodes1.getLength(); k++) {
+			String importedFile1Id = foundNodes1.item(k).getNodeValue();
+			for (int l = 1; l < foundNodes2.getLength(); l++) {
+				String importedFile2Id = foundNodes2.item(l).getNodeValue();
+				if (importedFile1Id.equals(importedFile2Id)) {
+					valid = false;
+				}
+			}
+		}
+
+		return valid;
+	}
+
 	private String doPreprocessing(Document headFileDocument, File folder)
 			throws SAXException, IOException, XPathExpressionException,
 			TransformerException {
 		headFileDocument = integrateImports(headFileDocument, folder);
-
-		printDocument(headFileDocument, System.out);
 
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		TransformerFactory transformerFactory = TransformerFactory
@@ -356,7 +349,7 @@ public class SchematronBPMNValidator {
 
 	public static void main(String[] args) throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "preprocessing"
-				+ File.separator + "fail_call_ref_process_call.bpmn");
+				+ File.separator + "fail_call_ref_process_call_call.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
