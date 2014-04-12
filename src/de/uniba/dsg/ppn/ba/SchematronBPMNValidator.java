@@ -74,16 +74,10 @@ public class SchematronBPMNValidator {
 		}
 
 		Document headFileDocument = documentBuilder.parse(xmlFile);
-
 		File parentFolder = xmlFile.getParentFile();
-		String errorMessage = checkConstraint001(headFileDocument, parentFolder);
-		if (!errorMessage.isEmpty()) {
-			error.append(errorMessage);
-		}
-		errorMessage = checkConstraint002(headFileDocument, parentFolder);
-		if (!errorMessage.isEmpty()) {
-			error.append(errorMessage);
-		}
+
+		error.append(checkConstraint001(headFileDocument, parentFolder));
+		error.append(checkConstraint002(headFileDocument, parentFolder));
 
 		String xmlString = doPreprocessing(headFileDocument, parentFolder);
 
