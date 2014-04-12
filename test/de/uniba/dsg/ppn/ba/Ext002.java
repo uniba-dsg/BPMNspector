@@ -43,6 +43,15 @@ public class Ext002 {
 	}
 
 	@Test
+	public void testConstraintImport3Fail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
+				+ "fail_import3.bpmn");
+		boolean valid = validator.validate(f);
+		assertFalse(valid);
+		assertEquals(validator.getErrors(), "Files have double ids");
+	}
+
+	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
 				+ "success_import.bpmn");
