@@ -91,7 +91,7 @@ public class PreProcessor {
 		removeBPMNNode(headFileDocument);
 
 		XPathExpression xPathChangeNamespaceIds = xpath
-				.compile("//*/@calledElement | //*/@processRef | //*/@dataStoreRef | //*/@categoryRef | //*/eventDefinitionRef");
+				.compile("//bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef");
 		NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
 				.evaluate(headFileDocument, XPathConstants.NODESET);
 
