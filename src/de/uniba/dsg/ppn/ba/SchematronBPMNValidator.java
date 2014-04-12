@@ -237,15 +237,14 @@ public class SchematronBPMNValidator {
 		Object[][] importedFiles = selectImportedFiles(headFileDocument, folder);
 		removeBPMNNode(headFileDocument);
 
-		// TODO: add all affected attributes
 		XPathExpression xPathChangeNamespaceIds = xpath
-				.compile("//*/@calledElement");
+				.compile("//*/@calledElement | //*/@processRef | //*/@dataStoreRef | //*/@categoryRef | //*/eventDefinitionRef");
 		NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
 				.evaluate(headFileDocument, XPathConstants.NODESET);
 
 		for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
 			Node idNode = foundNodesHeadFile.item(j);
-			idNode.setNodeValue(idNode.getNodeValue().replace(":", "_"));
+			idNode.setTextContent(idNode.getTextContent().replace(":", "_"));
 		}
 
 		for (int i = 0; i < importedFiles.length; i++) {
@@ -263,15 +262,14 @@ public class SchematronBPMNValidator {
 					addNodesToDocument(integrationDefinitionsNode,
 							importedDocument);
 				}
-				// TODO: add all affected attributes
+
 				XPathExpression xPathReplaceIds = xpath
-						.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
+						.compile("//*/@id | //*/@sourceRef | //*/@targetRef | //*/@processRef | //*/@dataStoreRef | //*/@categoryRef | //*/eventDefinitionRef");
 				renameIds(xPathReplaceIds, importedDocument,
 						(String) importedFiles[i][1]);
 
-				// TODO: add all affected attributes
 				XPathExpression xPathReplaceSubelements = xpath
-						.compile("//*[local-name()='incoming'] | //*[local-name()='outgoing']");
+						.compile("//*[local-name()='incoming'] | //*[local-name()='outgoing'] | //*[local-name()='dataInputRefs'] | //*[local-name()='dataOutputRefs']");
 				renameIds(xPathReplaceSubelements, importedDocument,
 						(String) importedFiles[i][1]);
 
