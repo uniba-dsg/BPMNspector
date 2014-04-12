@@ -266,26 +266,14 @@ public class SchematronBPMNValidator {
 				// TODO: add all affected attributes
 				XPathExpression xPathReplaceIds = xpath
 						.compile("//*/@id | //*/@sourceRef | //*/@targetRef");
-				NodeList foundNodesImportedFile = (NodeList) xPathReplaceIds
-						.evaluate(importedDocument, XPathConstants.NODESET);
-				for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
-					Node idNode = foundNodesImportedFile.item(j);
-					String newId = importedFiles[i][1] + "_"
-							+ idNode.getNodeValue();
-					idNode.setNodeValue(newId);
-				}
+				renameIds(xPathReplaceIds, importedDocument,
+						(String) importedFiles[i][1]);
 
 				// TODO: add all affected attributes
 				XPathExpression xPathReplaceSubelements = xpath
 						.compile("//*[local-name()='incoming'] | //*[local-name()='outgoing']");
-				foundNodesImportedFile = (NodeList) xPathReplaceSubelements
-						.evaluate(importedDocument, XPathConstants.NODESET);
-				for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
-					Node idNode = foundNodesImportedFile.item(j);
-					String newId = importedFiles[i][1] + "_"
-							+ idNode.getTextContent();
-					idNode.setTextContent(newId);
-				}
+				renameIds(xPathReplaceSubelements, importedDocument,
+						(String) importedFiles[i][1]);
 
 				headFileDocument = addNodesToDocument(importDefinitionsNode,
 						headFileDocument);
@@ -293,6 +281,17 @@ public class SchematronBPMNValidator {
 		}
 
 		return headFileDocument;
+	}
+
+	private void renameIds(XPathExpression xpathExpression, Document document,
+			String namespacePrefix) throws XPathExpressionException {
+		NodeList foundNodesImportedFile = (NodeList) xpathExpression.evaluate(
+				document, XPathConstants.NODESET);
+		for (int j = 0; j < foundNodesImportedFile.getLength(); j++) {
+			Node idNode = foundNodesImportedFile.item(j);
+			String newId = namespacePrefix + "_" + idNode.getTextContent();
+			idNode.setTextContent(newId);
+		}
 	}
 
 	private Object[][] selectImportedFiles(Document document, File folder) {
