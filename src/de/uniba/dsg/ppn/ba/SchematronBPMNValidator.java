@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -73,7 +75,6 @@ public class SchematronBPMNValidator {
 
 		Document headFileDocument = documentBuilder.parse(xmlFile);
 
-		// TODO: checks of ext.001 and ext.002 for all imports too!!!
 		File parentFolder = xmlFile.getParentFile();
 		String errorMessage = checkConstraint001(headFileDocument, parentFolder);
 		if (!errorMessage.isEmpty()) {
@@ -140,47 +141,23 @@ public class SchematronBPMNValidator {
 	private String checkConstraint002(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
-		NodeList importedFilesList = headFileDocument.getElementsByTagNameNS(
-				bpmnNamespace, "import");
-		String headFileNamespace = headFileDocument.getDocumentElement()
-				.getAttribute("targetNamespace");
+		// TODO: checks of ext.002 for all imports too!!!
+
+		List<Document> importedFileList = searchForImports(headFileDocument,
+				folder);
 
 		boolean valid = true;
-		for (int i = 0; i < importedFilesList.getLength(); i++) {
-			Node importedFileNode = importedFilesList.item(i);
-			NodeList foundNodesHeadFile = (NodeList) xPathExpr.evaluate(
-					headFileDocument, XPathConstants.NODESET);
-			File importedFile = new File(folder.getPath()
-					+ File.separator
-					+ importedFileNode.getAttributes().getNamedItem("location")
-							.getTextContent());
-			if (importedFile.exists()) {
-				Document importedFileDocument = documentBuilder
-						.parse(importedFile);
-				NodeList foundNodesImportedFile = (NodeList) xPathExpr
-						.evaluate(importedFileDocument, XPathConstants.NODESET);
-				if (importedFileNode.getAttributes().getNamedItem("namespace")
-						.getTextContent().equals(headFileNamespace)) {
-					valid = checkNamespacesAndIdDuplicates(foundNodesHeadFile,
-							importedFile);
-				}
-				for (int j = i + 1; j < importedFilesList.getLength(); j++) {
-					Node importedFile2Node = importedFilesList.item(j);
-					if (importedFileNode
-							.getAttributes()
-							.getNamedItem("namespace")
-							.getTextContent()
-							.equals(importedFile2Node.getAttributes()
-									.getNamedItem("namespace").getTextContent())) {
-						File importedFile2 = new File(folder.getPath()
-								+ File.separator
-								+ importedFileNode.getAttributes()
-										.getNamedItem("location")
-										.getTextContent());
-						if (importedFile2.exists()) {
-							valid = checkNamespacesAndIdDuplicates(
-									foundNodesImportedFile, importedFile2);
-						}
+		for (int i = 0; i < importedFileList.size(); i++) {
+			Document document1 = importedFileList.get(i);
+			String namespace1 = document1.getDocumentElement().getAttribute(
+					"targetNamespace");
+			for (int j = i + 1; j < importedFileList.size(); j++) {
+				Document document2 = importedFileList.get(j);
+				String namespace2 = document2.getDocumentElement()
+						.getAttribute("targetNamespace");
+				if (namespace1.equals(namespace2)) {
+					if (!checkNamespacesAndIdDuplicates(document1, document2)) {
+						valid = false;
 					}
 				}
 			}
@@ -191,12 +168,31 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	private boolean checkNamespacesAndIdDuplicates(NodeList foundNodes1,
-			File importedFile) throws XPathExpressionException, SAXException,
+	private List<Document> searchForImports(Document document, File folder)
+			throws SAXException, IOException {
+		Object[][] importedFiles = selectImportedFiles(document, folder);
+		List<Document> importedFileList = new ArrayList<>();
+
+		for (int i = 0; i < importedFiles.length; i++) {
+			if (((File) importedFiles[i][0]).exists()) {
+				Document importedDocument = documentBuilder
+						.parse((File) importedFiles[i][0]);
+				importedFileList.add(importedDocument);
+				importedFileList.addAll(searchForImports(importedDocument,
+						folder));
+			}
+		}
+
+		return importedFileList;
+	}
+
+	private boolean checkNamespacesAndIdDuplicates(Document document1,
+			Document document2) throws XPathExpressionException, SAXException,
 			IOException {
-		Document importedFile2Document = documentBuilder.parse(importedFile);
-		NodeList foundNodes2 = (NodeList) xPathExpr.evaluate(
-				importedFile2Document, XPathConstants.NODESET);
+		NodeList foundNodes1 = (NodeList) xPathExpr.evaluate(document1,
+				XPathConstants.NODESET);
+		NodeList foundNodes2 = (NodeList) xPathExpr.evaluate(document2,
+				XPathConstants.NODESET);
 		boolean valid = true;
 		for (int k = 1; k < foundNodes1.getLength(); k++) {
 			String importedFile1Id = foundNodes1.item(k).getNodeValue();
@@ -347,14 +343,4 @@ public class SchematronBPMNValidator {
 		return error.toString().trim();
 	}
 
-	public static void main(String[] args) throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
-				+ "Fail2.bpmn");
-		SchematronBPMNValidator validator = new SchematronBPMNValidator();
-		boolean check = validator.validate(f);
-		System.out.println("Is File " + f.getName() + " valid? " + check);
-		if (!check) {
-			System.out.println(validator.getErrors());
-		}
-	}
 }
