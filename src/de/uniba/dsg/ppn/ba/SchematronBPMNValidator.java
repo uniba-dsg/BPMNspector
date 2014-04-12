@@ -221,6 +221,8 @@ public class SchematronBPMNValidator {
 			TransformerException {
 		headFileDocument = integrateImports(headFileDocument, folder);
 
+		printDocument(headFileDocument, System.out);
+
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		TransformerFactory transformerFactory = TransformerFactory
 				.newInstance();
@@ -257,10 +259,8 @@ public class SchematronBPMNValidator {
 				Object[][] importedFiles2 = selectImportedFiles(
 						importedDocument, folder);
 				for (int j = 0; j < importedFiles2.length; j++) {
-					Element integrationDefinitionsNode = integrateImports(
-							importedDocument, folder).getDocumentElement();
-					addNodesToDocument(integrationDefinitionsNode,
-							importedDocument);
+					importedDocument = integrateImports(importedDocument,
+							folder);
 				}
 
 				XPathExpression xPathReplaceIds = xpath
@@ -354,8 +354,8 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
-				+ "fail_call_ref_process.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "preprocessing"
+				+ File.separator + "fail_call_ref_process_call.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
