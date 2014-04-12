@@ -228,9 +228,8 @@ public class SchematronBPMNValidator {
 		transformer.transform(new DOMSource(headFileDocument),
 				new StreamResult(new OutputStreamWriter(os, "UTF-8")));
 
-		NodeList bpmnDiagramNode = headFileDocument
-				.getElementsByTagName("bpmndi:BPMNDiagram");
-		definitionsNode.removeChild(bpmnDiagramNode.item(0));
+		return os.toString("UTF-8");
+	}
 
 		// TODO: add all affected attributes
 		XPathExpression xPathChangeNamespaceIds = xpath
