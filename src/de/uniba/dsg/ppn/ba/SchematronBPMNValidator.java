@@ -245,13 +245,8 @@ public class SchematronBPMNValidator {
 				removeBPMNNode(importedDocument);
 
 				XPathExpression xPathReplaceIds = xpath
-						.compile("//*/@id | //*/@sourceRef | //*/@targetRef | //*/@processRef | //*/@dataStoreRef | //*/@categoryRef | //*/eventDefinitionRef");
+						.compile("//*/@id | //*/@sourceRef | //*/@targetRef | //*/@processRef | //*/@dataStoreRef | //*/@categoryRef | //*/eventDefinitionRef | //*[local-name()='incoming'] | //*[local-name()='outgoing'] | //*[local-name()='dataInputRefs'] | //*[local-name()='dataOutputRefs']");
 				renameIds(xPathReplaceIds, importedDocument,
-						(String) importedFiles[i][1]);
-
-				XPathExpression xPathReplaceSubelements = xpath
-						.compile("//*[local-name()='incoming'] | //*[local-name()='outgoing'] | //*[local-name()='dataInputRefs'] | //*[local-name()='dataOutputRefs']");
-				renameIds(xPathReplaceSubelements, importedDocument,
 						(String) importedFiles[i][1]);
 
 				Object[][] importedFiles2 = selectImportedFiles(
