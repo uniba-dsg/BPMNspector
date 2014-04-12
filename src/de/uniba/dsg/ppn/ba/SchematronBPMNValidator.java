@@ -328,6 +328,13 @@ public class SchematronBPMNValidator {
 		return headFileDocument;
 	}
 
+	private void removeBPMNNode(Document headFileDocument) {
+		Element definitionsNode = headFileDocument.getDocumentElement();
+		NodeList bpmnDiagramNode = headFileDocument
+				.getElementsByTagName("bpmndi:BPMNDiagram");
+		if (bpmnDiagramNode.getLength() > 0) {
+			definitionsNode.removeChild(bpmnDiagramNode.item(0));
+		}
 	}
 
 	public static void printDocument(Document doc, OutputStream out)
