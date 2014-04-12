@@ -116,19 +116,19 @@ public class SchematronBPMNValidator {
 
 	private String checkConstraint001(Document headFileDocument, File folder)
 			throws ParserConfigurationException, SAXException, IOException {
-		NodeList importedFilesList = headFileDocument.getElementsByTagNameNS(
-				bpmnNamespace, "import");
+		Object[][] importedFiles = selectImportedFiles(headFileDocument, folder);
 
 		boolean valid = true;
-		for (int i = 0; i < importedFilesList.getLength(); i++) {
-			Node importedFileNode = importedFilesList.item(i);
-			File importedFile = new File(folder.getPath()
-					+ File.separator
-					+ importedFileNode.getAttributes().getNamedItem("location")
-							.getTextContent());
-			if (!importedFile.exists()) {
+		for (int i = 0; i < importedFiles.length; i++) {
+			if (!((File) importedFiles[i][0]).exists()) {
 				valid = false;
-				break;
+			} else {
+				Document importedDocument = documentBuilder
+						.parse((File) importedFiles[i][0]);
+				String error = checkConstraint001(importedDocument, folder);
+				if (!error.isEmpty()) {
+					valid = false;
+				}
 			}
 		}
 
@@ -348,8 +348,8 @@ public class SchematronBPMNValidator {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "preprocessing"
-				+ File.separator + "fail_call_ref_process_call_call.bpmn");
+		File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
+				+ "Fail2.bpmn");
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		boolean check = validator.validate(f);
 		System.out.println("Is File " + f.getName() + " valid? " + check);
