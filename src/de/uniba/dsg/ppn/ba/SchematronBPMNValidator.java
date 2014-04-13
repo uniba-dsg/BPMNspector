@@ -37,7 +37,6 @@ public class SchematronBPMNValidator {
 	static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 
 	{
-		error = new StringBuffer();
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		documentBuilderFactory.setNamespaceAware(true);
 		try {
@@ -67,6 +66,7 @@ public class SchematronBPMNValidator {
 		Document headFileDocument = documentBuilder.parse(xmlFile);
 		File parentFolder = xmlFile.getParentFile();
 
+		error = new StringBuffer();
 		error.append(checkConstraint001(headFileDocument, parentFolder));
 		error.append(checkConstraint002(headFileDocument, parentFolder));
 
