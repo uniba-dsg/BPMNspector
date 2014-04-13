@@ -25,6 +25,9 @@ import org.xml.sax.SAXException;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class SchematronBPMNValidator {
 
 	private StringBuffer error;
@@ -34,6 +37,10 @@ public class SchematronBPMNValidator {
 	private XPath xpath;
 	private XPathExpression xPathExpr;
 	private PreProcessor preProcessor;
+	private ValidationResult validationResult;
+	private List<String> checkedFiles;
+	private List<Violation> violations;
+	private XmlLocator xmlLocator;
 	static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 
 	{
@@ -52,6 +59,7 @@ public class SchematronBPMNValidator {
 			// ignore
 		}
 		preProcessor = new PreProcessor();
+		xmlLocator = new XmlLocator();
 	}
 
 	// TODO: REFACTOR!!
@@ -65,6 +73,9 @@ public class SchematronBPMNValidator {
 
 		Document headFileDocument = documentBuilder.parse(xmlFile);
 		File parentFolder = xmlFile.getParentFile();
+		checkedFiles = new ArrayList<>();
+		checkedFiles.add(xmlFile.getName());
+		violations = new ArrayList<>();
 
 		error = new StringBuffer();
 		error.append(checkConstraint001(headFileDocument, parentFolder));
@@ -82,12 +93,23 @@ public class SchematronBPMNValidator {
 					.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
 				FailedAssert failedAssert = (FailedAssert) schematronOutputType
 						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
+				violations.add(new Violation("", xmlFile.getName(), xmlLocator
+						.findLine(xmlFile, failedAssert.getLocation()),
+						failedAssert.getLocation(), failedAssert.getText()));
 				error.append(failedAssert.getLocation() + ": "
 						+ failedAssert.getText() + "\r\n");
 			}
 		}
 
+		Helper.printViolations(violations);
+
+		validationResult = new ValidationResult(error.toString().isEmpty(),
+				checkedFiles, new ArrayList<Violation>());
 		return error.toString().isEmpty();
+	}
+
+	public ValidationResult getValidationResult() {
+		return validationResult;
 	}
 
 	private String checkConstraint001(Document headFileDocument, File folder)
@@ -151,6 +173,7 @@ public class SchematronBPMNValidator {
 
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (((File) importedFiles[i][0]).exists()) {
+				checkedFiles.add(((File) importedFiles[i][0]).getName());
 				Document importedDocument = documentBuilder
 						.parse((File) importedFiles[i][0]);
 				importedFileList.addAll(searchForImports(importedDocument,
