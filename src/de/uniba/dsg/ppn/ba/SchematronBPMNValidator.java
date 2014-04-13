@@ -101,8 +101,6 @@ public class SchematronBPMNValidator {
 			}
 		}
 
-		Helper.printViolations(violations);
-
 		validationResult = new ValidationResult(error.toString().isEmpty(),
 				checkedFiles, new ArrayList<Violation>());
 		return error.toString().isEmpty();
