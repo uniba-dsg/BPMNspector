@@ -1,5 +1,6 @@
 package de.uniba.dsg.ppn.ba;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -69,19 +70,23 @@ public class PreProcessor {
 		});
 	}
 
-	public String preProcess(Document headFileDocument, File folder)
-			throws SAXException, IOException, XPathExpressionException,
-			TransformerException {
+	public ByteArrayInputStream preProcess(Document headFileDocument,
+			File folder) throws SAXException, IOException,
+			XPathExpressionException, TransformerException {
 		headFileDocument = integrateImports(headFileDocument, folder);
 
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		TransformerFactory transformerFactory = TransformerFactory
 				.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
-		transformer.transform(new DOMSource(headFileDocument),
-				new StreamResult(new OutputStreamWriter(os, "UTF-8")));
+		transformer
+				.transform(new DOMSource(headFileDocument), new StreamResult(
+						new OutputStreamWriter(outputStream, "UTF-8")));
 
-		return os.toString("UTF-8");
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(
+				outputStream.toByteArray());
+
+		return inputStream;
 	}
 
 	private Document integrateImports(Document headFileDocument, File folder)

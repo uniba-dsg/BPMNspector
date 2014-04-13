@@ -1,6 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +62,6 @@ public class SchematronBPMNValidator {
 		xmlLocator = new XmlLocator();
 	}
 
-	// TODO: REFACTOR!!
 	public boolean validate(File xmlFile) throws Exception {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
@@ -82,12 +80,9 @@ public class SchematronBPMNValidator {
 		error.append(checkConstraint001(xmlFile, parentFolder));
 		error.append(checkConstraint002(xmlFile, parentFolder));
 
-		String xmlString = preProcessor.preProcess(headFileDocument,
-				parentFolder);
-
 		SchematronOutputType schematronOutputType = schematronSchema
-				.applySchematronValidationToSVRL(new StreamSource(
-						new ByteArrayInputStream(xmlString.getBytes("UTF-8"))));
+				.applySchematronValidationToSVRL(new StreamSource(preProcessor
+						.preProcess(headFileDocument, parentFolder)));
 		for (int i = 0; i < schematronOutputType
 				.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
 			if (schematronOutputType
