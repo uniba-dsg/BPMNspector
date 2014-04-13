@@ -16,6 +16,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.jdom2.JDOMException;
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.w3c.dom.Document;
@@ -78,7 +79,7 @@ public class SchematronBPMNValidator {
 		violations = new ArrayList<>();
 
 		error = new StringBuffer();
-		error.append(checkConstraint001(headFileDocument, parentFolder));
+		error.append(checkConstraint001(xmlFile, parentFolder));
 		error.append(checkConstraint002(headFileDocument, parentFolder));
 
 		String xmlString = preProcessor.preProcess(headFileDocument,
@@ -110,8 +111,10 @@ public class SchematronBPMNValidator {
 		return validationResult;
 	}
 
-	private String checkConstraint001(Document headFileDocument, File folder)
-			throws ParserConfigurationException, SAXException, IOException {
+	private String checkConstraint001(File headFile, File folder)
+			throws ParserConfigurationException, SAXException, IOException,
+			JDOMException {
+		Document headFileDocument = documentBuilder.parse(headFile);
 		Object[][] importedFiles = preProcessor.selectImportedFiles(
 				headFileDocument, folder);
 
@@ -119,10 +122,15 @@ public class SchematronBPMNValidator {
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (!((File) importedFiles[i][0]).exists()) {
 				valid = false;
+				String xpathLocation = "//bpmn:import[@location = '"
+						+ ((File) importedFiles[i][0]).getName() + "']";
+				violations.add(new Violation("EXT.001",
+						((File) importedFiles[i][0]).getName(), xmlLocator
+								.findLine(headFile, xpathLocation),
+						xpathLocation, "The imported file does not exist"));
 			} else {
-				Document importedDocument = documentBuilder
-						.parse((File) importedFiles[i][0]);
-				String error = checkConstraint001(importedDocument, folder);
+				String error = checkConstraint001(((File) importedFiles[i][0]),
+						folder);
 				if (!error.isEmpty()) {
 					valid = false;
 				}
