@@ -94,11 +94,17 @@ public class SchematronBPMNValidator {
 					.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
 				FailedAssert failedAssert = (FailedAssert) schematronOutputType
 						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-				violations.add(new Violation("", xmlFile.getName(), xmlLocator
-						.findLine(xmlFile, failedAssert.getLocation()),
-						failedAssert.getLocation(), failedAssert.getText()));
-				error.append(failedAssert.getLocation() + ": "
-						+ failedAssert.getText() + "\r\n");
+				String errorMessage = failedAssert.getText().substring(
+						failedAssert.getText().indexOf('|') + 1);
+				String constraint = failedAssert.getText().substring(0,
+						failedAssert.getText().indexOf('|'));
+				violations
+						.add(new Violation(constraint, xmlFile.getName(),
+								xmlLocator.findLine(xmlFile,
+										failedAssert.getLocation()),
+								failedAssert.getLocation(), errorMessage));
+				error.append(failedAssert.getLocation() + ": " + errorMessage
+						+ "\r\n");
 			}
 		}
 
