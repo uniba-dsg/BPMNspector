@@ -73,7 +73,7 @@ public class SchematronBPMNValidator {
 		Document headFileDocument = documentBuilder.parse(xmlFile);
 		File parentFolder = xmlFile.getParentFile();
 		checkedFiles = new ArrayList<>();
-		checkedFiles.add(xmlFile.getName());
+		checkedFiles.add(xmlFile.getAbsolutePath());
 		violations = new ArrayList<>();
 
 		error = new StringBuffer();
@@ -89,15 +89,22 @@ public class SchematronBPMNValidator {
 					.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
 				FailedAssert failedAssert = (FailedAssert) schematronOutputType
 						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-				String errorMessage = failedAssert.getText().substring(
-						failedAssert.getText().indexOf('|') + 1);
-				String constraint = failedAssert.getText().substring(0,
-						failedAssert.getText().indexOf('|'));
-				violations
-						.add(new Violation(constraint, xmlFile.getName(),
-								xmlLocator.findLine(xmlFile,
-										failedAssert.getLocation()),
-								failedAssert.getLocation(), errorMessage));
+				String message = failedAssert.getText();
+				String xpathExpr = message.substring(0, message.indexOf('~'));
+				message = message.substring(message.indexOf('~') + 1);
+				String constraint = message.substring(0, message.indexOf('|'));
+				String errorMessage = message
+						.substring(message.indexOf('|') + 1);
+				int line = xmlLocator.findLine(xmlFile,
+						failedAssert.getLocation());
+				String fileName = xmlFile.getName();
+				if (line == -1) {
+					String[] result = searchForViolationFile(xpathExpr);
+					fileName = result[0];
+					line = Integer.valueOf(result[1]);
+				}
+				violations.add(new Violation(constraint, fileName, line,
+						failedAssert.getLocation(), errorMessage));
 				error.append(failedAssert.getLocation() + ": " + errorMessage
 						+ "\r\n");
 			}
@@ -106,6 +113,45 @@ public class SchematronBPMNValidator {
 		validationResult = new ValidationResult(error.toString().isEmpty(),
 				checkedFiles, violations);
 		return error.toString().isEmpty();
+	}
+
+	private String[] searchForViolationFile(String xpathExpression)
+			throws SAXException, IOException, XPathExpressionException,
+			JDOMException {
+		boolean search = true;
+		String fileName = "";
+		String line = "-1";
+		int i = 0;
+		System.out.println(xpathExpression);
+		while (search && i < checkedFiles.size()) {
+			File f = new File(checkedFiles.get(i));
+			Document d = documentBuilder.parse(f);
+			String namespacePrefix = xpathExpression.substring(0,
+					xpathExpression.indexOf('_'));
+			String namespace = d.getDocumentElement().lookupNamespaceURI(
+					namespacePrefix);
+			for (String s : checkedFiles) {
+				f = new File(s);
+				d = documentBuilder.parse(f);
+				if (d.getDocumentElement().getAttribute("targetNamespace")
+						.equals(namespace)) {
+					line = ""
+							+ xmlLocator.findLine(
+									f,
+									"//bpmn:*[@id ='"
+											+ xpathExpression
+													.substring(xpathExpression
+															.indexOf('_') + 1)
+											+ "']");
+					fileName = f.getName();
+					search = false;
+					break;
+				}
+			}
+			i++;
+		}
+
+		return new String[] { fileName, line };
 	}
 
 	public ValidationResult getValidationResult() {
@@ -185,7 +231,8 @@ public class SchematronBPMNValidator {
 
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (((File) importedFiles[i][0]).exists()) {
-				checkedFiles.add(((File) importedFiles[i][0]).getName());
+				checkedFiles
+						.add(((File) importedFiles[i][0]).getAbsolutePath());
 				importedFileList.addAll(searchForImports(
 						((File) importedFiles[i][0]), folder));
 			}
