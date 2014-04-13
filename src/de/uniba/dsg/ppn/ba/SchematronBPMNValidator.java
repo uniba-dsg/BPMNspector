@@ -157,7 +157,7 @@ public class SchematronBPMNValidator {
 			}
 		}
 
-		String message = valid ? "" : "Files have double ids";
+		String message = valid ? "" : "Files have id duplicates";
 
 		return message;
 	}

@@ -30,7 +30,7 @@ public class Ext002 {
 				+ "fail_import.bpmn");
 		boolean valid = validator.validate(f);
 		assertFalse(valid);
-		assertEquals(validator.getErrors(), "Files have double ids");
+		assertEquals(validator.getErrors(), "Files have id duplicates");
 	}
 
 	@Test
@@ -39,7 +39,7 @@ public class Ext002 {
 				+ "fail_import2.bpmn");
 		boolean valid = validator.validate(f);
 		assertFalse(valid);
-		assertEquals(validator.getErrors(), "Files have double ids");
+		assertEquals(validator.getErrors(), "Files have id duplicates");
 	}
 
 	@Test
@@ -48,7 +48,7 @@ public class Ext002 {
 				+ "fail_import3.bpmn");
 		boolean valid = validator.validate(f);
 		assertFalse(valid);
-		assertEquals(validator.getErrors(), "Files have double ids");
+		assertEquals(validator.getErrors(), "Files have id duplicates");
 	}
 
 	@Test
