@@ -35,7 +35,7 @@ public class SchematronBPMNValidator {
 	private DocumentBuilder documentBuilder;
 	private XPathFactory xPathFactory;
 	private XPath xpath;
-	private XPathExpression xPathExpr;
+	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private ValidationResult validationResult;
 	private List<String> checkedFiles;
@@ -54,7 +54,7 @@ public class SchematronBPMNValidator {
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		try {
-			xPathExpr = xpath.compile("//*/@id");
+			xPathExpression = xpath.compile("//*/@id");
 		} catch (XPathExpressionException e) {
 			// ignore
 		}
@@ -187,9 +187,9 @@ public class SchematronBPMNValidator {
 	private boolean checkNamespacesAndIdDuplicates(Document document1,
 			Document document2) throws XPathExpressionException, SAXException,
 			IOException {
-		NodeList foundNodes1 = (NodeList) xPathExpr.evaluate(document1,
+		NodeList foundNodes1 = (NodeList) xPathExpression.evaluate(document1,
 				XPathConstants.NODESET);
-		NodeList foundNodes2 = (NodeList) xPathExpr.evaluate(document2,
+		NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
 				XPathConstants.NODESET);
 		boolean valid = true;
 		for (int k = 1; k < foundNodes1.getLength(); k++) {
