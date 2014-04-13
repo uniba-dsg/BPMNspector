@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.6.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-simple-1.7.6.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-over-slf4j-1.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-2.0.5.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
