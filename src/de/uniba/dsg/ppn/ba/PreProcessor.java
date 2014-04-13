@@ -172,7 +172,7 @@ public class PreProcessor {
 		return headFileDocument;
 	}
 
-	private void removeBPMNNode(Document headFileDocument) {
+	public void removeBPMNNode(Document headFileDocument) {
 		Element definitionsNode = headFileDocument.getDocumentElement();
 		NodeList bpmnDiagramNode = headFileDocument
 				.getElementsByTagName("bpmndi:BPMNDiagram");

@@ -80,7 +80,7 @@ public class SchematronBPMNValidator {
 
 		error = new StringBuffer();
 		error.append(checkConstraint001(xmlFile, parentFolder));
-		error.append(checkConstraint002(headFileDocument, parentFolder));
+		error.append(checkConstraint002(xmlFile, parentFolder));
 
 		String xmlString = preProcessor.preProcess(headFileDocument,
 				parentFolder);
@@ -142,23 +142,27 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	private String checkConstraint002(Document headFileDocument, File folder)
+	private String checkConstraint002(File headFile, File folder)
 			throws ParserConfigurationException, SAXException, IOException,
-			XPathExpressionException {
-		List<Document> importedFileList = searchForImports(headFileDocument,
-				folder);
+			XPathExpressionException, JDOMException {
+		List<File> importedFileList = searchForImports(headFile, folder);
 
 		boolean valid = true;
 		for (int i = 0; i < importedFileList.size(); i++) {
-			Document document1 = importedFileList.get(i);
+			File file1 = importedFileList.get(i);
+			Document document1 = documentBuilder.parse(file1);
+			preProcessor.removeBPMNNode(document1);
 			String namespace1 = document1.getDocumentElement().getAttribute(
 					"targetNamespace");
 			for (int j = i + 1; j < importedFileList.size(); j++) {
-				Document document2 = importedFileList.get(j);
+				File file2 = importedFileList.get(j);
+				Document document2 = documentBuilder.parse(file2);
+				preProcessor.removeBPMNNode(document2);
 				String namespace2 = document2.getDocumentElement()
 						.getAttribute("targetNamespace");
 				if (namespace1.equals(namespace2)) {
-					if (!checkNamespacesAndIdDuplicates(document1, document2)) {
+					if (!checkNamespacesAndIdDuplicates(file1, file2,
+							document1, document2)) {
 						valid = false;
 					}
 				}
@@ -170,29 +174,29 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
-	private List<Document> searchForImports(Document document, File folder)
+	private List<File> searchForImports(File file, File folder)
 			throws SAXException, IOException {
+		Document document = documentBuilder.parse(file);
 		Object[][] importedFiles = preProcessor.selectImportedFiles(document,
 				folder);
-		List<Document> importedFileList = new ArrayList<>();
-		importedFileList.add(document);
+		List<File> importedFileList = new ArrayList<>();
+		importedFileList.add(file);
 
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (((File) importedFiles[i][0]).exists()) {
 				checkedFiles.add(((File) importedFiles[i][0]).getName());
-				Document importedDocument = documentBuilder
-						.parse((File) importedFiles[i][0]);
-				importedFileList.addAll(searchForImports(importedDocument,
-						folder));
+				importedFileList.addAll(searchForImports(
+						((File) importedFiles[i][0]), folder));
 			}
 		}
 
 		return importedFileList;
 	}
 
-	private boolean checkNamespacesAndIdDuplicates(Document document1,
-			Document document2) throws XPathExpressionException, SAXException,
-			IOException {
+	private boolean checkNamespacesAndIdDuplicates(File file1, File file2,
+			Document document1, Document document2)
+			throws XPathExpressionException, SAXException, IOException,
+			JDOMException {
 		NodeList foundNodes1 = (NodeList) xPathExpression.evaluate(document1,
 				XPathConstants.NODESET);
 		NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
@@ -203,6 +207,14 @@ public class SchematronBPMNValidator {
 			for (int l = 1; l < foundNodes2.getLength(); l++) {
 				String importedFile2Id = foundNodes2.item(l).getNodeValue();
 				if (importedFile1Id.equals(importedFile2Id)) {
+					String xpathLocation = "//bpmn:*[@id = '" + importedFile1Id
+							+ "']";
+					violations.add(new Violation("EXT.002", file1.getName(),
+							xmlLocator.findLine(file1, xpathLocation),
+							xpathLocation, "Files have id duplicates"));
+					violations.add(new Violation("EXT.002", file2.getName(),
+							xmlLocator.findLine(file2, xpathLocation),
+							xpathLocation, "Files have id duplicates"));
 					valid = false;
 				}
 			}
