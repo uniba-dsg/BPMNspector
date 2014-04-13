@@ -103,7 +103,7 @@ public class SchematronBPMNValidator {
 		}
 
 		validationResult = new ValidationResult(error.toString().isEmpty(),
-				checkedFiles, new ArrayList<Violation>());
+				checkedFiles, violations);
 		return error.toString().isEmpty();
 	}
 
