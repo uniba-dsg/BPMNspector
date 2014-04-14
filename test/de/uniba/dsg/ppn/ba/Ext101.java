@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext101 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,18 @@ public class Ext101 {
 				+ "fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.\r\n//bpmn:startEvent[0]: A startEvent must have a outgoing subelement");
+				"The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(9, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals("A startEvent must have a outgoing subelement",
+				v.getMessage());
+		assertEquals("//bpmn:startEvent[0]", v.getxPath());
+		assertEquals(4, v.getLine());
 	}
 
 	@Test
