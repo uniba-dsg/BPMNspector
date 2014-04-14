@@ -102,10 +102,10 @@
     -->
     <iso:pattern name="EXT.023">
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
-            <iso:assert test="$allElements/@id = string(./@targetRef) and ./@id = $allElements/bpmn:incoming">EXT.023|The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.</iso:assert>
+            <iso:assert test="$allElements/@id = string(./@targetRef) and ./@id = $allElements/bpmn:incoming">EXT.023|The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:sequenceFlow[@sourceRef]">
-            <iso:assert test="$allElements/@id = string(./@sourceRef) and ./@id = $allElements/bpmn:outgoing">EXT.023|The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.</iso:assert>
+            <iso:assert test="$allElements/@id = string(./@sourceRef) and ./@id = $allElements/bpmn:outgoing">EXT.023|The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.</iso:assert>
         </iso:rule>
     </iso:pattern>
     

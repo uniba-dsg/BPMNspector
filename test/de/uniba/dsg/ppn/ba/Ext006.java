@@ -50,7 +50,7 @@ public class Ext006 {
 		assertEquals(11, v.getLine());
 		v = result.getViolations().get(2);
 		assertEquals(
-				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.",
+				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
 				v.getMessage());
 		assertEquals("Fail_association.bpmn", v.getFileName());
 		assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
@@ -81,7 +81,7 @@ public class Ext006 {
 		assertEquals(8, v.getLine());
 		v = result.getViolations().get(2);
 		assertEquals(
-				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.",
+				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
 				v.getMessage());
 		assertEquals("Fail_group.bpmn", v.getFileName());
 		assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
@@ -112,7 +112,7 @@ public class Ext006 {
 		assertEquals(8, v.getLine());
 		v = result.getViolations().get(2);
 		assertEquals(
-				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.",
+				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
 				v.getMessage());
 		assertEquals("Fail_text_annotation.bpmn", v.getFileName());
 		assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
