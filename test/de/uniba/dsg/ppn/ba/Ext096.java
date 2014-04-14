@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext096 {
 
 	SchematronBPMNValidator validator = null;
@@ -29,7 +32,11 @@ public class Ext096 {
 				+ "Fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(),
-				"//bpmn:startEvent[0]: A Start Event must not have an incoming sequence flow");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("A Start Event must not have an incoming sequence flow",
+				v.getMessage());
+		assertEquals("//bpmn:startEvent[0]", v.getxPath());
+		assertEquals(4, v.getLine());
 	}
 }
