@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext104 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,8 +33,12 @@ public class Ext104 {
 				+ "fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(),
-				"//bpmn:endEvent[0]: An End Event must not have an outgoing sequence flow");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An End Event must not have an outgoing sequence flow",
+				v.getMessage());
+		assertEquals("//bpmn:endEvent[0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
