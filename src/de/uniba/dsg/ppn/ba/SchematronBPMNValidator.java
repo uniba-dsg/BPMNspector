@@ -98,25 +98,30 @@ public class SchematronBPMNValidator {
 					.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
 				FailedAssert failedAssert = (FailedAssert) schematronOutputType
 						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-				String message = failedAssert.getText();
-				String xpathExpr = message.substring(0, message.indexOf('~'));
-				message = message.substring(message.indexOf('~') + 1);
+				String message = failedAssert.getText().trim();
 				String constraint = message.substring(0, message.indexOf('|'));
 				String errorMessage = message
 						.substring(message.indexOf('|') + 1);
 				int line = xmlLocator.findLine(xmlFile,
 						failedAssert.getLocation());
 				String fileName = xmlFile.getName();
+				String location = failedAssert.getLocation();
 				if (line == -1) {
-					String[] result = searchForViolationFile(xpathExpr,
+					String xpathId = "";
+					if (failedAssert.getDiagnosticReferenceCount() > 0) {
+						xpathId = failedAssert.getDiagnosticReference().get(0)
+								.getText().trim();
+					}
+					String[] result = searchForViolationFile(xpathId,
 							validationResult,
 							preProcessResult.getNamespaceTable());
 					fileName = result[0];
 					line = Integer.valueOf(result[1]);
+					location = result[2];
 				}
 				validationResult.getViolations().add(
-						new Violation(constraint, fileName, line, failedAssert
-								.getLocation(), errorMessage));
+						new Violation(constraint, fileName, line, location,
+								errorMessage));
 			}
 		}
 
@@ -154,8 +159,9 @@ public class SchematronBPMNValidator {
 		boolean search = true;
 		String fileName = "";
 		String line = "-1";
+		String xpathExpr = "";
 		int i = 0;
-		System.out.println(xpathExpression);
+		// TODO: case that nothing is found
 		while (search && i < validationResult.getCheckedFiles().size()) {
 			File f = new File(validationResult.getCheckedFiles().get(i));
 			Document d = documentBuilder.parse(f);
@@ -172,14 +178,11 @@ public class SchematronBPMNValidator {
 				d = documentBuilder.parse(f);
 				if (d.getDocumentElement().getAttribute("targetNamespace")
 						.equals(namespace)) {
-					line = ""
-							+ xmlLocator.findLine(
-									f,
-									"//bpmn:*[@id ='"
-											+ xpathExpression
-													.substring(xpathExpression
-															.indexOf('_') + 1)
-											+ "']");
+					xpathExpr = "//bpmn:*[@id ='"
+							+ xpathExpression.substring(xpathExpression
+									.indexOf('_') + 1) + "']";
+					line = "" + xmlLocator.findLine(f, xpathExpr);
+					xpathExpr += "[0]";
 					fileName = f.getName();
 					search = false;
 					break;
@@ -189,7 +192,7 @@ public class SchematronBPMNValidator {
 			i++;
 		}
 
-		return new String[] { fileName, line };
+		return new String[] { fileName, line, xpathExpr };
 	}
 
 	// TODO: refactor
