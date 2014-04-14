@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext002 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,7 +33,17 @@ public class Ext002 {
 				+ "fail_import.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(), "Files have id duplicates");
+		assertEquals(8, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("Files have id duplicates", v.getMessage());
+		assertEquals("fail_import.bpmn", v.getFileName());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals(4, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals("Files have id duplicates", v.getMessage());
+		assertEquals("import.bpmn", v.getFileName());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals(3, v.getLine());
 	}
 
 	@Test
@@ -39,7 +52,17 @@ public class Ext002 {
 				+ "fail_import2.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(), "Files have id duplicates");
+		assertEquals(8, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("Files have id duplicates", v.getMessage());
+		assertEquals("import.bpmn", v.getFileName());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals(3, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals("Files have id duplicates", v.getMessage());
+		assertEquals("import2.bpmn", v.getFileName());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals(3, v.getLine());
 	}
 
 	@Test
@@ -48,7 +71,17 @@ public class Ext002 {
 				+ "fail_import3.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(), "Files have id duplicates");
+		assertEquals(16, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("Files have id duplicates", v.getMessage());
+		assertEquals("fail_import3.bpmn", v.getFileName());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals(4, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals("Files have id duplicates", v.getMessage());
+		assertEquals("fail_import2.bpmn", v.getFileName());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals(5, v.getLine());
 	}
 
 	@Test
