@@ -1,13 +1,21 @@
 package de.uniba.dsg.ppn.ba;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -76,9 +84,12 @@ public class SchematronBPMNValidator {
 		checkConstraint001(xmlFile, parentFolder, validationResult);
 		checkConstraint002(xmlFile, parentFolder, validationResult);
 
+		headFileDocument = preProcessor.preProcess(headFileDocument,
+				parentFolder);
+
 		SchematronOutputType schematronOutputType = schematronSchema
-				.applySchematronValidationToSVRL(new StreamSource(preProcessor
-						.preProcess(headFileDocument, parentFolder)));
+				.applySchematronValidationToSVRL(new StreamSource(
+						transformDocumentToInputStream(headFileDocument)));
 		for (int i = 0; i < schematronOutputType
 				.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
 			if (schematronOutputType
@@ -107,6 +118,24 @@ public class SchematronBPMNValidator {
 		}
 
 		return validationResult;
+	}
+
+	public ByteArrayInputStream transformDocumentToInputStream(
+			Document headFileDocument) throws SAXException, IOException,
+			XPathExpressionException, TransformerException {
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer
+				.transform(new DOMSource(headFileDocument), new StreamResult(
+						new OutputStreamWriter(outputStream, "UTF-8")));
+
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(
+				outputStream.toByteArray());
+
+		return inputStream;
 	}
 
 	private String[] searchForViolationFile(String xpathExpression,

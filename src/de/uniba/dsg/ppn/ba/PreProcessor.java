@@ -1,19 +1,12 @@
 package de.uniba.dsg.ppn.ba;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -46,26 +39,7 @@ public class PreProcessor {
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
 	}
 
-	public ByteArrayInputStream preProcess(Document headFileDocument,
-			File folder) throws SAXException, IOException,
-			XPathExpressionException, TransformerException {
-		headFileDocument = integrateImports(headFileDocument, folder);
-
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		TransformerFactory transformerFactory = TransformerFactory
-				.newInstance();
-		Transformer transformer = transformerFactory.newTransformer();
-		transformer
-				.transform(new DOMSource(headFileDocument), new StreamResult(
-						new OutputStreamWriter(outputStream, "UTF-8")));
-
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(
-				outputStream.toByteArray());
-
-		return inputStream;
-	}
-
-	private Document integrateImports(Document headFileDocument, File folder)
+	public Document preProcess(Document headFileDocument, File folder)
 			throws XPathExpressionException, SAXException, IOException,
 			TransformerException {
 		Object[][] importedFiles = selectImportedFiles(headFileDocument, folder);
@@ -97,8 +71,7 @@ public class PreProcessor {
 				Object[][] importedFiles2 = selectImportedFiles(
 						importedDocument, folder);
 				for (int j = 0; j < importedFiles2.length; j++) {
-					importedDocument = integrateImports(importedDocument,
-							folder);
+					importedDocument = preProcess(importedDocument, folder);
 				}
 
 				headFileDocument = addNodesToDocument(importDefinitionsNode,
@@ -160,5 +133,6 @@ public class PreProcessor {
 		if (bpmnDiagramNode.getLength() > 0) {
 			definitionsNode.removeChild(bpmnDiagramNode.item(0));
 		}
+		// TODO: remove whitespacenodes?
 	}
 }
