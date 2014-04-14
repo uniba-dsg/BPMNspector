@@ -1,6 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -8,6 +7,8 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.uniba.dsg.bpmn.ValidationResult;
 
 public class Path {
 
@@ -28,18 +29,19 @@ public class Path {
 		File f = new File(TestHelper.getTestFilePath() + "path"
 				+ File.separator + "folder" + File.separator
 				+ "success_import.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
+		;
 	}
 
 	@Test
 	public void testConstraintSuccess2() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "path"
 				+ File.separator + "success_import.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 }
