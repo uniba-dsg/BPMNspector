@@ -32,11 +32,11 @@ public class Helper {
 
 	public static void printViolations(List<Violation> violations) {
 		for (Violation v : violations) {
-			System.out.println(v.getLine());
-			System.out.println(v.getFileName());
-			System.out.println(v.getMessage());
-			System.out.println(v.getxPath());
-			System.out.println(v.getConstraint());
+			System.out.println("Line: " + v.getLine());
+			System.out.println("FileName: " + v.getFileName());
+			System.out.println("Message: " + v.getMessage());
+			System.out.println("XPath: " + v.getxPath());
+			System.out.println("Constraint: " + v.getConstraint());
 		}
 	}
 
