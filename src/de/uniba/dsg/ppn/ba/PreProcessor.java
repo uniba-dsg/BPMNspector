@@ -54,18 +54,20 @@ public class PreProcessor {
 
 		for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
 			Node idNode = foundNodesHeadFile.item(j);
-			String prefix = idNode.getTextContent().substring(0,
-					idNode.getTextContent().indexOf(":"));
-			String namespace = headFileDocument.getDocumentElement()
-					.lookupNamespaceURI(prefix);
-			String newPrefix = "";
-			for (Object[] o : importedFiles) {
-				if (namespace.equals(o[2])) {
-					newPrefix = (String) o[1];
+			if (idNode.getTextContent().indexOf(":") != -1) {
+				String prefix = idNode.getTextContent().substring(0,
+						idNode.getTextContent().indexOf(":"));
+				String namespace = headFileDocument.getDocumentElement()
+						.lookupNamespaceURI(prefix);
+				String newPrefix = "";
+				for (Object[] o : importedFiles) {
+					if (namespace.equals(o[2])) {
+						newPrefix = (String) o[1];
+					}
 				}
+				idNode.setTextContent(idNode.getTextContent().replace(
+						prefix + ":", newPrefix + "_"));
 			}
-			idNode.setTextContent(idNode.getTextContent().replace(prefix + ":",
-					newPrefix + "_"));
 		}
 
 		for (int i = 0; i < importedFiles.length; i++) {
