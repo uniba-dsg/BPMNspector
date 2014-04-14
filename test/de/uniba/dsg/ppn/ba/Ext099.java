@@ -61,6 +61,7 @@ public class Ext099 {
 		assertEquals(7, v.getLine());
 	}
 
+	// FIXME
 	@Test
 	public void testConstraintImportedProcessFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
