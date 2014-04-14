@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext007 {
 
 	SchematronBPMNValidator validator = null;
@@ -29,9 +32,26 @@ public class Ext007 {
 				+ "Fail_association.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(3, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An Artifact MUST NOT be a source for a Sequence Flow",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
+		v = result.getViolations().get(1);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Sequence Flow\r\n//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source\r\n//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.");
+				"For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]",
+				v.getxPath());
+		assertEquals(11, v.getLine());
+		v = result.getViolations().get(2);
+		assertEquals(
+				"The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
@@ -40,9 +60,29 @@ public class Ext007 {
 				+ "Fail_group.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(3, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An Artifact MUST NOT be a source for a Sequence Flow",
+				v.getMessage());
+		assertEquals("Fail_group.bpmn", v.getFileName());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
+		v = result.getViolations().get(1);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Sequence Flow\r\n//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source\r\n//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.");
+				"For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
+				v.getMessage());
+		assertEquals("Fail_group.bpmn", v.getFileName());
+		assertEquals(
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]",
+				v.getxPath());
+		assertEquals(8, v.getLine());
+		v = result.getViolations().get(2);
+		assertEquals(
+				"The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
+				v.getMessage());
+		assertEquals("Fail_group.bpmn", v.getFileName());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
@@ -51,9 +91,29 @@ public class Ext007 {
 				+ "Fail_text_annotation.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(3, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An Artifact MUST NOT be a source for a Sequence Flow",
+				v.getMessage());
+		assertEquals("Fail_text_annotation.bpmn", v.getFileName());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
+		v = result.getViolations().get(1);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Sequence Flow\r\n//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source\r\n//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.");
+				"For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
+				v.getMessage());
+		assertEquals("Fail_text_annotation.bpmn", v.getFileName());
+		assertEquals(
+				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]",
+				v.getxPath());
+		assertEquals(8, v.getLine());
+		v = result.getViolations().get(2);
+		assertEquals(
+				"The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
+				v.getMessage());
+		assertEquals("Fail_text_annotation.bpmn", v.getFileName());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 }
