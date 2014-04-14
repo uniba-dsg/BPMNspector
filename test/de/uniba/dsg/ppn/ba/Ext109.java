@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext109 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,15 @@ public class Ext109 {
 				+ "Fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:endEvent[@id = string(//bpmn:messageFlow/@sourceRef)][0]: If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present");
+				"If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:endEvent[@id = string(//bpmn:messageFlow/@sourceRef)][0]",
+				v.getxPath());
+		assertEquals(16, v.getLine());
 	}
 
 	@Test
