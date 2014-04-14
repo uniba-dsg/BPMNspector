@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext025 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,15 @@ public class Ext025 {
 				+ "fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=//bpmn:exclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:parallelGateway/@id)] [not(string(@sourceRef)=//bpmn:inclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:complexGateway/@id)] [not(string(@sourceRef)=//bpmn:eventBasedGateway/@id)][0]: An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present");
+				"An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=//bpmn:exclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:parallelGateway/@id)] [not(string(@sourceRef)=//bpmn:inclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:complexGateway/@id)] [not(string(@sourceRef)=//bpmn:eventBasedGateway/@id)][0]",
+				v.getxPath());
+		assertEquals(19, v.getLine());
 	}
 
 	@Test
@@ -41,9 +50,15 @@ public class Ext025 {
 				+ "fail_2.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=//bpmn:exclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:parallelGateway/@id)] [not(string(@sourceRef)=//bpmn:inclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:complexGateway/@id)] [not(string(@sourceRef)=//bpmn:eventBasedGateway/@id)][0]: An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present");
+				"An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=//bpmn:exclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:parallelGateway/@id)] [not(string(@sourceRef)=//bpmn:inclusiveGateway/@id)] [not(string(@sourceRef)=//bpmn:complexGateway/@id)] [not(string(@sourceRef)=//bpmn:eventBasedGateway/@id)][0]",
+				v.getxPath());
+		assertEquals(19, v.getLine());
 	}
 
 	@Test
