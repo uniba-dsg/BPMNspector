@@ -30,15 +30,17 @@ public class XmlLocator {
 			throws JDOMException, IOException {
 		Document doc = saxBuilder.build(xmlFile);
 		int bracketPosition = xpathExpression.lastIndexOf('[');
-		String xpathWithoutNumber = xpathExpression.substring(0,
-				bracketPosition);
-		XPathExpression<Element> xpath = xPathFactory.compile(
-				xpathWithoutNumber, Filters.element(), null, Namespace
-						.getNamespace("bpmn",
-								SchematronBPMNValidator.bpmnNamespace));
+		int elementPosition = 0;
+		try {
+			elementPosition = Integer.valueOf(xpathExpression.substring(
+					bracketPosition + 1, xpathExpression.lastIndexOf(']')));
+			xpathExpression = xpathExpression.substring(0, bracketPosition);
+		} catch (NumberFormatException e) {
 
-		int elementPosition = Integer.valueOf(xpathExpression.substring(
-				bracketPosition + 1, xpathExpression.lastIndexOf(']')));
+		}
+		XPathExpression<Element> xpath = xPathFactory.compile(xpathExpression,
+				Filters.element(), null, Namespace.getNamespace("bpmn",
+						SchematronBPMNValidator.bpmnNamespace));
 
 		List<Element> foundElements = xpath.evaluate(doc);
 
