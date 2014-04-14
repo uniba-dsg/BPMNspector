@@ -31,12 +31,15 @@ public class Helper {
 	}
 
 	public static void printViolations(List<Violation> violations) {
+		System.out.println("Violations count: " + violations.size());
+		System.out.println("--------------------");
 		for (Violation v : violations) {
 			System.out.println("Line: " + v.getLine());
 			System.out.println("FileName: " + v.getFileName());
 			System.out.println("Message: " + v.getMessage());
 			System.out.println("XPath: " + v.getxPath());
 			System.out.println("Constraint: " + v.getConstraint());
+			System.out.println("--------------------");
 		}
 	}
 
