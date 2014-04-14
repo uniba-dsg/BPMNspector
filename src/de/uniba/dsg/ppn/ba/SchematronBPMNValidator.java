@@ -89,8 +89,6 @@ public class SchematronBPMNValidator {
 		PreProcessResult preProcessResult = preProcessor.preProcess(
 				headFileDocument, parentFolder, namespaceTable);
 
-		Helper.printDocument(preProcessResult.getDocumentResult());
-
 		SchematronOutputType schematronOutputType = schematronSchema
 				.applySchematronValidationToSVRL(new StreamSource(
 						transformDocumentToInputStream(headFileDocument)));
