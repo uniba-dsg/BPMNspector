@@ -61,16 +61,18 @@ public class Ext099 {
 		assertEquals(7, v.getLine());
 	}
 
-	// FIXME
 	@Test
 	public void testConstraintImportedProcessFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "fail_call_ref_process.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				result.getViolations().get(0).getMessage(),
-				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
+				"Referenced process must have at least one None Start Event",
+				v.getMessage());
+		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals(3, v.getLine());
 	}
 
 	@Test
