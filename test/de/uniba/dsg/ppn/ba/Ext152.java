@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext152 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,20 @@ public class Ext152 {
 				+ "fail_1.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("A Sequence Flow must not cross the border of a Pool",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[0]", v.getxPath());
+		assertEquals(16, v.getLine());
+		v = result.getViolations().get(1);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[0]: A Sequence Flow must not cross the border of a Pool\r\n//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]: If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow");
+				"If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]",
+				v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
@@ -41,9 +55,20 @@ public class Ext152 {
 				+ "fail_2.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("A Sequence Flow must not cross the border of a Pool",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[1]", v.getxPath());
+		assertEquals(17, v.getLine());
+		v = result.getViolations().get(1);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[1]: A Sequence Flow must not cross the border of a Pool\r\n//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]: If end events are used, all flow nodes must have an outgoing sequence flow");
+				"If end events are used, all flow nodes must have an outgoing sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]",
+				v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
