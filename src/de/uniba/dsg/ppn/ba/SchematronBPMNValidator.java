@@ -122,6 +122,11 @@ public class SchematronBPMNValidator {
 			}
 		}
 
+		for (int i = 0; i < validationResult.getCheckedFiles().size(); i++) {
+			File f = new File(validationResult.getCheckedFiles().get(i));
+			validationResult.getCheckedFiles().set(i, f.getName());
+		}
+
 		return validationResult;
 	}
 
