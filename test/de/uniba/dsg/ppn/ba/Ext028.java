@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext028 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,8 +33,12 @@ public class Ext028 {
 				+ "Fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(),
-				"//bpmn:sequenceFlow[0]: A Sequence Flow must not cross the border of a Pool");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("A Sequence Flow must not cross the border of a Pool",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[0]", v.getxPath());
+		assertEquals(16, v.getLine());
 	}
 
 	@Test
