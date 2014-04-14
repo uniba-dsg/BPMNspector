@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext107 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,19 @@ public class Ext107 {
 				+ "fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@targetRef][0]: The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.\r\n//bpmn:endEvent[0]: An End Event MUST have at least one incoming Sequence Flow");
+				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+		assertEquals(9, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals(
+				"An End Event MUST have at least one incoming Sequence Flow",
+				v.getMessage());
+		assertEquals("//bpmn:endEvent[0]", v.getxPath());
+		assertEquals(4, v.getLine());
 	}
 
 	@Test
