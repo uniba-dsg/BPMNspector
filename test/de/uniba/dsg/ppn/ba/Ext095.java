@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext095 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,15 @@ public class Ext095 {
 				+ "Fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]: EventDefinitions defined in a throw event are only valid within this element");
+				"EventDefinitions defined in a throw event are only valid within this element",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]",
+				v.getxPath());
+		assertEquals(13, v.getLine());
 	}
 
 	@Test
@@ -41,9 +50,14 @@ public class Ext095 {
 				+ "fail_end.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:endEvent/bpmn:messageEventDefinition[0]: EventDefinitions defined in a throw event are only valid within this element");
+				"EventDefinitions defined in a throw event are only valid within this element",
+				v.getMessage());
+		assertEquals("//bpmn:endEvent/bpmn:messageEventDefinition[0]",
+				v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
