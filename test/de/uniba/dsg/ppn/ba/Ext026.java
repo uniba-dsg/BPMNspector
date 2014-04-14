@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext026 {
 
 	SchematronBPMNValidator validator = null;
@@ -29,10 +32,14 @@ public class Ext026 {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "fail_activity.bpmn");
 		ValidationResult result = validator.validate(f);
-		assertEquals(valid, false);
+		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:task[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
+				"If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef",
+				v.getMessage());
+		assertEquals("//bpmn:task[@default][0]", v.getxPath());
+		assertEquals(11, v.getLine());
 	}
 
 	@Test
@@ -41,9 +48,13 @@ public class Ext026 {
 				+ "fail_gateway.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:exclusiveGateway[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
+				"If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef",
+				v.getMessage());
+		assertEquals("//bpmn:exclusiveGateway[@default][0]", v.getxPath());
+		assertEquals(11, v.getLine());
 	}
 
 	@Test
