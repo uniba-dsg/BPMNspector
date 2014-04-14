@@ -299,7 +299,7 @@
     
     <iso:pattern name="EXT.099">
         <iso:rule context="bpmn:process[./@id = //bpmn:callActivity/@calledElement]">
-            <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))"><value-of select="current()/@id"/>~EXT.099|Referenced process must have at least one None Start Event</iso:assert>
+            <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))" diagnostics="preprocessing">EXT.099|Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -520,5 +520,9 @@
         <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:endEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:outgoing">EXT.151|If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
-    </iso:pattern>   
+    </iso:pattern>
+    
+    <iso:diagnostics>
+        <iso:diagnostic id="preprocessing"><value-of select="current()/@id" /></iso:diagnostic>
+    </iso:diagnostics>
 </iso:schema> 
