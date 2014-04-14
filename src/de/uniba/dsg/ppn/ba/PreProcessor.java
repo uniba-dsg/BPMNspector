@@ -69,7 +69,7 @@ public class PreProcessor {
 			throws XPathExpressionException, SAXException, IOException,
 			TransformerException {
 		Object[][] importedFiles = selectImportedFiles(headFileDocument, folder);
-		removeBPMNNode(headFileDocument);
+		removeBPMNDINode(headFileDocument);
 
 		XPathExpression xPathChangeNamespaceIds = xpath
 				.compile("//bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef");
@@ -87,7 +87,7 @@ public class PreProcessor {
 						.parse((File) importedFiles[i][0]);
 				Element importDefinitionsNode = importedDocument
 						.getDocumentElement();
-				removeBPMNNode(importedDocument);
+				removeBPMNDINode(importedDocument);
 
 				XPathExpression xPathReplaceIds = xpath
 						.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
@@ -153,10 +153,10 @@ public class PreProcessor {
 		return headFileDocument;
 	}
 
-	public void removeBPMNNode(Document headFileDocument) {
+	public void removeBPMNDINode(Document headFileDocument) {
 		Element definitionsNode = headFileDocument.getDocumentElement();
-		NodeList bpmnDiagramNode = headFileDocument
-				.getElementsByTagName("bpmndi:BPMNDiagram");
+		NodeList bpmnDiagramNode = headFileDocument.getElementsByTagNameNS(
+				SchematronBPMNValidator.bpmndiNamespace, "BPMNDiagram");
 		if (bpmnDiagramNode.getLength() > 0) {
 			definitionsNode.removeChild(bpmnDiagramNode.item(0));
 		}

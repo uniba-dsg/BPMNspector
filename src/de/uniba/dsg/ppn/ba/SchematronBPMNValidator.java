@@ -38,6 +38,7 @@ public class SchematronBPMNValidator {
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
 	static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
+	static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
 
 	{
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -191,13 +192,13 @@ public class SchematronBPMNValidator {
 		for (int i = 0; i < importedFileList.size(); i++) {
 			File file1 = importedFileList.get(i);
 			Document document1 = documentBuilder.parse(file1);
-			preProcessor.removeBPMNNode(document1);
+			preProcessor.removeBPMNDINode(document1);
 			String namespace1 = document1.getDocumentElement().getAttribute(
 					"targetNamespace");
 			for (int j = i + 1; j < importedFileList.size(); j++) {
 				File file2 = importedFileList.get(j);
 				Document document2 = documentBuilder.parse(file2);
-				preProcessor.removeBPMNNode(document2);
+				preProcessor.removeBPMNDINode(document2);
 				String namespace2 = document2.getDocumentElement()
 						.getAttribute("targetNamespace");
 				if (namespace1.equals(namespace2)) {
