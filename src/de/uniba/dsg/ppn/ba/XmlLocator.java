@@ -44,7 +44,7 @@ public class XmlLocator {
 
 		List<Element> foundElements = xpath.evaluate(doc);
 
-		if (foundElements.size() >= elementPosition) {
+		if (foundElements.size() > elementPosition) {
 			return ((LocatedElement) foundElements.get(elementPosition))
 					.getLine();
 		}
