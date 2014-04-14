@@ -85,8 +85,11 @@ public class SchematronBPMNValidator {
 		checkConstraint001(xmlFile, parentFolder, validationResult);
 		checkConstraint002(xmlFile, parentFolder, validationResult);
 
-		headFileDocument = preProcessor.preProcess(headFileDocument,
-				parentFolder);
+		List<String[]> namespaceTable = new ArrayList<>();
+		PreProcessResult preProcessResult = preProcessor.preProcess(
+				headFileDocument, parentFolder, namespaceTable);
+
+		Helper.printDocument(preProcessResult.getDocumentResult());
 
 		SchematronOutputType schematronOutputType = schematronSchema
 				.applySchematronValidationToSVRL(new StreamSource(
@@ -108,7 +111,8 @@ public class SchematronBPMNValidator {
 				String fileName = xmlFile.getName();
 				if (line == -1) {
 					String[] result = searchForViolationFile(xpathExpr,
-							validationResult);
+							validationResult,
+							preProcessResult.getNamespaceTable());
 					fileName = result[0];
 					line = Integer.valueOf(result[1]);
 				}
@@ -141,8 +145,9 @@ public class SchematronBPMNValidator {
 
 	// TODO: refactor
 	private String[] searchForViolationFile(String xpathExpression,
-			ValidationResult validationResult) throws SAXException,
-			IOException, XPathExpressionException, JDOMException {
+			ValidationResult validationResult, List<String[]> namespaceTable)
+			throws SAXException, IOException, XPathExpressionException,
+			JDOMException {
 		boolean search = true;
 		String fileName = "";
 		String line = "-1";
@@ -153,8 +158,12 @@ public class SchematronBPMNValidator {
 			Document d = documentBuilder.parse(f);
 			String namespacePrefix = xpathExpression.substring(0,
 					xpathExpression.indexOf('_'));
-			String namespace = d.getDocumentElement().lookupNamespaceURI(
-					namespacePrefix);
+			String namespace = "";
+			for (String[] s : namespaceTable) {
+				if (s[0].equals(namespacePrefix)) {
+					namespace = s[1];
+				}
+			}
 			for (String s : validationResult.getCheckedFiles()) {
 				f = new File(s);
 				d = documentBuilder.parse(f);
@@ -172,6 +181,7 @@ public class SchematronBPMNValidator {
 					search = false;
 					break;
 				}
+
 			}
 			i++;
 		}
@@ -186,7 +196,7 @@ public class SchematronBPMNValidator {
 			JDOMException {
 		Document headFileDocument = documentBuilder.parse(headFile);
 		Object[][] importedFiles = preProcessor.selectImportedFiles(
-				headFileDocument, folder);
+				headFileDocument, folder, 0);
 
 		boolean valid = true;
 		for (int i = 0; i < importedFiles.length; i++) {
@@ -253,7 +263,7 @@ public class SchematronBPMNValidator {
 			ValidationResult validationResult) throws SAXException, IOException {
 		Document document = documentBuilder.parse(file);
 		Object[][] importedFiles = preProcessor.selectImportedFiles(document,
-				folder);
+				folder, 0);
 		List<File> importedFileList = new ArrayList<>();
 		importedFileList.add(file);
 

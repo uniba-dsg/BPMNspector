@@ -2,6 +2,7 @@ package de.uniba.dsg.ppn.ba;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -39,10 +40,11 @@ public class PreProcessor {
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
 	}
 
-	public Document preProcess(Document headFileDocument, File folder)
-			throws XPathExpressionException, SAXException, IOException,
-			TransformerException {
-		Object[][] importedFiles = selectImportedFiles(headFileDocument, folder);
+	public PreProcessResult preProcess(Document headFileDocument, File folder,
+			List<String[]> namespaceTable) throws XPathExpressionException,
+			SAXException, IOException, TransformerException {
+		Object[][] importedFiles = selectImportedFiles(headFileDocument,
+				folder, namespaceTable.size());
 		removeBPMNDINode(headFileDocument);
 
 		XPathExpression xPathChangeNamespaceIds = xpath
@@ -52,7 +54,18 @@ public class PreProcessor {
 
 		for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
 			Node idNode = foundNodesHeadFile.item(j);
-			idNode.setTextContent(idNode.getTextContent().replace(":", "_"));
+			String prefix = idNode.getTextContent().substring(0,
+					idNode.getTextContent().indexOf(":"));
+			String namespace = headFileDocument.getDocumentElement()
+					.lookupNamespaceURI(prefix);
+			String newPrefix = "";
+			for (Object[] o : importedFiles) {
+				if (namespace.equals(o[2])) {
+					newPrefix = (String) o[1];
+				}
+			}
+			idNode.setTextContent(idNode.getTextContent().replace(prefix + ":",
+					newPrefix + "_"));
 		}
 
 		for (int i = 0; i < importedFiles.length; i++) {
@@ -62,24 +75,25 @@ public class PreProcessor {
 				Element importDefinitionsNode = importedDocument
 						.getDocumentElement();
 				removeBPMNDINode(importedDocument);
-
+				namespaceTable.add(new String[] { (String) importedFiles[i][1],
+						(String) importedFiles[i][2] });
 				XPathExpression xPathReplaceIds = xpath
 						.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
 				renameIds(xPathReplaceIds, importedDocument,
 						(String) importedFiles[i][1]);
 
-				Object[][] importedFiles2 = selectImportedFiles(
-						importedDocument, folder);
-				for (int j = 0; j < importedFiles2.length; j++) {
-					importedDocument = preProcess(importedDocument, folder);
-				}
+				namespaceTable.addAll(preProcess(importedDocument, folder,
+						namespaceTable).getNamespaceTable());
 
 				headFileDocument = addNodesToDocument(importDefinitionsNode,
 						headFileDocument);
 			}
 		}
 
-		return headFileDocument;
+		PreProcessResult result = new PreProcessResult(headFileDocument,
+				namespaceTable);
+
+		return result;
 	}
 
 	private void renameIds(XPathExpression xpathExpression, Document document,
@@ -93,11 +107,11 @@ public class PreProcessor {
 		}
 	}
 
-	public Object[][] selectImportedFiles(Document document, File folder) {
-		Element definitionsNode = document.getDocumentElement();
+	public Object[][] selectImportedFiles(Document document, File folder,
+			int size) {
 		NodeList importedFilesList = document.getElementsByTagNameNS(
 				SchematronBPMNValidator.bpmnNamespace, "import");
-		Object[][] importedFiles = new Object[importedFilesList.getLength()][2];
+		Object[][] importedFiles = new Object[importedFilesList.getLength()][3];
 
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
 			Node importedFileNode = importedFilesList.item(i);
@@ -105,9 +119,9 @@ public class PreProcessor {
 					+ File.separator
 					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent());
-			importedFiles[i][1] = definitionsNode
-					.lookupPrefix(importedFileNode.getAttributes()
-							.getNamedItem("namespace").getTextContent());
+			importedFiles[i][1] = "ns" + (i + size);
+			importedFiles[i][2] = importedFileNode.getAttributes()
+					.getNamedItem("namespace").getTextContent();
 		}
 
 		return importedFiles;
