@@ -28,8 +28,8 @@ public class Ext107 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "107" + File.separator
 				+ "fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:sequenceFlow[@targetRef][0]: The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.\r\n//bpmn:endEvent[0]: An End Event MUST have at least one incoming Sequence Flow");
@@ -39,8 +39,8 @@ public class Ext107 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "107" + File.separator
 				+ "success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

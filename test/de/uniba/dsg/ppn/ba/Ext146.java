@@ -28,8 +28,8 @@ public class Ext146 {
 	public void testConstraintLinkFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
 				+ "fail_link.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:endEvent[0]: Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events");
@@ -39,8 +39,8 @@ public class Ext146 {
 	public void testConstraintTimerFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
 				+ "fail_timer.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:endEvent[0]: Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events");
@@ -50,8 +50,8 @@ public class Ext146 {
 	public void testConstraintTimerRefFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
 				+ "fail_timer_ref.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:endEvent[0]: Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events");
@@ -61,8 +61,8 @@ public class Ext146 {
 	public void testConstraintMultipleFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
 				+ "fail_multiple.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:endEvent[0]: Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events");
@@ -72,8 +72,8 @@ public class Ext146 {
 	public void testConstraintConditionalFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
 				+ "fail_conditional.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:endEvent[0]: Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events");
@@ -83,18 +83,18 @@ public class Ext146 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
 				+ "success_message.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintMultipleSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
 				+ "success_multiple.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 }

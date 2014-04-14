@@ -27,8 +27,8 @@ public class Ext009 {
 	public void testConstraintAssociationFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "009" + File.separator
 				+ "Fail_association.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:messageFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Message Flow");
@@ -38,8 +38,8 @@ public class Ext009 {
 	public void testConstraintGroupFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "009" + File.separator
 				+ "Fail_group.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:messageFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Message Flow");
@@ -49,8 +49,8 @@ public class Ext009 {
 	public void testConstraintTextAnnotationFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "009" + File.separator
 				+ "Fail_text_annotation.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:messageFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Message Flow");

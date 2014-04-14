@@ -28,8 +28,8 @@ public class Ext104 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "104" + File.separator
 				+ "fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(validator.getErrors(),
 				"//bpmn:endEvent[0]: An End Event must not have an outgoing sequence flow");
 	}
@@ -38,8 +38,8 @@ public class Ext104 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "104" + File.separator
 				+ "success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

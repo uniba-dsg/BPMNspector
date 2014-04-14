@@ -27,8 +27,8 @@ public class Ext096 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "096" + File.separator
 				+ "Fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(validator.getErrors(),
 				"//bpmn:startEvent[0]: A Start Event must not have an incoming sequence flow");
 	}

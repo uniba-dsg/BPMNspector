@@ -28,8 +28,8 @@ public class Ext022 {
 	public void testConstraintEventSubProcessFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
 				+ "fail_event_sub_process.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]: For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target");
@@ -39,26 +39,26 @@ public class Ext022 {
 	public void testConstraintEventsSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
 				+ "success_events.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintGatewaysSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
 				+ "success_gateways.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintTasksSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
 				+ "success_tasks.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

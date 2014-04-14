@@ -28,8 +28,8 @@ public class Ext076 {
 	public void testConstraintFail1() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
 				+ "Fail_1.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:dataObjectReference[@name][0]: Naming Convention: name = Data Object Name [Data Object Reference State]");
@@ -39,8 +39,8 @@ public class Ext076 {
 	public void testConstraintFail2() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
 				+ "Fail_2.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:dataObjectReference[@name][0]: Naming Convention: name = Data Object Name [Data Object Reference State]");
@@ -50,8 +50,8 @@ public class Ext076 {
 	public void testConstraintFail3() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
 				+ "Fail_3.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:dataObjectReference[@name][0]: Naming Convention: name = Data Object Name [Data Object Reference State]");
@@ -61,8 +61,8 @@ public class Ext076 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
 				+ "Success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

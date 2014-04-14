@@ -27,8 +27,8 @@ public class Ext102 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "102" + File.separator
 				+ "Fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:messageFlow[0]: A message flow must connect ’InteractionNodes’ from different Pools\r\n//bpmn:messageFlow[@sourceRef][0]: A Start Event MUST NOT be a source for a message flow");

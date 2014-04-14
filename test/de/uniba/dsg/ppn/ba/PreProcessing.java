@@ -27,8 +27,8 @@ public class PreProcessing {
 	public void testConstraintImportedProcessFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "preprocessing"
 				+ File.separator + "fail_call_ref_process_call.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
@@ -38,8 +38,8 @@ public class PreProcessing {
 	public void testConstraintImportedProcessFail2() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "preprocessing"
 				+ File.separator + "fail_call_ref_process_call_call.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");

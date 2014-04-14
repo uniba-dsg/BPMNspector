@@ -28,8 +28,8 @@ public class Ext095 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
 				+ "Fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]: EventDefinitions defined in a throw event are only valid within this element");
@@ -39,8 +39,8 @@ public class Ext095 {
 	public void testConstraintEndFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
 				+ "fail_end.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:endEvent/bpmn:messageEventDefinition[0]: EventDefinitions defined in a throw event are only valid within this element");
@@ -50,8 +50,8 @@ public class Ext095 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
 				+ "Success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

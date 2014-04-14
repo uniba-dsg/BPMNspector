@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+
 public class Ext099 {
 
 	SchematronBPMNValidator validator = null;
@@ -28,10 +30,11 @@ public class Ext099 {
 	public void testConstraintEventFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "fail_event.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
 		assertEquals(
-				validator.getErrors(),
+				result.getViolations().get(0).getMessage(),
 				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
 	}
 
@@ -39,10 +42,10 @@ public class Ext099 {
 	public void testConstraintEventRefFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "fail_eventref.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
-				validator.getErrors(),
+				result.getViolations().get(0).getMessage(),
 				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
 	}
 
@@ -50,10 +53,10 @@ public class Ext099 {
 	public void testConstraintImportedProcessFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "fail_call_ref_process.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
-				validator.getErrors(),
+				result.getViolations().get(0).getMessage(),
 				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
 	}
 
@@ -61,17 +64,17 @@ public class Ext099 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintGlobalSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "099" + File.separator
 				+ "success_global.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

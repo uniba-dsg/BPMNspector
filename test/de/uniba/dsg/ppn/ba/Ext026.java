@@ -28,7 +28,7 @@ public class Ext026 {
 	public void testConstraintActivityFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "fail_activity.bpmn");
-		boolean valid = validator.validate(f);
+		ValidationResult result = validator.validate(f);
 		assertEquals(valid, false);
 		assertEquals(
 				validator.getErrors(),
@@ -39,8 +39,8 @@ public class Ext026 {
 	public void testConstraintGatewayFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "fail_gateway.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:exclusiveGateway[@default][0]: If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef");
@@ -50,8 +50,8 @@ public class Ext026 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "026" + File.separator
 				+ "success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

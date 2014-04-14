@@ -28,8 +28,8 @@ public class Ext152 {
 	public void testConstraintFail1() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "152" + File.separator
 				+ "fail_1.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:sequenceFlow[0]: A Sequence Flow must not cross the border of a Pool\r\n//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]: If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow");
@@ -39,8 +39,8 @@ public class Ext152 {
 	public void testConstraintFail2() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "152" + File.separator
 				+ "fail_2.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:sequenceFlow[1]: A Sequence Flow must not cross the border of a Pool\r\n//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]: If end events are used, all flow nodes must have an outgoing sequence flow");
@@ -50,8 +50,8 @@ public class Ext152 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "152" + File.separator
 				+ "success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

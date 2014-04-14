@@ -28,8 +28,8 @@ public class Ext135 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows\r\n//bpmn:parallelGateway[1]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
@@ -39,8 +39,8 @@ public class Ext135 {
 	public void testConstraintSubFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "fail_no_connection.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
@@ -50,8 +50,8 @@ public class Ext135 {
 	public void testConstraintEXSubFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "fail_ex_no_connection.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:exclusiveGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
@@ -61,17 +61,17 @@ public class Ext135 {
 	public void testConstraintBothMultipleSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "success_multiple_in_and_out.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintOutMultipleSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
 				+ "success_multiple_out.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

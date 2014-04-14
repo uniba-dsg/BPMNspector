@@ -28,8 +28,8 @@ public class Ext023 {
 	public void testConstraintNoIncomingFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "023" + File.separator
 				+ "fail_no_incoming.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:sequenceFlow[@targetRef][0]: The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.");
@@ -39,8 +39,8 @@ public class Ext023 {
 	public void testConstraintNoOutgoingFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "023" + File.separator
 				+ "fail_no_outgoing.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.");
@@ -50,8 +50,8 @@ public class Ext023 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "023" + File.separator
 				+ "success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

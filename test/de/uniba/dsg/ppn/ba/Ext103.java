@@ -28,8 +28,8 @@ public class Ext103 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "103" + File.separator
 				+ "Fail.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:startEvent[@id = string(//bpmn:messageFlow/@targetRef)][0]: If a Start Event is target of a MessageFlow definition, at least one messageEventDefinition must be present");
@@ -39,17 +39,17 @@ public class Ext103 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "103" + File.separator
 				+ "Success.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintRefSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "103" + File.separator
 				+ "Success_ref.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

@@ -28,8 +28,8 @@ public class Ext105 {
 	public void testConstraintFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "fail_end_without_sub-events.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:startEvent[0]: An end event must be present when a start event is used in the same process level");
@@ -39,8 +39,8 @@ public class Ext105 {
 	public void testConstraintSubFail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "fail_with_sub-startevent.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(
 				validator.getErrors(),
 				"//bpmn:startEvent[1]: An end event must be present when a start event is used in the same process level");
@@ -50,17 +50,17 @@ public class Ext105 {
 	public void testConstraintSubSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "success_with_sub-events.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 
 	@Test
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
 				+ "success_without_sub-events.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }

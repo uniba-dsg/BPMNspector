@@ -28,8 +28,8 @@ public class Ext002 {
 	public void testConstraintImport1Fail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
 				+ "fail_import.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(validator.getErrors(), "Files have id duplicates");
 	}
 
@@ -37,8 +37,8 @@ public class Ext002 {
 	public void testConstraintImport2Fail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
 				+ "fail_import2.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(validator.getErrors(), "Files have id duplicates");
 	}
 
@@ -46,8 +46,8 @@ public class Ext002 {
 	public void testConstraintImport3Fail() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
 				+ "fail_import3.bpmn");
-		boolean valid = validator.validate(f);
-		assertFalse(valid);
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
 		assertEquals(validator.getErrors(), "Files have id duplicates");
 	}
 
@@ -55,8 +55,8 @@ public class Ext002 {
 	public void testConstraintSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
 				+ "success_import.bpmn");
-		boolean valid = validator.validate(f);
-		assertTrue(valid);
-		assertEquals(validator.getErrors(), "");
+		ValidationResult result = validator.validate(f);
+		assertTrue(result.isValid());
+		assertTrue(result.getViolations().isEmpty());
 	}
 }
