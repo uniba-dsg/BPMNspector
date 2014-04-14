@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext100 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,15 @@ public class Ext100 {
 				+ "fail_event.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"No EventDefinition is allowed for Start Events in Sub-Process definitions",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]",
+				v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
@@ -41,9 +50,13 @@ public class Ext100 {
 				+ "fail_event_transaction.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:transaction/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"No EventDefinition is allowed for Start Events in Sub-Process definitions",
+				v.getMessage());
+		assertEquals("//bpmn:transaction/bpmn:startEvent[0]", v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
@@ -52,9 +65,15 @@ public class Ext100 {
 				+ "fail_event_ref.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]: No EventDefinition is allowed for Start Events in Sub-Process definitions");
+				"No EventDefinition is allowed for Start Events in Sub-Process definitions",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]",
+				v.getxPath());
+		assertEquals(11, v.getLine());
 	}
 
 	@Test
