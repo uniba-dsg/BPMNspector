@@ -5,10 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.Iterator;
 
-import javax.xml.XMLConstants;
-import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -46,28 +43,7 @@ public class PreProcessor {
 		}
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
-		xpath.setNamespaceContext(new NamespaceContext() {
-
-			@Override
-			public String getNamespaceURI(String prefix) {
-				if ("bpmn".equals(prefix)) {
-					return SchematronBPMNValidator.bpmnNamespace;
-				} else if ("xml".equals(prefix)) {
-					return XMLConstants.XML_NS_URI;
-				}
-				return XMLConstants.NULL_NS_URI;
-			}
-
-			@Override
-			public String getPrefix(String uri) {
-				return "";
-			}
-
-			@Override
-			public Iterator<?> getPrefixes(String uri) {
-				return null;
-			}
-		});
+		xpath.setNamespaceContext(new BpmnNamespaceContext());
 	}
 
 	public ByteArrayInputStream preProcess(Document headFileDocument,
