@@ -35,9 +35,9 @@ public class Ext001 {
 		assertFalse(result.isValid());
 		assertEquals(1, result.getViolations().size());
 		Violation v = result.getViolations().get(0);
-		assertEquals(v.getMessage(), "The imported file does not exist");
-		assertEquals(v.getFileName(), "nofile.bpmn");
-		assertEquals(v.getLine(), 3);
+		assertEquals("The imported file does not exist", v.getMessage());
+		assertEquals("nofile.bpmn", v.getFileName());
+		assertEquals(3, v.getLine());
 	}
 
 	@Test
@@ -48,9 +48,9 @@ public class Ext001 {
 		assertFalse(result.isValid());
 		assertEquals(1, result.getViolations().size());
 		Violation v = result.getViolations().get(0);
-		assertEquals(v.getMessage(), "The imported file does not exist");
-		assertEquals(v.getFileName(), "nofile.bpmn");
-		assertEquals(v.getLine(), 3);
+		assertEquals("The imported file does not exist", v.getMessage());
+		assertEquals("nofile.bpmn", v.getFileName());
+		assertEquals(3, v.getLine());
 	}
 
 	@Test
