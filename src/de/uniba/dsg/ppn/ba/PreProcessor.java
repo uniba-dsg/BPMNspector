@@ -77,15 +77,24 @@ public class PreProcessor {
 				Element importDefinitionsNode = importedDocument
 						.getDocumentElement();
 				removeBPMNDINode(importedDocument);
-				namespaceTable.add(new String[] { (String) importedFiles[i][1],
-						(String) importedFiles[i][2] });
+
+				boolean exists = false;
+				for (String[] s : namespaceTable) {
+					if (s[1].equals(importedFiles[i][2])) {
+						exists = true;
+					}
+				}
+				if (!exists) {
+					namespaceTable.add(new String[] {
+							(String) importedFiles[i][1],
+							(String) importedFiles[i][2] });
+				}
 				XPathExpression xPathReplaceIds = xpath
 						.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
 				renameIds(xPathReplaceIds, importedDocument,
 						(String) importedFiles[i][1]);
 
-				namespaceTable.addAll(preProcess(importedDocument, folder,
-						namespaceTable).getNamespaceTable());
+				preProcess(importedDocument, folder, namespaceTable);
 
 				headFileDocument = addNodesToDocument(importDefinitionsNode,
 						headFileDocument);
