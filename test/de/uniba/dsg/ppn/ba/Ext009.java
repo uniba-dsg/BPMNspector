@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext009 {
 
 	SchematronBPMNValidator validator = null;
@@ -29,9 +32,12 @@ public class Ext009 {
 				+ "Fail_association.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(
-				validator.getErrors(),
-				"//bpmn:messageFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Message Flow");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An Artifact MUST NOT be a source for a Message Flow",
+				v.getMessage());
+		assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
@@ -40,9 +46,12 @@ public class Ext009 {
 				+ "Fail_group.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(
-				validator.getErrors(),
-				"//bpmn:messageFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Message Flow");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An Artifact MUST NOT be a source for a Message Flow",
+				v.getMessage());
+		assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
@@ -51,8 +60,11 @@ public class Ext009 {
 				+ "Fail_text_annotation.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(
-				validator.getErrors(),
-				"//bpmn:messageFlow[@sourceRef][0]: An Artifact MUST NOT be a source for a Message Flow");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("An Artifact MUST NOT be a source for a Message Flow",
+				v.getMessage());
+		assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 }
