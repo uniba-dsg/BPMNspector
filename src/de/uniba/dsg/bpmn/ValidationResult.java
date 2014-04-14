@@ -1,5 +1,6 @@
 package de.uniba.dsg.bpmn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -26,13 +27,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "validationResult", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
 public class ValidationResult {
 
-	@XmlElement(namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
-	private boolean valid;
-	
 	@XmlElementWrapper(name = "checkedFile", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
 	@XmlElements(value = { @XmlElement(name = "file", namespace = "http://www.uniba.de/pi/bpmn-cons/validation", type = String.class) })
 	private List<String> checkedFiles;
-	
+
 	@XmlElementWrapper(name = "violations", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
 	@XmlElements(value = { @XmlElement(name = "violation", namespace = "http://www.uniba.de/pi/bpmn-cons/validation", type = Violation.class) })
 	private List<Violation> violations;
@@ -41,7 +39,8 @@ public class ValidationResult {
 	 * default constructor for JAXB
 	 */
 	public ValidationResult() {
-
+		this.checkedFiles = new ArrayList<String>();
+		this.violations = new ArrayList<Violation>();
 	}
 
 	/**
@@ -54,9 +53,8 @@ public class ValidationResult {
 	 * @param violations
 	 *            the found violations or null
 	 */
-	public ValidationResult(boolean valid, List<String> checkedFiles,
+	public ValidationResult(List<String> checkedFiles,
 			List<Violation> violations) {
-		this.valid = valid;
 		this.checkedFiles = checkedFiles;
 		this.violations = violations;
 	}
@@ -65,7 +63,7 @@ public class ValidationResult {
 	 * @return boolean indicating whether all checked files are valid
 	 */
 	public boolean isValid() {
-		return valid;
+		return violations.isEmpty();
 	}
 
 	/**
