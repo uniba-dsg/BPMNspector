@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext084 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,8 +33,12 @@ public class Ext084 {
 				+ "Fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(),
-				"//bpmn:dataInput[0]: A DataInput must be referenced by at least one InputSet");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals("A DataInput must be referenced by at least one InputSet",
+				v.getMessage());
+		assertEquals("//bpmn:dataInput[0]", v.getxPath());
+		assertEquals(5, v.getLine());
 	}
 
 	@Test
