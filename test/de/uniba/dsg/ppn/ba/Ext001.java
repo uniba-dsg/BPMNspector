@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext001 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,7 +33,11 @@ public class Ext001 {
 				+ "Fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(), "One imported file does not exist");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals(v.getMessage(), "The imported file does not exist");
+		assertEquals(v.getFileName(), "nofile.bpmn");
+		assertEquals(v.getLine(), 3);
 	}
 
 	@Test
@@ -39,7 +46,11 @@ public class Ext001 {
 				+ "Fail2.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(validator.getErrors(), "One imported file does not exist");
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals(v.getMessage(), "The imported file does not exist");
+		assertEquals(v.getFileName(), "nofile.bpmn");
+		assertEquals(v.getLine(), 3);
 	}
 
 	@Test
