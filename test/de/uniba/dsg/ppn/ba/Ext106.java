@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext106 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,13 @@ public class Ext106 {
 				+ "fail_cancel_end_event.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:cancelEventDefinition[0]: A cancel EndEvent is only allowed in a transaction sub-process");
+				"A cancel EndEvent is only allowed in a transaction sub-process",
+				v.getMessage());
+		assertEquals("//bpmn:cancelEventDefinition[0]", v.getxPath());
+		assertEquals(9, v.getLine());
 	}
 
 	@Test
@@ -41,9 +48,13 @@ public class Ext106 {
 				+ "fail_sub_process.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:cancelEventDefinition[0]: A cancel EndEvent is only allowed in a transaction sub-process");
+				"A cancel EndEvent is only allowed in a transaction sub-process",
+				v.getMessage());
+		assertEquals("//bpmn:cancelEventDefinition[0]", v.getxPath());
+		assertEquals(24, v.getLine());
 	}
 
 	@Test
