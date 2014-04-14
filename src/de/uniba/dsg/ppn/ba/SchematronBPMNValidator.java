@@ -68,6 +68,7 @@ public class SchematronBPMNValidator {
 		xmlLocator = new XmlLocator();
 	}
 
+	// TODO: refactor
 	public ValidationResult validate(File xmlFile) throws Exception {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
@@ -138,6 +139,7 @@ public class SchematronBPMNValidator {
 		return inputStream;
 	}
 
+	// TODO: refactor
 	private String[] searchForViolationFile(String xpathExpression,
 			ValidationResult validationResult) throws SAXException,
 			IOException, XPathExpressionException, JDOMException {
@@ -177,6 +179,7 @@ public class SchematronBPMNValidator {
 		return new String[] { fileName, line };
 	}
 
+	// TODO: refactor
 	private String checkConstraint001(File headFile, File folder,
 			ValidationResult validationResult)
 			throws ParserConfigurationException, SAXException, IOException,
@@ -210,6 +213,7 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
+	// TODO: refactor
 	private String checkConstraint002(File headFile, File folder,
 			ValidationResult validationResult)
 			throws ParserConfigurationException, SAXException, IOException,
@@ -244,6 +248,7 @@ public class SchematronBPMNValidator {
 		return message;
 	}
 
+	// TODO: refactor
 	private List<File> searchForImports(File file, File folder,
 			ValidationResult validationResult) throws SAXException, IOException {
 		Document document = documentBuilder.parse(file);
@@ -265,6 +270,7 @@ public class SchematronBPMNValidator {
 		return importedFileList;
 	}
 
+	// TODO: refactor
 	private boolean checkNamespacesAndIdDuplicates(File file1, File file2,
 			Document document1, Document document2,
 			ValidationResult validationResult) throws XPathExpressionException,
