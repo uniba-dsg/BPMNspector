@@ -29,14 +29,22 @@ public class XmlLocator {
 	public int findLine(File xmlFile, String xpathExpression)
 			throws JDOMException, IOException {
 		Document doc = saxBuilder.build(xmlFile);
-		XPathExpression<Element> xpath = xPathFactory.compile(xpathExpression,
-				Filters.element(), null, Namespace.getNamespace("bpmn",
-						SchematronBPMNValidator.bpmnNamespace));
+		int bracketPosition = xpathExpression.lastIndexOf('[');
+		String xpathWithoutNumber = xpathExpression.substring(0,
+				bracketPosition);
+		XPathExpression<Element> xpath = xPathFactory.compile(
+				xpathWithoutNumber, Filters.element(), null, Namespace
+						.getNamespace("bpmn",
+								SchematronBPMNValidator.bpmnNamespace));
+
+		int elementPosition = Integer.valueOf(xpathExpression.substring(
+				bracketPosition + 1, xpathExpression.lastIndexOf(']')));
 
 		List<Element> foundElements = xpath.evaluate(doc);
 
-		if (foundElements.size() > 0) {
-			return ((LocatedElement) foundElements.get(0)).getLine();
+		if (foundElements.size() >= elementPosition) {
+			return ((LocatedElement) foundElements.get(elementPosition))
+					.getLine();
 		}
 		return -1;
 	}
