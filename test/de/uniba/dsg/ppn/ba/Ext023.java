@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext023 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,13 @@ public class Ext023 {
 				+ "fail_no_incoming.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@targetRef][0]: The target element of the sequence flow must reference the SequenceFlow definition using their incoming attributes.");
+				"The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
@@ -41,9 +48,13 @@ public class Ext023 {
 				+ "fail_no_outgoing.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:sequenceFlow[@sourceRef][0]: The source element of the sequence flow must reference the SequenceFlow definition using their outcoming attribute.");
+				"The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
+				v.getMessage());
+		assertEquals("//bpmn:sequenceFlow[@sourceRef][0]", v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
