@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext135 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,19 @@ public class Ext135 {
 				+ "fail.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows\r\n//bpmn:parallelGateway[1]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
+				"A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
+				v.getMessage());
+		assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
+		assertEquals(10, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals(
+				"A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
+				v.getMessage());
+		assertEquals("//bpmn:parallelGateway[1]", v.getxPath());
+		assertEquals(20, v.getLine());
 	}
 
 	@Test
@@ -41,9 +54,13 @@ public class Ext135 {
 				+ "fail_no_connection.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
+				"A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
+				v.getMessage());
+		assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
+		assertEquals(4, v.getLine());
 	}
 
 	@Test
@@ -52,9 +69,13 @@ public class Ext135 {
 				+ "fail_ex_no_connection.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:exclusiveGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows");
+				"A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
+				v.getMessage());
+		assertEquals("//bpmn:exclusiveGateway[0]", v.getxPath());
+		assertEquals(4, v.getLine());
 	}
 
 	@Test
