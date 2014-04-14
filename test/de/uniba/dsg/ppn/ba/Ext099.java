@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
 
 public class Ext099 {
 
@@ -33,9 +34,14 @@ public class Ext099 {
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
 		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				result.getViolations().get(0).getMessage(),
-				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
+				"Referenced process must have at least one None Start Event",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:process[./@id = //bpmn:callActivity/@calledElement][0]",
+				v.getxPath());
+		assertEquals(6, v.getLine());
 	}
 
 	@Test
@@ -44,9 +50,15 @@ public class Ext099 {
 				+ "fail_eventref.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				result.getViolations().get(0).getMessage(),
-				"//bpmn:process[./@id = string(//bpmn:callActivity/@calledElement)][0]: Referenced process must have at least one None Start Event");
+				"Referenced process must have at least one None Start Event",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:process[./@id = //bpmn:callActivity/@calledElement][0]",
+				v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
