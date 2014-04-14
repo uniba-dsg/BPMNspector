@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext097 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,13 @@ public class Ext097 {
 				+ "fail_end_without_sub-events.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:endEvent[0]: A Start event must be present when an End event is used in the same process level");
+				"A Start event must be present when an End event is used in the same process level",
+				v.getMessage());
+		assertEquals("//bpmn:endEvent[0]", v.getxPath());
+		assertEquals(8, v.getLine());
 	}
 
 	@Test
@@ -41,9 +48,13 @@ public class Ext097 {
 				+ "fail_with_sub-endevent.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:endEvent[0]: A Start event must be present when an End event is used in the same process level");
+				"A Start event must be present when an End event is used in the same process level",
+				v.getMessage());
+		assertEquals("//bpmn:endEvent[0]", v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
