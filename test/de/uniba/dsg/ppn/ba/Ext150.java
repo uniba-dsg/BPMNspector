@@ -10,6 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+
 public class Ext150 {
 
 	SchematronBPMNValidator validator = null;
@@ -30,9 +33,23 @@ public class Ext150 {
 				+ "fail_normal_sequence_flow_missing_1.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][4]: If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow\r\n//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]: If end events are used, all flow nodes must have an outgoing sequence flow");
+				"If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][4]",
+				v.getxPath());
+		assertEquals(55, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals(
+				"If end events are used, all flow nodes must have an outgoing sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]",
+				v.getxPath());
+		assertEquals(7, v.getLine());
 	}
 
 	@Test
@@ -41,9 +58,23 @@ public class Ext150 {
 				+ "fail_normal_sequence_flow_missing_2.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]: If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow\r\n//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent][3]: If end events are used, all flow nodes must have an outgoing sequence flow");
+				"If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]",
+				v.getxPath());
+		assertEquals(8, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals(
+				"If end events are used, all flow nodes must have an outgoing sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent][3]",
+				v.getxPath());
+		assertEquals(49, v.getLine());
 	}
 
 	@Test
@@ -52,9 +83,22 @@ public class Ext150 {
 				+ "fail_sequence_flow_in_sub_process_missing_1.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:parallelGateway[parent::*/bpmn:startEvent][0]: If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow\r\n//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent][0]: If end events are used, all flow nodes must have an outgoing sequence flow");
+				"If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
+				v.getMessage());
+		assertEquals("//bpmn:parallelGateway[parent::*/bpmn:startEvent][0]",
+				v.getxPath());
+		assertEquals(13, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals(
+				"If end events are used, all flow nodes must have an outgoing sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent][0]",
+				v.getxPath());
+		assertEquals(10, v.getLine());
 	}
 
 	@Test
@@ -63,9 +107,21 @@ public class Ext150 {
 				+ "fail_sequence_flow_in_sub_process_missing_2.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
+		assertEquals(2, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
 		assertEquals(
-				validator.getErrors(),
-				"//bpmn:parallelGateway[0]: A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows\r\n//bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][0]: If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow");
+				"A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
+				v.getMessage());
+		assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
+		assertEquals(14, v.getLine());
+		v = result.getViolations().get(1);
+		assertEquals(
+				"If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
+				v.getMessage());
+		assertEquals(
+				"//bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][0]",
+				v.getxPath());
+		assertEquals(38, v.getLine());
 	}
 
 	@Test
