@@ -230,7 +230,7 @@ public class SchematronBPMNValidator {
 				validationResult.getViolations().add(
 						new Violation("EXT.001", ((File) importedFiles[i][0])
 								.getName(), xmlLocator.findLine(headFile,
-								xpathLocation), xpathLocation,
+								xpathLocation), xpathLocation + "[0]",
 								"The imported file does not exist"));
 			} else {
 				checkConstraint001(((File) importedFiles[i][0]), folder,
@@ -304,11 +304,13 @@ public class SchematronBPMNValidator {
 					validationResult.getViolations().add(
 							new Violation("EXT.002", file1.getName(),
 									xmlLocator.findLine(file1, xpathLocation),
-									xpathLocation, "Files have id duplicates"));
+									xpathLocation + "[0]",
+									"Files have id duplicates"));
 					validationResult.getViolations().add(
 							new Violation("EXT.002", file2.getName(),
 									xmlLocator.findLine(file2, xpathLocation),
-									xpathLocation, "Files have id duplicates"));
+									xpathLocation + "[0]",
+									"Files have id duplicates"));
 				}
 			}
 		}
