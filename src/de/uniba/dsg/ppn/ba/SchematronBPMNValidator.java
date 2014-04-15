@@ -217,18 +217,15 @@ public class SchematronBPMNValidator {
 		return new String[] { fileName, line, xpathObjectId };
 	}
 
-	// TODO: refactor
-	private String checkConstraint001(File headFile, File folder,
+	private void checkConstraint001(File headFile, File folder,
 			ValidationResult validationResult) throws SAXException,
 			IOException, JDOMException {
 		Document headFileDocument = documentBuilder.parse(headFile);
 		Object[][] importedFiles = preProcessor.selectImportedFiles(
 				headFileDocument, folder, 0);
 
-		boolean valid = true;
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (!((File) importedFiles[i][0]).exists()) {
-				valid = false;
 				String xpathLocation = "//bpmn:import[@location = '"
 						+ ((File) importedFiles[i][0]).getName() + "']";
 				validationResult.getViolations().add(
@@ -237,17 +234,10 @@ public class SchematronBPMNValidator {
 								xpathLocation), xpathLocation,
 								"The imported file does not exist"));
 			} else {
-				String error = checkConstraint001(((File) importedFiles[i][0]),
-						folder, validationResult);
-				if (!error.isEmpty()) {
-					valid = false;
-				}
+				checkConstraint001(((File) importedFiles[i][0]), folder,
+						validationResult);
 			}
 		}
-
-		String message = valid ? "" : "One imported file does not exist";
-
-		return message;
 	}
 
 	// TODO: refactor
