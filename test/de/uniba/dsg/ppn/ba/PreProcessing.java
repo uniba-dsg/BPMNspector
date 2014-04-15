@@ -37,7 +37,7 @@ public class PreProcessing {
 		assertEquals(
 				"Referenced process must have at least one None Start Event",
 				v.getMessage());
-		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals("ref_process.bpmn", v.getFileName());
 		assertEquals(3, v.getLine());
 	}
@@ -53,14 +53,14 @@ public class PreProcessing {
 		assertEquals(
 				"Referenced process must have at least one None Start Event",
 				v.getMessage());
-		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals("fail_call_ref_process.bpmn", v.getFileName());
 		assertEquals(4, v.getLine());
 		v = result.getViolations().get(1);
 		assertEquals(
 				"Referenced process must have at least one None Start Event",
 				v.getMessage());
-		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals("ref_process.bpmn", v.getFileName());
 		assertEquals(3, v.getLine());
 	}
@@ -76,14 +76,14 @@ public class PreProcessing {
 		assertEquals(
 				"Referenced process must have at least one None Start Event",
 				v.getMessage());
-		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals("fail_call_ref_process.bpmn", v.getFileName());
 		assertEquals(4, v.getLine());
 		v = result.getViolations().get(1);
 		assertEquals(
 				"Referenced process must have at least one None Start Event",
 				v.getMessage());
-		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals("ref_process.bpmn", v.getFileName());
 		assertEquals(3, v.getLine());
 	}

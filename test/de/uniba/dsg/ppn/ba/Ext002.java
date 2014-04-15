@@ -37,12 +37,12 @@ public class Ext002 {
 		Violation v = result.getViolations().get(0);
 		assertEquals("Files have id duplicates", v.getMessage());
 		assertEquals("fail_import.bpmn", v.getFileName());
-		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(4, v.getLine());
 		v = result.getViolations().get(1);
 		assertEquals("Files have id duplicates", v.getMessage());
 		assertEquals("import.bpmn", v.getFileName());
-		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(3, v.getLine());
 	}
 
@@ -56,12 +56,12 @@ public class Ext002 {
 		Violation v = result.getViolations().get(0);
 		assertEquals("Files have id duplicates", v.getMessage());
 		assertEquals("import.bpmn", v.getFileName());
-		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(3, v.getLine());
 		v = result.getViolations().get(1);
 		assertEquals("Files have id duplicates", v.getMessage());
 		assertEquals("import2.bpmn", v.getFileName());
-		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(3, v.getLine());
 	}
 
@@ -75,12 +75,12 @@ public class Ext002 {
 		Violation v = result.getViolations().get(0);
 		assertEquals("Files have id duplicates", v.getMessage());
 		assertEquals("fail_import3.bpmn", v.getFileName());
-		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(4, v.getLine());
 		v = result.getViolations().get(1);
 		assertEquals("Files have id duplicates", v.getMessage());
 		assertEquals("fail_import2.bpmn", v.getFileName());
-		assertEquals("//bpmn:*[@id = 'PROCESS_1']", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(5, v.getLine());
 	}
 

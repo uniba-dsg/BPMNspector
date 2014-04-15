@@ -71,7 +71,7 @@ public class Ext099 {
 		assertEquals(
 				"Referenced process must have at least one None Start Event",
 				v.getMessage());
-		assertEquals("//bpmn:*[@id ='PROCESS_1'][0]", v.getxPath());
+		assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
 		assertEquals(3, v.getLine());
 	}
 
