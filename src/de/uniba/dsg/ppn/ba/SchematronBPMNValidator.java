@@ -177,11 +177,11 @@ public class SchematronBPMNValidator {
 		boolean search = true;
 		String fileName = "";
 		String line = "-1";
-		String xpathExpr = "";
+		String xpathObjectId = "";
 		int i = 0;
 		while (search && i < validationResult.getCheckedFiles().size()) {
-			File f = new File(validationResult.getCheckedFiles().get(i));
-			Document d = documentBuilder.parse(f);
+			File checkedFile = new File(validationResult.getCheckedFiles().get(i));
+			Document document = documentBuilder.parse(checkedFile);
 			String namespacePrefix = xpathExpression.substring(0,
 					xpathExpression.indexOf('_'));
 			String namespace = "";
@@ -190,17 +190,17 @@ public class SchematronBPMNValidator {
 					namespace = s[1];
 				}
 			}
-			for (String s : validationResult.getCheckedFiles()) {
-				f = new File(s);
-				d = documentBuilder.parse(f);
-				if (d.getDocumentElement().getAttribute("targetNamespace")
+			for (String checkedFilePath : validationResult.getCheckedFiles()) {
+				checkedFile = new File(checkedFilePath);
+				document = documentBuilder.parse(checkedFile);
+				if (document.getDocumentElement().getAttribute("targetNamespace")
 						.equals(namespace)) {
-					xpathExpr = "//bpmn:*[@id ='"
+					xpathObjectId = "//bpmn:*[@id ='"
 							+ xpathExpression.substring(xpathExpression
 									.indexOf('_') + 1) + "']";
-					line = "" + xmlLocator.findLine(f, xpathExpr);
-					xpathExpr += "[0]";
-					fileName = f.getName();
+					line = "" + xmlLocator.findLine(checkedFile, xpathObjectId);
+					xpathObjectId += "[0]";
+					fileName = checkedFile.getName();
 					search = false;
 					break;
 				}
@@ -213,7 +213,7 @@ public class SchematronBPMNValidator {
 			throw new NothingFoundException();
 		}
 
-		return new String[] { fileName, line, xpathExpr };
+		return new String[] { fileName, line, xpathObjectId };
 	}
 
 	// TODO: refactor
