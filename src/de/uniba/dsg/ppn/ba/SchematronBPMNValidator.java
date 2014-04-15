@@ -60,7 +60,7 @@ public class SchematronBPMNValidator {
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
 		try {
-			xPathExpression = xpath.compile("//*/@id");
+			xPathExpression = xpath.compile("//bpmn:*/@id");
 		} catch (XPathExpressionException e) {
 			// ignore
 		}
