@@ -38,6 +38,7 @@ public class Ext001 {
 		assertEquals("The imported file does not exist", v.getMessage());
 		assertEquals("nofile.bpmn", v.getFileName());
 		assertEquals(3, v.getLine());
+		assertEquals("EXT.001", v.getConstraint());
 	}
 
 	@Test
