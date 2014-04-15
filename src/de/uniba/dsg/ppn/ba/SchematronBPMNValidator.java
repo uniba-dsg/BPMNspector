@@ -196,9 +196,8 @@ public class SchematronBPMNValidator {
 				document = documentBuilder.parse(checkedFile);
 				if (document.getDocumentElement()
 						.getAttribute("targetNamespace").equals(namespace)) {
-					xpathObjectId = "//bpmn:*[@id ='"
-							+ xpathExpression.substring(xpathExpression
-									.indexOf('_') + 1) + "']";
+					xpathObjectId = createIdBpmnExpression(xpathExpression
+							.substring(xpathExpression.indexOf('_') + 1));
 					line = "" + xmlLocator.findLine(checkedFile, xpathObjectId);
 					xpathObjectId += "[0]";
 					fileName = checkedFile.getName();
@@ -301,8 +300,7 @@ public class SchematronBPMNValidator {
 			for (int l = 1; l < foundNodes2.getLength(); l++) {
 				String importedFile2Id = foundNodes2.item(l).getNodeValue();
 				if (importedFile1Id.equals(importedFile2Id)) {
-					String xpathLocation = "//bpmn:*[@id = '" + importedFile1Id
-							+ "']";
+					String xpathLocation = createIdBpmnExpression(importedFile1Id);
 					validationResult.getViolations().add(
 							new Violation("EXT.002", file1.getName(),
 									xmlLocator.findLine(file1, xpathLocation),
@@ -314,6 +312,10 @@ public class SchematronBPMNValidator {
 				}
 			}
 		}
+	}
+
+	private String createIdBpmnExpression(String id) {
+		return "//bpmn:*[@id = '" + id + "']";
 	}
 
 }
