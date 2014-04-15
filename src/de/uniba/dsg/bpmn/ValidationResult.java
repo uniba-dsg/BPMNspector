@@ -27,6 +27,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "validationResult", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
 public class ValidationResult {
 
+	@XmlElement(namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
+	private boolean valid;
+
 	@XmlElementWrapper(name = "checkedFile", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
 	@XmlElements(value = { @XmlElement(name = "file", namespace = "http://www.uniba.de/pi/bpmn-cons/validation", type = String.class) })
 	private List<String> checkedFiles;
@@ -53,8 +56,9 @@ public class ValidationResult {
 	 * @param violations
 	 *            the found violations or null
 	 */
-	public ValidationResult(List<String> checkedFiles,
+	public ValidationResult(boolean valid, List<String> checkedFiles,
 			List<Violation> violations) {
+		this.valid = valid;
 		this.checkedFiles = checkedFiles;
 		this.violations = violations;
 	}
