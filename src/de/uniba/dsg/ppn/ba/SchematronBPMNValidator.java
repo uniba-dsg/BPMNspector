@@ -46,8 +46,8 @@ public class SchematronBPMNValidator {
 	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
-	static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
-	static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
+	final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
+	final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
 
 	{
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
