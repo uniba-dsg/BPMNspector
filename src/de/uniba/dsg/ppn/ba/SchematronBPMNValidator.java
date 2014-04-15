@@ -180,7 +180,8 @@ public class SchematronBPMNValidator {
 		String xpathObjectId = "";
 		int i = 0;
 		while (search && i < validationResult.getCheckedFiles().size()) {
-			File checkedFile = new File(validationResult.getCheckedFiles().get(i));
+			File checkedFile = new File(validationResult.getCheckedFiles().get(
+					i));
 			Document document = documentBuilder.parse(checkedFile);
 			String namespacePrefix = xpathExpression.substring(0,
 					xpathExpression.indexOf('_'));
@@ -193,8 +194,8 @@ public class SchematronBPMNValidator {
 			for (String checkedFilePath : validationResult.getCheckedFiles()) {
 				checkedFile = new File(checkedFilePath);
 				document = documentBuilder.parse(checkedFile);
-				if (document.getDocumentElement().getAttribute("targetNamespace")
-						.equals(namespace)) {
+				if (document.getDocumentElement()
+						.getAttribute("targetNamespace").equals(namespace)) {
 					xpathObjectId = "//bpmn:*[@id ='"
 							+ xpathExpression.substring(xpathExpression
 									.indexOf('_') + 1) + "']";
