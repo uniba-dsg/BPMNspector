@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,8 @@ public class SchematronBPMNValidator {
 	}
 
 	// TODO: refactor
-	public ValidationResult validate(File xmlFile) throws Exception {
+	public ValidationResult validate(File xmlFile)
+			throws IllegalArgumentException {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
 						"schematron/validation.xml").getPath());
@@ -77,69 +79,81 @@ public class SchematronBPMNValidator {
 			throw new IllegalArgumentException("Invalid Schematron!");
 		}
 
-		Document headFileDocument = documentBuilder.parse(xmlFile);
-		File parentFolder = xmlFile.getParentFile();
 		ValidationResult validationResult = new ValidationResult();
-		validationResult.getCheckedFiles().add(xmlFile.getAbsolutePath());
 
-		checkConstraint001(xmlFile, parentFolder, validationResult);
-		checkConstraint002(xmlFile, parentFolder, validationResult);
+		try {
+			Document headFileDocument = documentBuilder.parse(xmlFile);
+			File parentFolder = xmlFile.getParentFile();
+			validationResult.getCheckedFiles().add(xmlFile.getAbsolutePath());
 
-		List<String[]> namespaceTable = new ArrayList<>();
-		PreProcessResult preProcessResult = preProcessor.preProcess(
-				headFileDocument, parentFolder, namespaceTable);
+			checkConstraint001(xmlFile, parentFolder, validationResult);
+			checkConstraint002(xmlFile, parentFolder, validationResult);
 
-		SchematronOutputType schematronOutputType = schematronSchema
-				.applySchematronValidationToSVRL(new StreamSource(
-						transformDocumentToInputStream(headFileDocument)));
-		for (int i = 0; i < schematronOutputType
-				.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
-			if (schematronOutputType
-					.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-				FailedAssert failedAssert = (FailedAssert) schematronOutputType
-						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-				String message = failedAssert.getText().trim();
-				String constraint = message.substring(0, message.indexOf('|'));
-				String errorMessage = message
-						.substring(message.indexOf('|') + 1);
-				int line = xmlLocator.findLine(xmlFile,
-						failedAssert.getLocation());
-				String fileName = xmlFile.getName();
-				String location = failedAssert.getLocation();
-				if (line == -1) {
-					try {
-						String xpathId = "";
-						if (failedAssert.getDiagnosticReferenceCount() > 0) {
-							xpathId = failedAssert.getDiagnosticReference()
-									.get(0).getText().trim();
+			List<String[]> namespaceTable = new ArrayList<>();
+			PreProcessResult preProcessResult = preProcessor.preProcess(
+					headFileDocument, parentFolder, namespaceTable);
+
+			SchematronOutputType schematronOutputType = schematronSchema
+					.applySchematronValidationToSVRL(new StreamSource(
+							transformDocumentToInputStream(headFileDocument)));
+			for (int i = 0; i < schematronOutputType
+					.getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
+				if (schematronOutputType
+						.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
+					FailedAssert failedAssert = (FailedAssert) schematronOutputType
+							.getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
+					String message = failedAssert.getText().trim();
+					String constraint = message.substring(0,
+							message.indexOf('|'));
+					String errorMessage = message.substring(message
+							.indexOf('|') + 1);
+					int line = xmlLocator.findLine(xmlFile,
+							failedAssert.getLocation());
+					String fileName = xmlFile.getName();
+					String location = failedAssert.getLocation();
+					if (line == -1) {
+						try {
+							String xpathId = "";
+							if (failedAssert.getDiagnosticReferenceCount() > 0) {
+								xpathId = failedAssert.getDiagnosticReference()
+										.get(0).getText().trim();
+							}
+							String[] result = searchForViolationFile(xpathId,
+									validationResult,
+									preProcessResult.getNamespaceTable());
+							fileName = result[0];
+							line = Integer.valueOf(result[1]);
+							location = result[2];
+						} catch (NothingFoundException e) {
+							fileName = e.getMessage();
 						}
-						String[] result = searchForViolationFile(xpathId,
-								validationResult,
-								preProcessResult.getNamespaceTable());
-						fileName = result[0];
-						line = Integer.valueOf(result[1]);
-						location = result[2];
-					} catch (NothingFoundException e) {
-						fileName = e.getMessage();
 					}
+					validationResult.getViolations().add(
+							new Violation(constraint, fileName, line, location,
+									errorMessage));
 				}
-				validationResult.getViolations().add(
-						new Violation(constraint, fileName, line, location,
-								errorMessage));
 			}
-		}
 
-		for (int i = 0; i < validationResult.getCheckedFiles().size(); i++) {
-			File f = new File(validationResult.getCheckedFiles().get(i));
-			validationResult.getCheckedFiles().set(i, f.getName());
+			for (int i = 0; i < validationResult.getCheckedFiles().size(); i++) {
+				File f = new File(validationResult.getCheckedFiles().get(i));
+				validationResult.getCheckedFiles().set(i, f.getName());
+			}
+		} catch (SAXException | JDOMException | XPathExpressionException
+				| TransformerException e) {
+			// ignore
+		} catch (IOException e) {
+			throw new IllegalArgumentException("A file couldn't be read!");
+		} catch (Exception e) {
+			throw new IllegalArgumentException(
+					"Something went wrong during schematron validation!");
 		}
 
 		return validationResult;
 	}
 
 	public ByteArrayInputStream transformDocumentToInputStream(
-			Document headFileDocument) throws SAXException, IOException,
-			XPathExpressionException, TransformerException {
+			Document headFileDocument) throws UnsupportedEncodingException,
+			TransformerException {
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		TransformerFactory transformerFactory = TransformerFactory
@@ -158,14 +172,13 @@ public class SchematronBPMNValidator {
 	// TODO: refactor
 	private String[] searchForViolationFile(String xpathExpression,
 			ValidationResult validationResult, List<String[]> namespaceTable)
-			throws SAXException, IOException, XPathExpressionException,
-			JDOMException, NothingFoundException {
+			throws NothingFoundException, JDOMException, IOException,
+			SAXException {
 		boolean search = true;
 		String fileName = "";
 		String line = "-1";
 		String xpathExpr = "";
 		int i = 0;
-		// TODO: case that nothing is found
 		while (search && i < validationResult.getCheckedFiles().size()) {
 			File f = new File(validationResult.getCheckedFiles().get(i));
 			Document d = documentBuilder.parse(f);
@@ -205,9 +218,8 @@ public class SchematronBPMNValidator {
 
 	// TODO: refactor
 	private String checkConstraint001(File headFile, File folder,
-			ValidationResult validationResult)
-			throws ParserConfigurationException, SAXException, IOException,
-			JDOMException {
+			ValidationResult validationResult) throws SAXException,
+			IOException, JDOMException {
 		Document headFileDocument = documentBuilder.parse(headFile);
 		Object[][] importedFiles = preProcessor.selectImportedFiles(
 				headFileDocument, folder, 0);
@@ -239,9 +251,8 @@ public class SchematronBPMNValidator {
 
 	// TODO: refactor
 	private String checkConstraint002(File headFile, File folder,
-			ValidationResult validationResult)
-			throws ParserConfigurationException, SAXException, IOException,
-			XPathExpressionException, JDOMException {
+			ValidationResult validationResult) throws SAXException,
+			IOException, XPathExpressionException, JDOMException {
 		List<File> importedFileList = searchForImports(headFile, folder,
 				validationResult);
 
@@ -298,7 +309,7 @@ public class SchematronBPMNValidator {
 	private boolean checkNamespacesAndIdDuplicates(File file1, File file2,
 			Document document1, Document document2,
 			ValidationResult validationResult) throws XPathExpressionException,
-			SAXException, IOException, JDOMException {
+			JDOMException, IOException {
 		NodeList foundNodes1 = (NodeList) xPathExpression.evaluate(document1,
 				XPathConstants.NODESET);
 		NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
