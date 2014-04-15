@@ -107,17 +107,21 @@ public class SchematronBPMNValidator {
 				String fileName = xmlFile.getName();
 				String location = failedAssert.getLocation();
 				if (line == -1) {
-					String xpathId = "";
-					if (failedAssert.getDiagnosticReferenceCount() > 0) {
-						xpathId = failedAssert.getDiagnosticReference().get(0)
-								.getText().trim();
+					try {
+						String xpathId = "";
+						if (failedAssert.getDiagnosticReferenceCount() > 0) {
+							xpathId = failedAssert.getDiagnosticReference()
+									.get(0).getText().trim();
+						}
+						String[] result = searchForViolationFile(xpathId,
+								validationResult,
+								preProcessResult.getNamespaceTable());
+						fileName = result[0];
+						line = Integer.valueOf(result[1]);
+						location = result[2];
+					} catch (NothingFoundException e) {
+						fileName = e.getMessage();
 					}
-					String[] result = searchForViolationFile(xpathId,
-							validationResult,
-							preProcessResult.getNamespaceTable());
-					fileName = result[0];
-					line = Integer.valueOf(result[1]);
-					location = result[2];
 				}
 				validationResult.getViolations().add(
 						new Violation(constraint, fileName, line, location,
@@ -155,7 +159,7 @@ public class SchematronBPMNValidator {
 	private String[] searchForViolationFile(String xpathExpression,
 			ValidationResult validationResult, List<String[]> namespaceTable)
 			throws SAXException, IOException, XPathExpressionException,
-			JDOMException {
+			JDOMException, NothingFoundException {
 		boolean search = true;
 		String fileName = "";
 		String line = "-1";
@@ -190,6 +194,10 @@ public class SchematronBPMNValidator {
 
 			}
 			i++;
+		}
+
+		if (search) {
+			throw new NothingFoundException();
 		}
 
 		return new String[] { fileName, line, xpathExpr };
