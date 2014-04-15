@@ -240,14 +240,12 @@ public class SchematronBPMNValidator {
 		}
 	}
 
-	// TODO: refactor
-	private String checkConstraint002(File headFile, File folder,
+	private void checkConstraint002(File headFile, File folder,
 			ValidationResult validationResult) throws SAXException,
 			IOException, XPathExpressionException, JDOMException {
 		List<File> importedFileList = searchForImports(headFile, folder,
 				validationResult);
 
-		boolean valid = true;
 		for (int i = 0; i < importedFileList.size(); i++) {
 			File file1 = importedFileList.get(i);
 			Document document1 = documentBuilder.parse(file1);
@@ -261,17 +259,11 @@ public class SchematronBPMNValidator {
 				String namespace2 = document2.getDocumentElement()
 						.getAttribute("targetNamespace");
 				if (namespace1.equals(namespace2)) {
-					if (!checkNamespacesAndIdDuplicates(file1, file2,
-							document1, document2, validationResult)) {
-						valid = false;
-					}
+					checkNamespacesAndIdDuplicates(file1, file2, document1,
+							document2, validationResult);
 				}
 			}
 		}
-
-		String message = valid ? "" : "Files have id duplicates";
-
-		return message;
 	}
 
 	// TODO: refactor
