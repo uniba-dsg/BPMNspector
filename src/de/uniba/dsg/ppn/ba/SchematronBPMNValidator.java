@@ -288,8 +288,7 @@ public class SchematronBPMNValidator {
 		return importedFileList;
 	}
 
-	// TODO: refactor
-	private boolean checkNamespacesAndIdDuplicates(File file1, File file2,
+	private void checkNamespacesAndIdDuplicates(File file1, File file2,
 			Document document1, Document document2,
 			ValidationResult validationResult) throws XPathExpressionException,
 			JDOMException, IOException {
@@ -297,7 +296,6 @@ public class SchematronBPMNValidator {
 				XPathConstants.NODESET);
 		NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
 				XPathConstants.NODESET);
-		boolean valid = true;
 		for (int k = 1; k < foundNodes1.getLength(); k++) {
 			String importedFile1Id = foundNodes1.item(k).getNodeValue();
 			for (int l = 1; l < foundNodes2.getLength(); l++) {
@@ -313,12 +311,9 @@ public class SchematronBPMNValidator {
 							new Violation("EXT.002", file2.getName(),
 									xmlLocator.findLine(file2, xpathLocation),
 									xpathLocation, "Files have id duplicates"));
-					valid = false;
 				}
 			}
 		}
-
-		return valid;
 	}
 
 }
