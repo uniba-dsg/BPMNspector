@@ -67,7 +67,16 @@ public class ValidationResult {
 	 * @return boolean indicating whether all checked files are valid
 	 */
 	public boolean isValid() {
-		return violations.isEmpty();
+		return valid;
+	}
+
+	/**
+	 * sets the attribute valid to the given value
+	 * 
+	 * @param valid
+	 */
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 
 	/**
