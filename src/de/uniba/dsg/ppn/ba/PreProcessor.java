@@ -147,13 +147,15 @@ public class PreProcessor {
 
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
 			Node importedFileNode = importedFilesList.item(i);
-			importedFiles[i].setFile(new File(folder.getPath()
+			ImportedFile importedFile = new ImportedFile();
+			importedFile.setFile(new File(folder.getPath()
 					+ File.separator
 					+ importedFileNode.getAttributes().getNamedItem("location")
 							.getTextContent()));
-			importedFiles[i].setPrefix("ns" + (i + size));
-			importedFiles[i].setNamespace(importedFileNode.getAttributes()
+			importedFile.setPrefix("ns" + (i + size));
+			importedFile.setNamespace(importedFileNode.getAttributes()
 					.getNamedItem("namespace").getTextContent());
+			importedFiles[i] = importedFile;
 		}
 
 		return importedFiles;
