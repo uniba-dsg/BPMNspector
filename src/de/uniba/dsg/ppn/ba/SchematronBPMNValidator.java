@@ -145,6 +145,8 @@ public class SchematronBPMNValidator {
 					"Something went wrong during schematron validation!");
 		}
 
+		validationResult.setValid(validationResult.getViolations().isEmpty());
+
 		return validationResult;
 	}
 
