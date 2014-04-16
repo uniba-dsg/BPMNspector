@@ -45,7 +45,7 @@ public class PreProcessor {
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
-		logger = LoggerFactory.getLogger(SchematronBPMNValidator.class);
+		logger = LoggerFactory.getLogger(PreProcessor.class);
 	}
 
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
