@@ -45,7 +45,7 @@ public class PreProcessor {
 
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
 			List<String[]> namespaceTable) throws XPathExpressionException,
-			SAXException, IOException, TransformerException {
+			TransformerException {
 		Object[][] importedFiles = selectImportedFiles(headFileDocument,
 				folder, namespaceTable.size());
 		removeBPMNDINode(headFileDocument);
@@ -75,32 +75,38 @@ public class PreProcessor {
 
 		for (int i = 0; i < importedFiles.length; i++) {
 			if (((File) importedFiles[i][0]).exists()) {
-				Document importedDocument = documentBuilder
-						.parse((File) importedFiles[i][0]);
-				Element importDefinitionsNode = importedDocument
-						.getDocumentElement();
-				removeBPMNDINode(importedDocument);
+				try {
+					Document importedDocument = documentBuilder
+							.parse((File) importedFiles[i][0]);
 
-				boolean exists = false;
-				for (String[] s : namespaceTable) {
-					if (s[1].equals(importedFiles[i][2])) {
-						exists = true;
+					Element importDefinitionsNode = importedDocument
+							.getDocumentElement();
+					removeBPMNDINode(importedDocument);
+
+					boolean exists = false;
+					for (String[] s : namespaceTable) {
+						if (s[1].equals(importedFiles[i][2])) {
+							exists = true;
+						}
 					}
-				}
-				if (!exists) {
-					namespaceTable.add(new String[] {
-							(String) importedFiles[i][1],
-							(String) importedFiles[i][2] });
-				}
-				XPathExpression xPathReplaceIds = xpath
-						.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
-				renameIds(xPathReplaceIds, importedDocument,
-						(String) importedFiles[i][1]);
+					if (!exists) {
+						namespaceTable.add(new String[] {
+								(String) importedFiles[i][1],
+								(String) importedFiles[i][2] });
+					}
+					XPathExpression xPathReplaceIds = xpath
+							.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
+					renameIds(xPathReplaceIds, importedDocument,
+							(String) importedFiles[i][1]);
 
-				preProcess(importedDocument, folder, namespaceTable);
+					preProcess(importedDocument, folder, namespaceTable);
 
-				headFileDocument = addNodesToDocument(importDefinitionsNode,
-						headFileDocument);
+					headFileDocument = addNodesToDocument(
+							importDefinitionsNode, headFileDocument);
+				} catch (SAXException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 
@@ -161,6 +167,5 @@ public class PreProcessor {
 		if (bpmnDiagramNode.getLength() > 0) {
 			definitionsNode.removeChild(bpmnDiagramNode.item(0));
 		}
-		// TODO: remove whitespacenodes?
 	}
 }

@@ -26,27 +26,32 @@ public class XmlLocator {
 		xPathFactory = XPathFactory.instance();
 	}
 
-	public int findLine(File xmlFile, String xpathExpression)
-			throws JDOMException, IOException {
-		Document doc = saxBuilder.build(xmlFile);
-		int bracketPosition = xpathExpression.lastIndexOf('[');
-		int elementPosition = 0;
+	public int findLine(File xmlFile, String xpathExpression) {
 		try {
-			elementPosition = Integer.valueOf(xpathExpression.substring(
-					bracketPosition + 1, xpathExpression.lastIndexOf(']')));
-			xpathExpression = xpathExpression.substring(0, bracketPosition);
-		} catch (NumberFormatException e) {
+			Document doc = saxBuilder.build(xmlFile);
+			int bracketPosition = xpathExpression.lastIndexOf('[');
+			int elementPosition = 0;
+			try {
+				elementPosition = Integer.valueOf(xpathExpression.substring(
+						bracketPosition + 1, xpathExpression.lastIndexOf(']')));
+				xpathExpression = xpathExpression.substring(0, bracketPosition);
+			} catch (NumberFormatException e) {
+				// ignore, because then there's no position number in the xpath
+				// expression and the expression needn't to be rewritten
+			}
+			XPathExpression<Element> xpath = xPathFactory.compile(
+					xpathExpression, Filters.element(), null, Namespace
+							.getNamespace("bpmn",
+									SchematronBPMNValidator.bpmnNamespace));
 
-		}
-		XPathExpression<Element> xpath = xPathFactory.compile(xpathExpression,
-				Filters.element(), null, Namespace.getNamespace("bpmn",
-						SchematronBPMNValidator.bpmnNamespace));
+			List<Element> foundElements = xpath.evaluate(doc);
 
-		List<Element> foundElements = xpath.evaluate(doc);
-
-		if (foundElements.size() > elementPosition) {
-			return ((LocatedElement) foundElements.get(elementPosition))
-					.getLine();
+			if (foundElements.size() > elementPosition) {
+				return ((LocatedElement) foundElements.get(elementPosition))
+						.getLine();
+			}
+		} catch (IOException | JDOMException e) {
+			// TODO Auto-generated catch block
 		}
 		return -1;
 	}
