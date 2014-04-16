@@ -39,6 +39,7 @@ import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.ppn.ba.helper.ImportedFile;
 import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
 
 public class SchematronBPMNValidator {
@@ -250,22 +251,20 @@ public class SchematronBPMNValidator {
 		try {
 			Document headFileDocument = documentBuilder.parse(headFile);
 
-			Object[][] importedFiles = preProcessor.selectImportedFiles(
+			ImportedFile[] importedFiles = preProcessor.selectImportedFiles(
 					headFileDocument, folder, 0);
 
 			for (int i = 0; i < importedFiles.length; i++) {
-				if (!((File) importedFiles[i][0]).exists()) {
+				if (!importedFiles[i].getFile().exists()) {
 					String xpathLocation = "//bpmn:import[@location = '"
-							+ ((File) importedFiles[i][0]).getName() + "']";
+							+ importedFiles[i].getFile().getName() + "']";
 					validationResult.getViolations().add(
-							new Violation("EXT.001",
-									((File) importedFiles[i][0]).getName(),
-									xmlLocator
-											.findLine(headFile, xpathLocation),
-									xpathLocation + "[0]",
+							new Violation("EXT.001", importedFiles[i].getFile()
+									.getName(), xmlLocator.findLine(headFile,
+									xpathLocation), xpathLocation + "[0]",
 									"The imported file does not exist"));
 				} else {
-					checkConstraint001(((File) importedFiles[i][0]), folder,
+					checkConstraint001(importedFiles[i].getFile(), folder,
 							validationResult);
 				}
 			}
@@ -317,16 +316,16 @@ public class SchematronBPMNValidator {
 		List<File> importedFileList = new ArrayList<>();
 		try {
 			Document document = documentBuilder.parse(file);
-			Object[][] importedFiles = preProcessor.selectImportedFiles(
+			ImportedFile[] importedFiles = preProcessor.selectImportedFiles(
 					document, folder, 0);
 			importedFileList.add(file);
 
 			for (int i = 0; i < importedFiles.length; i++) {
-				if (((File) importedFiles[i][0]).exists()) {
+				if (importedFiles[i].getFile().exists()) {
 					validationResult.getCheckedFiles().add(
-							((File) importedFiles[i][0]).getAbsolutePath());
+							importedFiles[i].getFile().getAbsolutePath());
 					importedFileList.addAll(searchForImports(
-							((File) importedFiles[i][0]), folder,
+							importedFiles[i].getFile(), folder,
 							validationResult));
 				}
 			}

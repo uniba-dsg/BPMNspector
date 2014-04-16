@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
+import de.uniba.dsg.ppn.ba.helper.ImportedFile;
 import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
 
 public class PreProcessor {
@@ -50,7 +51,7 @@ public class PreProcessor {
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
 			List<String[]> namespaceTable) throws XPathExpressionException,
 			TransformerException {
-		Object[][] importedFiles = selectImportedFiles(headFileDocument,
+		ImportedFile[] importedFiles = selectImportedFiles(headFileDocument,
 				folder, namespaceTable.size());
 		removeBPMNDINode(headFileDocument);
 		logger.info("preprocessing step started");
@@ -68,9 +69,9 @@ public class PreProcessor {
 				String namespace = headFileDocument.getDocumentElement()
 						.lookupNamespaceURI(prefix);
 				String newPrefix = "";
-				for (Object[] o : importedFiles) {
-					if (namespace.equals(o[2])) {
-						newPrefix = (String) o[1];
+				for (ImportedFile importedFile : importedFiles) {
+					if (namespace.equals(importedFile.getNamespace())) {
+						newPrefix = importedFile.getPrefix();
 					}
 				}
 				logger.debug("new prefix will be set {}", newPrefix);
@@ -80,10 +81,10 @@ public class PreProcessor {
 		}
 
 		for (int i = 0; i < importedFiles.length; i++) {
-			if (((File) importedFiles[i][0]).exists()) {
+			if (importedFiles[i].getFile().exists()) {
 				try {
 					Document importedDocument = documentBuilder
-							.parse((File) importedFiles[i][0]);
+							.parse(importedFiles[i].getFile());
 
 					Element importDefinitionsNode = importedDocument
 							.getDocumentElement();
@@ -91,21 +92,21 @@ public class PreProcessor {
 
 					boolean exists = false;
 					for (String[] s : namespaceTable) {
-						if (s[1].equals(importedFiles[i][2])) {
+						if (s[1].equals(importedFiles[i].getNamespace())) {
 							exists = true;
 						}
 					}
 					logger.debug("namespace of file read: {}",
-							importedFiles[i][2]);
+							importedFiles[i].getNamespace());
 					if (!exists) {
 						namespaceTable.add(new String[] {
-								(String) importedFiles[i][1],
-								(String) importedFiles[i][2] });
+								importedFiles[i].getPrefix(),
+								importedFiles[i].getNamespace() });
 					}
 					XPathExpression xPathReplaceIds = xpath
 							.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
 					renameIds(xPathReplaceIds, importedDocument,
-							(String) importedFiles[i][1]);
+							importedFiles[i].getPrefix());
 
 					logger.info("integration of document will be done now");
 
@@ -137,21 +138,22 @@ public class PreProcessor {
 		}
 	}
 
-	public Object[][] selectImportedFiles(Document document, File folder,
+	public ImportedFile[] selectImportedFiles(Document document, File folder,
 			int size) {
 		NodeList importedFilesList = document.getElementsByTagNameNS(
 				SchematronBPMNValidator.bpmnNamespace, "import");
-		Object[][] importedFiles = new Object[importedFilesList.getLength()][3];
+		ImportedFile[] importedFiles = new ImportedFile[importedFilesList
+				.getLength()];
 
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
 			Node importedFileNode = importedFilesList.item(i);
-			importedFiles[i][0] = new File(folder.getPath()
+			importedFiles[i].setFile(new File(folder.getPath()
 					+ File.separator
 					+ importedFileNode.getAttributes().getNamedItem("location")
-							.getTextContent());
-			importedFiles[i][1] = "ns" + (i + size);
-			importedFiles[i][2] = importedFileNode.getAttributes()
-					.getNamedItem("namespace").getTextContent();
+							.getTextContent()));
+			importedFiles[i].setPrefix("ns" + (i + size));
+			importedFiles[i].setNamespace(importedFileNode.getAttributes()
+					.getNamedItem("namespace").getTextContent());
 		}
 
 		return importedFiles;
