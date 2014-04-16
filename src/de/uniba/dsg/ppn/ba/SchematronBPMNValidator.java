@@ -74,7 +74,6 @@ public class SchematronBPMNValidator {
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
 		logger = LoggerFactory.getLogger(SchematronBPMNValidator.class);
-
 	}
 
 	// TODO: refactor
@@ -155,9 +154,12 @@ public class SchematronBPMNValidator {
 				validationResult.getCheckedFiles().set(i, f.getName());
 			}
 		} catch (SAXException | IOException e) {
+			logger.error("file {} couldn't be read. Cause: {}",
+					xmlFile.getName(), e.getCause());
 			throw new BpmnValidationException(
 					"Given file couldn't be read or doesn't exist!");
 		} catch (Exception e) {
+			logger.error("exception. Cause: {}", e.getCause());
 			throw new BpmnValidationException(
 					"Something went wrong during schematron validation!");
 		}
