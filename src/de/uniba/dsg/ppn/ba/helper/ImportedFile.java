@@ -8,6 +8,10 @@ public class ImportedFile {
 	private String prefix;
 	private String namespace;
 
+	public ImportedFile() {
+
+	}
+
 	public ImportedFile(File file, String prefix, String namespace) {
 		this.file = file;
 		this.prefix = prefix;
