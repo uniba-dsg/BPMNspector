@@ -73,6 +73,7 @@ public class PreProcessor {
 						newPrefix = (String) o[1];
 					}
 				}
+				logger.debug("new prefix will be set {}", newPrefix);
 				idNode.setTextContent(idNode.getTextContent().replace(
 						prefix + ":", newPrefix + "_"));
 			}
@@ -94,6 +95,8 @@ public class PreProcessor {
 							exists = true;
 						}
 					}
+					logger.debug("namespace of file read: {}",
+							importedFiles[i][2]);
 					if (!exists) {
 						namespaceTable.add(new String[] {
 								(String) importedFiles[i][1],
@@ -111,8 +114,8 @@ public class PreProcessor {
 					headFileDocument = addNodesToDocument(
 							importDefinitionsNode, headFileDocument);
 				} catch (SAXException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error("imported file couldn't be read. Cause: {}",
+							e.getCause());
 				}
 			}
 		}

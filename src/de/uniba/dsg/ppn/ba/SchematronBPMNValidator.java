@@ -227,11 +227,13 @@ public class SchematronBPMNValidator {
 							break;
 						}
 					} catch (SAXException | IOException e) {
-						// TODO Auto-generated catch block
+						logger.error("file {} couldn't be read. Cause: {}",
+								checkedFile.getName(), e.getCause());
 					}
 				}
 			} catch (SAXException | IOException e) {
-				// TODO Auto-generated catch block
+				logger.error("file {} couldn't be read. Cause: {}",
+						checkedFile.getName(), e.getCause());
 			}
 			i++;
 		}
@@ -268,7 +270,8 @@ public class SchematronBPMNValidator {
 				}
 			}
 		} catch (SAXException | IOException e) {
-			// TODO Auto-generated catch block
+			logger.error("file {} couldn't be read. Cause: {}",
+					headFile.getName(), e.getCause());
 		}
 	}
 
@@ -297,11 +300,13 @@ public class SchematronBPMNValidator {
 									document1, document2, validationResult);
 						}
 					} catch (IOException | SAXException e) {
-						// TODO Auto-generated catch block
+						logger.error("file {} couldn't be read. Cause: {}",
+								file2.getName(), e.getCause());
 					}
 				}
 			} catch (IOException | SAXException e) {
-				// TODO Auto-generated catch block
+				logger.error("file {} couldn't be read. Cause: {}",
+						file1.getName(), e.getCause());
 			}
 		}
 	}
@@ -326,7 +331,8 @@ public class SchematronBPMNValidator {
 				}
 			}
 		} catch (IOException | SAXException e) {
-			// TODO Auto-generated catch block
+			logger.error("file {} couldn't be read. Cause: {}", file.getName(),
+					e.getCause());
 		}
 
 		return importedFileList;
