@@ -26,11 +26,13 @@ import javax.xml.xpath.XPathFactory;
 
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
@@ -74,7 +76,9 @@ public class SchematronBPMNValidator {
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
 		// FIXME: how to change logger level
-		logger = LoggerFactory.getLogger(SchematronBPMNValidator.class);
+		logger = (Logger) LoggerFactory
+				.getLogger(SchematronBPMNValidator.class);
+		logger.setLevel(Level.DEBUG);
 	}
 
 	// TODO: refactor
