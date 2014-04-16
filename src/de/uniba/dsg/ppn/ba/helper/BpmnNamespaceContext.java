@@ -1,9 +1,11 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.helper;
 
 import java.util.Iterator;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
+
+import de.uniba.dsg.ppn.ba.SchematronBPMNValidator;
 
 public class BpmnNamespaceContext implements NamespaceContext {
 

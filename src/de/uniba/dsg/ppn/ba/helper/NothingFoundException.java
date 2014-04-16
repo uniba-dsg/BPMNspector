@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.helper;
 
 public class NothingFoundException extends Exception {
 

@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.helper;
 
 import java.io.IOException;
 import java.util.List;
