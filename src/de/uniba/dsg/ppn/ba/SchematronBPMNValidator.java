@@ -36,6 +36,9 @@ import com.phloc.schematron.pure.SchematronResourcePure;
 
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
+import de.uniba.dsg.ppn.ba.helper.NothingFoundException;
+import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
 
 public class SchematronBPMNValidator {
 
