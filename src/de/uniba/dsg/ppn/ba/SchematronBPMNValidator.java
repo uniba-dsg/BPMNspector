@@ -26,6 +26,8 @@ import javax.xml.xpath.XPathFactory;
 
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -48,6 +50,7 @@ public class SchematronBPMNValidator {
 	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
+	private Logger logger;
 	public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 	final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
 
@@ -69,6 +72,8 @@ public class SchematronBPMNValidator {
 		}
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
+		logger = LoggerFactory.getLogger(SchematronBPMNValidator.class);
+
 	}
 
 	// TODO: refactor
@@ -80,6 +85,8 @@ public class SchematronBPMNValidator {
 		if (!schematronSchema.isValidSchematron()) {
 			throw new BpmnValidationException("Invalid Schematron!");
 		}
+
+		logger.info("Validating {}", xmlFile.getName());
 
 		ValidationResult validationResult = new ValidationResult();
 
@@ -113,6 +120,9 @@ public class SchematronBPMNValidator {
 							failedAssert.getLocation());
 					String fileName = xmlFile.getName();
 					String location = failedAssert.getLocation();
+					logger.info(
+							"violation of constraint {} in {} at {} found.",
+							constraint, fileName, line);
 					if (line == -1) {
 						try {
 							String xpathId = "";
@@ -129,6 +139,9 @@ public class SchematronBPMNValidator {
 						} catch (BpmnValidationException e) {
 							fileName = e.getMessage();
 						}
+						logger.info(
+								"preprocessing needed. violation in {} at {}.",
+								fileName, line);
 					}
 					validationResult.getViolations().add(
 							new Violation(constraint, fileName, line, location,
@@ -149,6 +162,8 @@ public class SchematronBPMNValidator {
 		}
 
 		validationResult.setValid(validationResult.getViolations().isEmpty());
+		logger.info("Validating process successfully done, file is valid: {}",
+				validationResult.isValid());
 
 		return validationResult;
 	}

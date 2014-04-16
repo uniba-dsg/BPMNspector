@@ -14,6 +14,8 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -29,6 +31,7 @@ public class PreProcessor {
 	private DocumentBuilder documentBuilder;
 	private XPathFactory xPathFactory;
 	private XPath xpath;
+	private Logger logger;
 
 	{
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -41,6 +44,7 @@ public class PreProcessor {
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
+		logger = LoggerFactory.getLogger(SchematronBPMNValidator.class);
 	}
 
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
@@ -49,6 +53,7 @@ public class PreProcessor {
 		Object[][] importedFiles = selectImportedFiles(headFileDocument,
 				folder, namespaceTable.size());
 		removeBPMNDINode(headFileDocument);
+		logger.info("preprocessing step started");
 
 		XPathExpression xPathChangeNamespaceIds = xpath
 				.compile("//bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef");
@@ -98,6 +103,8 @@ public class PreProcessor {
 							.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
 					renameIds(xPathReplaceIds, importedDocument,
 							(String) importedFiles[i][1]);
+
+					logger.info("integration of document will be done now");
 
 					preProcess(importedDocument, folder, namespaceTable);
 
