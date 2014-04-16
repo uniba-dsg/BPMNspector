@@ -14,16 +14,20 @@ import org.jdom2.located.LocatedElement;
 import org.jdom2.located.LocatedJDOMFactory;
 import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlLocator {
 
 	private SAXBuilder saxBuilder;
 	private XPathFactory xPathFactory;
+	private Logger logger;
 
 	public XmlLocator() {
 		saxBuilder = new SAXBuilder();
 		saxBuilder.setJDOMFactory(new LocatedJDOMFactory());
 		xPathFactory = XPathFactory.instance();
+		logger = LoggerFactory.getLogger(XmlLocator.class);
 	}
 
 	public int findLine(File xmlFile, String xpathExpression) {
@@ -51,7 +55,8 @@ public class XmlLocator {
 						.getLine();
 			}
 		} catch (IOException | JDOMException e) {
-			// TODO Auto-generated catch block
+			logger.error("file {} couldn't be read. Cause: {}",
+					xmlFile.getName(), e.getCause());
 		}
 		return -1;
 	}
