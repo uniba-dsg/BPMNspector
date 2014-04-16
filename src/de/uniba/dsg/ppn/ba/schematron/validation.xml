@@ -78,13 +78,13 @@
 
     <iso:pattern name="EXT.008">
         <iso:rule context="bpmn:messageFlow[@targetRef]">
-            <iso:assert test="not((string(./@targetRef) = $associations/@id) or (string(./@targetRef) = $textAnnotations/@id) or (string(./@targetRef) = $groups/@id))">EXT.008|An Artifact MUST NOT be a target for a Message Flow</iso:assert>
+            <iso:assert test="not((string(./@targetRef) = $associations/@id) or (string(./@targetRef) = $textAnnotations/@id) or (string(./@targetRef) = $groups/@id))" diagnostics="targetRef">EXT.008|An Artifact MUST NOT be a target for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.009">
         <iso:rule context="bpmn:messageFlow[@sourceRef]">
-            <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))">EXT.009|An Artifact MUST NOT be a source for a Message Flow</iso:assert>
+            <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))" diagnostics="sourceRef">EXT.009|An Artifact MUST NOT be a source for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -177,10 +177,10 @@
 
     <iso:pattern name="EXT.031">
         <iso:rule context="bpmn:messageFlow">
-        	<iso:assert test="@sourceRef!=@targetRef">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
-        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@sourceRef]/@processRef]/descendant::*[@id=current()/@targetRef])=0">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
-        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@targetRef]/@processRef]/descendant::*[@id=current()/@sourceRef])=0">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
-			<iso:assert test="not(//bpmn:process[*[@id=current()/@sourceRef]]=//bpmn:process[*[@id=current()/@targetRef]])">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+        	<iso:assert test="@sourceRef!=@targetRef" diagnostics="sourceRef">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@sourceRef]/@processRef]/descendant::*[@id=current()/@targetRef])=0" diagnostics="sourceRef">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+        	<iso:assert test="count(//bpmn:process[@id=//bpmn:participant[@id=current()/@targetRef]/@processRef]/descendant::*[@id=current()/@sourceRef])=0" diagnostics="sourceRef">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
+			<iso:assert test="not(//bpmn:process[*[@id=current()/@sourceRef]]=//bpmn:process[*[@id=current()/@targetRef]])" diagnostics="sourceRef">EXT.031|A message flow must connect ’InteractionNodes’ from different Pools</iso:assert>
         </iso:rule>
     </iso:pattern>
          
@@ -299,7 +299,7 @@
     
     <iso:pattern name="EXT.099">
         <iso:rule context="bpmn:process[./@id = //bpmn:callActivity/@calledElement]">
-            <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))" diagnostics="preprocessing">EXT.099|Referenced process must have at least one None Start Event</iso:assert>
+            <iso:assert test="not(count(./bpmn:startEvent) = (count(./bpmn:startEvent/bpmn:eventDefinitionRef/..) + count(./bpmn:startEvent/bpmn:messageEventDefinition/..) + count(./bpmn:startEvent/bpmn:timerEventDefinition/..) + count(./bpmn:startEvent/bpmn:escalationEventDefinition/..) + count(./bpmn:startEvent/bpmn:conditionalEventDefinition/..) + count(./bpmn:startEvent/bpmn:linkEventDefinition/..) + count(./bpmn:startEvent/bpmn:errorEventDefinition/..) + count(./bpmn:startEvent/bpmn:cancelEventDefinition/..) + count(./bpmn:startEvent/bpmn:compensationEventDefinition/..) + count(./bpmn:startEvent/bpmn:signalEventDefinition/..) + count(./bpmn:startEvent/bpmn:terminateEventDefinition/..)))" diagnostics="id">EXT.099|Referenced process must have at least one None Start Event</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -323,7 +323,7 @@
     
     <iso:pattern name="EXT.102">
         <iso:rule context="bpmn:messageFlow[@sourceRef]">
-            <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)">EXT.102|A Start Event MUST NOT be a source for a message flow</iso:assert>
+            <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)" diagnostics="sourceRef">EXT.102|A Start Event MUST NOT be a source for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -359,7 +359,7 @@
     
     <iso:pattern name="EXT.108">
         <iso:rule context="bpmn:messageFlow[@targetRef]">
-            <iso:assert test="not(string(./@targetRef) = $endEvents/@id)">EXT.108|An End Event MUST NOT be a target for a message flow</iso:assert>
+            <iso:assert test="not(string(./@targetRef) = $endEvents/@id)" diagnostics="targetRef">EXT.108|An End Event MUST NOT be a target for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -523,6 +523,8 @@
     </iso:pattern>
     
     <iso:diagnostics>
-        <iso:diagnostic id="preprocessing"><value-of select="current()/@id" /></iso:diagnostic>
-    </iso:diagnostics>
+        <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
+        <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
+        <iso:diagnostic id="targetRef"><value-of select="current()/@targetRef" /></iso:diagnostic>
+    </iso:diagnostics>    
 </iso:schema> 
