@@ -283,9 +283,8 @@ public class SchematronBPMNValidator {
 
 		for (int i = 0; i < importedFileList.size(); i++) {
 			File file1 = importedFileList.get(i);
-			Document document1;
 			try {
-				document1 = documentBuilder.parse(file1);
+				Document document1 = documentBuilder.parse(file1);
 				preProcessor.removeBPMNDINode(document1);
 				String namespace1 = document1.getDocumentElement()
 						.getAttribute("targetNamespace");
