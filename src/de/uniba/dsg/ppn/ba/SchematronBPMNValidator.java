@@ -36,7 +36,7 @@ import com.phloc.schematron.pure.SchematronResourcePure;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
-import de.uniba.dsg.ppn.ba.helper.NothingFoundException;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
 
 public class SchematronBPMNValidator {
@@ -73,12 +73,12 @@ public class SchematronBPMNValidator {
 
 	// TODO: refactor
 	public ValidationResult validate(File xmlFile)
-			throws IllegalArgumentException {
+			throws BpmnValidationException {
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromFile(SchematronBPMNValidator.class.getResource(
 						"schematron/validation.xml").getPath());
 		if (!schematronSchema.isValidSchematron()) {
-			throw new IllegalArgumentException("Invalid Schematron!");
+			throw new BpmnValidationException("Invalid Schematron!");
 		}
 
 		ValidationResult validationResult = new ValidationResult();
@@ -126,7 +126,7 @@ public class SchematronBPMNValidator {
 							fileName = result[0];
 							line = Integer.valueOf(result[1]);
 							location = result[2];
-						} catch (NothingFoundException e) {
+						} catch (BpmnValidationException e) {
 							fileName = e.getMessage();
 						}
 					}
@@ -140,8 +140,11 @@ public class SchematronBPMNValidator {
 				File f = new File(validationResult.getCheckedFiles().get(i));
 				validationResult.getCheckedFiles().set(i, f.getName());
 			}
+		} catch (SAXException | IOException e) {
+			throw new BpmnValidationException(
+					"Given file couldn't be read or doesn't exist!");
 		} catch (Exception e) {
-			throw new IllegalArgumentException(
+			throw new BpmnValidationException(
 					"Something went wrong during schematron validation!");
 		}
 
@@ -171,7 +174,7 @@ public class SchematronBPMNValidator {
 	// TODO: refactor
 	private String[] searchForViolationFile(String xpathExpression,
 			ValidationResult validationResult, List<String[]> namespaceTable)
-			throws NothingFoundException {
+			throws BpmnValidationException {
 		boolean search = true;
 		String fileName = "";
 		String line = "-1";
@@ -219,7 +222,7 @@ public class SchematronBPMNValidator {
 		}
 
 		if (search) {
-			throw new NothingFoundException();
+			throw new BpmnValidationException("BPMN Element couldn't be found!");
 		}
 
 		return new String[] { fileName, line, xpathObjectId };
