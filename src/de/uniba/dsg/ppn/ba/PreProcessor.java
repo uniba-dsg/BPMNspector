@@ -14,7 +14,6 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -22,6 +21,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.ImportedFile;
 import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
@@ -45,7 +46,11 @@ public class PreProcessor {
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
-		logger = LoggerFactory.getLogger(PreProcessor.class);
+		logger = (Logger) LoggerFactory.getLogger(PreProcessor.class);
+	}
+
+	public void setLogLevel(Level logLevel) {
+		logger.setLevel(logLevel);
 	}
 
 	public PreProcessResult preProcess(Document headFileDocument, File folder,

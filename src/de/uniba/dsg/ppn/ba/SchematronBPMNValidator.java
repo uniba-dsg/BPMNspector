@@ -81,6 +81,16 @@ public class SchematronBPMNValidator {
 		logger.setLevel(Level.DEBUG);
 	}
 
+	public SchematronBPMNValidator() {
+
+	}
+
+	public SchematronBPMNValidator(Level level) {
+		logger.setLevel(level);
+		xmlLocator.setLogLevel(level);
+		preProcessor.setLogLevel(level);
+	}
+
 	// TODO: refactor
 	public ValidationResult validate(File xmlFile)
 			throws BpmnValidationException {
