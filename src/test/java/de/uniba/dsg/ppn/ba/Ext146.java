@@ -96,8 +96,15 @@ public class Ext146 {
 				+ "fail_conditional.bpmn");
 		ValidationResult result = validator.validate(f);
 		assertFalse(result.isValid());
-		assertEquals(1, result.getViolations().size());
+		assertEquals(2, result.getViolations().size());
 		Violation v = result.getViolations().get(0);
+		assertTrue(v
+				.getMessage()
+				.contains(
+						"cvc-complex-type.2.4.b: Content des Elements \"conditionalEventDefinition\" ist nicht vollständig."));
+		assertEquals("XSD-Check", v.getConstraint());
+		assertEquals(9, v.getLine());
+		v = result.getViolations().get(1);
 		assertEquals(
 				"Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events",
 				v.getMessage());
