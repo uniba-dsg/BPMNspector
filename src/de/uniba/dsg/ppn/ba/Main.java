@@ -5,26 +5,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
-
 import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Logger logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
+		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 		ArrayList<String> argsAsList = new ArrayList<>(Arrays.asList(args));
 		if (argsAsList.contains("--debug")) {
-			logger.setLevel(Level.DEBUG);
+			validator.setLogLevel(Level.DEBUG);
 			argsAsList.remove("--debug");
 		}
 
 		List<ValidationResult> results = new ArrayList<ValidationResult>();
-		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 
+		// TODO: parallelization with executor framework?
 		if (argsAsList.size() > 0) {
 			for (String parameter : argsAsList) {
 				try {
