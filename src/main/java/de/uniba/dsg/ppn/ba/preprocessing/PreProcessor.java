@@ -107,9 +107,9 @@ public class PreProcessor {
 					renameIds(xPathReplaceIds, importedDocument,
 							importedFiles[i].getPrefix());
 
-					logger.info("integration of document will be done now");
-
 					preProcess(importedDocument, folder, namespaceTable);
+
+					logger.info("integration of document will be done now");
 
 					headFileDocument = addNodesToDocument(
 							importDefinitionsNode, headFileDocument);
