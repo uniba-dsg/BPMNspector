@@ -14,7 +14,7 @@ import org.w3c.dom.Document;
 
 import de.uniba.dsg.bpmn.Violation;
 
-public class Helper {
+public class PrintHelper {
 
 	public static void printDocument(Document doc) throws IOException,
 			TransformerException {

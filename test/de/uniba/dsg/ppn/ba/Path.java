@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Path {
 

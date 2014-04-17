@@ -5,7 +5,7 @@ import java.util.Iterator;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
-import de.uniba.dsg.ppn.ba.SchematronBPMNValidator;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class BpmnNamespaceContext implements NamespaceContext {
 

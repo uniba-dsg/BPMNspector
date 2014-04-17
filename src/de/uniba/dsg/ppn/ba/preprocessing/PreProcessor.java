@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.preprocessing;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,8 +23,7 @@ import org.xml.sax.SAXException;
 
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
-import de.uniba.dsg.ppn.ba.helper.ImportedFile;
-import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class PreProcessor {
 

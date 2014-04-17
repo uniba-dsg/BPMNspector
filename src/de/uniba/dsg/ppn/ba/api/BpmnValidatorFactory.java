@@ -1,7 +1,7 @@
 package de.uniba.dsg.ppn.ba.api;
 
-import de.uniba.dsg.ppn.ba.BpmnValidator;
-import de.uniba.dsg.ppn.ba.SchematronBPMNValidator;
+import de.uniba.dsg.ppn.ba.validation.BpmnValidator;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class BpmnValidatorFactory {
 

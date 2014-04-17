@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext023 {
 

@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.validation;
 
 import java.io.File;
 import java.io.IOException;

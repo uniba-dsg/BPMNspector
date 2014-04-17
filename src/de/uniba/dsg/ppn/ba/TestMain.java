@@ -3,7 +3,8 @@ package de.uniba.dsg.ppn.ba;
 import java.io.File;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.Helper;
+import de.uniba.dsg.ppn.ba.helper.PrintHelper;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class TestMain {
 
@@ -16,7 +17,7 @@ public class TestMain {
 				+ result.isValid());
 
 		if (!result.isValid()) {
-			Helper.printViolations(result.getViolations());
+			PrintHelper.printViolations(result.getViolations());
 		}
 
 	}

@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.validation;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -42,9 +42,10 @@ import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.helper.ImportedFile;
-import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
-import de.uniba.dsg.ppn.ba.helper.XmlWriter;
+import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
+import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
+import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
+import de.uniba.dsg.ppn.ba.xml.XmlWriter;
 
 public class SchematronBPMNValidator implements BpmnValidator {
 
@@ -58,7 +59,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private Logger logger;
 	private XmlWriter xmlWriter;
 	public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
-	final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
+	public final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
 
 	{
 		documentBuilderFactory = DocumentBuilderFactory.newInstance();

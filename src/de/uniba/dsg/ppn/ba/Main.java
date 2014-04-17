@@ -8,6 +8,7 @@ import java.util.List;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Main {
 
