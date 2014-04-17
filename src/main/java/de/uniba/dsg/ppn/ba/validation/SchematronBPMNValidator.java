@@ -55,6 +55,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
+	private XsdValidator xsdValidator;
 	private Logger logger;
 	public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 	public final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
@@ -77,6 +78,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		}
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
+		xsdValidator = new XsdValidator();
 		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
@@ -110,11 +112,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		logger.info("Validating {}", xmlFile.getName());
 
 		ValidationResult validationResult = new ValidationResult();
-		File parentFolder = xmlFile.getParentFile();
 
 		try {
 			Document headFileDocument = documentBuilder.parse(xmlFile);
 			validationResult.getCheckedFiles().add(xmlFile.getAbsolutePath());
+			File parentFolder = xmlFile.getParentFile();
 
 			checkConstraint001(xmlFile, parentFolder, validationResult);
 			checkConstraint002(xmlFile, parentFolder, validationResult);
@@ -272,6 +274,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private void checkConstraint001(File headFile, File folder,
 			ValidationResult validationResult) {
 		try {
+			xsdValidator.validateAgainstXsd(headFile, validationResult);
 			Document headFileDocument = documentBuilder.parse(headFile);
 
 			ImportedFile[] importedFiles = preProcessor.selectImportedFiles(
