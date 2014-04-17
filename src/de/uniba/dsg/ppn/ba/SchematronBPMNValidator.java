@@ -32,6 +32,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 import com.phloc.schematron.ISchematronResource;
@@ -45,7 +46,7 @@ import de.uniba.dsg.ppn.ba.helper.ImportedFile;
 import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
 import de.uniba.dsg.ppn.ba.helper.XmlWriter;
 
-public class SchematronBPMNValidator {
+public class SchematronBPMNValidator implements BpmnValidator {
 
 	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
@@ -81,7 +82,23 @@ public class SchematronBPMNValidator {
 		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
+	@Override
+	public void setLogLevel(Level logLevel) {
+		logger.setLevel(logLevel);
+	}
+
+	@Override
+	public List<ValidationResult> validateFiles(List<File> xmlFiles)
+			throws BpmnValidationException {
+		List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
+		for (File xmlFile : xmlFiles) {
+			validationResults.add(validate(xmlFile));
+		}
+		return validationResults;
+	}
+
 	// TODO: refactor
+	@Override
 	public ValidationResult validate(File xmlFile)
 			throws BpmnValidationException {
 		final ISchematronResource schematronSchema = SchematronResourcePure
