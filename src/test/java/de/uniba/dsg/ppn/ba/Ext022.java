@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
@@ -21,6 +22,7 @@ public class Ext022 {
 	@Before
 	public void setUp() throws Exception {
 		validator = new SchematronBPMNValidator();
+		validator.setLogLevel(Level.OFF);
 	}
 
 	@After
