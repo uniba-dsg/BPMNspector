@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,6 +43,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.helper.ImportedFile;
 import de.uniba.dsg.ppn.ba.helper.PreProcessResult;
+import de.uniba.dsg.ppn.ba.helper.XmlWriter;
 
 public class SchematronBPMNValidator {
 
@@ -53,6 +55,7 @@ public class SchematronBPMNValidator {
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
 	private Logger logger;
+	private XmlWriter xmlWriter;
 	public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 	final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
 
@@ -74,6 +77,7 @@ public class SchematronBPMNValidator {
 		}
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
+		xmlWriter = new XmlWriter();
 		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
@@ -91,10 +95,10 @@ public class SchematronBPMNValidator {
 		logger.info("Validating {}", xmlFile.getName());
 
 		ValidationResult validationResult = new ValidationResult();
+		File parentFolder = xmlFile.getParentFile();
 
 		try {
 			Document headFileDocument = documentBuilder.parse(xmlFile);
-			File parentFolder = xmlFile.getParentFile();
 			validationResult.getCheckedFiles().add(xmlFile.getAbsolutePath());
 
 			checkConstraint001(xmlFile, parentFolder, validationResult);
@@ -169,6 +173,16 @@ public class SchematronBPMNValidator {
 		validationResult.setValid(validationResult.getViolations().isEmpty());
 		logger.info("Validating process successfully done, file is valid: {}",
 				validationResult.isValid());
+
+		try {
+			xmlWriter.writeResult(validationResult, new File(parentFolder
+					+ File.separator + "validation_result.xml"));
+		} catch (JAXBException e) {
+			logger.error("result couldn't be written in xml: {}",
+					xmlFile.getName());
+			throw new BpmnValidationException(
+					"result couldn't be written in xml!");
+		}
 
 		return validationResult;
 	}
