@@ -91,4 +91,20 @@ public class PreProcessing {
 		assertEquals(3, v.getLine());
 	}
 
+	@Test
+	public void testConstraintParticipantImportedProcessFail() throws Exception {
+		File f = new File(TestHelper.getTestFilePath() + "preprocessing"
+				+ File.separator + "fail_call_participant_process.bpmn");
+		ValidationResult result = validator.validate(f);
+		assertFalse(result.isValid());
+		assertEquals(1, result.getViolations().size());
+		Violation v = result.getViolations().get(0);
+		assertEquals(
+				"An end event must be present when a start event is used in the same process level",
+				v.getMessage());
+		assertEquals("//bpmn:*[@id = '_3'][0]", v.getxPath());
+		assertEquals("ref_participant_process.bpmn", v.getFileName());
+		assertEquals(4, v.getLine());
+	}
+
 }
