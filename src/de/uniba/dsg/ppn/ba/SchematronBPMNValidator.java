@@ -75,10 +75,7 @@ public class SchematronBPMNValidator {
 		}
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
-		// FIXME: how to change logger level
-		logger = (Logger) LoggerFactory
-				.getLogger(SchematronBPMNValidator.class);
-		logger.setLevel(Level.DEBUG);
+		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
 	public SchematronBPMNValidator() {
@@ -87,8 +84,6 @@ public class SchematronBPMNValidator {
 
 	public SchematronBPMNValidator(Level level) {
 		logger.setLevel(level);
-		xmlLocator.setLogLevel(level);
-		preProcessor.setLogLevel(level);
 	}
 
 	// TODO: refactor

@@ -21,7 +21,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.ImportedFile;
@@ -46,11 +45,7 @@ public class PreProcessor {
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
-		logger = (Logger) LoggerFactory.getLogger(PreProcessor.class);
-	}
-
-	public void setLogLevel(Level logLevel) {
-		logger.setLevel(logLevel);
+		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
