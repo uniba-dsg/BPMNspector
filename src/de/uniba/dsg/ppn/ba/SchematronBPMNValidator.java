@@ -31,7 +31,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 import com.phloc.schematron.ISchematronResource;
@@ -76,14 +75,6 @@ public class SchematronBPMNValidator {
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
 		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
-	}
-
-	public SchematronBPMNValidator() {
-
-	}
-
-	public SchematronBPMNValidator(Level level) {
-		logger.setLevel(level);
 	}
 
 	// TODO: refactor
