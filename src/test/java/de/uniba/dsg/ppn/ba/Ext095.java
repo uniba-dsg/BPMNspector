@@ -39,7 +39,7 @@ public class Ext095 {
 		assertEquals(1, result.getViolations().size());
 		Violation v = result.getViolations().get(0);
 		assertEquals(
-				"EventDefinitions defined in a throw event are only valid within this element",
+				"EventDefinitions defined in a throw event are not allowed to be used somewhere else",
 				v.getMessage());
 		assertEquals(
 				"//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]",
@@ -56,7 +56,7 @@ public class Ext095 {
 		assertEquals(1, result.getViolations().size());
 		Violation v = result.getViolations().get(0);
 		assertEquals(
-				"EventDefinitions defined in a throw event are only valid within this element",
+				"EventDefinitions defined in a throw event are not allowed to be used somewhere else",
 				v.getMessage());
 		assertEquals("//bpmn:endEvent/bpmn:messageEventDefinition[0]",
 				v.getxPath());
