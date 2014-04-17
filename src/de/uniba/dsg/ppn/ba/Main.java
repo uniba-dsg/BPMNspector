@@ -16,7 +16,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Logger logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
-		List<String> argsAsList = Arrays.asList(args);
+		ArrayList<String> argsAsList = new ArrayList<>(Arrays.asList(args));
 		if (argsAsList.contains("--debug")) {
 			logger.setLevel(Level.DEBUG);
 			argsAsList.remove("--debug");
@@ -25,8 +25,8 @@ public class Main {
 		List<ValidationResult> results = new ArrayList<ValidationResult>();
 		SchematronBPMNValidator validator = new SchematronBPMNValidator();
 
-		if (args.length > 0) {
-			for (String parameter : args) {
+		if (argsAsList.size() > 0) {
+			for (String parameter : argsAsList) {
 				try {
 					results.add(validator.validate(new File(parameter)));
 				} catch (BpmnValidationException e) {
