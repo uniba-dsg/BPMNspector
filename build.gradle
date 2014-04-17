@@ -32,6 +32,5 @@ dependencies {
 jar.archiveName = "bpmnvalidator.jar"
 
 jar {
-        from configurations.internal.collect { it.isDirectory() ? it : zipTree(it) }
         from configurations.external.collect { it.isDirectory() ? it : zipTree(it) }
 }
