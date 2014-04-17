@@ -182,7 +182,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			throw new BpmnValidationException(
 					"Given file couldn't be read or doesn't exist!");
 		} catch (Exception e) {
-			logger.error("exception. Cause: {}", e.getCause());
+			logger.error("exception at schematron validation. Cause: {}",
+					e.getCause());
 			throw new BpmnValidationException(
 					"Something went wrong during schematron validation!");
 		}
