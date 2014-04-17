@@ -1,0 +1,37 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "eclipse"
+apply plugin: "application"
+
+repositories {
+    mavenCentral()
+}
+
+manifest.mainAttributes("Main-Class" : "de.uniba.dsg.ppn.ba.Main")
+
+configurations {
+    internal
+    external
+}
+
+dependencies {
+    internal 'org.jdom:jdom2:2.0.5'
+    internal 'jaxen:jaxen:1.1.6'
+    internal 'ch.qos.logback:logback-core:1.1.2'
+    internal 'ch.qos.logback:logback-classic:1.1.2'
+    internal 'org.slf4j:slf4j-api:1.7.7'
+
+    external files(fileTree(dir: "lib", includes: ['*.jar']))
+
+    testCompile 'junit:junit:4.11'
+
+    compile configurations.internal
+    compile configurations.external
+}
+
+jar.archiveName = "bpmnvalidator.jar"
+
+jar {
+        from configurations.internal.collect { it.isDirectory() ? it : zipTree(it) }
+        from configurations.external.collect { it.isDirectory() ? it : zipTree(it) }
+}
