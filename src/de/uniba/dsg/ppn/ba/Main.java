@@ -14,7 +14,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		Logger logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 		List<String> argsAsList = Arrays.asList(args);
 		if (argsAsList.contains("--debug")) {
