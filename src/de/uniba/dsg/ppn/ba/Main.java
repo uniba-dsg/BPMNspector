@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Main {
 
@@ -26,14 +27,16 @@ public class Main {
 
 		if (args.length > 0) {
 			for (String parameter : args) {
-				results.add(validator.validate(new File(parameter)));
+				try {
+					results.add(validator.validate(new File(parameter)));
+				} catch (BpmnValidationException e) {
+					System.err.println(e.getMessage());
+				}
 			}
 		} else {
 			System.err.println("There must be files to check!");
 			System.exit(-1);
 		}
-
-		// TODO: xml serialization of results
 
 	}
 }
