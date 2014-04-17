@@ -192,7 +192,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		return validationResult;
 	}
 
-	public ByteArrayInputStream transformDocumentToInputStream(
+	private ByteArrayInputStream transformDocumentToInputStream(
 			Document headFileDocument) throws UnsupportedEncodingException,
 			TransformerException {
 
