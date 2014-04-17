@@ -33,7 +33,6 @@ public class Path {
 		ValidationResult result = validator.validate(f);
 		assertTrue(result.isValid());
 		assertTrue(result.getViolations().isEmpty());
-		;
 	}
 
 	@Test
