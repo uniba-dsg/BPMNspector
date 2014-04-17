@@ -56,7 +56,7 @@ public class PreProcessor {
 		logger.info("preprocessing step started");
 
 		XPathExpression xPathChangeNamespaceIds = xpath
-				.compile("//bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef");
+				.compile("//bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
 		NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
 				.evaluate(headFileDocument, XPathConstants.NODESET);
 
@@ -103,7 +103,7 @@ public class PreProcessor {
 								importedFiles[i].getNamespace() });
 					}
 					XPathExpression xPathReplaceIds = xpath
-							.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
+							.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
 					renameIds(xPathReplaceIds, importedDocument,
 							importedFiles[i].getPrefix());
 
