@@ -290,15 +290,20 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			ImportedFile[] importedFiles = preProcessor.selectImportedFiles(
 					headFileDocument, folder, 0);
 
+			String constraint = "EXT.001";
 			for (int i = 0; i < importedFiles.length; i++) {
 				if (!importedFiles[i].getFile().exists()) {
 					String xpathLocation = "//bpmn:import[@location = '"
 							+ importedFiles[i].getFile().getName() + "']";
+					String fileName = importedFiles[i].getFile().getName();
+					int line = xmlLocator.findLine(headFile, xpathLocation);
 					validationResult.getViolations().add(
-							new Violation("EXT.001", importedFiles[i].getFile()
-									.getName(), xmlLocator.findLine(headFile,
-									xpathLocation), xpathLocation + "[0]",
+							new Violation(constraint, fileName, line,
+									xpathLocation + "[0]",
 									"The imported file does not exist"));
+					logger.info(
+							"violation of constraint {} in {} at {} found.",
+							constraint, fileName, line);
 				} else {
 					checkConstraint001(importedFiles[i].getFile(), folder,
 							validationResult);
@@ -379,6 +384,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 				XPathConstants.NODESET);
 		NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
 				XPathConstants.NODESET);
+		String constraint = "EXT.002";
 		for (int k = 1; k < foundNodes1.getLength(); k++) {
 			String importedFile1Id = foundNodes1.item(k).getNodeValue();
 			for (int l = 1; l < foundNodes2.getLength(); l++) {
@@ -386,15 +392,16 @@ public class SchematronBPMNValidator implements BpmnValidator {
 				if (importedFile1Id.equals(importedFile2Id)) {
 					String xpathLocation = createIdBpmnExpression(importedFile1Id);
 					validationResult.getViolations().add(
-							new Violation("EXT.002", file1.getName(),
+							new Violation(constraint, file1.getName(),
 									xmlLocator.findLine(file1, xpathLocation),
 									xpathLocation + "[0]",
 									"Files have id duplicates"));
 					validationResult.getViolations().add(
-							new Violation("EXT.002", file2.getName(),
+							new Violation(constraint, file2.getName(),
 									xmlLocator.findLine(file2, xpathLocation),
 									xpathLocation + "[0]",
 									"Files have id duplicates"));
+					logger.info("violation of constraint {} found.", constraint);
 				}
 			}
 		}
