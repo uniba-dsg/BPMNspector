@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,8 +104,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	public ValidationResult validate(File xmlFile)
 			throws BpmnValidationException {
 		final ISchematronResource schematronSchema = SchematronResourcePure
-				.fromFile(SchematronBPMNValidator.class.getResource(
-						"schematron/validation.xml").getPath());
+				.fromFile(Paths.get("src").resolve("main").resolve("resources")
+						.resolve("validation.xml").toFile());
 		if (!schematronSchema.isValidSchematron()) {
 			logger.error("schematron file is invalid");
 			throw new BpmnValidationException("Invalid Schematron!");
