@@ -2,6 +2,14 @@ package de.uniba.dsg.ppn.ba.preprocessing;
 
 import java.io.File;
 
+/**
+ * Just a helper class for avoiding the usage of object arrays and making the
+ * code better readable. Is returned as result from
+ * preprocessor.selectImportedFiles()
+ * 
+ * @author Philipp Neugebauer
+ * 
+ */
 public class ImportedFile {
 
 	private File file;

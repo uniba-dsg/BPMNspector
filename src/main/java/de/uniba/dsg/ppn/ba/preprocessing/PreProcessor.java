@@ -25,6 +25,11 @@ import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
+/**
+ * 
+ * @author Philipp Neugebauer
+ * 
+ */
 public class PreProcessor {
 
 	private DocumentBuilderFactory documentBuilderFactory;

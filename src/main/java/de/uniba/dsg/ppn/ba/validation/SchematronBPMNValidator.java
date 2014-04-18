@@ -46,6 +46,11 @@ import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
 
+/**
+ * 
+ * @author Philipp Neugebauer
+ * 
+ */
 public class SchematronBPMNValidator implements BpmnValidator {
 
 	private DocumentBuilderFactory documentBuilderFactory;
@@ -196,6 +201,15 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		return validationResult;
 	}
 
+	/**
+	 * transforms the given headFileDocument to an inputstream, so that it can
+	 * be used for the schematron validation process
+	 * 
+	 * @param headFileDocument
+	 * @return input stream with the head file document
+	 * @throws UnsupportedEncodingException
+	 * @throws TransformerException
+	 */
 	private ByteArrayInputStream transformDocumentToInputStream(
 			Document headFileDocument) throws UnsupportedEncodingException,
 			TransformerException {
@@ -215,6 +229,21 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	}
 
 	// TODO: refactor
+	/**
+	 * searches for the file and line, where the violation occured
+	 * 
+	 * @param xpathExpression
+	 *            the expression, through which the file and line should be
+	 *            identified
+	 * @param validationResult
+	 *            for getting all checked files
+	 * @param namespaceTable
+	 *            to identify the file, where the violation occured
+	 * @return string array with filename, line and xpath expression to find the
+	 *         element
+	 * @throws BpmnValidationException
+	 *             if no element can be found
+	 */
 	private String[] searchForViolationFile(String xpathExpression,
 			ValidationResult validationResult, List<String[]> namespaceTable)
 			throws BpmnValidationException {
@@ -273,6 +302,17 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		return new String[] { fileName, line, xpathObjectId };
 	}
 
+	/**
+	 * checks, if there are violations of the EXT.001 constraint
+	 * 
+	 * @param headFile
+	 *            the file which should be checked
+	 * @param folder
+	 *            the parent folder of the file
+	 * @param validationResult
+	 *            the current validation result of validating process for adding
+	 *            found violations
+	 */
 	private void checkConstraint001(File headFile, File folder,
 			ValidationResult validationResult) {
 		try {
@@ -306,6 +346,19 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		}
 	}
 
+	/**
+	 * checks, if there are violations of the EXT.002 constraint
+	 * 
+	 * @param headFile
+	 *            the file which should be checked
+	 * @param folder
+	 *            the parent folder of the file
+	 * @param validationResult
+	 *            the current validation result of validating process for adding
+	 *            found violations
+	 * @throws XPathExpressionException
+	 *             if there's an invalid xpath expression used
+	 */
 	private void checkConstraint002(File headFile, File folder,
 			ValidationResult validationResult) throws XPathExpressionException {
 		List<File> importedFileList = searchForImports(headFile, folder,
@@ -342,6 +395,17 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	}
 
 	// TODO: refactor
+	/**
+	 * searches for all files, which are imported in the given file
+	 * 
+	 * @param file
+	 *            where the imports are searched
+	 * @param folder
+	 *            parent folder of file
+	 * @param validationResult
+	 *            to add all imported files to the checked file list
+	 * @return List<File> including all imported files in file
+	 */
 	private List<File> searchForImports(File file, File folder,
 			ValidationResult validationResult) {
 		List<File> importedFileList = new ArrayList<>();
@@ -368,6 +432,23 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		return importedFileList;
 	}
 
+	/**
+	 * checks, if there are namespace and id duplicates in these two checked
+	 * files
+	 * 
+	 * @param file1
+	 *            first file to check
+	 * @param file2
+	 *            second file to check
+	 * @param document1
+	 *            parsed file1
+	 * @param document2
+	 *            parsed file2
+	 * @param validationResult
+	 *            for adding violations to the current validation result
+	 * @throws XPathExpressionException
+	 *             if there are invalid xpath expressions
+	 */
 	private void checkNamespacesAndIdDuplicates(File file1, File file2,
 			Document document1, Document document2,
 			ValidationResult validationResult) throws XPathExpressionException {

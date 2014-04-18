@@ -4,6 +4,13 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
+/**
+ * Just a helper class for avoiding the usage of object arrays and making the
+ * code better readable. Is returned as result from preprocessor.preprocess()
+ * 
+ * @author Philipp Neugebauer
+ * 
+ */
 public class PreProcessResult {
 
 	private Document documentResult;
