@@ -136,8 +136,7 @@ public class PreProcessor {
 
 					logger.info("integration of document will be done now");
 
-					headFileDocument = addNodesToDocument(
-							importDefinitionsNode, headFileDocument);
+					addNodesToDocument(importDefinitionsNode, headFileDocument);
 				} catch (SAXException | IOException e) {
 					logger.error("imported file couldn't be read. Cause: {}",
 							e.getCause());
@@ -222,10 +221,9 @@ public class PreProcessor {
 	 *            the headFileDocument
 	 * @param headFileDocument
 	 *            the document, where the nodes should be added
-	 * @return the headFileDocument
+	 * 
 	 */
-	// TODO: return probably useless
-	private Document addNodesToDocument(Node importDefinitionsNode,
+	private void addNodesToDocument(Node importDefinitionsNode,
 			Document headFileDocument) {
 		Element definitionsNode = headFileDocument.getDocumentElement();
 
@@ -234,8 +232,6 @@ public class PreProcessor {
 					importDefinitionsNode.getChildNodes().item(j), true);
 			definitionsNode.appendChild(importedNode);
 		}
-
-		return headFileDocument;
 	}
 
 	/**
