@@ -30,6 +30,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
  * @author Philipp Neugebauer
  * 
  */
+// TODO: javadoc
 public class PreProcessor {
 
 	private DocumentBuilderFactory documentBuilderFactory;
@@ -131,6 +132,15 @@ public class PreProcessor {
 		return result;
 	}
 
+	/**
+	 * adds to all nodes new and unique prefixes in the given document for the
+	 * validation process and violation searching
+	 * 
+	 * @param xpathExpression
+	 * @param document
+	 * @param namespacePrefix
+	 * @throws XPathExpressionException
+	 */
 	private void renameIds(XPathExpression xpathExpression, Document document,
 			String namespacePrefix) throws XPathExpressionException {
 		NodeList foundNodesImportedFile = (NodeList) xpathExpression.evaluate(
@@ -142,6 +152,19 @@ public class PreProcessor {
 		}
 	}
 
+	/**
+	 * collects all imported files with bpmn namespace in the given document
+	 * 
+	 * @param document
+	 *            the document, from which the imports are collected
+	 * @param folder
+	 *            the parent folder of the document
+	 * @param size
+	 *            the number of already collected imports for ensuring unique
+	 *            namespace prefixes
+	 * @return an array of importedFile including all bpmn imports with the
+	 *         absolute path, the new namespace prefix and the namespace
+	 */
 	public ImportedFile[] selectImportedFiles(Document document, File folder,
 			int size) {
 		NodeList importedFilesList = document.getElementsByTagNameNS(
@@ -171,6 +194,17 @@ public class PreProcessor {
 		return importedFiles;
 	}
 
+	/**
+	 * adds the childs of importDefinitionsNode to the definitionsNode of the
+	 * given headFileDocument
+	 * 
+	 * @param importDefinitionsNode
+	 *            the definitionsNode of the document, which should be added to
+	 *            the headFileDocument
+	 * @param headFileDocument
+	 *            the document, where the nodes should be added
+	 * @return the headFileDocument
+	 */
 	private Document addNodesToDocument(Node importDefinitionsNode,
 			Document headFileDocument) {
 		Element definitionsNode = headFileDocument.getDocumentElement();
@@ -184,6 +218,13 @@ public class PreProcessor {
 		return headFileDocument;
 	}
 
+	/**
+	 * removes all BPMNDiagram Nodes from the given file
+	 * 
+	 * @param headFileDocument
+	 *            the document, where the BPMNDiagram Nodes should be deleted
+	 *            from
+	 */
 	public void removeBPMNDINode(Document headFileDocument) {
 		Element definitionsNode = headFileDocument.getDocumentElement();
 		NodeList bpmnDiagramNode = headFileDocument.getElementsByTagNameNS(

@@ -396,7 +396,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
 	// TODO: refactor
 	/**
-	 * searches for all files, which are imported in the given file
+	 * searches for all existing files, which are imported in the given file and
+	 * their imports and so on
 	 * 
 	 * @param file
 	 *            where the imports are searched
