@@ -20,7 +20,10 @@ import ch.qos.logback.classic.Logger;
 
 /**
  * 
+ * Locates the lines of the validation errors
+ * 
  * @author Philipp Neugebauer
+ * @version 1.0
  * 
  */
 public class XmlLocator {

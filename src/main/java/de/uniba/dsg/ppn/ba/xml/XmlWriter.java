@@ -11,6 +11,13 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmn.ValidationResult;
 
+/**
+ * This class is used for writing xml files via jaxb
+ * 
+ * @author Philipp Neugebauer
+ * @version 1.0
+ * 
+ */
 public class XmlWriter {
 
 	private JAXBContext context;
@@ -28,6 +35,16 @@ public class XmlWriter {
 		}
 	}
 
+	/**
+	 * writes the result to the given file
+	 * 
+	 * @param result
+	 *            the validation result, which should be writen to a file
+	 * @param file
+	 *            the file, where the validation result should be written to
+	 * @throws JAXBException
+	 *             if an error occurs during xml writing process
+	 */
 	public void writeResult(ValidationResult result, File file)
 			throws JAXBException {
 		marshaller.marshal(result, file);

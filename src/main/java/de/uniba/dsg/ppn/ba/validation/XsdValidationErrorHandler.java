@@ -10,6 +10,7 @@ import org.xml.sax.SAXParseException;
 /**
  * 
  * @author Andreas Vorndran, Philipp Neugebauer
+ * @version 1.0
  * 
  */
 public class XsdValidationErrorHandler implements ErrorHandler {

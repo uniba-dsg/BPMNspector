@@ -47,8 +47,15 @@ import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
 
 /**
+ * Implementation of BpmnValidator
+ * 
+ * More information : {@link BpmnValidator}
+ * 
+ * Does the validation process of the xsd and the schematron validation and
+ * returns the results of the validation
  * 
  * @author Philipp Neugebauer
+ * @version 1.0
  * 
  */
 public class SchematronBPMNValidator implements BpmnValidator {

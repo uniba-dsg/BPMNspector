@@ -9,6 +9,7 @@ import org.w3c.dom.Document;
  * code better readable. Is returned as result from preprocessor.preprocess()
  * 
  * @author Philipp Neugebauer
+ * @version 1.0
  * 
  */
 public class PreProcessResult {

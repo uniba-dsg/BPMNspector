@@ -8,6 +8,7 @@ import java.io.File;
  * preprocessor.selectImportedFiles()
  * 
  * @author Philipp Neugebauer
+ * @version 1.0
  * 
  */
 public class ImportedFile {

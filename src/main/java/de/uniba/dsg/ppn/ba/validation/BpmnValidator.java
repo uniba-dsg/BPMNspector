@@ -8,8 +8,12 @@ import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 /**
+ * Interface for the implementation of the validator. Allows the usage of the
+ * validator in other projects. The loglevel is set default to info. If you need
+ * another log level, change the log level before the validation process.
  * 
  * @author Philipp Neugebauer
+ * @version 1.0
  * 
  */
 public interface BpmnValidator {
@@ -18,6 +22,7 @@ public interface BpmnValidator {
 	 * Sets the loglevel of all loggers of the bpmn validator to the given level
 	 * 
 	 * @param logLevel
+	 *            possible levels: {@link ch.qos.logback.classic.Level}
 	 */
 	void setLogLevel(Level logLevel);
 

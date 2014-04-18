@@ -7,7 +7,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -26,11 +25,13 @@ import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 /**
+ * Does the preprocessing step for creating only one document contenting
+ * everything and a namespace table
  * 
  * @author Philipp Neugebauer
+ * @version 1.0
  * 
  */
-// TODO: javadoc
 public class PreProcessor {
 
 	private DocumentBuilderFactory documentBuilderFactory;
@@ -53,9 +54,27 @@ public class PreProcessor {
 		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
+	/**
+	 * 
+	 * does the preprocess step for creating one document including the content
+	 * of all imported files of the document and a table with the namespaces and
+	 * unique prefixes of all imports
+	 * 
+	 * @param headFileDocument
+	 *            the head document, where all nodes will be added then
+	 * @param folder
+	 *            the folder of the headFileDocument
+	 * @param namespaceTable
+	 *            the list with all already found namespaces and their new
+	 *            unique prefixes
+	 * @return the preprocess result with the preprocessed one document having
+	 *         all content and the namespace table with all found namespaces and
+	 *         their unique prefixes
+	 * @throws XPathExpressionException
+	 *             if a xpath expression is invalid
+	 */
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
-			List<String[]> namespaceTable) throws XPathExpressionException,
-			TransformerException {
+			List<String[]> namespaceTable) throws XPathExpressionException {
 		ImportedFile[] importedFiles = selectImportedFiles(headFileDocument,
 				folder, namespaceTable.size());
 		removeBPMNDINode(headFileDocument);
@@ -205,6 +224,7 @@ public class PreProcessor {
 	 *            the document, where the nodes should be added
 	 * @return the headFileDocument
 	 */
+	// TODO: return probably useless
 	private Document addNodesToDocument(Node importDefinitionsNode,
 			Document headFileDocument) {
 		Element definitionsNode = headFileDocument.getDocumentElement();
