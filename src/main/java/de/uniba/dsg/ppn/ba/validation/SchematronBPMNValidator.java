@@ -215,7 +215,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	 * @param headFileDocument
 	 * @return input stream with the head file document
 	 * @throws UnsupportedEncodingException
+	 *             if the encoding isn't supported
 	 * @throws TransformerException
+	 *             if anything fails during transformation process
 	 */
 	private ByteArrayInputStream transformDocumentToInputStream(
 			Document headFileDocument) throws UnsupportedEncodingException,
