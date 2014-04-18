@@ -18,6 +18,11 @@ import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
 
+/**
+ * 
+ * @author Philipp Neugebauer
+ * 
+ */
 public class XmlLocator {
 
 	private SAXBuilder saxBuilder;
@@ -31,6 +36,15 @@ public class XmlLocator {
 		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
 	}
 
+	/**
+	 * Searches the line of the given xpath expression in the given file and
+	 * returns either the line or -1. -1 means, that with the xpath expression
+	 * couldn't be determined a bpmn element.
+	 * 
+	 * @param xmlFile
+	 * @param xpathExpression
+	 * @return line or -1
+	 */
 	public int findLine(File xmlFile, String xpathExpression) {
 		try {
 			Document doc = saxBuilder.build(xmlFile);

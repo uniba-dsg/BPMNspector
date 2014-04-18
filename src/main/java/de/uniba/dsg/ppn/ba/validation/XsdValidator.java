@@ -51,6 +51,17 @@ public class XsdValidator {
 		}
 	}
 
+	/**
+	 * Validates the given xmlFile with the xsd bpmn files and writes violations
+	 * to the given validation result
+	 * 
+	 * @param xmlFile
+	 * @param validationResult
+	 * @throws IOException
+	 *             when xmlFile can't be read
+	 * @throws SAXException
+	 *             when validation process fails somehow
+	 */
 	public void validateAgainstXsd(File xmlFile,
 			ValidationResult validationResult) throws IOException, SAXException {
 		logger.info("xsd validation started: {}", xmlFile.getName());
@@ -68,6 +79,16 @@ public class XsdValidator {
 		}
 	}
 
+	/**
+	 * 
+	 * The method simplifies the search for a resource and returns the
+	 * streamsource with the searched source
+	 * 
+	 * @param resourceName
+	 * @return the streamsource of the file, which needed to be load
+	 * @throws FileNotFoundException
+	 *             if the resource file doesn't exist there
+	 */
 	private StreamSource resolveResourcePaths(String resourceName)
 			throws FileNotFoundException {
 		return new StreamSource(new FileInputStream(Paths.get("src")
