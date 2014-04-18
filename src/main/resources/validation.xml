@@ -459,7 +459,7 @@
         </iso:rule>
     </iso:pattern>
     
-        <iso:pattern name="EXT.151">
+    <iso:pattern name="EXT.151">
         <iso:rule context="bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
             <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.151|If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
