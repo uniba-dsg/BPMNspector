@@ -484,6 +484,13 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		}
 	}
 
+	/**
+	 * creates a xpath expression for finding the id
+	 * 
+	 * @param id
+	 *            the id, to which the expression should refer
+	 * @return the xpath expression, which refers the given id
+	 */
 	private String createIdBpmnExpression(String id) {
 		return "//bpmn:*[@id = '" + id + "']";
 	}
