@@ -254,12 +254,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private String[] searchForViolationFile(String xpathExpression,
 			ValidationResult validationResult, List<String[]> namespaceTable)
 			throws BpmnValidationException {
-		boolean search = true;
 		String fileName = "";
 		String line = "-1";
 		String xpathObjectId = "";
-		int i = 0;
-		while (search && i < validationResult.getCheckedFiles().size()) {
+		for (int i = 0; i < validationResult.getCheckedFiles().size()
+				&& line.equals("-1"); i++) {
 			File checkedFile = new File(validationResult.getCheckedFiles().get(
 					i));
 			try {
@@ -282,12 +281,10 @@ public class SchematronBPMNValidator implements BpmnValidator {
 								.equals(namespace)) {
 							xpathObjectId = createIdBpmnExpression(xpathExpression
 									.substring(xpathExpression.indexOf('_') + 1));
-							line = ""
-									+ xmlLocator.findLine(checkedFile,
-											xpathObjectId);
+							line = String.valueOf(xmlLocator.findLine(
+									checkedFile, xpathObjectId));
 							xpathObjectId += "[0]";
 							fileName = checkedFile.getName();
-							search = false;
 							break;
 						}
 					} catch (SAXException | IOException e) {
@@ -299,10 +296,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 				logger.error("file {} couldn't be read. Cause: {}",
 						checkedFile.getName(), e.getCause());
 			}
-			i++;
 		}
 
-		if (search) {
+		if (line.equals("-1")) {
 			throw new BpmnValidationException("BPMN Element couldn't be found!");
 		}
 
@@ -401,7 +397,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		}
 	}
 
-	// TODO: refactor
 	/**
 	 * searches for all existing files, which are imported in the given file and
 	 * their imports and so on
