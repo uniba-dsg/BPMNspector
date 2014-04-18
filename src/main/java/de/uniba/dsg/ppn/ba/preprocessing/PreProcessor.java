@@ -61,7 +61,7 @@ public class PreProcessor {
 		logger.info("preprocessing step started");
 
 		XPathExpression xPathChangeNamespaceIds = xpath
-				.compile("//bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
+				.compile("//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
 		NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
 				.evaluate(headFileDocument, XPathConstants.NODESET);
 
