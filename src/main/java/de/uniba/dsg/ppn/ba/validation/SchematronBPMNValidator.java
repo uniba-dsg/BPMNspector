@@ -143,9 +143,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
 							failedAssert.getLocation());
 					String fileName = xmlFile.getName();
 					String location = failedAssert.getLocation();
-					logger.info(
-							"violation of constraint {} in {} at {} found.",
-							constraint, fileName, line);
+					logger.info("violation of constraint {} in {} found.",
+							constraint, fileName);
 					if (line == -1) {
 						try {
 							String xpathId = "";
@@ -294,9 +293,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
 							new Violation(constraint, fileName, line,
 									xpathLocation + "[0]",
 									"The imported file does not exist"));
-					logger.info(
-							"violation of constraint {} in {} at {} found.",
-							constraint, fileName, line);
+					logger.info("violation of constraint {} in {} found.",
+							constraint, fileName);
 				} else {
 					checkConstraint001(importedFiles[i].getFile(), folder,
 							validationResult);
