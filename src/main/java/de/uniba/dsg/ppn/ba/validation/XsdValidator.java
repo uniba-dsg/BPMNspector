@@ -1,10 +1,8 @@
 package de.uniba.dsg.ppn.ba.validation;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,8 +92,7 @@ public class XsdValidator {
 	 */
 	private StreamSource resolveResourcePaths(String resourceName)
 			throws FileNotFoundException {
-		return new StreamSource(new FileInputStream(Paths.get("src")
-				.resolve("main").resolve("resources").resolve(resourceName)
-				.toFile()));
+		return new StreamSource(this.getClass().getResourceAsStream(
+				"/" + resourceName));
 	}
 }
