@@ -113,8 +113,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	public ValidationResult validate(File xmlFile)
 			throws BpmnValidationException {
 		final ISchematronResource schematronSchema = SchematronResourcePure
-				.fromFile(this.getClass().getResource("/" + "validation.xml")
-						.getFile());
+				.fromClassPath("validation.xml");
 		if (!schematronSchema.isValidSchematron()) {
 			logger.error("schematron file is invalid");
 			throw new BpmnValidationException("Invalid Schematron!");
