@@ -1,0 +1,2696 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_BebUsM1tEeO5Ep2pmY5GiA">
+  <modelElement href="schematron-test.uml#_CIwEEs1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Eyo3cc1tEeO5Ep2pmY5GiA" targetItem="_Eyu-Ns1tEeO5Ep2pmY5GiA" sourceItem="_Eyo3cM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Eyo3c81tEeO5Ep2pmY5GiA" targetItem="_Eyu-O81tEeO5Ep2pmY5GiA" sourceItem="_Eyo3cs1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Eyo3dc1tEeO5Ep2pmY5GiA" targetItem="_Eyu-QM1tEeO5Ep2pmY5GiA" sourceItem="_Eyo3dM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Eyo3d81tEeO5Ep2pmY5GiA" targetItem="_Eyu-Rc1tEeO5Ep2pmY5GiA" sourceItem="_Eyo3ds1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_Eyu-Ec1tEeO5Ep2pmY5GiA" targetItem="_Eyu-Ss1tEeO5Ep2pmY5GiA" sourceItem="_Eyu-EM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_Eyu-Es1tEeO5Ep2pmY5GiA" sourceAnchor="263.0,0.0" targetAnchor="295.0,289.0" target="_EzfzEs1tEeO5Ep2pmY5GiA" source="_Eyu-G81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeBJcM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_Eyu-E81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeBJcs1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_Eyu-FM1tEeO5Ep2pmY5GiA" text="">
+      <visualProperties xmi:id="_Fi1lUc1tEeO5Ep2pmY5GiA" position="-40.0,-7.5"/>
+    </nameVisual>
+    <sourceRole xmi:id="_Eyu-Fc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeBJcc1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi1lUM1tEeO5Ep2pmY5GiA" position="-20.5,-49.5"/>
+      <visibility xmi:id="_Eyu-Fs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_Eyu-F81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_Eyu-GM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="violations" navigable="true">
+      <modelElement href="schematron-test.uml#_CcffgM1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi1lUs1tEeO5Ep2pmY5GiA" position="6.0,5.5"/>
+      <visibility xmi:id="_Eyu-Gc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_Eyu-Gs1tEeO5Ep2pmY5GiA" label="1..*" max="-1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EzTl0M1tEeO5Ep2pmY5GiA" targetItem="_EzfzNs1tEeO5Ep2pmY5GiA" sourceItem="_EzHYkM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EzZscc1tEeO5Ep2pmY5GiA" targetItem="_EzfzRs1tEeO5Ep2pmY5GiA" sourceItem="_EzZscM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EzZsc81tEeO5Ep2pmY5GiA" targetItem="_EzfzS81tEeO5Ep2pmY5GiA" sourceItem="_EzZscs1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EzZsdc1tEeO5Ep2pmY5GiA" targetItem="_EzfzUM1tEeO5Ep2pmY5GiA" sourceItem="_EzZsdM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_EzfzEc1tEeO5Ep2pmY5GiA" targetItem="_EzfzVc1tEeO5Ep2pmY5GiA" sourceItem="_EzfzEM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E0WusM1tEeO5Ep2pmY5GiA" targetItem="_E0c1UM1tEeO5Ep2pmY5GiA" sourceItem="_E0Ea0M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E1Tw8M1tEeO5Ep2pmY5GiA" targetItem="_E1Z3kM1tEeO5Ep2pmY5GiA" sourceItem="_E01P0M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E2KskM1tEeO5Ep2pmY5GiA" targetItem="_E2W55M1tEeO5Ep2pmY5GiA" sourceItem="_E1ySEM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E2QzMc1tEeO5Ep2pmY5GiA" targetItem="_E2W5981tEeO5Ep2pmY5GiA" sourceItem="_E2QzMM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E2W50c1tEeO5Ep2pmY5GiA" targetItem="_E2W5-81tEeO5Ep2pmY5GiA" sourceItem="_E2W50M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E2W50s1tEeO5Ep2pmY5GiA" source="_E2W55M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQEM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E2W5081tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeHQEs1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E2W51M1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E2W51c1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQEc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E2W51s1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E2W5181tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E2W52M1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="transformerFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_CcrsuM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E2W52c1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E2W52s1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E2W5281tEeO5Ep2pmY5GiA" source="_E2W55M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQE81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E2W53M1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeHQFc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E2W53c1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E2W53s1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQFM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E2W5381tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E2W54M1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E2W54c1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="transformer" navigable="true">
+      <modelElement href="schematron-test.uml#_Ccrsus1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E2W54s1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E2W5481tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E3N1cM1tEeO5Ep2pmY5GiA" targetItem="_E3T8Fc1tEeO5Ep2pmY5GiA" sourceItem="_E2vUUM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E3T8EM1tEeO5Ep2pmY5GiA" targetItem="_E3T8GM1tEeO5Ep2pmY5GiA" sourceItem="_E3N1cc1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E3T8Es1tEeO5Ep2pmY5GiA" targetItem="_E3T8HM1tEeO5Ep2pmY5GiA" sourceItem="_E3T8Ec1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E3T8FM1tEeO5Ep2pmY5GiA" targetItem="_E3T8Is1tEeO5Ep2pmY5GiA" sourceItem="_E3T8E81tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E4K3sM1tEeO5Ep2pmY5GiA" targetItem="_E4Q-UM1tEeO5Ep2pmY5GiA" sourceItem="_E3ydMM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E5aN0M1tEeO5Ep2pmY5GiA" targetItem="_E5mbLs1tEeO5Ep2pmY5GiA" sourceItem="_E4vfcM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E5mbEM1tEeO5Ep2pmY5GiA" targetItem="_E5mbR81tEeO5Ep2pmY5GiA" sourceItem="_E5aN0c1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E5mbEs1tEeO5Ep2pmY5GiA" targetItem="_E5mbTc1tEeO5Ep2pmY5GiA" sourceItem="_E5mbEc1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E5mbE81tEeO5Ep2pmY5GiA" source="_E5mbLs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWvc1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E5mbFM1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWv81tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E5mbFc1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E5mbFs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWvs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbF81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E5mbGM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E5mbGc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="schemaFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc35981tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbGs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E5mbG81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E5mbHM1tEeO5Ep2pmY5GiA" source="_E5mbLs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWwM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E5mbHc1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWws1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E5mbHs1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E5mbH81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWwc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbIM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E5mbIc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E5mbIs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="schema" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc35-c1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbI81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E5mbJM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E5mbJc1tEeO5Ep2pmY5GiA" source="_E5mbLs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWw81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E5mbJs1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWxc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E5mbJ81tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E5mbKM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWxM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbKc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E5mbKs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E5mbK81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="logger" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc35-81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbLM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E5mbLc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E6pj8M1tEeO5Ep2pmY5GiA" targetItem="_E7OLsM1tEeO5Ep2pmY5GiA" sourceItem="_E6E8MM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E6730M1tEeO5Ep2pmY5GiA" source="_E7OLsM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdVM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E7IFE81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdVs1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E7IFEM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E7IFEc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdVc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7IFFc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E7IFFM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E7IFEs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="logger" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc-Ak81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7IFF81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E7IFFs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E7B-cM1tEeO5Ep2pmY5GiA" targetItem="_E7OLyc1tEeO5Ep2pmY5GiA" sourceItem="_E6730c1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E7IFGc1tEeO5Ep2pmY5GiA" source="_E7OLsM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWxs1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E7IFGs1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdUM1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E7IFG81tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E7IFHM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWx81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7IFHc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E7IFHs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E7IFH81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="saxBuilder" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc35_c1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7IFIM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E7IFIc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E7IFIs1tEeO5Ep2pmY5GiA" source="_E7OLsM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdUc1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E7IFI81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdU81tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E7IFJM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E7IFJc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdUs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7IFJs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E7IFJ81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E7IFKM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xPathFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc-Akc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7IFKc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E7IFKs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E8LN8M1tEeO5Ep2pmY5GiA" targetItem="_E8dh0M1tEeO5Ep2pmY5GiA" sourceItem="_E7ss0M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E8XbMM1tEeO5Ep2pmY5GiA" source="_E8dh0M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdV81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E8XbMc1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdWc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E8XbMs1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_E8XbM81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdWM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E8XbNM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_E8XbNc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E8XbNs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xsdErrorList" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc-Alc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E8XbN81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E8XbOM1tEeO5Ep2pmY5GiA" label="1..*" max="-1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E9CJkM1tEeO5Ep2pmY5GiA" sourceAnchor="820.0,202.0" targetAnchor="0.0,69.0" target="_E7OLsM1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeZj8c1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E_avM81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeZj881tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E_avMM1tEeO5Ep2pmY5GiA" text="">
+      <visualProperties xmi:id="_Fi7r8c1tEeO5Ep2pmY5GiA" position="-68.0,-8.5"/>
+    </nameVisual>
+    <sourceRole xmi:id="_E_avMc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeZj8s1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi7r8M1tEeO5Ep2pmY5GiA" position="5.0,-48.5"/>
+      <visibility xmi:id="_FAj-sc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAj-sM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E_avMs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xmlLocator" navigable="true">
+      <modelElement href="schematron-test.uml#_CdEHNs1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi7r8s1tEeO5Ep2pmY5GiA" position="-78.5,3.5"/>
+      <visibility xmi:id="_FAj-s81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAj-ss1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E9y-kM1tEeO5Ep2pmY5GiA" sourceAnchor="410.0,403.0" targetAnchor="216.0,0.0" target="_E5mbLs1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeZj9M1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_E_avN81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeZj9s1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_E_avNM1tEeO5Ep2pmY5GiA" text="">
+      <visualProperties xmi:id="_Fi7r9M1tEeO5Ep2pmY5GiA" position="-40.0,-4.5"/>
+    </nameVisual>
+    <sourceRole xmi:id="_E_avNc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeZj9c1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi7r881tEeO5Ep2pmY5GiA" position="5.5,5.5"/>
+      <visibility xmi:id="_FAj-ts1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAj-tc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_E_avNs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xsdValidator" navigable="true">
+      <modelElement href="schematron-test.uml#_CdEHOM1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi7r9c1tEeO5Ep2pmY5GiA" position="-91.5,-50.0"/>
+      <visibility xmi:id="_FAj-uM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAj-t81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_E-ds8M1tEeO5Ep2pmY5GiA" sourceAnchor="410.0,0.0" targetAnchor="155.0,108.0" dashed="true" superClass="_E3T8Fc1tEeO5Ep2pmY5GiA" subClass="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CawaH81tEeO5Ep2pmY5GiA"/>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_E_UokM1tEeO5Ep2pmY5GiA" targetItem="_FAqFhs1tEeO5Ep2pmY5GiA" sourceItem="_E_IbUM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_E_avOM1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeZj981tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAj-vc1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeZj-c1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAj-us1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FAj-u81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeZj-M1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAj-v81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAj-vs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAj-vM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="logger" navigable="true">
+      <modelElement href="schematron-test.uml#_CdEHOs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAj-wc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAj-wM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FALkMM1tEeO5Ep2pmY5GiA" targetItem="_FAqFys1tEeO5Ep2pmY5GiA" sourceItem="_E_m8cM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FAd4EM1tEeO5Ep2pmY5GiA" targetItem="_FAqF5s1tEeO5Ep2pmY5GiA" sourceItem="_FARq0M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FAd4Es1tEeO5Ep2pmY5GiA" targetItem="_FAqF7M1tEeO5Ep2pmY5GiA" sourceItem="_FAd4Ec1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FAd4FM1tEeO5Ep2pmY5GiA" targetItem="_FAqF981tEeO5Ep2pmY5GiA" sourceItem="_FAd4E81tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FAd4Fs1tEeO5Ep2pmY5GiA" targetItem="_FAqF_81tEeO5Ep2pmY5GiA" sourceItem="_FAd4Fc1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FAd4GM1tEeO5Ep2pmY5GiA" targetItem="_FAqGB81tEeO5Ep2pmY5GiA" sourceItem="_FAd4F81tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FAd4Gs1tEeO5Ep2pmY5GiA" targetItem="_FAqGEc1tEeO5Ep2pmY5GiA" sourceItem="_FAd4Gc1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FAqFUM1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdWs1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAqFUc1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdXM1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAqFUs1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FAqFU81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdW81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFVM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFVc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAqFVs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="documentBuilderFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc-Amc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFV81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFWM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FAqFWc1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdXc1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAqFWs1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdX81tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAqFW81tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FAqFXM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdXs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFXc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFXs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAqFX81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="documentBuilder" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc-Am81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFYM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFYc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FAqFYs1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdYM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAqFY81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdYs1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAqFZM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FAqFZc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdYc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFZs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFZ81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAqFaM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xPathFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc-Anc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFac1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFas1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FAqFa81tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdY81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAqFbM1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdZc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAqFbc1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FAqFbs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdZM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFb81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFcM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAqFcc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xpath" navigable="true">
+      <modelElement href="schematron-test.uml#_CdEHMM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFcs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFc81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FAqFdM1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdZs1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAqFdc1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeTdaM1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAqFds1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FAqFd81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdZ81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFeM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFec1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAqFes1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xPathExpression" navigable="true">
+      <modelElement href="schematron-test.uml#_CdEHMs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFe81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFfM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FAqFfc1tEeO5Ep2pmY5GiA" sourceAnchor="0.0,202.0" targetAnchor="588.0,126.0" target="_FQZxgM1tEeO5Ep2pmY5GiA" source="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeTdac1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FAqFfs1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeZj8M1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FAqFf81tEeO5Ep2pmY5GiA" text="">
+      <visualProperties xmi:id="_Fi7r981tEeO5Ep2pmY5GiA" position="-1.0,-8.5"/>
+    </nameVisual>
+    <sourceRole xmi:id="_FAqFgM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeTdas1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_Fi7r9s1tEeO5Ep2pmY5GiA" position="-20.0,3.5"/>
+      <visibility xmi:id="_FAqFgc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFgs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FAqFg81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="preProcessor" navigable="true">
+      <modelElement href="schematron-test.uml#_CdEHNM1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_FjBykM1tEeO5Ep2pmY5GiA" position="5.5,-48.500000000000114"/>
+      <visibility xmi:id="_FAqFhM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFhc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FCwXEM1tEeO5Ep2pmY5GiA" targetItem="_FDO4OM1tEeO5Ep2pmY5GiA" sourceItem="_FBzU0M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_FC2dsM1tEeO5Ep2pmY5GiA" dashed="true" subClass="_FDO4OM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CcTSQM1tEeO5Ep2pmY5GiA"/>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FDIxkM1tEeO5Ep2pmY5GiA" targetItem="_FDO4hc1tEeO5Ep2pmY5GiA" sourceItem="_FDCq8M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FDO4MM1tEeO5Ep2pmY5GiA" target="_FDO4OM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Rs1tEeO5Ep2pmY5GiA"/>
+    <nameVisual xmi:id="_FDO4Mc1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FDO4Ms1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="inputStream" navigable="true">
+      <modelElement href="schematron-test.uml#_CdQUcs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FDO4M81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FDO4NM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FDO4Nc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_Cd08R81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FDO4Ns1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FDO4N81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FFI8sM1tEeO5Ep2pmY5GiA" targetItem="_FFnd2c1tEeO5Ep2pmY5GiA" sourceItem="_FEL6cM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FFPDUM1tEeO5Ep2pmY5GiA" source="_FFnd2c1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWus1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FFhXNM1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWvM1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FFhXMc1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FFhXMs1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWu81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFhXNs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FFhXNc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FFhXM81tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="logger" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc359c1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFhXOM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FFhXN81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FFhXMM1tEeO5Ep2pmY5GiA" targetItem="_FFnd8s1tEeO5Ep2pmY5GiA" sourceItem="_FFbQkM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FFhXOs1tEeO5Ep2pmY5GiA" source="_FFnd2c1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWtM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FFhXO81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWts1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FFhXPM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FFhXPc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWtc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFhXPs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FFhXP81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FFhXQM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="context" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc358c1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFhXQc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FFhXQs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FFnd0M1tEeO5Ep2pmY5GiA" source="_FFnd2c1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWt81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FFnd0c1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWuc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FFnd0s1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FFnd081tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWuM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFnd1M1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FFnd1c1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FFnd1s1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="marshaller" navigable="true">
+      <modelElement href="schematron-test.uml#_Cc35881tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFnd181tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FFnd2M1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FGeZcM1tEeO5Ep2pmY5GiA" sourceAnchor="0.0,37.0" targetAnchor="310.0,54.0" target="_E3T8Fc1tEeO5Ep2pmY5GiA" source="_FIekk81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeBJc81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FIYd881tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeBJdc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FIYd8M1tEeO5Ep2pmY5GiA" text="">
+      <visualProperties xmi:id="_FjByks1tEeO5Ep2pmY5GiA" position="-2.0,-8.499999999999986"/>
+    </nameVisual>
+    <sourceRole xmi:id="_FIYd8c1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeBJdM1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_FjBykc1tEeO5Ep2pmY5GiA" position="-19.5,3.5"/>
+      <visibility xmi:id="_FIYd981tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FIYd9s1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FIYd8s1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="bpmnValidator" navigable="true">
+      <modelElement href="schematron-test.uml#_CcrstM1tEeO5Ep2pmY5GiA"/>
+      <visualProperties xmi:id="_FjByk81tEeO5Ep2pmY5GiA" position="5.0,-48.49999999999986"/>
+      <visibility xmi:id="_FIekkc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FIekkM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FIMQsM1tEeO5Ep2pmY5GiA" targetItem="_FIekk81tEeO5Ep2pmY5GiA" sourceItem="_FHbbsM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FIYd9c1tEeO5Ep2pmY5GiA" targetItem="_FIekn81tEeO5Ep2pmY5GiA" sourceItem="_FIYd9M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FKYpEM1tEeO5Ep2pmY5GiA" targetItem="_FKxDls1tEeO5Ep2pmY5GiA" sourceItem="_FJVgMM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FKq88M1tEeO5Ep2pmY5GiA" target="_FKxDls1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1uM1tEeO5Ep2pmY5GiA"/>
+    <nameVisual xmi:id="_FKq88c1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FKxDkM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="file" navigable="true">
+      <modelElement href="schematron-test.uml#_CcrsvM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FKxDk81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FKxDks1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FKxDkc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_Cdu1uc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FKxDlc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FKxDlM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FMrIEM1tEeO5Ep2pmY5GiA" targetItem="_FNiDwM1tEeO5Ep2pmY5GiA" sourceItem="_FL6TEM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FNDikM1tEeO5Ep2pmY5GiA" target="_FNiDwM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1u81tEeO5Ep2pmY5GiA"/>
+    <nameVisual xmi:id="_FNiDsM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FNiDsc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="documentResult" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzUM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FNiDuM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FNiDt81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FNiDss1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_Cdu1vM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FNiDus1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FNiDuc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FNPv0M1tEeO5Ep2pmY5GiA" source="_FNiDwM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQFs1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FNiDts1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeHQGM1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FNiDs81tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FNiDtM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQF81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FNiDvM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FNiDu81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FNiDtc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="namespaceTable" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzUc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FNiDvs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FNiDvc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FPcIMM1tEeO5Ep2pmY5GiA" targetItem="_FQZxgM1tEeO5Ep2pmY5GiA" sourceItem="_FOfF8M1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FPiO0M1tEeO5Ep2pmY5GiA" source="_FQZxgM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQGc1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FQQAgs1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeHQG81tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FQPZcM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FQQAgM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQGs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQU5Ac1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FQU5AM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FQQAgc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="documentBuilderFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzU81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQU5A81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQU5As1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FP0isM1tEeO5Ep2pmY5GiA" source="_FQZxgM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQHM1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FQQnk81tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeHQHs1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FQQnkM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FQQnkc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQHc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQVgEs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FQVgEc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FQQnks1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="documentBuilder" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzVc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQWHIM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQVgE81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FP6pUM1tEeO5Ep2pmY5GiA" source="_FQZxgM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQH81tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FQROos1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeHQIc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FQQnlM1tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FQROoM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQIM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQWHI81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FQWHIs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FQROoc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xPathFactory" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzV81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQWuMc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQWuMM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FQAv8M1tEeO5Ep2pmY5GiA" source="_FQZxgM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeHQIs1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FQR1ss1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWsM1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FQROo81tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FQR1sM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeHQI81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQXVQM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FQWuM81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FQR1sc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="xpath" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzWc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQXVQs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQXVQc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_FQG2kM1tEeO5Ep2pmY5GiA" source="_FQZxgM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CeNWsc1tEeO5Ep2pmY5GiA"/>
+    <stereotypes xmi:id="_FQTD0M1tEeO5Ep2pmY5GiA" name="Reference">
+      <modelElement href="schematron-test.uml#_CeNWs81tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <nameVisual xmi:id="_FQR1s81tEeO5Ep2pmY5GiA" text=""/>
+    <sourceRole xmi:id="_FQScwM1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_CeNWss1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQX8Uc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FQX8UM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_FQScwc1tEeO5Ep2pmY5GiA" aggregationKind="NONE" name="logger" navigable="true">
+      <modelElement href="schematron-test.uml#_CcxzW81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQX8U81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQX8Us1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FQG2ks1tEeO5Ep2pmY5GiA" targetItem="_FQaYrM1tEeO5Ep2pmY5GiA" sourceItem="_FQG2kc1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FQG2lM1tEeO5Ep2pmY5GiA" targetItem="_FQaYts1tEeO5Ep2pmY5GiA" sourceItem="_FQG2k81tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FQG2ls1tEeO5Ep2pmY5GiA" targetItem="_FQaYvs1tEeO5Ep2pmY5GiA" sourceItem="_FQG2lc1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FQNkQM1tEeO5Ep2pmY5GiA" targetItem="_FQaYyc1tEeO5Ep2pmY5GiA" sourceItem="_FQM9MM1tEeO5Ep2pmY5GiA"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_FQOLUM1tEeO5Ep2pmY5GiA" targetItem="_FQaYz81tEeO5Ep2pmY5GiA" sourceItem="_FQNkQc1tEeO5Ep2pmY5GiA"/>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Eyo3cM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_Eyo3cc1tEeO5Ep2pmY5GiA" text="@return boolean indicating whether all checked files are valid" item="_Eyu-Ns1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1os1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Eyo3cs1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_Eyo3c81tEeO5Ep2pmY5GiA" text="sets the attribute valid to the given value&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param valid" item="_Eyu-O81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1o81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Eyo3dM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_Eyo3dc1tEeO5Ep2pmY5GiA" text="@return list of filenames of all checked files" item="_Eyu-QM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1pM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Eyo3ds1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_Eyo3d81tEeO5Ep2pmY5GiA" text="@return a list of all violations" item="_Eyu-Rc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1pc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_Eyu-EM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_Eyu-Ec1tEeO5Ep2pmY5GiA" text="Constructor&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param valid&#xD;&#xA;&#x9; *            are violations found?&#xD;&#xA;&#x9; * @param checkedFiles&#xD;&#xA;&#x9; *            a list of the file names of all checked files&#xD;&#xA;&#x9; * @param violations&#xD;&#xA;&#x9; *            the found violations or null" item="_Eyu-Ss1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1oc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_EzHYkM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_EzTl0M1tEeO5Ep2pmY5GiA" text="Constructor&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param constraint&#xD;&#xA;&#x9; *            id of the failed constraint&#xD;&#xA;&#x9; * @param fileName&#xD;&#xA;&#x9; *            name of the affected file&#xD;&#xA;&#x9; * @param line&#xD;&#xA;&#x9; *            line number&#xD;&#xA;&#x9; * @param xPath&#xD;&#xA;&#x9; *            XPath expression to the affected element/attribute&#xD;&#xA;&#x9; * @param message&#xD;&#xA;&#x9; *            description of the violation" item="_EzfzNs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1q81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_EzZscM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_EzZscc1tEeO5Ep2pmY5GiA" text="@return the affected constraint" item="_EzfzRs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1rM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_EzZscs1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_EzZsc81tEeO5Ep2pmY5GiA" text="@return affected file" item="_EzfzS81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1rc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_EzZsdM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_EzZsdc1tEeO5Ep2pmY5GiA" text="@return XPath expression to determine affected element/attribute" item="_EzfzUM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1rs1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_EzfzEM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_EzfzEc1tEeO5Ep2pmY5GiA" text="@return message to describe the violation" item="_EzfzVc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1r81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E0Ea0M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E0WusM1tEeO5Ep2pmY5GiA" text="Namespace Context helper class which sets the namespace uri to the bpmn&#xA;Namespace, if the prefix is bpmn&#xA;&#xA;@author Philipp Neugebauer&#xA;@version 1.0&#xA; *" item="_E0c1UM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1ss1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E01P0M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E1Tw8M1tEeO5Ep2pmY5GiA" text="Used to have validator exception messages, if anything fails during&#xD;&#xA;validation&#xD;&#xA;&#xD;&#xA;@author Philipp Neugebauer&#xD;&#xA;@version 1.0" item="_E1Z3kM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1s81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E1ySEM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E2KskM1tEeO5Ep2pmY5GiA" text="PrintHelper for printing some objects to system.out&#xA;&#xA;@author Philipp Neugebauer&#xA;@version 1.0" item="_E2W55M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1tM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E2QzMM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E2QzMc1tEeO5Ep2pmY5GiA" text="prints the given document to system.out&#xA;&#x9; * &#xA;&#x9; * @param document&#xA;&#x9; *            the document, which should be printed" item="_E2W5981tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1tc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E2W50M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E2W50c1tEeO5Ep2pmY5GiA" text="prints the violations list in a nice and human-readable way to system.out&#xA;&#x9; * &#xA;&#x9; * @param violations&#xA;&#x9; *            the violations list, which should be printed" item="_E2W5-81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1ts1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E2vUUM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E3N1cM1tEeO5Ep2pmY5GiA" text="Interface for the implementation of the validator. Allows the usage of the&#xD;&#xA;validator in other projects. The loglevel is set default to info. If you need&#xD;&#xA;another log level, change the log level before the validation process.&#xD;&#xA;&#xD;&#xA;@author Philipp Neugebauer&#xD;&#xA;@version 1.0&#xD;&#xA; *" item="_E3T8Fc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08MM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E3N1cc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E3T8EM1tEeO5Ep2pmY5GiA" text="Sets the loglevel of all loggers of the bpmn validator to the given level&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param logLevel&#xD;&#xA;&#x9; *            possible levels: {@link ch.qos.logback.classic.Level}" item="_E3T8GM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Mc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E3T8Ec1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E3T8Es1tEeO5Ep2pmY5GiA" text="checks the given xmlFile for bpmn constraint violations&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param xmlFile&#xD;&#xA;&#x9; * @return ValidationResult including all checked files and found violations&#xD;&#xA;&#x9; * @throws BpmnValidationException&#xD;&#xA;&#x9; *             if something fails during validation process" item="_E3T8HM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Ms1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E3T8E81tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E3T8FM1tEeO5Ep2pmY5GiA" text="checks the given xmlFiles for bpmn constraint violations&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param xmlFiles&#xD;&#xA;&#x9; * @return List&lt;ValidationResult> including all checked files and found&#xD;&#xA;&#x9; *         violations for each file&#xD;&#xA;&#x9; * @throws BpmnValidationException&#xD;&#xA;&#x9; *             if something fails during validation process" item="_E3T8Is1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08M81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E3ydMM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E4K3sM1tEeO5Ep2pmY5GiA" text="Class for representing a custom LSResourceResolver in order to enable resource resolution&#xD;&#xA;for BPMN XSD Validation.&#xD;&#xA;&#xD;&#xA;Needed for &lt;xs:include>-resolution when generating a {@link javax.xml.validation.Schema} when using&#xD;&#xA;getClass().getResourceAsStream(&quot;path/to/file.xsd&quot;)&#xD;&#xA;&#xD;&#xA;@author Matthias Geiger&#xD;&#xA;@version 1.0&#xD;&#xA;@see LSResourceResolver" item="_E4Q-UM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Ns1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E4vfcM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E5aN0M1tEeO5Ep2pmY5GiA" text="&#xD;&#xA;Does the xsd validation step&#xD;&#xA;&#xD;&#xA;@author Andreas Vorndran, Philipp Neugebauer&#xD;&#xA;@version 1.0&#xD;&#xA; *" item="_E5mbLs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08N81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E5aN0c1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E5mbEM1tEeO5Ep2pmY5GiA" text="&#xD;&#xA;&#x9; * The method simplifies the search for a resource and returns the&#xD;&#xA;&#x9; * streamsource with the searched source&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param resourceName&#xD;&#xA;&#x9; * @return the streamsource of the file, which needed to be load&#xD;&#xA;&#x9; * @throws FileNotFoundException&#xD;&#xA;&#x9; *             if the resource file doesn't exist there" item="_E5mbR81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Oc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E5mbEc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E5mbEs1tEeO5Ep2pmY5GiA" text="Validates the given xmlFile with the xsd bpmn files and writes violations&#xD;&#xA;&#x9; * to the given validation result&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param xmlFile&#xD;&#xA;&#x9; * @param validationResult&#xD;&#xA;&#x9; * @throws IOException&#xD;&#xA;&#x9; *             when xmlFile can't be read&#xD;&#xA;&#x9; * @throws SAXException&#xD;&#xA;&#x9; *             when validation process fails somehow" item="_E5mbTc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08OM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E6E8MM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E6pj8M1tEeO5Ep2pmY5GiA" text="&#xD;&#xA;Locates the lines of the validation errors&#xD;&#xA;&#xD;&#xA;@author Philipp Neugebauer&#xD;&#xA;@version 1.0&#xD;&#xA; *" item="_E7OLsM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Os1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E6730c1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E7B-cM1tEeO5Ep2pmY5GiA" text="Searches the line of the given xpath expression in the given file and&#xD;&#xA;&#x9; * returns either the line or -1. -1 means, that with the xpath expression&#xD;&#xA;&#x9; * couldn't be determined a bpmn element.&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param xmlFile&#xD;&#xA;&#x9; * @param xpathExpression&#xD;&#xA;&#x9; * @return line or -1" item="_E7OLyc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08O81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E7ss0M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E8LN8M1tEeO5Ep2pmY5GiA" text="&#xA;@author Andreas Vorndran, Philipp Neugebauer&#xA;@version 1.0&#xA; *" item="_E8dh0M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08PM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E_IbUM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_E_UokM1tEeO5Ep2pmY5GiA" text="Implementation of BpmnValidator&#xD;&#xA;&#xD;&#xA;More information : {@link BpmnValidator}&#xD;&#xA;&#xD;&#xA;Does the validation process of the xsd and the schematron validation and&#xD;&#xA;returns the results of the validation&#xD;&#xA;&#xD;&#xA;@author Philipp Neugebauer&#xD;&#xA;@version 1.0&#xD;&#xA; *" item="_FAqFhs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Pc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_E_m8cM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FALkMM1tEeO5Ep2pmY5GiA" text="creates a xpath expression for finding the id&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param id&#xD;&#xA;&#x9; *            the id, to which the expression should refer&#xD;&#xA;&#x9; * @return the xpath expression, which refers the given id" item="_FAqFys1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08RM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FARq0M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FAd4EM1tEeO5Ep2pmY5GiA" text="transforms the given headFileDocument to an inputstream, so that it can&#xD;&#xA;&#x9; * be used for the schematron validation process&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param headFileDocument&#xD;&#xA;&#x9; * @return input stream with the head file document&#xD;&#xA;&#x9; * @throws UnsupportedEncodingException&#xD;&#xA;&#x9; *             if the encoding isn't supported&#xD;&#xA;&#x9; * @throws TransformerException&#xD;&#xA;&#x9; *             if anything fails during transformation process" item="_FAqF5s1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Ps1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FAd4Ec1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FAd4Es1tEeO5Ep2pmY5GiA" text="searches for the file and line, where the violation occured&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param xpathExpression&#xD;&#xA;&#x9; *            the expression, through which the file and line should be&#xD;&#xA;&#x9; *            identified&#xD;&#xA;&#x9; * @param validationResult&#xD;&#xA;&#x9; *            for getting all checked files&#xD;&#xA;&#x9; * @param namespaceTable&#xD;&#xA;&#x9; *            to identify the file, where the violation occured&#xD;&#xA;&#x9; * @return string array with filename, line and xpath expression to find the&#xD;&#xA;&#x9; *         element&#xD;&#xA;&#x9; * @throws BpmnValidationException&#xD;&#xA;&#x9; *             if no element can be found" item="_FAqF7M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08P81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FAd4E81tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FAd4FM1tEeO5Ep2pmY5GiA" text="checks, if there are violations of the EXT.001 constraint&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param headFile&#xD;&#xA;&#x9; *            the file which should be checked&#xD;&#xA;&#x9; * @param folder&#xD;&#xA;&#x9; *            the parent folder of the file&#xD;&#xA;&#x9; * @param validationResult&#xD;&#xA;&#x9; *            the current validation result of validating process for adding&#xD;&#xA;&#x9; *            found violations" item="_FAqF981tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08QM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FAd4Fc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FAd4Fs1tEeO5Ep2pmY5GiA" text="checks, if there are violations of the EXT.002 constraint&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param headFile&#xD;&#xA;&#x9; *            the file which should be checked&#xD;&#xA;&#x9; * @param folder&#xD;&#xA;&#x9; *            the parent folder of the file&#xD;&#xA;&#x9; * @param validationResult&#xD;&#xA;&#x9; *            the current validation result of validating process for adding&#xD;&#xA;&#x9; *            found violations&#xD;&#xA;&#x9; * @throws XPathExpressionException&#xD;&#xA;&#x9; *             if there's an invalid xpath expression used" item="_FAqF_81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Qc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FAd4F81tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FAd4GM1tEeO5Ep2pmY5GiA" text="searches for all existing files, which are imported in the given file and&#xD;&#xA;&#x9; * their imports and so on&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param file&#xD;&#xA;&#x9; *            where the imports are searched&#xD;&#xA;&#x9; * @param folder&#xD;&#xA;&#x9; *            parent folder of file&#xD;&#xA;&#x9; * @param validationResult&#xD;&#xA;&#x9; *            to add all imported files to the checked file list&#xD;&#xA;&#x9; * @return List&lt;File> including all imported files in file" item="_FAqGB81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Qs1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FAd4Gc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FAd4Gs1tEeO5Ep2pmY5GiA" text="checks, if there are namespace and id duplicates in these two checked&#xD;&#xA;&#x9; * files&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param file1&#xD;&#xA;&#x9; *            first file to check&#xD;&#xA;&#x9; * @param file2&#xD;&#xA;&#x9; *            second file to check&#xD;&#xA;&#x9; * @param document1&#xD;&#xA;&#x9; *            parsed file1&#xD;&#xA;&#x9; * @param document2&#xD;&#xA;&#x9; *            parsed file2&#xD;&#xA;&#x9; * @param validationResult&#xD;&#xA;&#x9; *            for adding violations to the current validation result&#xD;&#xA;&#x9; * @throws XPathExpressionException&#xD;&#xA;&#x9; *             if there are invalid xpath expressions" item="_FAqGEc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Q81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FBzU0M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FCwXEM1tEeO5Ep2pmY5GiA" text="Customized LSInput in order to provide access to an resolved resource.&#xD;&#xA;&#xD;&#xA;Needed for &lt;xs:include>-resolution when generating a {@link javax.xml.validation.Schema} when using&#xD;&#xA;getClass().getResourceAsStream(&quot;path/to/file.xsd&quot;)&#xD;&#xA;&#xD;&#xA;@author Matthias Geiger&#xD;&#xA;@version 1.0&#xD;&#xA;@see LSInput&#xD;&#xA;@see LSResourceResolver&#xD;&#xA;@see ResourceResolver" item="_FDO4OM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Rc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FDCq8M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FDIxkM1tEeO5Ep2pmY5GiA" text="Constructor to generate a customized input source Input using an InputStream&#xD;&#xA;&#x9; * @param publicId&#xD;&#xA;&#x9; * @param sysId&#xD;&#xA;&#x9; * @param input" item="_FDO4hc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08SM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FEL6cM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FFI8sM1tEeO5Ep2pmY5GiA" text="This class is used for writing xml files via jaxb&#xD;&#xA;&#xD;&#xA;@author Philipp Neugebauer&#xD;&#xA;@version 1.0&#xD;&#xA; *" item="_FFnd2c1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08NM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FFbQkM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FFhXMM1tEeO5Ep2pmY5GiA" text="writes the result to the given file&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param result&#xD;&#xA;&#x9; *            the validation result, which should be writen to a file&#xD;&#xA;&#x9; * @param file&#xD;&#xA;&#x9; *            the file, where the validation result should be written to&#xD;&#xA;&#x9; * @throws JAXBException&#xD;&#xA;&#x9; *             if an error occurs during xml writing process" item="_FFnd8s1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cd08Nc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FHbbsM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FIMQsM1tEeO5Ep2pmY5GiA" text="The class is used as api interface to get an instance of the bpmn validator&#xA;to have the chance for validating files from another project&#xA;&#xA;@author Philipp Neugebauer&#xA;@version 1.0" item="_FIekk81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1sM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FIYd9M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FIYd9c1tEeO5Ep2pmY5GiA" text="&#xA;&#x9; * @return the instance of the bpmn validator" item="_FIekn81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1sc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FJVgMM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FKYpEM1tEeO5Ep2pmY5GiA" text="Just a helper class for avoiding the usage of object arrays and making the&#xA;code better readable. Is returned as result from&#xA;preprocessor.selectImportedFiles()&#xA;&#xA;@author Philipp Neugebauer&#xA;@version 1.0&#xA; *" item="_FKxDls1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1t81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FL6TEM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FMrIEM1tEeO5Ep2pmY5GiA" text="Just a helper class for avoiding the usage of object arrays and making the&#xA;code better readable. Is returned as result from preprocessor.preprocess()&#xA;&#xA;@author Philipp Neugebauer&#xA;@version 1.0&#xA; *" item="_FNiDwM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1us1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FOfF8M1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FPcIMM1tEeO5Ep2pmY5GiA" text="Does the preprocessing step for creating only one document contenting&#xD;&#xA;everything and a namespace table&#xD;&#xA;&#xD;&#xA;@author Philipp Neugebauer&#xD;&#xA;@version 1.0&#xD;&#xA; *" item="_FQZxgM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1vc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FQG2kc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FQG2ks1tEeO5Ep2pmY5GiA" text="&#xD;&#xA;&#x9; * does the preprocess step for creating one document including the content&#xD;&#xA;&#x9; * of all imported files of the document and a table with the namespaces and&#xD;&#xA;&#x9; * unique prefixes of all imports&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param headFileDocument&#xD;&#xA;&#x9; *            the head document, where all nodes will be added then&#xD;&#xA;&#x9; * @param folder&#xD;&#xA;&#x9; *            the folder of the headFileDocument&#xD;&#xA;&#x9; * @param namespaceTable&#xD;&#xA;&#x9; *            the list with all already found namespaces and their new&#xD;&#xA;&#x9; *            unique prefixes&#xD;&#xA;&#x9; * @return the preprocess result with the preprocessed one document having&#xD;&#xA;&#x9; *         all content and the namespace table with all found namespaces and&#xD;&#xA;&#x9; *         their unique prefixes&#xD;&#xA;&#x9; * @throws XPathExpressionException&#xD;&#xA;&#x9; *             if a xpath expression is invalid" item="_FQaYrM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1vs1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FQG2k81tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FQG2lM1tEeO5Ep2pmY5GiA" text="adds to all nodes new and unique prefixes in the given document for the&#xD;&#xA;&#x9; * validation process and violation searching&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param xpathExpression&#xD;&#xA;&#x9; * @param document&#xD;&#xA;&#x9; * @param namespacePrefix&#xD;&#xA;&#x9; * @throws XPathExpressionException" item="_FQaYts1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1v81tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FQG2lc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FQG2ls1tEeO5Ep2pmY5GiA" text="collects all imported files with bpmn namespace in the given document&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param document&#xD;&#xA;&#x9; *            the document, from which the imports are collected&#xD;&#xA;&#x9; * @param folder&#xD;&#xA;&#x9; *            the parent folder of the document&#xD;&#xA;&#x9; * @param size&#xD;&#xA;&#x9; *            the number of already collected imports for ensuring unique&#xD;&#xA;&#x9; *            namespace prefixes&#xD;&#xA;&#x9; * @return an array of importedFile including all bpmn imports with the&#xD;&#xA;&#x9; *         absolute path, the new namespace prefix and the namespace" item="_FQaYvs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1wM1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FQM9MM1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FQNkQM1tEeO5Ep2pmY5GiA" text="adds the childs of importDefinitionsNode to the definitionsNode of the&#xD;&#xA;&#x9; * given headFileDocument&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param importDefinitionsNode&#xD;&#xA;&#x9; *            the definitionsNode of the document, which should be added to&#xD;&#xA;&#x9; *            the headFileDocument&#xD;&#xA;&#x9; * @param headFileDocument&#xD;&#xA;&#x9; *            the document, where the nodes should be added&#xD;&#xA;&#x9; *" item="_FQaYyc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1wc1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_FQNkQc1tEeO5Ep2pmY5GiA" sourceConnectionVisual="_FQOLUM1tEeO5Ep2pmY5GiA" text="removes all BPMNDiagram Nodes from the given file&#xD;&#xA;&#x9; * &#xD;&#xA;&#x9; * @param headFileDocument&#xD;&#xA;&#x9; *            the document, where the BPMNDiagram Nodes should be deleted&#xD;&#xA;&#x9; *            from" item="_FQaYz81tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_Cdu1ws1tEeO5Ep2pmY5GiA"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_Eyu-G81tEeO5Ep2pmY5GiA" name="ValidationResult" associationsOut="_Eyu-Es1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_Eyu-HM1tEeO5Ep2pmY5GiA" position="44.0,1473.0" size="-1.0,-1.0"/>
+    <stereotypes xmi:id="_Eyu-Hc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+      <modelElement href="schematron-test.uml#_CRkB0c1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <stereotypes xmi:id="_Eyu-Hs1tEeO5Ep2pmY5GiA" name="Annotations">
+      <modelElement href="schematron-test.uml#_CR2Vs81tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <visibility xmi:id="_Eyu-H81tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_Eyu-IM1tEeO5Ep2pmY5GiA" name="valid">
+      <modelElement href="schematron-test.uml#_CcffcM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-Ic1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_Ccffcc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-Is1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_Eyu-I81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_Eyu-JM1tEeO5Ep2pmY5GiA" name="boolean">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_Eyu-Jc1tEeO5Ep2pmY5GiA" name="checkedFiles">
+      <modelElement href="schematron-test.uml#_CcffdM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-Js1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_Ccffds1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-J81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_Eyu-KM1tEeO5Ep2pmY5GiA" label="1..*" max="-1" min="1"/>
+      <type xmi:id="_Eyu-Kc1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_Eyu-Ks1tEeO5Ep2pmY5GiA" name="violations">
+      <modelElement href="schematron-test.uml#_CcffgM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-K81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CclmEM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_Eyu-LM1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CclmEM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-Lc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_Eyu-Ls1tEeO5Ep2pmY5GiA" label="1..*" max="-1" min="1"/>
+      <type xmi:id="_Eyu-L81tEeO5Ep2pmY5GiA" name="Violation">
+        <modelElement href="schematron-test.uml#_CSIpkM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_Eyu-MM1tEeO5Ep2pmY5GiA" name="ValidationResult">
+      <modelElement href="schematron-test.uml#_CRqIec1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_Eyu-Mc1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <stereotypes xmi:id="_Eyu-Ms1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CRqIfc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-M81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_Eyu-NM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CRqIfM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-Nc1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_Eyu-Ns1tEeO5Ep2pmY5GiA" comments="_Eyo3cM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_Eyo3cc1tEeO5Ep2pmY5GiA" name="isValid">
+      <modelElement href="schematron-test.uml#_CRwPEM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-N81tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CRwPEs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-OM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_Eyu-Oc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CRwPEc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-Os1tEeO5Ep2pmY5GiA" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_Eyu-O81tEeO5Ep2pmY5GiA" comments="_Eyo3cs1tEeO5Ep2pmY5GiA" targetConnectionVisual="_Eyo3c81tEeO5Ep2pmY5GiA" name="setValid">
+      <modelElement href="schematron-test.uml#_CRwPE81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-PM1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CRwPFc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-Pc1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_Eyu-Ps1tEeO5Ep2pmY5GiA" name="valid">
+        <modelElement href="schematron-test.uml#_CRwPFM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-P81tEeO5Ep2pmY5GiA" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_Eyu-QM1tEeO5Ep2pmY5GiA" comments="_Eyo3dM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_Eyo3dc1tEeO5Ep2pmY5GiA" name="getCheckedFiles">
+      <modelElement href="schematron-test.uml#_CRwPFs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-Qc1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CRwPGc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-Qs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_Eyu-Q81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CRwPF81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-RM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_Eyu-Rc1tEeO5Ep2pmY5GiA" comments="_Eyo3ds1tEeO5Ep2pmY5GiA" targetConnectionVisual="_Eyo3d81tEeO5Ep2pmY5GiA" name="getViolations">
+      <modelElement href="schematron-test.uml#_CRwPGs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_Eyu-Rs1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CR2Vss1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-R81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_Eyu-SM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CR2VsM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-Sc1tEeO5Ep2pmY5GiA" name="Violation">
+          <modelElement href="schematron-test.uml#_CSIpkM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_Eyu-Ss1tEeO5Ep2pmY5GiA" comments="_Eyu-EM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_Eyu-Ec1tEeO5Ep2pmY5GiA" name="ValidationResult">
+      <modelElement href="schematron-test.uml#_CbVo4M1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_Eyu-S81tEeO5Ep2pmY5GiA" keyword="create"/>
+      <stereotypes xmi:id="_Eyu-TM1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CbW3As1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_Eyu-Tc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_Eyu-Ts1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CbW3Ac1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-T81tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_Eyu-UM1tEeO5Ep2pmY5GiA" name="valid">
+        <modelElement href="schematron-test.uml#_CbWP8M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-Uc1tEeO5Ep2pmY5GiA" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_Eyu-Us1tEeO5Ep2pmY5GiA" name="checkedFiles">
+        <modelElement href="schematron-test.uml#_CbWP8c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-U81tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_Eyu-VM1tEeO5Ep2pmY5GiA" name="violations">
+        <modelElement href="schematron-test.uml#_CbWP8s1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_Eyu-Vc1tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_EzfzEs1tEeO5Ep2pmY5GiA" name="Violation" associationsIn="_Eyu-Es1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CSIpkM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_EzfzE81tEeO5Ep2pmY5GiA" position="12.0,980.0" size="-1.0,-1.0"/>
+    <stereotypes xmi:id="_EzfzFM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+      <modelElement href="schematron-test.uml#_CSIpkc1tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <stereotypes xmi:id="_EzfzFc1tEeO5Ep2pmY5GiA" name="Annotations">
+      <modelElement href="schematron-test.uml#_CSU2381tEeO5Ep2pmY5GiA"/>
+    </stereotypes>
+    <visibility xmi:id="_EzfzFs1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_EzfzF81tEeO5Ep2pmY5GiA" name="constraint">
+      <modelElement href="schematron-test.uml#_CclmGs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzGM1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CclmG81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzGc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_EzfzGs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_EzfzG81tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_EzfzHM1tEeO5Ep2pmY5GiA" name="fileName">
+      <modelElement href="schematron-test.uml#_CclmHs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzHc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CclmH81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzHs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_EzfzH81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_EzfzIM1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_EzfzIc1tEeO5Ep2pmY5GiA" name="line">
+      <modelElement href="schematron-test.uml#_CclmIs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzIs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CclmI81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_EzfzI81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CclmJs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzJM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_EzfzJc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_EzfzJs1tEeO5Ep2pmY5GiA" name="int">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_EzfzJ81tEeO5Ep2pmY5GiA" name="xPath">
+      <modelElement href="schematron-test.uml#_CclmKM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzKM1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CclmKc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzKc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_EzfzKs1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_EzfzK81tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_EzfzLM1tEeO5Ep2pmY5GiA" name="message">
+      <modelElement href="schematron-test.uml#_CcrssM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzLc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_Ccrssc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzLs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_EzfzL81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_EzfzMM1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_EzfzMc1tEeO5Ep2pmY5GiA" name="Violation">
+      <modelElement href="schematron-test.uml#_CSOwMM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_EzfzMs1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_EzfzM81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzNM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSOwM81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzNc1tEeO5Ep2pmY5GiA" name="Violation">
+          <modelElement href="schematron-test.uml#_CSIpkM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_EzfzNs1tEeO5Ep2pmY5GiA" comments="_EzHYkM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_EzTl0M1tEeO5Ep2pmY5GiA" name="Violation">
+      <modelElement href="schematron-test.uml#_CSOwNM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_EzfzN81tEeO5Ep2pmY5GiA" keyword="create"/>
+      <stereotypes xmi:id="_EzfzOM1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CSOwPc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzOc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzOs1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSOwPM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzO81tEeO5Ep2pmY5GiA" name="Violation">
+          <modelElement href="schematron-test.uml#_CSIpkM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_EzfzPM1tEeO5Ep2pmY5GiA" name="constraint">
+        <modelElement href="schematron-test.uml#_CSOwNc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzPc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_EzfzPs1tEeO5Ep2pmY5GiA" name="fileName">
+        <modelElement href="schematron-test.uml#_CSOwNs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzP81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_EzfzQM1tEeO5Ep2pmY5GiA" name="line">
+        <modelElement href="schematron-test.uml#_CSOwN81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzQc1tEeO5Ep2pmY5GiA" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_EzfzQs1tEeO5Ep2pmY5GiA" name="xPath">
+        <modelElement href="schematron-test.uml#_CSOwOM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzQ81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_EzfzRM1tEeO5Ep2pmY5GiA" name="message">
+        <modelElement href="schematron-test.uml#_CSOwOc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzRc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_EzfzRs1tEeO5Ep2pmY5GiA" comments="_EzZscM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_EzZscc1tEeO5Ep2pmY5GiA" name="getConstraint">
+      <modelElement href="schematron-test.uml#_CSOwPs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzR81tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CSU20c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzSM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzSc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSU20M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzSs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_EzfzS81tEeO5Ep2pmY5GiA" comments="_EzZscs1tEeO5Ep2pmY5GiA" targetConnectionVisual="_EzZsc81tEeO5Ep2pmY5GiA" name="getFileName">
+      <modelElement href="schematron-test.uml#_CSU20s1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzTM1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CSU21M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzTc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzTs1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSU2081tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzT81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_EzfzUM1tEeO5Ep2pmY5GiA" comments="_EzZsdM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_EzZsdc1tEeO5Ep2pmY5GiA" name="getxPath">
+      <modelElement href="schematron-test.uml#_CSU21c1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzUc1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CSU2181tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzUs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzU81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSU21s1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzVM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_EzfzVc1tEeO5Ep2pmY5GiA" comments="_EzfzEM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_EzfzEc1tEeO5Ep2pmY5GiA" name="getMessage">
+      <modelElement href="schematron-test.uml#_CSU22M1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzVs1tEeO5Ep2pmY5GiA" name="StyledElement">
+        <modelElement href="schematron-test.uml#_CSU22s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzV81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzWM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSU22c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzWc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_EzfzWs1tEeO5Ep2pmY5GiA" name="toString">
+      <modelElement href="schematron-test.uml#_CSU2281tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_EzfzW81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CSU23c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_EzfzXM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_EzfzXc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSU23M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_EzfzXs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E0c1UM1tEeO5Ep2pmY5GiA" comments="_E0Ea0M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E0WusM1tEeO5Ep2pmY5GiA" name="BpmnNamespaceContext">
+    <modelElement href="schematron-test.uml#_CStRUM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E0c1Uc1tEeO5Ep2pmY5GiA" position="612.0,1950.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E0c1Us1tEeO5Ep2pmY5GiA" label="+"/>
+    <operations xmi:id="_E0c1U81tEeO5Ep2pmY5GiA" name="getNamespaceURI">
+      <modelElement href="schematron-test.uml#_CStRUc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E0c1VM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CStRVM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E0c1Vc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CStRVc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E0c1Vs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E0c1V81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CStRU81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E0c1WM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E0c1Wc1tEeO5Ep2pmY5GiA" name="prefix">
+        <modelElement href="schematron-test.uml#_CStRUs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E0c1Ws1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E0c1W81tEeO5Ep2pmY5GiA" name="getPrefix">
+      <modelElement href="schematron-test.uml#_CSzX8M1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E0c1XM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CSzX881tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E0c1Xc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CSzX9M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E0c1Xs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E0c1X81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CSzX8s1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E0c1YM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E0c1Yc1tEeO5Ep2pmY5GiA" name="uri">
+        <modelElement href="schematron-test.uml#_CSzX8c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E0c1Ys1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E0c1Y81tEeO5Ep2pmY5GiA" name="getPrefixes">
+      <modelElement href="schematron-test.uml#_CSzX9s1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E0c1ZM1tEeO5Ep2pmY5GiA" name="Generics">
+        <modelElement href="schematron-test.uml#_CSzX-M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E0c1Zc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CSzX-c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E0c1Zs1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CSzX-s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E0c1Z81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E0c1aM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CbcWkM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E0c1ac1tEeO5Ep2pmY5GiA" name="Iterator">
+          <modelElement href="schematron-test.uml#_CZzX2M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E0c1as1tEeO5Ep2pmY5GiA" name="uri">
+        <modelElement href="schematron-test.uml#_CSzX981tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E0c1a81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E1Z3kM1tEeO5Ep2pmY5GiA" comments="_E01P0M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E1Tw8M1tEeO5Ep2pmY5GiA" name="BpmnValidationException">
+    <modelElement href="schematron-test.uml#_CS5ekM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E1Z3kc1tEeO5Ep2pmY5GiA" position="972.0,1956.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E1Z3ks1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_E1Z3k81tEeO5Ep2pmY5GiA" defaultValue="1L" name="serialVersionUID" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_Ccrsts1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E1Z3lM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E1Z3lc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E1Z3ls1tEeO5Ep2pmY5GiA" name="long">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#long"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_E1Z3l81tEeO5Ep2pmY5GiA" name="BpmnValidationException">
+      <modelElement href="schematron-test.uml#_CS5ekc1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_E1Z3mM1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_E1Z3mc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E1Z3ms1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CS5elc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E1Z3m81tEeO5Ep2pmY5GiA" name="BpmnValidationException">
+          <modelElement href="schematron-test.uml#_CS5ekM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E1Z3nM1tEeO5Ep2pmY5GiA" name="text">
+        <modelElement href="schematron-test.uml#_CS5eks1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E1Z3nc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E2W55M1tEeO5Ep2pmY5GiA" comments="_E1ySEM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E2KskM1tEeO5Ep2pmY5GiA" name="PrintHelper" associationsOut="_E2W50s1tEeO5Ep2pmY5GiA _E2W5281tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CS_lMM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E2W55c1tEeO5Ep2pmY5GiA" position="893.0,1758.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E2W55s1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_E2W5581tEeO5Ep2pmY5GiA" name="transformerFactory" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_CcrsuM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E2W56M1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Ccrsuc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E2W56c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Ccrsuc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E2W56s1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E2W5681tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E2W57M1tEeO5Ep2pmY5GiA" name="TransformerFactory">
+        <modelElement href="schematron-test.uml#_CZ5eeM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_E2W57c1tEeO5Ep2pmY5GiA" name="transformer" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_Ccrsus1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E2W57s1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Ccrsu81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E2W5781tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Ccrsu81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E2W58M1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E2W58c1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E2W58s1tEeO5Ep2pmY5GiA" name="Transformer">
+        <modelElement href="schematron-test.uml#_CZ5ecs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_E2W5881tEeO5Ep2pmY5GiA" name="_initializer1" staticOperation="true">
+      <modelElement href="schematron-test.uml#_CS_lMc1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_E2W59M1tEeO5Ep2pmY5GiA" keyword="init"/>
+      <stereotypes xmi:id="_E2W59c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CS_lNM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E2W59s1tEeO5Ep2pmY5GiA" label="+"/>
+    </operations>
+    <operations xmi:id="_E2W5981tEeO5Ep2pmY5GiA" comments="_E2QzMM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E2QzMc1tEeO5Ep2pmY5GiA" name="printDocument" staticOperation="true">
+      <modelElement href="schematron-test.uml#_CbfZ4M1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E2W5-M1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E2W5-c1tEeO5Ep2pmY5GiA" name="document">
+        <modelElement href="schematron-test.uml#_CbfZ4c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E2W5-s1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E2W5-81tEeO5Ep2pmY5GiA" comments="_E2W50M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E2W50c1tEeO5Ep2pmY5GiA" name="printViolations" staticOperation="true">
+      <modelElement href="schematron-test.uml#_CbhPEM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E2W5_M1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E2W5_c1tEeO5Ep2pmY5GiA" name="violations">
+        <modelElement href="schematron-test.uml#_Cbh2IM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E2W5_s1tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_E3T8Fc1tEeO5Ep2pmY5GiA" comments="_E2vUUM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E3N1cM1tEeO5Ep2pmY5GiA" name="BpmnValidator" associationsIn="_FGeZcM1tEeO5Ep2pmY5GiA" subclassedBy="_E-ds8M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CT2g0M1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E3T8Fs1tEeO5Ep2pmY5GiA" position="1153.0,31.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E3T8F81tEeO5Ep2pmY5GiA" label="+"/>
+    <operations xmi:id="_E3T8GM1tEeO5Ep2pmY5GiA" comments="_E3N1cc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E3T8EM1tEeO5Ep2pmY5GiA" name="setLogLevel">
+      <modelElement href="schematron-test.uml#_Cby74M1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E3T8Gc1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E3T8Gs1tEeO5Ep2pmY5GiA" name="logLevel">
+        <modelElement href="schematron-test.uml#_Cby74c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E3T8G81tEeO5Ep2pmY5GiA" name="Level">
+          <modelElement href="schematron-test.uml#_CZzX1c1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E3T8HM1tEeO5Ep2pmY5GiA" comments="_E3T8Ec1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E3T8Es1tEeO5Ep2pmY5GiA" name="validate">
+      <modelElement href="schematron-test.uml#_Cbzi8M1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E3T8Hc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E3T8Hs1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cbzi8s1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E3T8H81tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E3T8IM1tEeO5Ep2pmY5GiA" name="xmlFile">
+        <modelElement href="schematron-test.uml#_Cbzi8c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E3T8Ic1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E3T8Is1tEeO5Ep2pmY5GiA" comments="_E3T8E81tEeO5Ep2pmY5GiA" targetConnectionVisual="_E3T8FM1tEeO5Ep2pmY5GiA" name="validateFiles">
+      <modelElement href="schematron-test.uml#_Cb0KAM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E3T8I81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E3T8JM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cb0xEc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E3T8Jc1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E3T8Js1tEeO5Ep2pmY5GiA" name="xmlFiles">
+        <modelElement href="schematron-test.uml#_Cb0xEM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E3T8J81tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E4Q-UM1tEeO5Ep2pmY5GiA" comments="_E3ydMM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E4K3sM1tEeO5Ep2pmY5GiA" name="ResourceResolver">
+    <modelElement href="schematron-test.uml#_CUKC0M1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E4Q-Uc1tEeO5Ep2pmY5GiA" position="17.0,2112.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E4Q-Us1tEeO5Ep2pmY5GiA" label="+"/>
+    <operations xmi:id="_E4Q-U81tEeO5Ep2pmY5GiA" name="resolveResource">
+      <modelElement href="schematron-test.uml#_CUQJcM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E4Q-VM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CUQJds1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E4Q-Vc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CUWQEM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E4Q-Vs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E4Q-V81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cb5CgM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E4Q-WM1tEeO5Ep2pmY5GiA" name="LSInput">
+          <modelElement href="schematron-test.uml#_CaX_kc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E4Q-Wc1tEeO5Ep2pmY5GiA" name="type">
+        <modelElement href="schematron-test.uml#_CUQJcc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E4Q-Ws1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_E4Q-W81tEeO5Ep2pmY5GiA" name="namespaceURI">
+        <modelElement href="schematron-test.uml#_CUQJcs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E4Q-XM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_E4Q-Xc1tEeO5Ep2pmY5GiA" name="publicId">
+        <modelElement href="schematron-test.uml#_CUQJc81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E4Q-Xs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_E4Q-X81tEeO5Ep2pmY5GiA" name="systemId">
+        <modelElement href="schematron-test.uml#_CUQJdM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E4Q-YM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_E4Q-Yc1tEeO5Ep2pmY5GiA" name="baseURI">
+        <modelElement href="schematron-test.uml#_CUQJdc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E4Q-Ys1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E5mbLs1tEeO5Ep2pmY5GiA" comments="_E4vfcM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E5aN0M1tEeO5Ep2pmY5GiA" name="XsdValidator" associationsIn="_E9y-kM1tEeO5Ep2pmY5GiA" associationsOut="_E5mbE81tEeO5Ep2pmY5GiA _E5mbHM1tEeO5Ep2pmY5GiA _E5mbJc1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CUWQEs1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E5mbL81tEeO5Ep2pmY5GiA" position="1092.0,761.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E5mbMM1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_E5mbMc1tEeO5Ep2pmY5GiA" name="schemaFactory">
+      <modelElement href="schematron-test.uml#_Cc35981tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E5mbMs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc35-M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E5mbM81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc35-M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E5mbNM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E5mbNc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E5mbNs1tEeO5Ep2pmY5GiA" name="SchemaFactory">
+        <modelElement href="schematron-test.uml#_CaeGMc1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_E5mbN81tEeO5Ep2pmY5GiA" name="schema">
+      <modelElement href="schematron-test.uml#_Cc35-c1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E5mbOM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc35-s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E5mbOc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc35-s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E5mbOs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E5mbO81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E5mbPM1tEeO5Ep2pmY5GiA" name="Schema">
+        <modelElement href="schematron-test.uml#_CaX_m81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_E5mbPc1tEeO5Ep2pmY5GiA" name="logger">
+      <modelElement href="schematron-test.uml#_Cc35-81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E5mbPs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc35_M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E5mbP81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc35_M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E5mbQM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E5mbQc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E5mbQs1tEeO5Ep2pmY5GiA" name="Logger">
+        <modelElement href="schematron-test.uml#_CaFrw81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_E5mbQ81tEeO5Ep2pmY5GiA" name="_initializer1">
+      <modelElement href="schematron-test.uml#_CUcWsM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_E5mbRM1tEeO5Ep2pmY5GiA" keyword="init"/>
+      <stereotypes xmi:id="_E5mbRc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CUcWs81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E5mbRs1tEeO5Ep2pmY5GiA" label="+"/>
+    </operations>
+    <operations xmi:id="_E5mbR81tEeO5Ep2pmY5GiA" comments="_E5aN0c1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E5mbEM1tEeO5Ep2pmY5GiA" name="resolveResourcePaths">
+      <modelElement href="schematron-test.uml#_CUcWtM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbSM1tEeO5Ep2pmY5GiA" label="-"/>
+      <outParameters xmi:id="_E5mbSc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cb63s81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E5mbSs1tEeO5Ep2pmY5GiA" name="StreamSource">
+          <modelElement href="schematron-test.uml#_CaX_mc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E5mbS81tEeO5Ep2pmY5GiA" name="resourceName">
+        <modelElement href="schematron-test.uml#_CUcWtc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E5mbTM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E5mbTc1tEeO5Ep2pmY5GiA" comments="_E5mbEc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E5mbEs1tEeO5Ep2pmY5GiA" name="validateAgainstXsd">
+      <modelElement href="schematron-test.uml#_Cb63sM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E5mbTs1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E5mbT81tEeO5Ep2pmY5GiA" name="xmlFile">
+        <modelElement href="schematron-test.uml#_Cb63sc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E5mbUM1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_E5mbUc1tEeO5Ep2pmY5GiA" name="validationResult">
+        <modelElement href="schematron-test.uml#_Cb63ss1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E5mbUs1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E7OLsM1tEeO5Ep2pmY5GiA" comments="_E6E8MM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E6pj8M1tEeO5Ep2pmY5GiA" name="XmlLocator" associationsIn="_E9CJkM1tEeO5Ep2pmY5GiA" associationsOut="_E6730M1tEeO5Ep2pmY5GiA _E7IFGc1tEeO5Ep2pmY5GiA _E7IFIs1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CUoj8M1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E7OLsc1tEeO5Ep2pmY5GiA" position="1994.0,302.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E7OLss1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_E7OLs81tEeO5Ep2pmY5GiA" name="saxBuilder">
+      <modelElement href="schematron-test.uml#_Cc35_c1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E7OLtM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AkM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E7OLtc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AkM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E7OLts1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E7OLt81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E7OLuM1tEeO5Ep2pmY5GiA" name="SAXBuilder">
+        <modelElement href="schematron-test.uml#_CakM2c1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_E7OLuc1tEeO5Ep2pmY5GiA" name="xPathFactory">
+      <modelElement href="schematron-test.uml#_Cc-Akc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E7OLus1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-Aks1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E7OLu81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-Aks1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E7OLvM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E7OLvc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E7OLvs1tEeO5Ep2pmY5GiA" name="XPathFactory">
+        <modelElement href="schematron-test.uml#_CakM4c1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_E7OLv81tEeO5Ep2pmY5GiA" name="logger">
+      <modelElement href="schematron-test.uml#_Cc-Ak81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E7OLwM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AlM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E7IFGM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AlM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E7OLwc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E7OLws1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_E7OLw81tEeO5Ep2pmY5GiA" name="Logger">
+        <modelElement href="schematron-test.uml#_CaFrw81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_E7OLxM1tEeO5Ep2pmY5GiA" name="XmlLocator">
+      <modelElement href="schematron-test.uml#_CUoj8c1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_E7OLxc1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_E7OLxs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E7OLx81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CUoj9M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E7OLyM1tEeO5Ep2pmY5GiA" name="XmlLocator">
+          <modelElement href="schematron-test.uml#_CUoj8M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_E7OLyc1tEeO5Ep2pmY5GiA" comments="_E6730c1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E7B-cM1tEeO5Ep2pmY5GiA" name="findLine">
+      <modelElement href="schematron-test.uml#_Cb63tM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E7OLys1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E7OLy81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cb63t81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E7OLzM1tEeO5Ep2pmY5GiA" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E7OLzc1tEeO5Ep2pmY5GiA" name="xmlFile">
+        <modelElement href="schematron-test.uml#_Cb63tc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E7OLzs1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_E7OLz81tEeO5Ep2pmY5GiA" name="xpathExpression">
+        <modelElement href="schematron-test.uml#_Cb63ts1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E7OL0M1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_E8dh0M1tEeO5Ep2pmY5GiA" comments="_E7ss0M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E8LN8M1tEeO5Ep2pmY5GiA" name="XsdValidationErrorHandler" associationsOut="_E8XbMM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CUuqkM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_E8dh0c1tEeO5Ep2pmY5GiA" position="1150.0,982.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_E8dh0s1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_E8dh081tEeO5Ep2pmY5GiA" defaultValue="new ArrayList&lt;>()" name="xsdErrorList">
+      <modelElement href="schematron-test.uml#_Cc-Alc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E8dh1M1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AmM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E8dh1c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AmM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E8dh1s1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_E8dh181tEeO5Ep2pmY5GiA" label="1..*" max="-1" min="1"/>
+      <type xmi:id="_E8dh2M1tEeO5Ep2pmY5GiA" name="SAXParseException">
+        <modelElement href="schematron-test.uml#_CaeGNc1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_E8dh2c1tEeO5Ep2pmY5GiA" name="getXsdErrors">
+      <modelElement href="schematron-test.uml#_CU0xMM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_E8dh2s1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E8dh281tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CU0xMc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E8dh3M1tEeO5Ep2pmY5GiA" name="SAXParseException">
+          <modelElement href="schematron-test.uml#_CaeGNc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_E8dh3c1tEeO5Ep2pmY5GiA" name="XsdValidationErrorHandler">
+      <modelElement href="schematron-test.uml#_Cb63uc1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_E8dh3s1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_E8dh381tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_E8dh4M1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcA-Us1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E8dh4c1tEeO5Ep2pmY5GiA" name="XsdValidationErrorHandler">
+          <modelElement href="schematron-test.uml#_CUuqkM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_E8dh4s1tEeO5Ep2pmY5GiA" name="xsdErrorList">
+        <modelElement href="schematron-test.uml#_Cb63us1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E8dh481tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E8dh5M1tEeO5Ep2pmY5GiA" name="error">
+      <modelElement href="schematron-test.uml#_CcA-VM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E8dh5c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcA-Vs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E8dh5s1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcA-V81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E8dh581tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E8dh6M1tEeO5Ep2pmY5GiA" name="e">
+        <modelElement href="schematron-test.uml#_CcA-Vc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E8dh6c1tEeO5Ep2pmY5GiA" name="SAXParseException">
+          <modelElement href="schematron-test.uml#_CaeGNc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E8dh6s1tEeO5Ep2pmY5GiA" name="fatalError">
+      <modelElement href="schematron-test.uml#_CcA-Wc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E8dh681tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcA-W81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E8dh7M1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcA-XM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E8dh7c1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E8dh7s1tEeO5Ep2pmY5GiA" name="e">
+        <modelElement href="schematron-test.uml#_CcA-Ws1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E8dh781tEeO5Ep2pmY5GiA" name="SAXParseException">
+          <modelElement href="schematron-test.uml#_CaeGNc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_E8dh8M1tEeO5Ep2pmY5GiA" name="warning">
+      <modelElement href="schematron-test.uml#_CcA-Xs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_E8dh8c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcHE8c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_E8dh8s1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcHE8s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_E8dh881tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_E8dh9M1tEeO5Ep2pmY5GiA" name="e">
+        <modelElement href="schematron-test.uml#_CcHE8M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_E8dh9c1tEeO5Ep2pmY5GiA" name="SAXParseException">
+          <modelElement href="schematron-test.uml#_CaeGNc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FAqFhs1tEeO5Ep2pmY5GiA" comments="_E_IbUM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_E_UokM1tEeO5Ep2pmY5GiA" name="SchematronBPMNValidator" associationsOut="_E9CJkM1tEeO5Ep2pmY5GiA _E9y-kM1tEeO5Ep2pmY5GiA _E_avOM1tEeO5Ep2pmY5GiA _FAqFUM1tEeO5Ep2pmY5GiA _FAqFWc1tEeO5Ep2pmY5GiA _FAqFYs1tEeO5Ep2pmY5GiA _FAqFa81tEeO5Ep2pmY5GiA _FAqFdM1tEeO5Ep2pmY5GiA _FAqFfc1tEeO5Ep2pmY5GiA" generalizations="_E-ds8M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CVA-cM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FAqFh81tEeO5Ep2pmY5GiA" position="898.0,169.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FAqFiM1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FAqFic1tEeO5Ep2pmY5GiA" name="documentBuilderFactory">
+      <modelElement href="schematron-test.uml#_Cc-Amc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFis1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-Ams1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqFi81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-Ams1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFjM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFjc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFjs1tEeO5Ep2pmY5GiA" name="DocumentBuilderFactory">
+        <modelElement href="schematron-test.uml#_CZ_lFM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFj81tEeO5Ep2pmY5GiA" name="documentBuilder">
+      <modelElement href="schematron-test.uml#_Cc-Am81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFkM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AnM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqFkc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-AnM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFks1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFk81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFlM1tEeO5Ep2pmY5GiA" name="DocumentBuilder">
+        <modelElement href="schematron-test.uml#_CZ_lEs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFlc1tEeO5Ep2pmY5GiA" name="xPathFactory">
+      <modelElement href="schematron-test.uml#_Cc-Anc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFls1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-Ans1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqFl81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc-Ans1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFmM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFmc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFms1tEeO5Ep2pmY5GiA" name="XPathFactory">
+        <modelElement href="schematron-test.uml#_CaFrt81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFm81tEeO5Ep2pmY5GiA" name="xpath">
+      <modelElement href="schematron-test.uml#_CdEHMM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFnM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHMc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqFnc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHMc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFns1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFn81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFoM1tEeO5Ep2pmY5GiA" name="XPath">
+        <modelElement href="schematron-test.uml#_CZ_lGM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFoc1tEeO5Ep2pmY5GiA" name="xPathExpression">
+      <modelElement href="schematron-test.uml#_CdEHMs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFos1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHM81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqFo81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHM81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFpM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFpc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFps1tEeO5Ep2pmY5GiA" name="XPathExpression">
+        <modelElement href="schematron-test.uml#_CaFrs81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFp81tEeO5Ep2pmY5GiA" name="preProcessor">
+      <modelElement href="schematron-test.uml#_CdEHNM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFqM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHNc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqFqc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHNc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFqs1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFq81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFrM1tEeO5Ep2pmY5GiA" name="PreProcessor">
+        <modelElement href="schematron-test.uml#_CTeGUM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFrc1tEeO5Ep2pmY5GiA" name="xmlLocator">
+      <modelElement href="schematron-test.uml#_CdEHNs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFrs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHN81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAj-tM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHN81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFr81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFsM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFsc1tEeO5Ep2pmY5GiA" name="XmlLocator">
+        <modelElement href="schematron-test.uml#_CUoj8M1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFss1tEeO5Ep2pmY5GiA" name="xsdValidator">
+      <modelElement href="schematron-test.uml#_CdEHOM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFs81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHOc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAj-uc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHOc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFtM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFtc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFts1tEeO5Ep2pmY5GiA" name="XsdValidator">
+        <modelElement href="schematron-test.uml#_CUWQEs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFt81tEeO5Ep2pmY5GiA" name="logger">
+      <modelElement href="schematron-test.uml#_CdEHOs1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFuM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHO81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAj-ws1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHO81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFuc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FAqFus1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFu81tEeO5Ep2pmY5GiA" name="Logger">
+        <modelElement href="schematron-test.uml#_CaFrw81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFvM1tEeO5Ep2pmY5GiA" defaultValue="&quot;http://www.omg.org/spec/BPMN/20100524/MODEL&quot;" name="bpmnNamespace" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_CdEHPM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFvc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHPs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFvs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFv81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFwM1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FAqFwc1tEeO5Ep2pmY5GiA" defaultValue="&quot;http://www.omg.org/spec/BPMN/20100524/DI&quot;" name="bpmndiNamespace" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_CdEHP81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqFws1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdEHQc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFw81tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FAqFxM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FAqFxc1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FAqFxs1tEeO5Ep2pmY5GiA" name="_initializer1">
+      <modelElement href="schematron-test.uml#_CVHFEM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FAqFx81tEeO5Ep2pmY5GiA" keyword="init"/>
+      <stereotypes xmi:id="_FAqFyM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CVHFE81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqFyc1tEeO5Ep2pmY5GiA" label="+"/>
+    </operations>
+    <operations xmi:id="_FAqFys1tEeO5Ep2pmY5GiA" comments="_E_m8cM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FALkMM1tEeO5Ep2pmY5GiA" name="createIdBpmnExpression">
+      <modelElement href="schematron-test.uml#_CVNLsM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqFy81tEeO5Ep2pmY5GiA" label="-"/>
+      <outParameters xmi:id="_FAqFzM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CVNLss1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqFzc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FAqFzs1tEeO5Ep2pmY5GiA" name="id">
+        <modelElement href="schematron-test.uml#_CVNLsc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqFz81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF0M1tEeO5Ep2pmY5GiA" name="setLogLevel">
+      <modelElement href="schematron-test.uml#_CcHE9M1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqF0c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcHE9s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqF0s1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcHE981tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqF081tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FAqF1M1tEeO5Ep2pmY5GiA" name="logLevel">
+        <modelElement href="schematron-test.uml#_CcHE9c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF1c1tEeO5Ep2pmY5GiA" name="Level">
+          <modelElement href="schematron-test.uml#_CZzX1c1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF1s1tEeO5Ep2pmY5GiA" name="validateFiles">
+      <modelElement href="schematron-test.uml#_CcHE-c1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqF181tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcHE_c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqF2M1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcNLkM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqF2c1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FAqF2s1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcHE-81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF281tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FAqF3M1tEeO5Ep2pmY5GiA" name="xmlFiles">
+        <modelElement href="schematron-test.uml#_CcHE-s1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF3c1tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF3s1tEeO5Ep2pmY5GiA" name="validate">
+      <modelElement href="schematron-test.uml#_CcNLks1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqF381tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcNLlc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FAqF4M1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcNLls1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqF4c1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FAqF4s1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcNLlM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF481tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FAqF5M1tEeO5Ep2pmY5GiA" name="xmlFile">
+        <modelElement href="schematron-test.uml#_CcNLk81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF5c1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF5s1tEeO5Ep2pmY5GiA" comments="_FARq0M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FAd4EM1tEeO5Ep2pmY5GiA" name="transformDocumentToInputStream">
+      <modelElement href="schematron-test.uml#_CcNLmM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqF581tEeO5Ep2pmY5GiA" label="-"/>
+      <outParameters xmi:id="_FAqF6M1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcNLms1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF6c1tEeO5Ep2pmY5GiA" name="ByteArrayInputStream">
+          <modelElement href="schematron-test.uml#_CaqTcs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FAqF6s1tEeO5Ep2pmY5GiA" name="headFileDocument">
+        <modelElement href="schematron-test.uml#_CcNLmc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF681tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF7M1tEeO5Ep2pmY5GiA" comments="_FAd4Ec1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FAd4Es1tEeO5Ep2pmY5GiA" name="searchForViolationFile">
+      <modelElement href="schematron-test.uml#_CcNLm81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FAqF7c1tEeO5Ep2pmY5GiA" name="Array">
+        <modelElement href="schematron-test.uml#_CcNLoc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FAqF7s1tEeO5Ep2pmY5GiA" label="-"/>
+      <outParameters xmi:id="_FAqF781tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcNLn81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF8M1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FAqF8c1tEeO5Ep2pmY5GiA" name="xpathExpression">
+        <modelElement href="schematron-test.uml#_CcNLnM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF8s1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqF881tEeO5Ep2pmY5GiA" name="validationResult">
+        <modelElement href="schematron-test.uml#_CcNLnc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF9M1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqF9c1tEeO5Ep2pmY5GiA" name="namespaceTable">
+        <modelElement href="schematron-test.uml#_CcNLns1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF9s1tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF981tEeO5Ep2pmY5GiA" comments="_FAd4E81tEeO5Ep2pmY5GiA" targetConnectionVisual="_FAd4FM1tEeO5Ep2pmY5GiA" name="checkConstraint001">
+      <modelElement href="schematron-test.uml#_CcNLo81tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqF-M1tEeO5Ep2pmY5GiA" label="-"/>
+      <parameters xmi:id="_FAqF-c1tEeO5Ep2pmY5GiA" name="headFile">
+        <modelElement href="schematron-test.uml#_CcNLpM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF-s1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqF-81tEeO5Ep2pmY5GiA" name="folder">
+        <modelElement href="schematron-test.uml#_CcNLpc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF_M1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqF_c1tEeO5Ep2pmY5GiA" name="validationResult">
+        <modelElement href="schematron-test.uml#_CcNLps1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqF_s1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqF_81tEeO5Ep2pmY5GiA" comments="_FAd4Fc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FAd4Fs1tEeO5Ep2pmY5GiA" name="checkConstraint002">
+      <modelElement href="schematron-test.uml#_CcTSMM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqGAM1tEeO5Ep2pmY5GiA" label="-"/>
+      <parameters xmi:id="_FAqGAc1tEeO5Ep2pmY5GiA" name="headFile">
+        <modelElement href="schematron-test.uml#_CcTSMc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGAs1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGA81tEeO5Ep2pmY5GiA" name="folder">
+        <modelElement href="schematron-test.uml#_CcTSMs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGBM1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGBc1tEeO5Ep2pmY5GiA" name="validationResult">
+        <modelElement href="schematron-test.uml#_CcTSM81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGBs1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqGB81tEeO5Ep2pmY5GiA" comments="_FAd4F81tEeO5Ep2pmY5GiA" targetConnectionVisual="_FAd4GM1tEeO5Ep2pmY5GiA" name="searchForImports">
+      <modelElement href="schematron-test.uml#_CcTSNM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqGCM1tEeO5Ep2pmY5GiA" label="-"/>
+      <outParameters xmi:id="_FAqGCc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcTSOM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGCs1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FAqGC81tEeO5Ep2pmY5GiA" name="file">
+        <modelElement href="schematron-test.uml#_CcTSNc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGDM1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGDc1tEeO5Ep2pmY5GiA" name="folder">
+        <modelElement href="schematron-test.uml#_CcTSNs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGDs1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGD81tEeO5Ep2pmY5GiA" name="validationResult">
+        <modelElement href="schematron-test.uml#_CcTSN81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGEM1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FAqGEc1tEeO5Ep2pmY5GiA" comments="_FAd4Gc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FAd4Gs1tEeO5Ep2pmY5GiA" name="checkNamespacesAndIdDuplicates">
+      <modelElement href="schematron-test.uml#_CcTSOs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FAqGEs1tEeO5Ep2pmY5GiA" label="-"/>
+      <parameters xmi:id="_FAqGE81tEeO5Ep2pmY5GiA" name="file1">
+        <modelElement href="schematron-test.uml#_CcTSO81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGFM1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGFc1tEeO5Ep2pmY5GiA" name="file2">
+        <modelElement href="schematron-test.uml#_CcTSPM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGFs1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGF81tEeO5Ep2pmY5GiA" name="document1">
+        <modelElement href="schematron-test.uml#_CcTSPc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGGM1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGGc1tEeO5Ep2pmY5GiA" name="document2">
+        <modelElement href="schematron-test.uml#_CcTSPs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGGs1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FAqGG81tEeO5Ep2pmY5GiA" name="validationResult">
+        <modelElement href="schematron-test.uml#_CcTSP81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FAqGHM1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FDO4OM1tEeO5Ep2pmY5GiA" comments="_FBzU0M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FCwXEM1tEeO5Ep2pmY5GiA" name="Input" associationsIn="_FDO4MM1tEeO5Ep2pmY5GiA" generalizations="_FC2dsM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CVxzcM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FDO4Oc1tEeO5Ep2pmY5GiA" position="673.0,978.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FDO4Os1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FDO4O81tEeO5Ep2pmY5GiA" name="publicId">
+      <modelElement href="schematron-test.uml#_CdKN0M1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4PM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdKN0c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4Pc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FDO4Ps1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FDO4P81tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FDO4QM1tEeO5Ep2pmY5GiA" name="systemId">
+      <modelElement href="schematron-test.uml#_CdKN2s1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4Qc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CdKN281tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4Qs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FDO4Q81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FDO4RM1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FDO4Rc1tEeO5Ep2pmY5GiA" name="inputStream">
+      <modelElement href="schematron-test.uml#_CdQUcs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FDO4Rs1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FDO4R81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FDO4SM1tEeO5Ep2pmY5GiA" name="BufferedInputStream">
+        <modelElement href="schematron-test.uml#_Ca8nUM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FDO4Sc1tEeO5Ep2pmY5GiA" name="getBaseURI">
+      <modelElement href="schematron-test.uml#_CV36EM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4Ss1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CV36Es1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4S81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CV36E81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4TM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4Tc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CV36Ec1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4Ts1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FDO4T81tEeO5Ep2pmY5GiA" name="getByteStream">
+      <modelElement href="schematron-test.uml#_CV36Fc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4UM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CV36Fs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4Uc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CV-AsM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4Us1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4U81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcZY1M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4VM1tEeO5Ep2pmY5GiA" name="InputStream">
+          <modelElement href="schematron-test.uml#_CaR49M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FDO4Vc1tEeO5Ep2pmY5GiA" name="getCertifiedText">
+      <modelElement href="schematron-test.uml#_CV-Ass1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4Vs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CV-AtM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4V81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CV-Atc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4WM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4Wc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CV-As81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4Ws1tEeO5Ep2pmY5GiA" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FDO4W81tEeO5Ep2pmY5GiA" name="getCharacterStream">
+      <modelElement href="schematron-test.uml#_CV-At81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4XM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CV-AuM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4Xc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CV-Auc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4Xs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4X81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcZY1c1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4YM1tEeO5Ep2pmY5GiA" name="Reader">
+          <modelElement href="schematron-test.uml#_CbCt8M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FDO4Yc1tEeO5Ep2pmY5GiA" name="getEncoding">
+      <modelElement href="schematron-test.uml#_CV-Au81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4Ys1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CWEHUM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4Y81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CWEHUc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4ZM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4Zc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CV-AvM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4Zs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FDO4Z81tEeO5Ep2pmY5GiA" name="getStringData">
+      <modelElement href="schematron-test.uml#_CWEHU81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4aM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CWEHVc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4ac1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CWEHVs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4as1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4a81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CWEHVM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4bM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FDO4bc1tEeO5Ep2pmY5GiA" name="setBaseURI">
+      <modelElement href="schematron-test.uml#_CWEHWM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4bs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CWEHWs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4b81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CWKN8M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4cM1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FDO4cc1tEeO5Ep2pmY5GiA" name="baseURI">
+        <modelElement href="schematron-test.uml#_CWEHWc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4cs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FDO4c81tEeO5Ep2pmY5GiA" name="setCertifiedText">
+      <modelElement href="schematron-test.uml#_CWKN8s1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4dM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CWKN9M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4dc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CWKN9c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4ds1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FDO4d81tEeO5Ep2pmY5GiA" name="certifiedText">
+        <modelElement href="schematron-test.uml#_CWKN881tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4eM1tEeO5Ep2pmY5GiA" name="boolean">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FDO4ec1tEeO5Ep2pmY5GiA" name="setEncoding">
+      <modelElement href="schematron-test.uml#_CWQUkM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4es1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CWQUks1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4e81tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CWQUk81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4fM1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FDO4fc1tEeO5Ep2pmY5GiA" name="encoding">
+        <modelElement href="schematron-test.uml#_CWQUkc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4fs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FDO4f81tEeO5Ep2pmY5GiA" name="setStringData">
+      <modelElement href="schematron-test.uml#_CWQUlc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4gM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CWWbMM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4gc1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CWWbMc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4gs1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FDO4g81tEeO5Ep2pmY5GiA" name="stringData">
+        <modelElement href="schematron-test.uml#_CWQUls1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4hM1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FDO4hc1tEeO5Ep2pmY5GiA" comments="_FDCq8M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FDIxkM1tEeO5Ep2pmY5GiA" name="Input">
+      <modelElement href="schematron-test.uml#_CcTSQc1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FDO4hs1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_FDO4h81tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FDO4iM1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CcZY081tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4ic1tEeO5Ep2pmY5GiA" name="Input">
+          <modelElement href="schematron-test.uml#_CVxzcM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FDO4is1tEeO5Ep2pmY5GiA" name="publicId">
+        <modelElement href="schematron-test.uml#_CcTSQs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4i81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FDO4jM1tEeO5Ep2pmY5GiA" name="sysId">
+        <modelElement href="schematron-test.uml#_CcTSQ81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4jc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FDO4js1tEeO5Ep2pmY5GiA" name="input">
+        <modelElement href="schematron-test.uml#_CcZY0M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4j81tEeO5Ep2pmY5GiA" name="InputStream">
+          <modelElement href="schematron-test.uml#_CaR49M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FDO4kM1tEeO5Ep2pmY5GiA" name="setByteStream">
+      <modelElement href="schematron-test.uml#_CcZY1s1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4kc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcZY2M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FDO4ks1tEeO5Ep2pmY5GiA" name="Annotations">
+        <modelElement href="schematron-test.uml#_CcZY2c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4k81tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FDO4lM1tEeO5Ep2pmY5GiA" name="byteStream">
+        <modelElement href="schematron-test.uml#_CcZY181tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4lc1tEeO5Ep2pmY5GiA" name="InputStream">
+          <modelElement href="schematron-test.uml#_CaR49M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FDO4ls1tEeO5Ep2pmY5GiA" name="setCharacterStream">
+      <modelElement href="schematron-test.uml#_CcZY281tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FDO4l81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcZY3c1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FDO4mM1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FDO4mc1tEeO5Ep2pmY5GiA" name="characterStream">
+        <modelElement href="schematron-test.uml#_CcZY3M1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FDO4ms1tEeO5Ep2pmY5GiA" name="Reader">
+          <modelElement href="schematron-test.uml#_CbCt8M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FFnd2c1tEeO5Ep2pmY5GiA" comments="_FEL6cM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FFI8sM1tEeO5Ep2pmY5GiA" name="XmlWriter" associationsOut="_FFPDUM1tEeO5Ep2pmY5GiA _FFhXOs1tEeO5Ep2pmY5GiA _FFnd0M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CUD8MM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FFnd2s1tEeO5Ep2pmY5GiA" position="514.0,1758.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FFnd281tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FFnd3M1tEeO5Ep2pmY5GiA" name="context">
+      <modelElement href="schematron-test.uml#_Cc358c1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FFnd3c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc358s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FFnd3s1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc358s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FFnd381tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FFnd4M1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FFnd4c1tEeO5Ep2pmY5GiA" name="JAXBContext">
+        <modelElement href="schematron-test.uml#_CaR48M1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FFnd4s1tEeO5Ep2pmY5GiA" name="marshaller">
+      <modelElement href="schematron-test.uml#_Cc35881tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FFnd481tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc359M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FFnd5M1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc359M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FFnd5c1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FFnd5s1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FFnd581tEeO5Ep2pmY5GiA" name="Marshaller">
+        <modelElement href="schematron-test.uml#_CaR48s1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FFnd6M1tEeO5Ep2pmY5GiA" name="logger">
+      <modelElement href="schematron-test.uml#_Cc359c1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FFnd6c1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc359s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FFhXOc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc359s1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FFnd6s1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FFnd681tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FFnd7M1tEeO5Ep2pmY5GiA" name="Logger">
+        <modelElement href="schematron-test.uml#_CaFrw81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FFnd7c1tEeO5Ep2pmY5GiA" name="XmlWriter">
+      <modelElement href="schematron-test.uml#_CUG_gM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FFnd7s1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_FFnd781tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FFnd8M1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CUHmkM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FFnd8c1tEeO5Ep2pmY5GiA" name="XmlWriter">
+          <modelElement href="schematron-test.uml#_CUD8MM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FFnd8s1tEeO5Ep2pmY5GiA" comments="_FFbQkM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FFhXMM1tEeO5Ep2pmY5GiA" name="writeResult">
+      <modelElement href="schematron-test.uml#_Cb3NUM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FFnd881tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FFnd9M1tEeO5Ep2pmY5GiA" name="result">
+        <modelElement href="schematron-test.uml#_Cb3NUc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FFnd9c1tEeO5Ep2pmY5GiA" name="ValidationResult">
+          <modelElement href="schematron-test.uml#_CRkB0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FFnd9s1tEeO5Ep2pmY5GiA" name="file">
+        <modelElement href="schematron-test.uml#_Cb30YM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FFnd981tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FIekk81tEeO5Ep2pmY5GiA" comments="_FHbbsM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FIMQsM1tEeO5Ep2pmY5GiA" name="BpmnValidatorFactory" associationsOut="_FGeZcM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CSnKsM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FIeklM1tEeO5Ep2pmY5GiA" position="1753.0,48.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FIeklc1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FIekls1tEeO5Ep2pmY5GiA" name="bpmnValidator" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_CcrstM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FIekl81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Ccrstc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FIekks1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Ccrstc1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FIekmM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FIekmc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FIekms1tEeO5Ep2pmY5GiA" name="BpmnValidator">
+        <modelElement href="schematron-test.uml#_CT2g0M1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FIekm81tEeO5Ep2pmY5GiA" name="_initializer1" staticOperation="true">
+      <modelElement href="schematron-test.uml#_CSnKsc1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FIeknM1tEeO5Ep2pmY5GiA" keyword="init"/>
+      <stereotypes xmi:id="_FIeknc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CSnKtM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FIekns1tEeO5Ep2pmY5GiA" label="+"/>
+    </operations>
+    <operations xmi:id="_FIekn81tEeO5Ep2pmY5GiA" comments="_FIYd9M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FIYd9c1tEeO5Ep2pmY5GiA" name="getValidatorInstance" staticOperation="true">
+      <modelElement href="schematron-test.uml#_CSnKtc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FIekoM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FIekoc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CZzX181tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FIekos1tEeO5Ep2pmY5GiA" name="BpmnValidator">
+          <modelElement href="schematron-test.uml#_CT2g0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FKxDls1tEeO5Ep2pmY5GiA" comments="_FJVgMM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FKYpEM1tEeO5Ep2pmY5GiA" name="ImportedFile" associationsIn="_FKq88M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CTFr0M1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FKxDl81tEeO5Ep2pmY5GiA" position="10.0,1758.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FKxDmM1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FKxDmc1tEeO5Ep2pmY5GiA" name="file">
+      <modelElement href="schematron-test.uml#_CcrsvM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FKxDms1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FKxDm81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FKxDnM1tEeO5Ep2pmY5GiA" name="File">
+        <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FKxDnc1tEeO5Ep2pmY5GiA" name="prefix">
+      <modelElement href="schematron-test.uml#_Ccrsvc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FKxDns1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FKxDn81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FKxDoM1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FKxDoc1tEeO5Ep2pmY5GiA" name="namespace">
+      <modelElement href="schematron-test.uml#_Ccrsvs1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FKxDos1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FKxDo81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FKxDpM1tEeO5Ep2pmY5GiA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FKxDpc1tEeO5Ep2pmY5GiA" name="ImportedFile">
+      <modelElement href="schematron-test.uml#_CTLycM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FKxDps1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <stereotypes xmi:id="_FKxDp81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CTLyc81tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FKxDqM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FKxDqc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CTLydM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FKxDqs1tEeO5Ep2pmY5GiA" name="ImportedFile">
+          <modelElement href="schematron-test.uml#_CTFr0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+    </operations>
+    <operations xmi:id="_FKxDq81tEeO5Ep2pmY5GiA" name="ImportedFile">
+      <modelElement href="schematron-test.uml#_CbkSYM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FKxDrM1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_FKxDrc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FKxDrs1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cbk5cs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FKxDr81tEeO5Ep2pmY5GiA" name="ImportedFile">
+          <modelElement href="schematron-test.uml#_CTFr0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FKxDsM1tEeO5Ep2pmY5GiA" name="file">
+        <modelElement href="schematron-test.uml#_CbkSYc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FKxDsc1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FKxDss1tEeO5Ep2pmY5GiA" name="prefix">
+        <modelElement href="schematron-test.uml#_CbkSYs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FKxDs81tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FKxDtM1tEeO5Ep2pmY5GiA" name="namespace">
+        <modelElement href="schematron-test.uml#_CbkSY81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FKxDtc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FNiDwM1tEeO5Ep2pmY5GiA" comments="_FL6TEM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FMrIEM1tEeO5Ep2pmY5GiA" name="PreProcessResult" associationsIn="_FNDikM1tEeO5Ep2pmY5GiA" associationsOut="_FNPv0M1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CTR5EM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FNiDwc1tEeO5Ep2pmY5GiA" position="15.0,1959.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FNiDws1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FNiDw81tEeO5Ep2pmY5GiA" name="documentResult">
+      <modelElement href="schematron-test.uml#_CcxzUM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FNiDxM1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FNiDxc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FNiDxs1tEeO5Ep2pmY5GiA" name="Document">
+        <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FNiDx81tEeO5Ep2pmY5GiA" name="namespaceTable">
+      <modelElement href="schematron-test.uml#_CcxzUc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FNiDyM1tEeO5Ep2pmY5GiA" name="Generics">
+        <modelElement href="schematron-test.uml#_CcxzUs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FNiDv81tEeO5Ep2pmY5GiA" name="Generics">
+        <modelElement href="schematron-test.uml#_CcxzUs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FNiDyc1tEeO5Ep2pmY5GiA" label="+"/>
+      <cardinality xmi:id="_FNiDys1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FNiDy81tEeO5Ep2pmY5GiA" name="List">
+        <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FNiDzM1tEeO5Ep2pmY5GiA" name="PreProcessResult">
+      <modelElement href="schematron-test.uml#_CbmuoM1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FNiDzc1tEeO5Ep2pmY5GiA" keyword="create"/>
+      <visibility xmi:id="_FNiDzs1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FNiDz81tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_CbnVss1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FNiD0M1tEeO5Ep2pmY5GiA" name="PreProcessResult">
+          <modelElement href="schematron-test.uml#_CTR5EM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FNiD0c1tEeO5Ep2pmY5GiA" name="documentResult">
+        <modelElement href="schematron-test.uml#_Cbmuoc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FNiD0s1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FNiD081tEeO5Ep2pmY5GiA" name="namespaceTable">
+        <modelElement href="schematron-test.uml#_Cbmuos1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FNiD1M1tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FQZxgM1tEeO5Ep2pmY5GiA" comments="_FOfF8M1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FPcIMM1tEeO5Ep2pmY5GiA" name="PreProcessor" associationsIn="_FAqFfc1tEeO5Ep2pmY5GiA" associationsOut="_FPiO0M1tEeO5Ep2pmY5GiA _FP0isM1tEeO5Ep2pmY5GiA _FP6pUM1tEeO5Ep2pmY5GiA _FQAv8M1tEeO5Ep2pmY5GiA _FQG2kM1tEeO5Ep2pmY5GiA">
+    <modelElement href="schematron-test.uml#_CTeGUM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FQZxgc1tEeO5Ep2pmY5GiA" position="13.0,245.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FQZxgs1tEeO5Ep2pmY5GiA" label="+"/>
+    <attributes xmi:id="_FQZxg81tEeO5Ep2pmY5GiA" name="documentBuilderFactory">
+      <modelElement href="schematron-test.uml#_CcxzU81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FQaYkM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzVM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FQVgEM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzVM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYkc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQaYks1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FQaYk81tEeO5Ep2pmY5GiA" name="DocumentBuilderFactory">
+        <modelElement href="schematron-test.uml#_CZ_lFM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FQaYlM1tEeO5Ep2pmY5GiA" name="documentBuilder">
+      <modelElement href="schematron-test.uml#_CcxzVc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FQaYlc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzVs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FQWHIc1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzVs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYls1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQaYl81tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FQaYmM1tEeO5Ep2pmY5GiA" name="DocumentBuilder">
+        <modelElement href="schematron-test.uml#_CZ_lEs1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FQaYmc1tEeO5Ep2pmY5GiA" name="xPathFactory">
+      <modelElement href="schematron-test.uml#_CcxzV81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FQaYms1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzWM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FQWuMs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzWM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYm81tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQaYnM1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FQaYnc1tEeO5Ep2pmY5GiA" name="XPathFactory">
+        <modelElement href="schematron-test.uml#_CaFrt81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FQaYns1tEeO5Ep2pmY5GiA" name="xpath">
+      <modelElement href="schematron-test.uml#_CcxzWc1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FQaYn81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzWs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FQXVQ81tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CcxzWs1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYoM1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQaYoc1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FQaYos1tEeO5Ep2pmY5GiA" name="XPath">
+        <modelElement href="schematron-test.uml#_CZ_lGM1tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_FQaYo81tEeO5Ep2pmY5GiA" name="logger">
+      <modelElement href="schematron-test.uml#_CcxzW81tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FQaYpM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc358M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <stereotypes xmi:id="_FQX8VM1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_Cc358M1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYpc1tEeO5Ep2pmY5GiA" label="-"/>
+      <cardinality xmi:id="_FQaYps1tEeO5Ep2pmY5GiA" label="1" max="1" min="1"/>
+      <type xmi:id="_FQaYp81tEeO5Ep2pmY5GiA" name="Logger">
+        <modelElement href="schematron-test.uml#_CaFrw81tEeO5Ep2pmY5GiA"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_FQaYqM1tEeO5Ep2pmY5GiA" name="_initializer1">
+      <modelElement href="schematron-test.uml#_CTeGUc1tEeO5Ep2pmY5GiA"/>
+      <keywords xmi:id="_FQaYqc1tEeO5Ep2pmY5GiA" keyword="init"/>
+      <stereotypes xmi:id="_FQaYqs1tEeO5Ep2pmY5GiA" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_CTeGVM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYq81tEeO5Ep2pmY5GiA" label="+"/>
+    </operations>
+    <operations xmi:id="_FQaYrM1tEeO5Ep2pmY5GiA" comments="_FQG2kc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FQG2ks1tEeO5Ep2pmY5GiA" name="preProcess">
+      <modelElement href="schematron-test.uml#_CbrnIM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQaYrc1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FQaYrs1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cbs1QM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYr81tEeO5Ep2pmY5GiA" name="PreProcessResult">
+          <modelElement href="schematron-test.uml#_CTR5EM1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FQaYsM1tEeO5Ep2pmY5GiA" name="headFileDocument">
+        <modelElement href="schematron-test.uml#_CbsOMM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYsc1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYss1tEeO5Ep2pmY5GiA" name="folder">
+        <modelElement href="schematron-test.uml#_CbsOMc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYs81tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYtM1tEeO5Ep2pmY5GiA" name="namespaceTable">
+        <modelElement href="schematron-test.uml#_CbsOMs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYtc1tEeO5Ep2pmY5GiA" name="List">
+          <modelElement href="schematron-test.uml#_CZOwEs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FQaYts1tEeO5Ep2pmY5GiA" comments="_FQG2k81tEeO5Ep2pmY5GiA" targetConnectionVisual="_FQG2lM1tEeO5Ep2pmY5GiA" name="renameIds">
+      <modelElement href="schematron-test.uml#_CbuqcM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQaYt81tEeO5Ep2pmY5GiA" label="-"/>
+      <parameters xmi:id="_FQaYuM1tEeO5Ep2pmY5GiA" name="xpathExpression">
+        <modelElement href="schematron-test.uml#_Cbuqcc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYuc1tEeO5Ep2pmY5GiA" name="XPathExpression">
+          <modelElement href="schematron-test.uml#_CaFrs81tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYus1tEeO5Ep2pmY5GiA" name="document">
+        <modelElement href="schematron-test.uml#_Cbuqcs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYu81tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYvM1tEeO5Ep2pmY5GiA" name="namespacePrefix">
+        <modelElement href="schematron-test.uml#_Cbuqc81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYvc1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FQaYvs1tEeO5Ep2pmY5GiA" comments="_FQG2lc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FQG2ls1tEeO5Ep2pmY5GiA" name="selectImportedFiles">
+      <modelElement href="schematron-test.uml#_CbvRgM1tEeO5Ep2pmY5GiA"/>
+      <stereotypes xmi:id="_FQaYv81tEeO5Ep2pmY5GiA" name="Array">
+        <modelElement href="schematron-test.uml#_CbwfoM1tEeO5Ep2pmY5GiA"/>
+      </stereotypes>
+      <visibility xmi:id="_FQaYwM1tEeO5Ep2pmY5GiA" label="+"/>
+      <outParameters xmi:id="_FQaYwc1tEeO5Ep2pmY5GiA">
+        <modelElement href="schematron-test.uml#_Cbv4k81tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYws1tEeO5Ep2pmY5GiA" name="ImportedFile">
+          <modelElement href="schematron-test.uml#_CTFr0M1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_FQaYw81tEeO5Ep2pmY5GiA" name="document">
+        <modelElement href="schematron-test.uml#_Cbv4kM1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYxM1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYxc1tEeO5Ep2pmY5GiA" name="folder">
+        <modelElement href="schematron-test.uml#_Cbv4kc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYxs1tEeO5Ep2pmY5GiA" name="File">
+          <modelElement href="schematron-test.uml#_CZtRMs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYx81tEeO5Ep2pmY5GiA" name="size">
+        <modelElement href="schematron-test.uml#_Cbv4ks1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYyM1tEeO5Ep2pmY5GiA" name="int">
+          <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#int"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FQaYyc1tEeO5Ep2pmY5GiA" comments="_FQM9MM1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FQNkQM1tEeO5Ep2pmY5GiA" name="addNodesToDocument">
+      <modelElement href="schematron-test.uml#_CbxGsM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQaYys1tEeO5Ep2pmY5GiA" label="-"/>
+      <parameters xmi:id="_FQaYy81tEeO5Ep2pmY5GiA" name="importDefinitionsNode">
+        <modelElement href="schematron-test.uml#_CbxGsc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYzM1tEeO5Ep2pmY5GiA" name="Node">
+          <modelElement href="schematron-test.uml#_CaFrvc1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_FQaYzc1tEeO5Ep2pmY5GiA" name="headFileDocument">
+        <modelElement href="schematron-test.uml#_CbxGss1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaYzs1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+    <operations xmi:id="_FQaYz81tEeO5Ep2pmY5GiA" comments="_FQNkQc1tEeO5Ep2pmY5GiA" targetConnectionVisual="_FQOLUM1tEeO5Ep2pmY5GiA" name="removeBPMNDINode">
+      <modelElement href="schematron-test.uml#_CbxtwM1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FQaY0M1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FQaY0c1tEeO5Ep2pmY5GiA" name="headFileDocument">
+        <modelElement href="schematron-test.uml#_Cbxtwc1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FQaY0s1tEeO5Ep2pmY5GiA" name="Document">
+          <modelElement href="schematron-test.uml#_CZ5efs1tEeO5Ep2pmY5GiA"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_FRwcYM1tEeO5Ep2pmY5GiA" name="Main">
+    <modelElement href="schematron-test.uml#_CShEEM1tEeO5Ep2pmY5GiA"/>
+    <visualProperties xmi:id="_FRwcYc1tEeO5Ep2pmY5GiA" position="760.0,2112.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_FRwcYs1tEeO5Ep2pmY5GiA" label="+"/>
+    <operations xmi:id="_FRwcY81tEeO5Ep2pmY5GiA" name="main" staticOperation="true">
+      <modelElement href="schematron-test.uml#_CShEEc1tEeO5Ep2pmY5GiA"/>
+      <visibility xmi:id="_FRwcZM1tEeO5Ep2pmY5GiA" label="+"/>
+      <parameters xmi:id="_FRwcZc1tEeO5Ep2pmY5GiA" name="args">
+        <modelElement href="schematron-test.uml#_CShEEs1tEeO5Ep2pmY5GiA"/>
+        <type xmi:id="_FRwcZs1tEeO5Ep2pmY5GiA" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>
