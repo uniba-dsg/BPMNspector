@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:id="_SODRsM_0EeOKPu4Ml-ERgg">
+  <eAnnotations xmi:id="_iH7UcM_0EeOKPu4Ml-ERgg" source="http://ns.yatta.de/umllab">
+    <contents xsi:type="ecore:EAnnotation" xmi:id="_iH77gM_0EeOKPu4Ml-ERgg" source="visual-filters/commenticons">
+      <details xmi:id="_iH77gc_0EeOKPu4Ml-ERgg" key="isActive" value="true"/>
+    </contents>
+    <contents xsi:type="ecore:EAnnotation" xmi:id="_iT1CcM_0EeOKPu4Ml-ERgg" source="visual-filters/hideNonPublicElements" references="_UiL3g8_0EeOKPu4Ml-ERgg">
+      <details xmi:id="_iT1Ccc_0EeOKPu4Ml-ERgg" key="isActive" value="true"/>
+    </contents>
+    <contents xsi:type="ecore:EAnnotation" xmi:id="_iYe48M_0EeOKPu4Ml-ERgg" source="visual-filters/hideStaticFeatures">
+      <details xmi:id="_iYe48c_0EeOKPu4Ml-ERgg" key="isActive" value="false"/>
+    </contents>
+  </eAnnotations>
+  <modelElement href="schematron-test.uml#_QUu_oM_0EeOKPu4Ml-ERgg"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_UiI0Mc_0EeOKPu4Ml-ERgg" targetItem="_UiL3gM_0EeOKPu4Ml-ERgg" sourceItem="_UiI0MM_0EeOKPu4Ml-ERgg"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_UiJbQc_0EeOKPu4Ml-ERgg" targetItem="_UiL3jc_0EeOKPu4Ml-ERgg" sourceItem="_UiJbQM_0EeOKPu4Ml-ERgg"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_UiLQcM_0EeOKPu4Ml-ERgg" source="_UiL3gM_0EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_ReZ9cM_0EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_UiPh4M_0EeOKPu4Ml-ERgg" position="70.0,70.0"/>
+    <stereotypes xmi:id="_UiLQcc_0EeOKPu4Ml-ERgg" name="Reference">
+      <modelElement href="schematron-test.uml#_RebLkM_0EeOKPu4Ml-ERgg"/>
+    </stereotypes>
+    <nameVisual xmi:id="_UiLQcs_0EeOKPu4Ml-ERgg" text=""/>
+    <sourceRole xmi:id="_UiLQc8_0EeOKPu4Ml-ERgg" aggregationKind="NONE" name="">
+      <modelElement href="schematron-test.uml#_ReZ9cc_0EeOKPu4Ml-ERgg"/>
+      <visibility xmi:id="_UiLQdM_0EeOKPu4Ml-ERgg" label="+"/>
+      <cardinality xmi:id="_UiLQdc_0EeOKPu4Ml-ERgg" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_UiLQds_0EeOKPu4Ml-ERgg" aggregationKind="NONE" name="bpmnValidator" navigable="true">
+      <modelElement href="schematron-test.uml#_RX7iAM_0EeOKPu4Ml-ERgg"/>
+      <stereotypes xmi:id="_aS0xsM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_RX9XMM_0EeOKPu4Ml-ERgg"/>
+      </stereotypes>
+      <visibility xmi:id="_UiLQd8_0EeOKPu4Ml-ERgg" label="-"/>
+      <cardinality xmi:id="_UiLQeM_0EeOKPu4Ml-ERgg" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_UiI0MM_0EeOKPu4Ml-ERgg" sourceConnectionVisual="_UiI0Mc_0EeOKPu4Ml-ERgg" text="The class is used as api interface to get an instance of the bpmn validator&#xA;to have the chance for validating files from another project&#xA;&#xA;@author Philipp Neugebauer&#xA;@version 1.0" item="_UiL3gM_0EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_RdZQ0c_0EeOKPu4Ml-ERgg"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.diagrams:CommentVisual" xmi:id="_UiJbQM_0EeOKPu4Ml-ERgg" sourceConnectionVisual="_UiJbQc_0EeOKPu4Ml-ERgg" text="&#xA;&#x9; * @return the instance of the bpmn validator" item="_UiL3jc_0EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_RdZ34M_0EeOKPu4Ml-ERgg"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_UiL3gM_0EeOKPu4Ml-ERgg" comments="_UiI0MM_0EeOKPu4Ml-ERgg" targetConnectionVisual="_UiI0Mc_0EeOKPu4Ml-ERgg" name="BpmnValidatorFactory" associationsOut="_UiLQcM_0EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_QqkFsM_0EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_UiL3gc_0EeOKPu4Ml-ERgg" position="11.0,31.0" size="-1.0,-1.0"/>
+    <visibility xmi:id="_UiL3gs_0EeOKPu4Ml-ERgg" label="+"/>
+    <attributes xmi:id="_UiL3g8_0EeOKPu4Ml-ERgg" name="bpmnValidator" staticAttribute="true">
+      <modelElement href="schematron-test.uml#_RX7iAM_0EeOKPu4Ml-ERgg"/>
+      <visualProperties xmi:id="_iT1pgM_0EeOKPu4Ml-ERgg" visible="false"/>
+      <stereotypes xmi:id="_UiL3hc_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_RX9XMM_0EeOKPu4Ml-ERgg"/>
+      </stereotypes>
+      <stereotypes xmi:id="_aS1_0M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_RX9XMM_0EeOKPu4Ml-ERgg"/>
+      </stereotypes>
+      <visibility xmi:id="_UiL3hs_0EeOKPu4Ml-ERgg" label="-"/>
+      <cardinality xmi:id="_UiL3h8_0EeOKPu4Ml-ERgg" label="1" max="1" min="1"/>
+      <type xmi:id="_UiL3iM_0EeOKPu4Ml-ERgg" name="BpmnValidator">
+        <modelElement href="schematron-test.uml#_Qtp18M_0EeOKPu4Ml-ERgg"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_UiL3ic_0EeOKPu4Ml-ERgg" name="_initializer1" staticOperation="true">
+      <modelElement href="schematron-test.uml#_Qqmh8M_0EeOKPu4Ml-ERgg"/>
+      <visualProperties xmi:id="_iYfgAM_0EeOKPu4Ml-ERgg" visible="false"/>
+      <keywords xmi:id="_UiL3is_0EeOKPu4Ml-ERgg" keyword="init"/>
+      <stereotypes xmi:id="_UiL3i8_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_QqoXIM_0EeOKPu4Ml-ERgg"/>
+      </stereotypes>
+      <visibility xmi:id="_UiL3jM_0EeOKPu4Ml-ERgg" label="+"/>
+    </operations>
+    <operations xmi:id="_UiL3jc_0EeOKPu4Ml-ERgg" comments="_UiJbQM_0EeOKPu4Ml-ERgg" targetConnectionVisual="_UiJbQc_0EeOKPu4Ml-ERgg" name="getValidatorInstance" staticOperation="true">
+      <modelElement href="schematron-test.uml#_Qqo-MM_0EeOKPu4Ml-ERgg"/>
+      <visualProperties xmi:id="_iYgHEM_0EeOKPu4Ml-ERgg"/>
+      <visibility xmi:id="_UiL3js_0EeOKPu4Ml-ERgg" label="+"/>
+      <outParameters xmi:id="_UiL3j8_0EeOKPu4Ml-ERgg">
+        <modelElement href="schematron-test.uml#_ROuisM_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_UiL3kM_0EeOKPu4Ml-ERgg" name="BpmnValidator">
+          <modelElement href="schematron-test.uml#_Qtp18M_0EeOKPu4Ml-ERgg"/>
+        </type>
+      </outParameters>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>
