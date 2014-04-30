@@ -2339,44 +2339,25 @@ everything and a namespace table&#xD;
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_lxXq4M_1EeOKPu4Ml-ERgg" name="de.uniba.dsg">
-      <packagedElement xmi:type="uml:Package" xmi:id="_rjid0M_1EeOKPu4Ml-ERgg" name="ppn.ba">
-        <packageImport xmi:id="_UX4SsM_5EeOKPu4Ml-ERgg" importedPackage="_mN-uYM_1EeOKPu4Ml-ERgg"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_rjid0M_1EeOKPu4Ml-ERgg" clientDependency="_ar8ncNBqEeOjJ4LqbIKoDw" name="ppn.ba">
         <packagedElement xmi:type="uml:Package" xmi:id="_bC-ZEM_2EeOKPu4Ml-ERgg" name="preprocessing">
-          <packageImport xmi:id="_6zKiUM_4EeOKPu4Ml-ERgg" importedPackage="_bMN0oM_2EeOKPu4Ml-ERgg"/>
-          <packageImport xmi:id="_7OInEM_4EeOKPu4Ml-ERgg" importedPackage="_bu7gIM_2EeOKPu4Ml-ERgg"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_PCd_IM_3EeOKPu4Ml-ERgg" name="PreprocessResult"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_OyKSQM_3EeOKPu4Ml-ERgg" name="Preprocessor"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_Ok4rQM_3EeOKPu4Ml-ERgg" name="ImportedFile"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_bu7gIM_2EeOKPu4Ml-ERgg" name="validation">
-          <packageImport xmi:id="_9wX6UM_4EeOKPu4Ml-ERgg" importedPackage="_bMN0oM_2EeOKPu4Ml-ERgg"/>
-          <packageImport xmi:id="_CRjmgM_5EeOKPu4Ml-ERgg" importedPackage="_bC-ZEM_2EeOKPu4Ml-ERgg"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_bu7gIM_2EeOKPu4Ml-ERgg" clientDependency="_wwIQUNBqEeOjJ4LqbIKoDw" name="validation">
           <packagedElement xmi:type="uml:Interface" xmi:id="_hIyrUM_3EeOKPu4Ml-ERgg" name="BpmnValidator"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_oPtDoM_3EeOKPu4Ml-ERgg" name="XsdValidator"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_YDJ8gM_3EeOKPu4Ml-ERgg" name="Input"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_mq4a4M_3EeOKPu4Ml-ERgg" name="XsdValidationErrorHandler"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_lXYLoM_3EeOKPu4Ml-ERgg" name="XmlLocator"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_Xz4KYM_3EeOKPu4Ml-ERgg" name="ResourceResolver"/>
           <packagedElement xmi:type="uml:Class" xmi:id="_YQo-4M_3EeOKPu4Ml-ERgg" name="SchematronBPMNValidator"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_wwIQUNBqEeOjJ4LqbIKoDw" client="_bu7gIM_2EeOKPu4Ml-ERgg" supplier="_bC-ZEM_2EeOKPu4Ml-ERgg"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_biMEoM_2EeOKPu4Ml-ERgg" name="api">
-          <packageImport xmi:id="_iyPf8M_4EeOKPu4Ml-ERgg" importedPackage="_bu7gIM_2EeOKPu4Ml-ERgg"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_biMEoM_2EeOKPu4Ml-ERgg" clientDependency="_xMW5UNBqEeOjJ4LqbIKoDw" name="api">
           <packagedElement xmi:type="uml:Class" xmi:id="_do-8kM_3EeOKPu4Ml-ERgg" name="BpmnValidatorFactory"/>
+          <packagedElement xmi:type="uml:Usage" xmi:id="_xMW5UNBqEeOjJ4LqbIKoDw" client="_biMEoM_2EeOKPu4Ml-ERgg" supplier="_bu7gIM_2EeOKPu4Ml-ERgg"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_bMN0oM_2EeOKPu4Ml-ERgg" name="helper">
-          <packageImport xmi:id="_0dTMcM_4EeOKPu4Ml-ERgg" importedPackage="_bu7gIM_2EeOKPu4Ml-ERgg"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_5cwa8M_2EeOKPu4Ml-ERgg" name="BpmnNamespaceContext"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_53gdQM_2EeOKPu4Ml-ERgg" name="BpmnValidationException"/>
-          <packagedElement xmi:type="uml:Class" xmi:id="_DHPjQM_3EeOKPu4Ml-ERgg" name="PrintHelper"/>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_bVEOoM_2EeOKPu4Ml-ERgg" name="xml">
-          <packagedElement xmi:type="uml:Class" xmi:id="_vc6RMM_3EeOKPu4Ml-ERgg" name="XmlWriter"/>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_2JzccM_2EeOKPu4Ml-ERgg" name="Main">
-          <packageImport xmi:id="_goTX8M_4EeOKPu4Ml-ERgg" importedPackage="_bu7gIM_2EeOKPu4Ml-ERgg"/>
-          <packageImport xmi:id="_j0Y5cM_4EeOKPu4Ml-ERgg" importedPackage="_bVEOoM_2EeOKPu4Ml-ERgg"/>
-          <packageImport xmi:id="_tnB4MM_4EeOKPu4Ml-ERgg" importedPackage="_bMN0oM_2EeOKPu4Ml-ERgg"/>
-        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_bMN0oM_2EeOKPu4Ml-ERgg" name="helper"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_bVEOoM_2EeOKPu4Ml-ERgg" name="xml"/>
+        <packagedElement xmi:type="uml:Usage" xmi:id="_ar8ncNBqEeOjJ4LqbIKoDw" client="_rjid0M_1EeOKPu4Ml-ERgg" supplier="_mN-uYM_1EeOKPu4Ml-ERgg"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_mN-uYM_1EeOKPu4Ml-ERgg" name="bpmn">
         <packagedElement xmi:type="uml:Class" xmi:id="_uqbWQM_1EeOKPu4Ml-ERgg" name="ValidationResult"/>

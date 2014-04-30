@@ -1,281 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.diagrams="http://ns.yatta-solutions.com/umllab/diagrams/1.1.0" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_iaKegM_1EeOKPu4Ml-ERgg">
   <modelElement href="schematron-test.uml#_PauOcM_0EeOKPu4Ml-ERgg"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_RQPTsM_2EeOKPu4Ml-ERgg" sourceAnchor="67.0,0.0" targetAnchor="98.0,122.0" enclosingItem="_lxYR8M_1EeOKPu4Ml-ERgg" containedItem="_rjid0c_1EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT2AIM_5EeOKPu4Ml-ERgg" sourceY="-16" targetX="533" targetY="30"/>
-    <bendpoints xmi:id="_kT2AIc_5EeOKPu4Ml-ERgg" sourceX="-533" sourceY="-16" targetY="30"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_RQPTsM_2EeOKPu4Ml-ERgg" sourceAnchor="67.0,16.0" targetAnchor="97.0,120.0" enclosingItem="_lxYR8M_1EeOKPu4Ml-ERgg" containedItem="_rjid0c_1EeOKPu4Ml-ERgg">
+    <bendpoints xmi:id="_y2-oENBqEeOjJ4LqbIKoDw" sourceY="-47" targetX="-215" targetY="35"/>
+    <bendpoints xmi:id="_y2-oEdBqEeOjJ4LqbIKoDw" sourceX="215" sourceY="-47" targetY="35"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_T08sIM_2EeOKPu4Ml-ERgg" sourceAnchor="71.0,0.0" targetAnchor="98.0,122.0" enclosingItem="_lxYR8M_1EeOKPu4Ml-ERgg" containedItem="_mN-uYc_1EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT4cYM_5EeOKPu4Ml-ERgg" sourceY="-14" targetX="-104" targetY="30"/>
-    <bendpoints xmi:id="_kT4cYc_5EeOKPu4Ml-ERgg" sourceX="104" sourceY="-14" targetY="30"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_T08sIM_2EeOKPu4Ml-ERgg" sourceAnchor="71.0,16.0" targetAnchor="97.0,120.0" enclosingItem="_lxYR8M_1EeOKPu4Ml-ERgg" containedItem="_mN-uYc_1EeOKPu4Ml-ERgg">
+    <bendpoints xmi:id="_y2-oEtBqEeOjJ4LqbIKoDw" sourceY="-46" targetX="231" targetY="35"/>
+    <bendpoints xmi:id="_y2-oE9BqEeOjJ4LqbIKoDw" sourceX="-231" sourceY="-46" targetY="35"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_XQ09IM_2EeOKPu4Ml-ERgg" sourceAnchor="51.0,0.0" targetAnchor="71.0,76.0" enclosingItem="_mN-uYc_1EeOKPu4Ml-ERgg" containedItem="_uqb9UM_1EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kUA_QM_5EeOKPu4Ml-ERgg" sourceY="-16" targetX="-78" targetY="586"/>
-    <bendpoints xmi:id="_kUA_Qc_5EeOKPu4Ml-ERgg" sourceX="78" sourceY="-16" targetY="586"/>
-  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_XQ09IM_2EeOKPu4Ml-ERgg" sourceAnchor="47.0,0.0" targetAnchor="71.0,74.0" enclosingItem="_mN-uYc_1EeOKPu4Ml-ERgg" containedItem="_uqb9UM_1EeOKPu4Ml-ERgg"/>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_Xc0xwM_2EeOKPu4Ml-ERgg" sourceAnchor="31.0,0.0" targetAnchor="71.0,76.0" enclosingItem="_mN-uYc_1EeOKPu4Ml-ERgg" containedItem="_uQOGgM_1EeOKPu4Ml-ERgg">
     <bendpoints xmi:id="_kT64oM_5EeOKPu4Ml-ERgg" sourceY="-15" targetX="65" targetY="586"/>
     <bendpoints xmi:id="_kT64oc_5EeOKPu4Ml-ERgg" sourceX="-65" sourceY="-15" targetY="586"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_cCPdsM_2EeOKPu4Ml-ERgg" sourceAnchor="63.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_bC-ZEc_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT3OQc_5EeOKPu4Ml-ERgg" sourceY="-17" targetX="-429" targetY="29"/>
-    <bendpoints xmi:id="_kT3OQs_5EeOKPu4Ml-ERgg" sourceX="429" sourceY="-17" targetY="29"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_cCPdsM_2EeOKPu4Ml-ERgg" sourceAnchor="62.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_bC-ZEc_2EeOKPu4Ml-ERgg">
+    <bendpoints xmi:id="_y2-oFtBqEeOjJ4LqbIKoDw" sourceY="-32" targetX="46" targetY="37"/>
+    <bendpoints xmi:id="_y2-oF9BqEeOjJ4LqbIKoDw" sourceX="-46" sourceY="-32" targetY="37"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_cuQ2MM_2EeOKPu4Ml-ERgg" sourceAnchor="59.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT7fss_5EeOKPu4Ml-ERgg" sourceY="-18" targetX="442" targetY="29"/>
-    <bendpoints xmi:id="_kT7fs8_5EeOKPu4Ml-ERgg" sourceX="-442" sourceY="-18" targetY="29"/>
+    <bendpoints xmi:id="_y2-oINBqEeOjJ4LqbIKoDw" sourceY="-31" targetX="-153" targetY="37"/>
+    <bendpoints xmi:id="_y2-oIdBqEeOjJ4LqbIKoDw" sourceX="153" sourceY="-31" targetY="37"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_dRllsM_2EeOKPu4Ml-ERgg" sourceAnchor="66.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_biMEoc_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT_KEs_5EeOKPu4Ml-ERgg" sourceY="-18" targetX="247" targetY="29"/>
-    <bendpoints xmi:id="_kT_KE8_5EeOKPu4Ml-ERgg" sourceX="-247" sourceY="-18" targetY="29"/>
+    <bendpoints xmi:id="_y2-oHtBqEeOjJ4LqbIKoDw" sourceY="-30" targetX="-352" targetY="37"/>
+    <bendpoints xmi:id="_y2-oH9BqEeOjJ4LqbIKoDw" sourceX="352" sourceY="-30" targetY="37"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_eB5BQM_2EeOKPu4Ml-ERgg" sourceAnchor="62.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_bMN0oc_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT2AIs_5EeOKPu4Ml-ERgg" sourceY="-17" targetX="-156" targetY="29"/>
-    <bendpoints xmi:id="_kT2nMM_5EeOKPu4Ml-ERgg" sourceX="156" sourceY="-17" targetY="29"/>
+    <bendpoints xmi:id="_y2-oHNBqEeOjJ4LqbIKoDw" sourceY="-31" targetX="184" targetY="37"/>
+    <bendpoints xmi:id="_y2-oHdBqEeOjJ4LqbIKoDw" sourceX="-184" sourceY="-31" targetY="37"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_e1irwM_2EeOKPu4Ml-ERgg" sourceAnchor="61.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_bVEOoc_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT_xIM_5EeOKPu4Ml-ERgg" sourceY="-19" targetX="91" targetY="29"/>
-    <bendpoints xmi:id="_kT_xIc_5EeOKPu4Ml-ERgg" sourceX="-91" sourceY="-19" targetY="29"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_3MDjoM_2EeOKPu4Ml-ERgg" sourceAnchor="36.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_2J0qkM_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT5DcM_5EeOKPu4Ml-ERgg" sourceY="-32" targetX="-26" targetY="29"/>
-    <bendpoints xmi:id="_kT5Dcc_5EeOKPu4Ml-ERgg" sourceX="26" sourceY="-32" targetY="29"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_FgItQM_3EeOKPu4Ml-ERgg" sourceAnchor="77.0,0.0" targetAnchor="62.0,69.0" enclosingItem="_bMN0oc_2EeOKPu4Ml-ERgg" containedItem="_5cxCAM_2EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT7fsM_5EeOKPu4Ml-ERgg" sourceY="-25" targetX="-169" targetY="252"/>
-    <bendpoints xmi:id="_kT7fsc_5EeOKPu4Ml-ERgg" sourceX="169" sourceY="-25" targetY="252"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_FzXLQM_3EeOKPu4Ml-ERgg" sourceAnchor="78.0,0.0" targetAnchor="62.0,69.0" enclosingItem="_bMN0oc_2EeOKPu4Ml-ERgg" containedItem="_53hEUM_2EeOKPu4Ml-ERgg"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_GodnQM_3EeOKPu4Ml-ERgg" sourceAnchor="39.0,0.0" targetAnchor="62.0,69.0" enclosingItem="_bMN0oc_2EeOKPu4Ml-ERgg" containedItem="_DHQKUM_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT64os_5EeOKPu4Ml-ERgg" sourceY="-14" targetX="130" targetY="252"/>
-    <bendpoints xmi:id="_kT64o8_5EeOKPu4Ml-ERgg" sourceX="-130" sourceY="-14" targetY="252"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_e1irwM_2EeOKPu4Ml-ERgg" sourceAnchor="75.0,0.0" targetAnchor="67.0,72.0" enclosingItem="_rjid0c_1EeOKPu4Ml-ERgg" containedItem="_bVEOoc_2EeOKPu4Ml-ERgg">
+    <bendpoints xmi:id="_y2-oGNBqEeOjJ4LqbIKoDw" sourceY="-32" targetX="328" targetY="37"/>
+    <bendpoints xmi:id="_y2-oGdBqEeOjJ4LqbIKoDw" sourceX="-328" sourceY="-32" targetY="37"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_VPQ4kM_3EeOKPu4Ml-ERgg" sourceAnchor="54.0,0.0" targetAnchor="63.0,69.0" enclosingItem="_bC-ZEc_2EeOKPu4Ml-ERgg" containedItem="_PCemMM_3EeOKPu4Ml-ERgg">
     <bendpoints xmi:id="_kT6Rks_5EeOKPu4Ml-ERgg" sourceY="-16" targetX="-130" targetY="382"/>
     <bendpoints xmi:id="_kT6Rk8_5EeOKPu4Ml-ERgg" sourceX="130" sourceY="-16" targetY="382"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_Vfz2AM_3EeOKPu4Ml-ERgg" sourceAnchor="43.0,0.0" targetAnchor="63.0,69.0" enclosingItem="_bC-ZEc_2EeOKPu4Ml-ERgg" containedItem="_OyK5UM_3EeOKPu4Ml-ERgg"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_Vfz2AM_3EeOKPu4Ml-ERgg" sourceAnchor="41.0,0.0" targetAnchor="62.0,67.0" enclosingItem="_bC-ZEc_2EeOKPu4Ml-ERgg" containedItem="_OyK5UM_3EeOKPu4Ml-ERgg"/>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_VvnMkM_3EeOKPu4Ml-ERgg" sourceAnchor="42.0,0.0" targetAnchor="63.0,69.0" enclosingItem="_bC-ZEc_2EeOKPu4Ml-ERgg" containedItem="_Ok5SUM_3EeOKPu4Ml-ERgg">
     <bendpoints xmi:id="_kT6RkM_5EeOKPu4Ml-ERgg" sourceY="-17" targetX="117" targetY="382"/>
     <bendpoints xmi:id="_kT6Rkc_5EeOKPu4Ml-ERgg" sourceX="-117" sourceY="-17" targetY="382"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_dwrgAM_3EeOKPu4Ml-ERgg" sourceAnchor="68.0,0.0" targetAnchor="66.0,68.0" enclosingItem="_biMEoc_2EeOKPu4Ml-ERgg" containedItem="_dxjpwM_3EeOKPu4Ml-ERgg"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_hmes4M_3EeOKPu4Ml-ERgg" sourceAnchor="50.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_hMUgcM_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT-jAs_5EeOKPu4Ml-ERgg" sourceY="-23" targetX="195" targetY="175"/>
-    <bendpoints xmi:id="_kT-jA8_5EeOKPu4Ml-ERgg" sourceX="-195" sourceY="-23" targetY="175"/>
-  </edges>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_dwrgAM_3EeOKPu4Ml-ERgg" sourceAnchor="75.0,0.0" targetAnchor="66.0,66.0" enclosingItem="_biMEoc_2EeOKPu4Ml-ERgg" containedItem="_dxjpwM_3EeOKPu4Ml-ERgg"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_hmes4M_3EeOKPu4Ml-ERgg" sourceAnchor="57.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_hMUgcM_3EeOKPu4Ml-ERgg"/>
   <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_pgShwM_3EeOKPu4Ml-ERgg" sourceAnchor="41.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_oPtqsM_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT9U4M_5EeOKPu4Ml-ERgg" sourceY="-23" targetX="-130" targetY="175"/>
-    <bendpoints xmi:id="_kT9U4c_5EeOKPu4Ml-ERgg" sourceX="130" sourceY="-23" targetY="175"/>
+    <bendpoints xmi:id="_y2-oFNBqEeOjJ4LqbIKoDw" sourceY="-32" targetX="109" targetY="90"/>
+    <bendpoints xmi:id="_y2-oFdBqEeOjJ4LqbIKoDw" sourceX="-109" sourceY="-32" targetY="90"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_sCHlUM_3EeOKPu4Ml-ERgg" sourceAnchor="21.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_YDKjkM_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT-jAM_5EeOKPu4Ml-ERgg" sourceY="-16" targetX="104" targetY="175"/>
-    <bendpoints xmi:id="_kT-jAc_5EeOKPu4Ml-ERgg" sourceX="-104" sourceY="-16" targetY="175"/>
+  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_s7v8AM_3EeOKPu4Ml-ERgg" sourceAnchor="120.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_YQpl8M_3EeOKPu4Ml-ERgg">
+    <bendpoints xmi:id="_y2-oGtBqEeOjJ4LqbIKoDw" sourceY="-49" targetX="-119" targetY="90"/>
+    <bendpoints xmi:id="_y2-oG9BqEeOjJ4LqbIKoDw" sourceX="119" sourceY="-49" targetY="90"/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_sP2fUM_3EeOKPu4Ml-ERgg" sourceAnchor="80.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_mq5B8M_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT9U4s_5EeOKPu4Ml-ERgg" sourceY="-19" targetX="-286" targetY="175"/>
-    <bendpoints xmi:id="_kT9U48_5EeOKPu4Ml-ERgg" sourceX="286" sourceY="-19" targetY="175"/>
+  <edges xsi:type="com.yattasolutions.diagrams:UsageVisual" xmi:id="_ar8ncdBqEeOjJ4LqbIKoDw" sourceAnchor="132.0,37.0" targetAnchor="2.0,38.0" client="_rjid0c_1EeOKPu4Ml-ERgg" supplier="_mN-uYc_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_ar8ncNBqEeOjJ4LqbIKoDw"/>
+    <visualProperties xmi:id="_ar8nctBqEeOjJ4LqbIKoDw"/>
+    <nameVisual xmi:id="_ar8nc9BqEeOjJ4LqbIKoDw" text=""/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_sf3RQM_3EeOKPu4Ml-ERgg" sourceAnchor="38.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_lXYysM_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT_KEM_5EeOKPu4Ml-ERgg" sourceY="-17" targetX="299" targetY="175"/>
-    <bendpoints xmi:id="_kT_KEc_5EeOKPu4Ml-ERgg" sourceX="-299" sourceY="-17" targetY="175"/>
+  <edges xsi:type="com.yattasolutions.diagrams:UsageVisual" xmi:id="_wwOW8NBqEeOjJ4LqbIKoDw" sourceAnchor="118.0,35.0" targetAnchor="0.0,34.0" client="_bu7gIc_2EeOKPu4Ml-ERgg" supplier="_bC-ZEc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_wwIQUNBqEeOjJ4LqbIKoDw"/>
+    <visualProperties xmi:id="_wwOW8dBqEeOjJ4LqbIKoDw"/>
+    <nameVisual xmi:id="_wwOW8tBqEeOjJ4LqbIKoDw" text=""/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_sqyH0M_3EeOKPu4Ml-ERgg" sourceAnchor="57.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_Xz4xcM_3EeOKPu4Ml-ERgg"/>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_s7v8AM_3EeOKPu4Ml-ERgg" sourceAnchor="83.0,0.0" targetAnchor="59.0,67.0" enclosingItem="_bu7gIc_2EeOKPu4Ml-ERgg" containedItem="_YQpl8M_3EeOKPu4Ml-ERgg">
-    <bendpoints xmi:id="_kT978M_5EeOKPu4Ml-ERgg" sourceY="-19" targetX="-481" targetY="175"/>
-    <bendpoints xmi:id="_kT978c_5EeOKPu4Ml-ERgg" sourceX="481" sourceY="-19" targetY="175"/>
+  <edges xsi:type="com.yattasolutions.diagrams:UsageVisual" xmi:id="_xMc_8NBqEeOjJ4LqbIKoDw" sourceAnchor="131.0,34.0" targetAnchor="0.0,33.0" client="_biMEoc_2EeOKPu4Ml-ERgg" supplier="_bu7gIc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_xMW5UNBqEeOjJ4LqbIKoDw"/>
+    <visualProperties xmi:id="_xMc_8dBqEeOjJ4LqbIKoDw"/>
+    <nameVisual xmi:id="_xMc_8tBqEeOjJ4LqbIKoDw" text=""/>
   </edges>
-  <edges xsi:type="com.yattasolutions.diagrams:ContainmentVisual" xmi:id="_wxKHUM_3EeOKPu4Ml-ERgg" sourceAnchor="36.0,0.0" targetAnchor="61.0,66.0" enclosingItem="_bVEOoc_2EeOKPu4Ml-ERgg" containedItem="_vc64QM_3EeOKPu4Ml-ERgg"/>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_goaFoM_4EeOKPu4Ml-ERgg" sourceAnchor="36.0,39.0" targetAnchor="0.0,40.0" importedPackage="_bu7gIc_2EeOKPu4Ml-ERgg" importingNamespace="_2J0qkM_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_goTX8M_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_goaFoc_4EeOKPu4Ml-ERgg"/>
-    <bendpoints xmi:id="_kT5Dcs_5EeOKPu4Ml-ERgg" sourceY="124" targetX="-409" targetY="137"/>
-    <bendpoints xmi:id="_kT5Dc8_5EeOKPu4Ml-ERgg" sourceX="364" sourceY="124" targetX="-45" targetY="137"/>
-    <bendpoints xmi:id="_kT5DdM_5EeOKPu4Ml-ERgg" sourceX="364" sourceY="-13" targetX="-45"/>
-    <visibility xmi:id="_goaFos_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_iyQuEM_4EeOKPu4Ml-ERgg" sourceAnchor="131.0,34.0" targetAnchor="0.0,34.0" importedPackage="_bu7gIc_2EeOKPu4Ml-ERgg" importingNamespace="_biMEoc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_iyPf8M_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_iyQuEc_4EeOKPu4Ml-ERgg"/>
-    <visibility xmi:id="_iyQuEs_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_j0aHkM_4EeOKPu4Ml-ERgg" sourceAnchor="71.0,20.0" targetAnchor="0.0,33.0" importedPackage="_bVEOoc_2EeOKPu4Ml-ERgg" importingNamespace="_2J0qkM_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_j0Y5cM_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_j0aHkc_4EeOKPu4Ml-ERgg"/>
-    <visibility xmi:id="_j0aHks_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_tnDGUM_4EeOKPu4Ml-ERgg" sourceAnchor="0.0,20.0" targetAnchor="124.0,35.0" importedPackage="_bMN0oc_2EeOKPu4Ml-ERgg" importingNamespace="_2J0qkM_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_tnB4MM_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_tnDGUc_4EeOKPu4Ml-ERgg"/>
-    <visibility xmi:id="_tnDGUs_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_0dTzgM_4EeOKPu4Ml-ERgg" sourceAnchor="124.0,48.0" targetAnchor="0.0,47.0" importedPackage="_bu7gIc_2EeOKPu4Ml-ERgg" importingNamespace="_bMN0oc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_0dTMcM_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_0dTzgc_4EeOKPu4Ml-ERgg"/>
-    <bendpoints xmi:id="_kT2nMc_5EeOKPu4Ml-ERgg" sourceX="16" targetX="-461"/>
-    <bendpoints xmi:id="_kT2nMs_5EeOKPu4Ml-ERgg" sourceX="16" sourceY="143" targetX="-461" targetY="143"/>
-    <bendpoints xmi:id="_kT2nM8_5EeOKPu4Ml-ERgg" sourceX="445" sourceY="143" targetX="-32" targetY="143"/>
-    <bendpoints xmi:id="_kT3OQM_5EeOKPu4Ml-ERgg" sourceX="445" targetX="-32"/>
-    <visibility xmi:id="_0dTzgs_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_6zLwcM_4EeOKPu4Ml-ERgg" sourceAnchor="125.0,35.0" targetAnchor="0.0,35.0" importedPackage="_bMN0oc_2EeOKPu4Ml-ERgg" importingNamespace="_bC-ZEc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_6zKiUM_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_6zLwcc_4EeOKPu4Ml-ERgg"/>
-    <visibility xmi:id="_6zLwcs_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_7OJ1MM_4EeOKPu4Ml-ERgg" sourceAnchor="125.0,48.0" targetAnchor="46.0,67.0" importedPackage="_bu7gIc_2EeOKPu4Ml-ERgg" importingNamespace="_bC-ZEc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_7OInEM_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_7OJ1Mc_4EeOKPu4Ml-ERgg"/>
-    <bendpoints xmi:id="_kT31UM_5EeOKPu4Ml-ERgg" sourceX="133" targetX="-663" targetY="-20"/>
-    <bendpoints xmi:id="_kT31Uc_5EeOKPu4Ml-ERgg" sourceX="133" sourceY="169" targetX="-663" targetY="149"/>
-    <bendpoints xmi:id="_kT31Us_5EeOKPu4Ml-ERgg" sourceX="796" sourceY="169" targetY="149"/>
-    <visibility xmi:id="_7OJ1Ms_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_9wZIcM_4EeOKPu4Ml-ERgg" sourceAnchor="0.0,53.0" targetAnchor="75.0,69.0" importedPackage="_bMN0oc_2EeOKPu4Ml-ERgg" importingNamespace="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_9wX6UM_4EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_9wZIcc_4EeOKPu4Ml-ERgg"/>
-    <bendpoints xmi:id="_kT8GwM_5EeOKPu4Ml-ERgg" sourceX="-19" targetX="507" targetY="-15"/>
-    <bendpoints xmi:id="_kT8Gwc_5EeOKPu4Ml-ERgg" sourceX="-19" sourceY="150" targetX="507" targetY="135"/>
-    <bendpoints xmi:id="_kT8Gws_5EeOKPu4Ml-ERgg" sourceX="-526" sourceY="150" targetY="135"/>
-    <visibility xmi:id="_9wZIcs_4EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_CRkNkM_5EeOKPu4Ml-ERgg" sourceAnchor="118.0,34.0" targetAnchor="76.0,69.0" importedPackage="_bC-ZEc_2EeOKPu4Ml-ERgg" importingNamespace="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_CRjmgM_5EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_CRkNkc_5EeOKPu4Ml-ERgg"/>
-    <bendpoints xmi:id="_kT8t0M_5EeOKPu4Ml-ERgg" sourceX="19" targetX="936" targetY="-34"/>
-    <bendpoints xmi:id="_kT8t0c_5EeOKPu4Ml-ERgg" sourceX="19" sourceY="-338" targetX="936" targetY="-372"/>
-    <bendpoints xmi:id="_kT8t0s_5EeOKPu4Ml-ERgg" sourceX="-1281" sourceY="-338" targetX="-364" targetY="-372"/>
-    <bendpoints xmi:id="_kT8t08_5EeOKPu4Ml-ERgg" sourceX="-1281" sourceY="585" targetX="-364" targetY="551"/>
-    <bendpoints xmi:id="_kT8t1M_5EeOKPu4Ml-ERgg" sourceX="-748" sourceY="585" targetX="169" targetY="551"/>
-    <bendpoints xmi:id="_kT8t1c_5EeOKPu4Ml-ERgg" sourceX="-748" sourceY="390" targetX="169" targetY="356"/>
-    <bendpoints xmi:id="_kT8t1s_5EeOKPu4Ml-ERgg" sourceX="-917" sourceY="390" targetY="356"/>
-    <visibility xmi:id="_CRkNks_5EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageImportVisual" xmi:id="_UX5g0M_5EeOKPu4Ml-ERgg" sourceAnchor="0.0,36.0" targetAnchor="142.0,38.0" importedPackage="_mN-uYc_1EeOKPu4Ml-ERgg" importingNamespace="_rjid0c_1EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_UX4SsM_5EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_UX5g0c_5EeOKPu4Ml-ERgg"/>
-    <visibility xmi:id="_UX5g0s_5EeOKPu4Ml-ERgg" label="+"/>
-  </edges>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_rjid0c_1EeOKPu4Ml-ERgg" containment="_RQPTsM_2EeOKPu4Ml-ERgg" containments="_cCPdsM_2EeOKPu4Ml-ERgg _cuQ2MM_2EeOKPu4Ml-ERgg _dRllsM_2EeOKPu4Ml-ERgg _eB5BQM_2EeOKPu4Ml-ERgg _e1irwM_2EeOKPu4Ml-ERgg _3MDjoM_2EeOKPu4Ml-ERgg" packageImports="_UX5g0M_5EeOKPu4Ml-ERgg" classes="_2J0qkM_2EeOKPu4Ml-ERgg" name="ppn.ba" nestedPackages="_bC-ZEc_2EeOKPu4Ml-ERgg _bu7gIc_2EeOKPu4Ml-ERgg _biMEoc_2EeOKPu4Ml-ERgg _bMN0oc_2EeOKPu4Ml-ERgg _bVEOoc_2EeOKPu4Ml-ERgg" nestingPackage="_lxYR8M_1EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_rjid0M_1EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_rjid0s_1EeOKPu4Ml-ERgg" position="723.0,215.0" size="134.0,72.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bMN0oc_2EeOKPu4Ml-ERgg" containment="_eB5BQM_2EeOKPu4Ml-ERgg" containments="_FgItQM_3EeOKPu4Ml-ERgg _FzXLQM_3EeOKPu4Ml-ERgg _GodnQM_3EeOKPu4Ml-ERgg" packageImports="_0dTzgM_4EeOKPu4Ml-ERgg" classes="_5cxCAM_2EeOKPu4Ml-ERgg _53hEUM_2EeOKPu4Ml-ERgg _DHQKUM_3EeOKPu4Ml-ERgg" name="helper" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg" importedBy="_tnDGUM_4EeOKPu4Ml-ERgg _6zLwcM_4EeOKPu4Ml-ERgg _9wZIcM_4EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_bMN0oM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_bMN0os_2EeOKPu4Ml-ERgg" position="572.0,333.0" size="124.0,69.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bC-ZEc_2EeOKPu4Ml-ERgg" containment="_cCPdsM_2EeOKPu4Ml-ERgg" containments="_VPQ4kM_3EeOKPu4Ml-ERgg _Vfz2AM_3EeOKPu4Ml-ERgg _VvnMkM_3EeOKPu4Ml-ERgg" packageImports="_6zLwcM_4EeOKPu4Ml-ERgg _7OJ1MM_4EeOKPu4Ml-ERgg" classes="_PCemMM_3EeOKPu4Ml-ERgg _OyK5UM_3EeOKPu4Ml-ERgg _Ok5SUM_3EeOKPu4Ml-ERgg" name="preprocessing" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg" importedBy="_CRkNkM_5EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_bC-ZEM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_bC-ZEs_2EeOKPu4Ml-ERgg" position="298.0,333.0" size="125.0,69.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_mN-uYc_1EeOKPu4Ml-ERgg" containment="_T08sIM_2EeOKPu4Ml-ERgg" containments="_XQ09IM_2EeOKPu4Ml-ERgg _Xc0xwM_2EeOKPu4Ml-ERgg" classes="_uqb9UM_1EeOKPu4Ml-ERgg _uQOGgM_1EeOKPu4Ml-ERgg" name="bpmn" nestingPackage="_lxYR8M_1EeOKPu4Ml-ERgg" importedBy="_UX5g0M_5EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_mN-uYM_1EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_mN-uYs_1EeOKPu4Ml-ERgg" position="82.0,213.0" size="142.0,76.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_2J0qkM_2EeOKPu4Ml-ERgg" containment="_3MDjoM_2EeOKPu4Ml-ERgg" name="Main" packageImports="_goaFoM_4EeOKPu4Ml-ERgg _j0aHkM_4EeOKPu4Ml-ERgg _tnDGUM_4EeOKPu4Ml-ERgg" package="_rjid0c_1EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_2JzccM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_2J0qkc_2EeOKPu4Ml-ERgg" position="728.0,348.0" size="71.0,39.0"/>
-    <visibility xmi:id="_2J0qks_2EeOKPu4Ml-ERgg" label="+"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_lxYR8M_1EeOKPu4Ml-ERgg" containments="_RQPTsM_2EeOKPu4Ml-ERgg _T08sIM_2EeOKPu4Ml-ERgg" name="de.uniba.dsg" nestedPackages="_rjid0c_1EeOKPu4Ml-ERgg _mN-uYc_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_lxXq4M_1EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_lxYR8c_1EeOKPu4Ml-ERgg" position="394.0,-6.0" size="195.0,122.0"/>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_Ok5SUM_3EeOKPu4Ml-ERgg" containment="_VvnMkM_3EeOKPu4Ml-ERgg" name="ImportedFile" package="_bC-ZEc_2EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_Ok4rQM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_Ok5SUc_3EeOKPu4Ml-ERgg" position="436.0,801.0" size="84.0,43.0"/>
+    <visualProperties xmi:id="_Ok5SUc_3EeOKPu4Ml-ERgg" position="436.0,801.0" size="84.0,43.0" visible="false"/>
     <visibility xmi:id="_Ok5SUs_3EeOKPu4Ml-ERgg" label="+"/>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_PCemMM_3EeOKPu4Ml-ERgg" containment="_VPQ4kM_3EeOKPu4Ml-ERgg" name="PreprocessResult" package="_bC-ZEc_2EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_PCd_IM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_PCemMc_3EeOKPu4Ml-ERgg" position="177.0,800.0" size="108.0,45.0"/>
+    <visualProperties xmi:id="_PCemMc_3EeOKPu4Ml-ERgg" position="177.0,800.0" size="108.0,45.0" visible="false"/>
     <visibility xmi:id="_PCemMs_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_OyK5UM_3EeOKPu4Ml-ERgg" containment="_Vfz2AM_3EeOKPu4Ml-ERgg" name="Preprocessor" package="_bC-ZEc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_OyKSQM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_OyK5Uc_3EeOKPu4Ml-ERgg" position="318.0,814.0" size="85.0,43.0"/>
-    <visibility xmi:id="_OyK5Us_3EeOKPu4Ml-ERgg" label="+"/>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_uQOGgM_1EeOKPu4Ml-ERgg" containment="_Xc0xwM_2EeOKPu4Ml-ERgg" name="Violation" package="_mN-uYc_1EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_uQNfcM_1EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_uQOGgc_1EeOKPu4Ml-ERgg" position="187.0,890.0" size="61.0,48.0"/>
+    <visualProperties xmi:id="_uQOGgc_1EeOKPu4Ml-ERgg" position="187.0,890.0" size="61.0,48.0" visible="false"/>
     <visibility xmi:id="_uQOGgs_1EeOKPu4Ml-ERgg" label="+"/>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_DHQKUM_3EeOKPu4Ml-ERgg" containment="_GodnQM_3EeOKPu4Ml-ERgg" name="PrintHelper" package="_bMN0oc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_DHPjQM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_DHQKUc_3EeOKPu4Ml-ERgg" position="725.0,668.0" size="77.0,50.0"/>
-    <visibility xmi:id="_DHQKUs_3EeOKPu4Ml-ERgg" label="+"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_rjid0c_1EeOKPu4Ml-ERgg" using="_ar8ncdBqEeOjJ4LqbIKoDw" containment="_RQPTsM_2EeOKPu4Ml-ERgg" containments="_cCPdsM_2EeOKPu4Ml-ERgg _cuQ2MM_2EeOKPu4Ml-ERgg _dRllsM_2EeOKPu4Ml-ERgg _eB5BQM_2EeOKPu4Ml-ERgg _e1irwM_2EeOKPu4Ml-ERgg" name="ppn.ba" nestedPackages="_bC-ZEc_2EeOKPu4Ml-ERgg _bu7gIc_2EeOKPu4Ml-ERgg _biMEoc_2EeOKPu4Ml-ERgg _bMN0oc_2EeOKPu4Ml-ERgg _bVEOoc_2EeOKPu4Ml-ERgg" nestingPackage="_lxYR8M_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_rjid0M_1EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_rjid0s_1EeOKPu4Ml-ERgg" position="209.0,180.0" size="134.0,72.0"/>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_5cxCAM_2EeOKPu4Ml-ERgg" containment="_FgItQM_3EeOKPu4Ml-ERgg" name="BpmnNamespaceContext" package="_bMN0oc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_5cwa8M_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_5cxCAc_2EeOKPu4Ml-ERgg" position="388.0,679.0" size="154.0,53.0"/>
-    <visibility xmi:id="_5cxCAs_2EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_53hEUM_2EeOKPu4Ml-ERgg" containment="_FzXLQM_3EeOKPu4Ml-ERgg" name="BpmnValidationException" package="_bMN0oc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_53gdQM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_53hEUc_2EeOKPu4Ml-ERgg" position="556.0,692.0" size="155.0,53.0"/>
-    <visibility xmi:id="_53hEUs_2EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bu7gIc_2EeOKPu4Ml-ERgg" containment="_cuQ2MM_2EeOKPu4Ml-ERgg" containments="_hmes4M_3EeOKPu4Ml-ERgg _pgShwM_3EeOKPu4Ml-ERgg _sCHlUM_3EeOKPu4Ml-ERgg _sP2fUM_3EeOKPu4Ml-ERgg _sf3RQM_3EeOKPu4Ml-ERgg _sqyH0M_3EeOKPu4Ml-ERgg _s7v8AM_3EeOKPu4Ml-ERgg" packageImports="_9wZIcM_4EeOKPu4Ml-ERgg _CRkNkM_5EeOKPu4Ml-ERgg" classes="_hMUgcM_3EeOKPu4Ml-ERgg _oPtqsM_3EeOKPu4Ml-ERgg _YDKjkM_3EeOKPu4Ml-ERgg _mq5B8M_3EeOKPu4Ml-ERgg _lXYysM_3EeOKPu4Ml-ERgg _Xz4xcM_3EeOKPu4Ml-ERgg _YQpl8M_3EeOKPu4Ml-ERgg" name="validation" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg" importedBy="_goaFoM_4EeOKPu4Ml-ERgg _iyQuEM_4EeOKPu4Ml-ERgg _0dTzgM_4EeOKPu4Ml-ERgg _7OJ1MM_4EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_bu7gIM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_bu7gIs_2EeOKPu4Ml-ERgg" position="1173.0,334.0" size="118.0,67.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_oPtqsM_3EeOKPu4Ml-ERgg" containment="_pgShwM_3EeOKPu4Ml-ERgg" name="XsdValidator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_oPtDoM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_oPtqsc_3EeOKPu4Ml-ERgg" position="1061.0,599.0" size="82.0,57.0"/>
-    <visibility xmi:id="_oPtqss_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_mq5B8M_3EeOKPu4Ml-ERgg" containment="_sP2fUM_3EeOKPu4Ml-ERgg" name="XsdValidationErrorHandler" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_mq4a4M_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_mq5B8c_3EeOKPu4Ml-ERgg" position="866.0,595.0" size="159.0,40.0"/>
-    <visibility xmi:id="_mq5B8s_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_Xz4xcM_3EeOKPu4Ml-ERgg" containment="_sqyH0M_3EeOKPu4Ml-ERgg" name="ResourceResolver" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_Xz4KYM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_Xz4xcc_3EeOKPu4Ml-ERgg" position="1175.0,608.0" size="113.0,40.0"/>
-    <visibility xmi:id="_Xz4xcs_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_YQpl8M_3EeOKPu4Ml-ERgg" containment="_s7v8AM_3EeOKPu4Ml-ERgg" name="SchematronBPMNValidator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_YQo-4M_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_YQpl8c_3EeOKPu4Ml-ERgg" position="668.0,595.0" size="165.0,39.0"/>
-    <visibility xmi:id="_YQpl8s_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_YDKjkM_3EeOKPu4Ml-ERgg" containment="_sCHlUM_3EeOKPu4Ml-ERgg" name="Input" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_YDJ8gM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_YDKjkc_3EeOKPu4Ml-ERgg" position="1315.0,592.0" size="42.0,46.0"/>
-    <visibility xmi:id="_YDKjks_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_hMUgcM_3EeOKPu4Ml-ERgg" containment="_hmes4M_3EeOKPu4Ml-ERgg" name="BpmnValidator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_hIyrUM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_XmE-8c_3EeOKPu4Ml-ERgg" position="1377.0,599.0" size="99.0,58.0"/>
-    <visibility xmi:id="_hMUgcs_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_lXYysM_3EeOKPu4Ml-ERgg" containment="_sf3RQM_3EeOKPu4Ml-ERgg" name="XmlLocator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_lXYLoM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_lXYysc_3EeOKPu4Ml-ERgg" position="1493.0,593.0" size="76.0,44.0"/>
-    <visibility xmi:id="_lXYyss_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_biMEoc_2EeOKPu4Ml-ERgg" containment="_dRllsM_2EeOKPu4Ml-ERgg" containments="_dwrgAM_3EeOKPu4Ml-ERgg" packageImports="_iyQuEM_4EeOKPu4Ml-ERgg" classes="_dxjpwM_3EeOKPu4Ml-ERgg" name="api" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_biMEoM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_biMEos_2EeOKPu4Ml-ERgg" position="971.0,334.0" size="131.0,68.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_dxjpwM_3EeOKPu4Ml-ERgg" containment="_dwrgAM_3EeOKPu4Ml-ERgg" name="BpmnValidatorFactory" package="_biMEoc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_do-8kM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_5Dqlgc_2EeOKPu4Ml-ERgg" position="969.0,424.0" size="136.0,69.0"/>
-    <visibility xmi:id="_dxjpws_3EeOKPu4Ml-ERgg" label="+"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bVEOoc_2EeOKPu4Ml-ERgg" containment="_e1irwM_2EeOKPu4Ml-ERgg" containments="_wxKHUM_3EeOKPu4Ml-ERgg" classes="_vc64QM_3EeOKPu4Ml-ERgg" name="xml" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg" importedBy="_j0aHkM_4EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_bVEOoM_2EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_bVEOos_2EeOKPu4Ml-ERgg" position="820.0,335.0" size="122.0,66.0"/>
-  </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_vc64QM_3EeOKPu4Ml-ERgg" containment="_wxKHUM_3EeOKPu4Ml-ERgg" name="XmlWriter" package="_bVEOoc_2EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_vc6RMM_3EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_vc64Qc_3EeOKPu4Ml-ERgg" position="845.0,423.0" size="71.0,46.0"/>
-    <visibility xmi:id="_vc64Qs_3EeOKPu4Ml-ERgg" label="+"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_mN-uYc_1EeOKPu4Ml-ERgg" supplying="_ar8ncdBqEeOjJ4LqbIKoDw" containment="_T08sIM_2EeOKPu4Ml-ERgg" containments="_XQ09IM_2EeOKPu4Ml-ERgg _Xc0xwM_2EeOKPu4Ml-ERgg" classes="_uqb9UM_1EeOKPu4Ml-ERgg _uQOGgM_1EeOKPu4Ml-ERgg" name="bpmn" nestingPackage="_lxYR8M_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_mN-uYM_1EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_mN-uYs_1EeOKPu4Ml-ERgg" position="651.0,179.0" size="142.0,76.0"/>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_uqb9UM_1EeOKPu4Ml-ERgg" containment="_XQ09IM_2EeOKPu4Ml-ERgg" name="ValidationResult" package="_mN-uYc_1EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_uqbWQM_1EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_uqb9Uc_1EeOKPu4Ml-ERgg" position="24.0,891.0" size="102.0,46.0"/>
+    <visualProperties xmi:id="_uqb9Uc_1EeOKPu4Ml-ERgg" position="675.0,312.0" size="102.0,46.0"/>
     <visibility xmi:id="_uqb9Us_1EeOKPu4Ml-ERgg" label="+"/>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_lxYR8M_1EeOKPu4Ml-ERgg" containments="_RQPTsM_2EeOKPu4Ml-ERgg _T08sIM_2EeOKPu4Ml-ERgg" name="de.uniba.dsg" nestedPackages="_rjid0c_1EeOKPu4Ml-ERgg _mN-uYc_1EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_lxXq4M_1EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_lxYR8c_1EeOKPu4Ml-ERgg" position="159.0,47.0" size="195.0,122.0"/>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_OyK5UM_3EeOKPu4Ml-ERgg" containment="_Vfz2AM_3EeOKPu4Ml-ERgg" name="Preprocessor" package="_bC-ZEc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_OyKSQM_3EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_OyK5Uc_3EeOKPu4Ml-ERgg" position="281.0,413.0" size="85.0,43.0"/>
+    <visibility xmi:id="_OyK5Us_3EeOKPu4Ml-ERgg" label="+"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_oPtqsM_3EeOKPu4Ml-ERgg" containment="_pgShwM_3EeOKPu4Ml-ERgg" name="XsdValidator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_oPtDoM_3EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_oPtqsc_3EeOKPu4Ml-ERgg" position="191.0,509.0" size="82.0,57.0"/>
+    <visibility xmi:id="_oPtqss_3EeOKPu4Ml-ERgg" label="+"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_dxjpwM_3EeOKPu4Ml-ERgg" containment="_dwrgAM_3EeOKPu4Ml-ERgg" name="BpmnValidatorFactory" package="_biMEoc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_do-8kM_3EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_5Dqlgc_2EeOKPu4Ml-ERgg" position="-151.0,430.0" size="136.0,69.0"/>
+    <visibility xmi:id="_dxjpws_3EeOKPu4Ml-ERgg" label="+"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_hMUgcM_3EeOKPu4Ml-ERgg" containment="_hmes4M_3EeOKPu4Ml-ERgg" name="BpmnValidator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_hIyrUM_3EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_XmE-8c_3EeOKPu4Ml-ERgg" position="66.0,507.0" size="99.0,58.0"/>
+    <visibility xmi:id="_hMUgcs_3EeOKPu4Ml-ERgg" label="+"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bC-ZEc_2EeOKPu4Ml-ERgg" supplying="_wwOW8NBqEeOjJ4LqbIKoDw" containment="_cCPdsM_2EeOKPu4Ml-ERgg" containments="_VPQ4kM_3EeOKPu4Ml-ERgg _Vfz2AM_3EeOKPu4Ml-ERgg _VvnMkM_3EeOKPu4Ml-ERgg" classes="_PCemMM_3EeOKPu4Ml-ERgg _OyK5UM_3EeOKPu4Ml-ERgg _Ok5SUM_3EeOKPu4Ml-ERgg" name="preprocessing" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_bC-ZEM_2EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_bC-ZEs_2EeOKPu4Ml-ERgg" position="260.0,321.0" size="125.0,69.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bVEOoc_2EeOKPu4Ml-ERgg" containment="_e1irwM_2EeOKPu4Ml-ERgg" name="xml" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_bVEOoM_2EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_bVEOos_2EeOKPu4Ml-ERgg" position="529.0,321.0" size="122.0,66.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_YQpl8M_3EeOKPu4Ml-ERgg" containment="_s7v8AM_3EeOKPu4Ml-ERgg" name="SchematronBPMNValidator" package="_bu7gIc_2EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_YQo-4M_3EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_YQpl8c_3EeOKPu4Ml-ERgg" position="-116.0,526.0" size="165.0,39.0"/>
+    <visibility xmi:id="_YQpl8s_3EeOKPu4Ml-ERgg" label="+"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bMN0oc_2EeOKPu4Ml-ERgg" containment="_eB5BQM_2EeOKPu4Ml-ERgg" name="helper" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_bMN0oM_2EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_bMN0os_2EeOKPu4Ml-ERgg" position="398.0,320.0" size="124.0,69.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_biMEoc_2EeOKPu4Ml-ERgg" using="_xMc_8NBqEeOjJ4LqbIKoDw" containment="_dRllsM_2EeOKPu4Ml-ERgg" containments="_dwrgAM_3EeOKPu4Ml-ERgg" classes="_dxjpwM_3EeOKPu4Ml-ERgg" name="api" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_biMEoM_2EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_biMEos_2EeOKPu4Ml-ERgg" position="-142.0,319.0" size="131.0,68.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bu7gIc_2EeOKPu4Ml-ERgg" supplying="_xMc_8NBqEeOjJ4LqbIKoDw" using="_wwOW8NBqEeOjJ4LqbIKoDw" containment="_cuQ2MM_2EeOKPu4Ml-ERgg" containments="_hmes4M_3EeOKPu4Ml-ERgg _pgShwM_3EeOKPu4Ml-ERgg _s7v8AM_3EeOKPu4Ml-ERgg" classes="_hMUgcM_3EeOKPu4Ml-ERgg _oPtqsM_3EeOKPu4Ml-ERgg _YQpl8M_3EeOKPu4Ml-ERgg" name="validation" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_bu7gIM_2EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_bu7gIs_2EeOKPu4Ml-ERgg" position="64.0,320.0" size="118.0,67.0"/>
   </nodes>
 </com.yattasolutions.uml.diagrams.classifier:ClassDiagram>
