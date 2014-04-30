@@ -68,10 +68,6 @@
     <visualProperties xmi:id="_xMc_8dBqEeOjJ4LqbIKoDw"/>
     <nameVisual xmi:id="_xMc_8tBqEeOjJ4LqbIKoDw" text=""/>
   </edges>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_lxYR8M_1EeOKPu4Ml-ERgg" containments="_RQPTsM_2EeOKPu4Ml-ERgg _T08sIM_2EeOKPu4Ml-ERgg" name="de.uniba.dsg" nestedPackages="_rjid0c_1EeOKPu4Ml-ERgg _mN-uYc_1EeOKPu4Ml-ERgg">
-    <modelElement href="schematron-test.uml#_lxXq4M_1EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_lxYR8c_1EeOKPu4Ml-ERgg" position="394.0,-6.0" size="195.0,122.0"/>
-  </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_Ok5SUM_3EeOKPu4Ml-ERgg" containment="_VvnMkM_3EeOKPu4Ml-ERgg" name="ImportedFile" package="_bC-ZEc_2EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_Ok4rQM_3EeOKPu4Ml-ERgg"/>
     <visualProperties xmi:id="_Ok5SUc_3EeOKPu4Ml-ERgg" position="436.0,801.0" size="84.0,43.0" visible="false"/>
@@ -144,5 +140,9 @@
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_bu7gIc_2EeOKPu4Ml-ERgg" supplying="_xMc_8NBqEeOjJ4LqbIKoDw" using="_wwOW8NBqEeOjJ4LqbIKoDw" containment="_cuQ2MM_2EeOKPu4Ml-ERgg" containments="_hmes4M_3EeOKPu4Ml-ERgg _pgShwM_3EeOKPu4Ml-ERgg _s7v8AM_3EeOKPu4Ml-ERgg" classes="_hMUgcM_3EeOKPu4Ml-ERgg _oPtqsM_3EeOKPu4Ml-ERgg _YQpl8M_3EeOKPu4Ml-ERgg" name="validation" nestingPackage="_rjid0c_1EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_bu7gIM_2EeOKPu4Ml-ERgg"/>
     <visualProperties xmi:id="_bu7gIs_2EeOKPu4Ml-ERgg" position="64.0,320.0" size="118.0,67.0"/>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:PackageVisual" xmi:id="_lxYR8M_1EeOKPu4Ml-ERgg" containments="_RQPTsM_2EeOKPu4Ml-ERgg _T08sIM_2EeOKPu4Ml-ERgg" name="de.uniba.dsg" nestedPackages="_rjid0c_1EeOKPu4Ml-ERgg _mN-uYc_1EeOKPu4Ml-ERgg">
+    <modelElement href="schematron-test.uml#_lxXq4M_1EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_lxYR8c_1EeOKPu4Ml-ERgg" position="394.0,-6.0" size="195.0,122.0"/>
   </nodes>
 </com.yattasolutions.uml.diagrams.classifier:ClassDiagram>
