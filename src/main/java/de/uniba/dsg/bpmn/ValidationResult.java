@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  * there is a list of violations, which can be used to get the violation
  * messages.
  * 
- * @author Andreas Vorndran, Matthias Geiger
+ * @author Andreas Vorndran, Matthias Geiger, Philipp Neugebauer
  * @version 1.1
  * 
  */
