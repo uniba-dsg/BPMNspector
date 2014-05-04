@@ -42,7 +42,7 @@
     </targetRole>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_T_I00c_0EeOKPu4Ml-ERgg" targetItem="_T_LREM_0EeOKPu4Ml-ERgg" sourceItem="_T_I00M_0EeOKPu4Ml-ERgg"/>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_T_R-wM_0EeOKPu4Ml-ERgg" sourceAnchor="183.0,0.0" targetAnchor="149.0,109.0" dashed="true" superClass="_T-0EsM_0EeOKPu4Ml-ERgg" subClass="_T_vRwM_0EeOKPu4Ml-ERgg">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:GeneralizationVisual" xmi:id="_T_R-wM_0EeOKPu4Ml-ERgg" sourceAnchor="183.0,0.0" targetAnchor="149.0,108.0" dashed="true" superClass="_T-0EsM_0EeOKPu4Ml-ERgg" subClass="_T_vRwM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_RQh5gM_0EeOKPu4Ml-ERgg"/>
   </edges>
   <edges xsi:type="com.yattasolutions.diagrams:ConnectionVisual" xmi:id="_T_Sl0c_0EeOKPu4Ml-ERgg" targetItem="_T_vRwM_0EeOKPu4Ml-ERgg" sourceItem="_T_Sl0M_0EeOKPu4Ml-ERgg"/>
@@ -179,14 +179,14 @@
       <cardinality xmi:id="_T_sOeM_0EeOKPu4Ml-ERgg" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_T_s1gM_0EeOKPu4Ml-ERgg" sourceAnchor="0.0,78.0" targetAnchor="330.0,49.0" target="_UAaAIM_0EeOKPu4Ml-ERgg" source="_T_vRwM_0EeOKPu4Ml-ERgg">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_T_s1gM_0EeOKPu4Ml-ERgg" sourceAnchor="0.0,69.0" targetAnchor="330.0,49.0" target="_UAaAIM_0EeOKPu4Ml-ERgg" source="_T_vRwM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_Re3Qcc_0EeOKPu4Ml-ERgg"/>
     <visualProperties xmi:id="_UBSJ4M_0EeOKPu4Ml-ERgg" position="350.0,350.0"/>
     <stereotypes xmi:id="_T_s1gc_0EeOKPu4Ml-ERgg" name="Reference">
       <modelElement href="schematron-test.uml#_Re5ssM_0EeOKPu4Ml-ERgg"/>
     </stereotypes>
     <nameVisual xmi:id="_T_s1gs_0EeOKPu4Ml-ERgg" text="">
-      <visualProperties xmi:id="_ULYhEM_0EeOKPu4Ml-ERgg" position="-28.5,-8.5"/>
+      <visualProperties xmi:id="_ULYhEM_0EeOKPu4Ml-ERgg" position="-31.0,-8.5"/>
     </nameVisual>
     <sourceRole xmi:id="_T_s1g8_0EeOKPu4Ml-ERgg" aggregationKind="NONE" name="">
       <modelElement href="schematron-test.uml#_Re33gM_0EeOKPu4Ml-ERgg"/>
@@ -204,14 +204,14 @@
       <cardinality xmi:id="_T_s1iM_0EeOKPu4Ml-ERgg" label="1" max="1" min="1"/>
     </targetRole>
   </edges>
-  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_T_uDoM_0EeOKPu4Ml-ERgg" sourceAnchor="365.0,78.0" targetAnchor="0.0,49.0" target="_UBHx0M_0EeOKPu4Ml-ERgg" source="_T_vRwM_0EeOKPu4Ml-ERgg">
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_T_uDoM_0EeOKPu4Ml-ERgg" sourceAnchor="365.0,69.0" targetAnchor="0.0,39.0" target="_UBHx0M_0EeOKPu4Ml-ERgg" source="_T_vRwM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_Re6TwM_0EeOKPu4Ml-ERgg"/>
     <visualProperties xmi:id="_UBSJ4c_0EeOKPu4Ml-ERgg" position="370.0,370.0"/>
     <stereotypes xmi:id="_T_uDoc_0EeOKPu4Ml-ERgg" name="Reference">
       <modelElement href="schematron-test.uml#_Re7h4M_0EeOKPu4Ml-ERgg"/>
     </stereotypes>
     <nameVisual xmi:id="_T_uDos_0EeOKPu4Ml-ERgg" text="">
-      <visualProperties xmi:id="_ULcygM_0EeOKPu4Ml-ERgg" position="15.5,-8.5"/>
+      <visualProperties xmi:id="_ULcygM_0EeOKPu4Ml-ERgg" position="13.0,-8.5"/>
     </nameVisual>
     <sourceRole xmi:id="_T_uDo8_0EeOKPu4Ml-ERgg" aggregationKind="NONE" name="">
       <modelElement href="schematron-test.uml#_Re6Twc_0EeOKPu4Ml-ERgg"/>
@@ -466,7 +466,7 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:InterfaceVisual" xmi:id="_T-0EsM_0EeOKPu4Ml-ERgg" comments="_T-xBYM_0EeOKPu4Ml-ERgg" targetConnectionVisual="_T-xBYc_0EeOKPu4Ml-ERgg" name="BpmnValidator" subclassedBy="_T_R-wM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_Qtp18M_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_T-0Esc_0EeOKPu4Ml-ERgg" position="482.0,434.0" size="-1.0,-1.0"/>
+    <visualProperties xmi:id="_T-0Esc_0EeOKPu4Ml-ERgg" position="482.0,31.0" size="-1.0,-1.0"/>
     <visibility xmi:id="_T-0Ess_0EeOKPu4Ml-ERgg" label="+"/>
     <operations xmi:id="_T-0Es8_0EeOKPu4Ml-ERgg" comments="_T-xocM_0EeOKPu4Ml-ERgg" targetConnectionVisual="_T-xocc_0EeOKPu4Ml-ERgg" name="setLogLevel">
       <modelElement href="schematron-test.uml#_RTZnUM_0EeOKPu4Ml-ERgg"/>
@@ -513,15 +513,15 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_T_vRwM_0EeOKPu4Ml-ERgg" comments="_T_Sl0M_0EeOKPu4Ml-ERgg" targetConnectionVisual="_T_Sl0c_0EeOKPu4Ml-ERgg" name="SchematronBPMNValidator" associationsOut="_T_mH0M_0EeOKPu4Ml-ERgg _T_mu4M_0EeOKPu4Ml-ERgg _T_okEM_0EeOKPu4Ml-ERgg _T_pyMM_0EeOKPu4Ml-ERgg _T_rAUM_0EeOKPu4Ml-ERgg _T_sOcM_0EeOKPu4Ml-ERgg _T_s1gM_0EeOKPu4Ml-ERgg _T_uDoM_0EeOKPu4Ml-ERgg _T_uqsM_0EeOKPu4Ml-ERgg" generalizations="_T_R-wM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_QvQYcM_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_T_vRwc_0EeOKPu4Ml-ERgg" position="448.0,567.0" size="-1.0,-1.0"/>
+    <visualProperties xmi:id="_T_vRwc_0EeOKPu4Ml-ERgg" position="448.0,172.0" size="-1.0,-1.0"/>
     <visibility xmi:id="_T_vRws_0EeOKPu4Ml-ERgg" label="+"/>
     <attributes xmi:id="_T_vRw8_0EeOKPu4Ml-ERgg" name="documentBuilderFactory">
       <modelElement href="schematron-test.uml#_RYsXAM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJctkM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vRxc_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_aitAwM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYtlIM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_aitAwM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QZrQNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYtlIM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vRxs_0EeOKPu4Ml-ERgg" label="-"/>
@@ -533,10 +533,10 @@
     <attributes xmi:id="_T_vRyc_0EeOKPu4Ml-ERgg" name="documentBuilder">
       <modelElement href="schematron-test.uml#_RYuMMM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJdUoM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vRy8_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_aiu18M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYwBYM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_aiu18M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QbgcNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYwBYM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vRzM_0EeOKPu4Ml-ERgg" label="-"/>
@@ -548,10 +548,10 @@
     <attributes xmi:id="_T_vRz8_0EeOKPu4Ml-ERgg" name="xPathFactory">
       <modelElement href="schematron-test.uml#_RYwocM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJd7sM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vR0c_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_aiwrIM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYzEsM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_aiwrIM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QdVoNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYzEsM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR0s_0EeOKPu4Ml-ERgg" label="-"/>
@@ -563,10 +563,10 @@
     <attributes xmi:id="_T_vR1c_0EeOKPu4Ml-ERgg" name="xpath">
       <modelElement href="schematron-test.uml#_RYzrwM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJd7sc_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vR18_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_aiygUM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY1g8M_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_aiygUM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QejwNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY1g8M_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR2M_0EeOKPu4Ml-ERgg" label="-"/>
@@ -578,10 +578,10 @@
     <attributes xmi:id="_T_vR28_0EeOKPu4Ml-ERgg" name="xPathExpression">
       <modelElement href="schematron-test.uml#_RY2IAM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJeiwM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vR3c_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_aizucM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY3WIM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_aizucM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3Qfx4NPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY3WIM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR3s_0EeOKPu4Ml-ERgg" label="-"/>
@@ -593,10 +593,10 @@
     <attributes xmi:id="_T_vR4c_0EeOKPu4Ml-ERgg" name="preProcessor">
       <modelElement href="schematron-test.uml#_RY4kQM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJeiwc_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vR48_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai2KsM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY5yYM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai2KsM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QhnENPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY5yYM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR5M_0EeOKPu4Ml-ERgg" label="-"/>
@@ -607,10 +607,10 @@
     </attributes>
     <attributes xmi:id="_T_vR58_0EeOKPu4Ml-ERgg" name="xmlLocator">
       <modelElement href="schematron-test.uml#_RY6ZcM_0EeOKPu4Ml-ERgg"/>
-      <stereotypes xmi:id="_T_vR6c_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai3Y0M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY7nkM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai3Y0M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3Qi1MNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY7nkM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR6s_0EeOKPu4Ml-ERgg" label="-"/>
@@ -621,10 +621,10 @@
     </attributes>
     <attributes xmi:id="_T_vR7c_0EeOKPu4Ml-ERgg" name="xsdValidator">
       <modelElement href="schematron-test.uml#_RY8OoM_0EeOKPu4Ml-ERgg"/>
-      <stereotypes xmi:id="_T_vR78_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai3_4M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY-D0M_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai3_4M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QkqYNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RY-D0M_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR8M_0EeOKPu4Ml-ERgg" label="-"/>
@@ -636,10 +636,10 @@
     <attributes xmi:id="_T_vR88_0EeOKPu4Ml-ERgg" name="logger">
       <modelElement href="schematron-test.uml#_RY_R8M_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJfJ0M_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T_vR9c_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai5OAM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZExgM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai5OAM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3Ql4gNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZExgM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T_vR9s_0EeOKPu4Ml-ERgg" label="-"/>
@@ -920,15 +920,15 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_UAaAIM_0EeOKPu4Ml-ERgg" comments="_UAQPIM_0EeOKPu4Ml-ERgg" targetConnectionVisual="_UAQPIc_0EeOKPu4Ml-ERgg" name="XmlLocator" associationsIn="_T_s1gM_0EeOKPu4Ml-ERgg" associationsOut="_UAQ2MM_0EeOKPu4Ml-ERgg _UAYK8M_0EeOKPu4Ml-ERgg _UAZZEM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_QxqzQM_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_UAaAIc_0EeOKPu4Ml-ERgg" position="11.0,596.0" size="-1.0,-1.0"/>
+    <visualProperties xmi:id="_UAaAIc_0EeOKPu4Ml-ERgg" position="11.0,192.0" size="-1.0,-1.0"/>
     <visibility xmi:id="_UAaAIs_0EeOKPu4Ml-ERgg" label="+"/>
     <attributes xmi:id="_UAaAI8_0EeOKPu4Ml-ERgg" name="saxBuilder">
       <modelElement href="schematron-test.uml#_RZV3QM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJg_As_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_UAaAJc_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai7qQM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZXFYM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai7qQM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3Qo70NPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZXFYM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_UAaAJs_0EeOKPu4Ml-ERgg" label="-"/>
@@ -940,10 +940,10 @@
     <attributes xmi:id="_UAaAKc_0EeOKPu4Ml-ERgg" name="xPathFactory">
       <modelElement href="schematron-test.uml#_RZXscM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJhmEM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_UAaAK8_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai8RUM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZY6kM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai8RUM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QqJ8NPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZY6kM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_UAaALM_0EeOKPu4Ml-ERgg" label="-"/>
@@ -955,10 +955,10 @@
     <attributes xmi:id="_UAaAL8_0EeOKPu4Ml-ERgg" name="logger">
       <modelElement href="schematron-test.uml#_RZZhoM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJhmEc_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_UAWVws_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai6cIM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZavwM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai6cIM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QnGoNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RZavwM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_UAaAMc_0EeOKPu4Ml-ERgg" label="-"/>
@@ -1003,15 +1003,15 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_UBHx0M_0EeOKPu4Ml-ERgg" comments="_UA-A0M_0EeOKPu4Ml-ERgg" targetConnectionVisual="_UA-A0c_0EeOKPu4Ml-ERgg" name="XsdValidator" associationsIn="_T_uDoM_0EeOKPu4Ml-ERgg" associationsOut="_UA-n4M_0EeOKPu4Ml-ERgg _UBF8oM_0EeOKPu4Ml-ERgg _UBHKwM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_QzYqgM_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_UBHx0c_0EeOKPu4Ml-ERgg" position="928.0,596.0" size="-1.0,-1.0"/>
+    <visualProperties xmi:id="_UBHx0c_0EeOKPu4Ml-ERgg" position="928.0,202.0" size="-1.0,-1.0"/>
     <visibility xmi:id="_UBHx0s_0EeOKPu4Ml-ERgg" label="+"/>
     <attributes xmi:id="_UBHx08_0EeOKPu4Ml-ERgg" name="schemaFactory">
       <modelElement href="schematron-test.uml#_RaJvkM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJiNIM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_UBHx1c_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai_7sM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RaK9sM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai_7sM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QtNQNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RaK9sM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_UBHx1s_0EeOKPu4Ml-ERgg" label="-"/>
@@ -1023,10 +1023,10 @@
     <attributes xmi:id="_UBHx2c_0EeOKPu4Ml-ERgg" name="schema">
       <modelElement href="schematron-test.uml#_RaixIM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJiNIc_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_UBHx28_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ajBJ0M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RakmUM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ajBJ0M_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QvCcNPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RakmUM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_UBHx3M_0EeOKPu4Ml-ERgg" label="-"/>
@@ -1038,10 +1038,10 @@
     <attributes xmi:id="_UBHx38_0EeOKPu4Ml-ERgg" name="logger">
       <modelElement href="schematron-test.uml#_RalNYM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJiNIs_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_UBEHcs_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_ai9fcM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RanCkM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_ai9fcM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3Qr_INPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RanCkM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_UBHx4c_0EeOKPu4Ml-ERgg" label="-"/>
@@ -1093,68 +1093,17 @@
       </parameters>
     </operations>
   </nodes>
-  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_T_LREM_0EeOKPu4Ml-ERgg" comments="_T_I00M_0EeOKPu4Ml-ERgg" targetConnectionVisual="_T_I00c_0EeOKPu4Ml-ERgg" name="ResourceResolver">
-    <modelElement href="schematron-test.uml#_Qu5MEM_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_T_LREc_0EeOKPu4Ml-ERgg" position="437.0,32.0" size="-1.0,-1.0"/>
-    <visibility xmi:id="_T_LREs_0EeOKPu4Ml-ERgg" label="+"/>
-    <operations xmi:id="_T_LRE8_0EeOKPu4Ml-ERgg" name="resolveResource">
-      <modelElement href="schematron-test.uml#_Qu_SsM_0EeOKPu4Ml-ERgg"/>
-      <stereotypes xmi:id="_T_LRFM_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
-        <modelElement href="schematron-test.uml#_QvC9EM_0EeOKPu4Ml-ERgg"/>
-      </stereotypes>
-      <stereotypes xmi:id="_T_LRFc_0EeOKPu4Ml-ERgg" name="Annotations">
-        <modelElement href="schematron-test.uml#_QvHOgM_0EeOKPu4Ml-ERgg"/>
-      </stereotypes>
-      <visibility xmi:id="_T_LRFs_0EeOKPu4Ml-ERgg" label="+"/>
-      <outParameters xmi:id="_T_LRF8_0EeOKPu4Ml-ERgg">
-        <modelElement href="schematron-test.uml#_RUGx8M_0EeOKPu4Ml-ERgg"/>
-        <type xmi:id="_T_LRGM_0EeOKPu4Ml-ERgg" name="LSInput">
-          <modelElement href="schematron-test.uml#_RQIQ4M_0EeOKPu4Ml-ERgg"/>
-        </type>
-      </outParameters>
-      <parameters xmi:id="_T_LRGc_0EeOKPu4Ml-ERgg" name="type">
-        <modelElement href="schematron-test.uml#_Qu_Ssc_0EeOKPu4Ml-ERgg"/>
-        <type xmi:id="_T_LRGs_0EeOKPu4Ml-ERgg" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_T_LRG8_0EeOKPu4Ml-ERgg" name="namespaceURI">
-        <modelElement href="schematron-test.uml#_Qu_Sss_0EeOKPu4Ml-ERgg"/>
-        <type xmi:id="_T_LRHM_0EeOKPu4Ml-ERgg" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_T_LRHc_0EeOKPu4Ml-ERgg" name="publicId">
-        <modelElement href="schematron-test.uml#_Qu_5wM_0EeOKPu4Ml-ERgg"/>
-        <type xmi:id="_T_LRHs_0EeOKPu4Ml-ERgg" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_T_LRH8_0EeOKPu4Ml-ERgg" name="systemId">
-        <modelElement href="schematron-test.uml#_Qu_5wc_0EeOKPu4Ml-ERgg"/>
-        <type xmi:id="_T_LRIM_0EeOKPu4Ml-ERgg" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-      <parameters xmi:id="_T_LRIc_0EeOKPu4Ml-ERgg" name="baseURI">
-        <modelElement href="schematron-test.uml#_QvAg0M_0EeOKPu4Ml-ERgg"/>
-        <type xmi:id="_T_LRIs_0EeOKPu4Ml-ERgg" name="String">
-          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </type>
-      </parameters>
-    </operations>
-  </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_T-9Oqc_0EeOKPu4Ml-ERgg" comments="_T-4WIM_0EeOKPu4Ml-ERgg" targetConnectionVisual="_T-4WIc_0EeOKPu4Ml-ERgg" name="XsdValidationErrorHandler" associationsOut="_T-9OoM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_QuHI8M_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_T-91sM_0EeOKPu4Ml-ERgg" position="440.0,102.0" size="-1.0,-1.0"/>
+    <visualProperties xmi:id="_T-91sM_0EeOKPu4Ml-ERgg" position="440.0,102.0" size="-1.0,-1.0" visible="false"/>
     <visibility xmi:id="_T-91sc_0EeOKPu4Ml-ERgg" label="+"/>
     <attributes xmi:id="_T-91ss_0EeOKPu4Ml-ERgg" defaultValue="new ArrayList&lt;>()" name="xsdErrorList">
       <modelElement href="schematron-test.uml#_RYlCQM_0EeOKPu4Ml-ERgg"/>
       <visualProperties xmi:id="_nJcGgM_0EeOKPu4Ml-ERgg" visible="false"/>
-      <stereotypes xmi:id="_T-91tM_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_airyoM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYnegM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
-      <stereotypes xmi:id="_airyoM_6EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+      <stereotypes xmi:id="_3QYdINPfEeOVjIdn4ROesg" name="LegacyStyledElement">
         <modelElement href="schematron-test.uml#_RYnegM_0EeOKPu4Ml-ERgg"/>
       </stereotypes>
       <visibility xmi:id="_T-91tc_0EeOKPu4Ml-ERgg" label="-"/>
@@ -1239,9 +1188,60 @@
       </parameters>
     </operations>
   </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_T_LREM_0EeOKPu4Ml-ERgg" comments="_T_I00M_0EeOKPu4Ml-ERgg" targetConnectionVisual="_T_I00c_0EeOKPu4Ml-ERgg" name="ResourceResolver">
+    <modelElement href="schematron-test.uml#_Qu5MEM_0EeOKPu4Ml-ERgg"/>
+    <visualProperties xmi:id="_T_LREc_0EeOKPu4Ml-ERgg" position="437.0,32.0" size="-1.0,-1.0" visible="false"/>
+    <visibility xmi:id="_T_LREs_0EeOKPu4Ml-ERgg" label="+"/>
+    <operations xmi:id="_T_LRE8_0EeOKPu4Ml-ERgg" name="resolveResource">
+      <modelElement href="schematron-test.uml#_Qu_SsM_0EeOKPu4Ml-ERgg"/>
+      <stereotypes xmi:id="_T_LRFM_0EeOKPu4Ml-ERgg" name="LegacyStyledElement">
+        <modelElement href="schematron-test.uml#_QvC9EM_0EeOKPu4Ml-ERgg"/>
+      </stereotypes>
+      <stereotypes xmi:id="_T_LRFc_0EeOKPu4Ml-ERgg" name="Annotations">
+        <modelElement href="schematron-test.uml#_QvHOgM_0EeOKPu4Ml-ERgg"/>
+      </stereotypes>
+      <visibility xmi:id="_T_LRFs_0EeOKPu4Ml-ERgg" label="+"/>
+      <outParameters xmi:id="_T_LRF8_0EeOKPu4Ml-ERgg">
+        <modelElement href="schematron-test.uml#_RUGx8M_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_T_LRGM_0EeOKPu4Ml-ERgg" name="LSInput">
+          <modelElement href="schematron-test.uml#_RQIQ4M_0EeOKPu4Ml-ERgg"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_T_LRGc_0EeOKPu4Ml-ERgg" name="type">
+        <modelElement href="schematron-test.uml#_Qu_Ssc_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_T_LRGs_0EeOKPu4Ml-ERgg" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_T_LRG8_0EeOKPu4Ml-ERgg" name="namespaceURI">
+        <modelElement href="schematron-test.uml#_Qu_Sss_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_T_LRHM_0EeOKPu4Ml-ERgg" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_T_LRHc_0EeOKPu4Ml-ERgg" name="publicId">
+        <modelElement href="schematron-test.uml#_Qu_5wM_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_T_LRHs_0EeOKPu4Ml-ERgg" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_T_LRH8_0EeOKPu4Ml-ERgg" name="systemId">
+        <modelElement href="schematron-test.uml#_Qu_5wc_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_T_LRIM_0EeOKPu4Ml-ERgg" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+      <parameters xmi:id="_T_LRIc_0EeOKPu4Ml-ERgg" name="baseURI">
+        <modelElement href="schematron-test.uml#_QvAg0M_0EeOKPu4Ml-ERgg"/>
+        <type xmi:id="_T_LRIs_0EeOKPu4Ml-ERgg" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_UArs-M_0EeOKPu4Ml-ERgg" comments="_UAh78M_0EeOKPu4Ml-ERgg" targetConnectionVisual="_UAh78c_0EeOKPu4Ml-ERgg" name="Input" associationsIn="_UArs8M_0EeOKPu4Ml-ERgg" generalizations="_UAijAM_0EeOKPu4Ml-ERgg">
     <modelElement href="schematron-test.uml#_QyDNwM_0EeOKPu4Ml-ERgg"/>
-    <visualProperties xmi:id="_UArs-c_0EeOKPu4Ml-ERgg" position="18.0,31.0" size="-1.0,-1.0"/>
+    <visualProperties xmi:id="_UArs-c_0EeOKPu4Ml-ERgg" position="18.0,31.0" size="-1.0,-1.0" visible="false"/>
     <visibility xmi:id="_UArs-s_0EeOKPu4Ml-ERgg" label="+"/>
     <attributes xmi:id="_UArs-8_0EeOKPu4Ml-ERgg" name="publicId">
       <modelElement href="schematron-test.uml#_RZdMAM_0EeOKPu4Ml-ERgg"/>

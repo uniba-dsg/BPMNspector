@@ -4,7 +4,7 @@
     <eAnnotations xmi:id="_Pb3d8M_0EeOKPu4Ml-ERgg" source="http://ns.yatta.de/umllab">
       <contents xmi:type="ecore:EAnnotation" xmi:id="_Pb3d8c_0EeOKPu4Ml-ERgg" source="codegen">
         <details xmi:id="_Pb4FAM_0EeOKPu4Ml-ERgg" key="codegenDirectory" value="/schematron-test/src/main/java"/>
-        <details xmi:id="_SNR1oM_0EeOKPu4Ml-ERgg" key="AssociatedSourceCode" value="/schematron-test/src/main/java/de/uniba/dsg/bpmn/ValidationResult.java;470631974/1;/schematron-test/src/main/java/de/uniba/dsg/bpmn/Violation.java;1232006732/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/Main.java;466636497/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/api/BpmnValidatorFactory.java;2962909779/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/helper/BpmnNamespaceContext.java;2174547147/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/helper/BpmnValidationException.java;390541910/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/helper/PrintHelper.java;2888331746/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/preprocessing/ImportedFile.java;1752944927/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/preprocessing/PreProcessResult.java;1646129706/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/preprocessing/PreProcessor.java;506527664/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/BpmnValidator.java;3709002950/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/XsdValidationErrorHandler.java;221928/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/ResourceResolver.java;2608316508/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/SchematronBPMNValidator.java;2663060976/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/XmlLocator.java;1260285095/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/Input.java;2479821698/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/XsdValidator.java;629846269/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/xml/XmlWriter.java;1321486660/1;"/>
+        <details xmi:id="_SNR1oM_0EeOKPu4Ml-ERgg" key="AssociatedSourceCode" value="/schematron-test/src/main/java/de/uniba/dsg/bpmn/ValidationResult.java;1564229628/1;/schematron-test/src/main/java/de/uniba/dsg/bpmn/Violation.java;1232006732/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/Main.java;466636497/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/api/BpmnValidatorFactory.java;2962909779/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/helper/BpmnNamespaceContext.java;2174547147/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/helper/BpmnValidationException.java;390541910/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/helper/PrintHelper.java;2888331746/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/preprocessing/ImportedFile.java;1752944927/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/preprocessing/PreProcessResult.java;1646129706/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/preprocessing/PreProcessor.java;506527664/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/BpmnValidator.java;3709002950/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/XsdValidationErrorHandler.java;221928/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/ResourceResolver.java;2608316508/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/SchematronBPMNValidator.java;2663060976/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/XmlLocator.java;1260285095/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/Input.java;2479821698/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/validation/XsdValidator.java;629846269/1;/schematron-test/src/main/java/de/uniba/dsg/ppn/ba/xml/XmlWriter.java;1321486660/1;"/>
       </contents>
     </eAnnotations>
     <elementImport xmi:id="_Qoj6kM_0EeOKPu4Ml-ERgg">
@@ -50,7 +50,9 @@
                 <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RXZWgM_0EeOKPu4Ml-ERgg" value="*"/>
               </ownedAttribute>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RbFjsM_0EeOKPu4Ml-ERgg" name="ValidationResult" specification="_QouSoM_0EeOKPu4Ml-ERgg">
-                <ownedParameter xmi:id="_RbFjsc_0EeOKPu4Ml-ERgg" type="_QoV4IM_0EeOKPu4Ml-ERgg" direction="return"/>
+                <ownedParameter xmi:id="_RbFjsc_0EeOKPu4Ml-ERgg" type="_QoV4IM_0EeOKPu4Ml-ERgg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>this.checkedFiles = new ArrayList&lt;String>();&#xD;
 		this.violations = new ArrayList&lt;Violation>();&#xD;
@@ -62,7 +64,9 @@
                 </ownedParameter>
                 <ownedParameter xmi:id="_RbHY4s_0EeOKPu4Ml-ERgg" name="checkedFiles" type="_ROKiAM_0EeOKPu4Ml-ERgg"/>
                 <ownedParameter xmi:id="_RbHY48_0EeOKPu4Ml-ERgg" name="violations" type="_ROKiAM_0EeOKPu4Ml-ERgg"/>
-                <ownedParameter xmi:id="_RbHY5M_0EeOKPu4Ml-ERgg" type="_QoV4IM_0EeOKPu4Ml-ERgg" direction="return"/>
+                <ownedParameter xmi:id="_RbHY5M_0EeOKPu4Ml-ERgg" type="_QoV4IM_0EeOKPu4Ml-ERgg" direction="return">
+                  <name xsi:nil="true"/>
+                </ownedParameter>
                 <language>java</language>
                 <body>this.valid = valid;&#xD;
 		this.checkedFiles = checkedFiles;&#xD;
@@ -71,6 +75,7 @@
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RbH_8M_0EeOKPu4Ml-ERgg" name="isValid" specification="_Qo2OcM_0EeOKPu4Ml-ERgg">
                 <ownedParameter xmi:id="_RbH_8c_0EeOKPu4Ml-ERgg" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
                 </ownedParameter>
                 <language>java</language>
@@ -87,6 +92,7 @@
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RbKcMM_0EeOKPu4Ml-ERgg" name="getCheckedFiles" specification="_Qo7uAM_0EeOKPu4Ml-ERgg">
                 <ownedParameter xmi:id="_RbKcMc_0EeOKPu4Ml-ERgg" isOrdered="true" direction="return">
+                  <name xsi:nil="true"/>
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RbKcMs_0EeOKPu4Ml-ERgg" value="*"/>
                 </ownedParameter>
@@ -96,6 +102,7 @@
               </ownedBehavior>
               <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_RbLqUM_0EeOKPu4Ml-ERgg" name="getViolations" specification="_Qo__cM_0EeOKPu4Ml-ERgg">
                 <ownedParameter xmi:id="_RbLqUc_0EeOKPu4Ml-ERgg" type="_QpjZEM_0EeOKPu4Ml-ERgg" isOrdered="true" direction="return">
+                  <name xsi:nil="true"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_RbLqUs_0EeOKPu4Ml-ERgg" value="*"/>
                 </ownedParameter>
                 <language>java</language>
@@ -2618,7 +2625,7 @@ everything and a namespace table&#xD;
     <annotations xmi:id="_RXVsIM_0EeOKPu4Ml-ERgg" name="XmlElements">
       <annotationParameters xmi:id="_RXWTMM_0EeOKPu4Ml-ERgg" name="value">
         <annotations xmi:id="_RXW6QM_0EeOKPu4Ml-ERgg" name="XmlElement">
-          <annotationParameters xmi:id="_RXW6Qc_0EeOKPu4Ml-ERgg" name="name" skipArray="true">
+          <annotationParameters xmi:id="_RXdn8M_0EeOKPu4Ml-ERgg" name="name" skipArray="true">
             <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RdTKMM_0EeOKPu4Ml-ERgg" value="&quot;file&quot;"/>
           </annotationParameters>
           <annotationParameters xmi:id="_RXW6Qs_0EeOKPu4Ml-ERgg" name="namespace" skipArray="true">
@@ -2643,7 +2650,7 @@ everything and a namespace table&#xD;
     <annotations xmi:id="_RXdA4M_0EeOKPu4Ml-ERgg" name="XmlElements">
       <annotationParameters xmi:id="_RXdA4c_0EeOKPu4Ml-ERgg" name="value">
         <annotations xmi:id="_RXdA4s_0EeOKPu4Ml-ERgg" name="XmlElement">
-          <annotationParameters xmi:id="_RXdn8M_0EeOKPu4Ml-ERgg" name="name" skipArray="true">
+          <annotationParameters xmi:id="_RXW6Qc_0EeOKPu4Ml-ERgg" name="name" skipArray="true">
             <valueSpecifications xmi:type="uml:LiteralString" xmi:id="_RdUYUM_0EeOKPu4Ml-ERgg" value="&quot;violation&quot;"/>
           </annotationParameters>
           <annotationParameters xmi:id="_RXePAM_0EeOKPu4Ml-ERgg" name="namespace" skipArray="true">
