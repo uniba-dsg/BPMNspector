@@ -40,10 +40,8 @@ public class Xsd {
 		Violation v = result.getViolations().get(0);
 		assertEquals("xsdfail.bpmn", v.getFileName());
 		assertEquals(6, v.getLine());
-		assertTrue(v
-				.getMessage()
-				.contains(
-						"cvc-complex-type.2.4.a: Ungültiger Content wurde beginnend mit Element \"outgoing\" gefunden."));
+		assertTrue(v.getMessage().contains("cvc-complex-type.2.4.a:"));
+		assertTrue(v.getMessage().contains("outgoing"));
 		assertEquals("", v.getxPath());
 		assertEquals("XSD-Check", v.getConstraint());
 	}

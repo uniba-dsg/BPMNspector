@@ -98,10 +98,8 @@ public class Ext146 {
 		assertFalse(result.isValid());
 		assertEquals(2, result.getViolations().size());
 		Violation v = result.getViolations().get(0);
-		assertTrue(v
-				.getMessage()
-				.contains(
-						"cvc-complex-type.2.4.b: Content des Elements \"conditionalEventDefinition\" ist nicht vollständig."));
+		assertTrue(v.getMessage().contains("cvc-complex-type.2.4.b"));
+		assertTrue(v.getMessage().contains("conditionalEventDefinition"));
 		assertEquals("XSD-Check", v.getConstraint());
 		assertEquals(9, v.getLine());
 		v = result.getViolations().get(1);
