@@ -3,11 +3,11 @@ apply plugin: "idea"
 apply plugin: "eclipse"
 apply plugin: "application"
 
+mainClassName = "de.uniba.dsg.ppn.ba.Main"
+
 repositories {
     mavenCentral()
 }
-
-manifest.mainAttributes("Main-Class" : "de.uniba.dsg.ppn.ba.Main")
 
 configurations {
     internal
@@ -37,4 +37,11 @@ jar.archiveName = "bpmnvalidator.jar"
 
 jar {
         from configurations.external.collect { it.isDirectory() ? it : zipTree(it) }
+        manifest { attributes 'Main-Class': mainClassName }
+}
+
+run {
+    if(project.hasProperty('args')){
+        args project.args.split('\\s+')
+    }
 }
