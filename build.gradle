@@ -36,7 +36,7 @@ dependencies {
 jar.archiveName = "bpmnvalidator.jar"
 
 jar {
-        from configurations.external.collect { it.isDirectory() ? it : zipTree(it) }
+        from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
         manifest { attributes 'Main-Class': mainClassName }
 }
 
