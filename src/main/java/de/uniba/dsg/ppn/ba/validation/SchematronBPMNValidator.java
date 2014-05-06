@@ -111,6 +111,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 				.getSimpleName())).setLevel(logLevel);
 	}
 
+	// TODO: parallelization with executor framework?
 	@Override
 	public List<ValidationResult> validateFiles(List<File> xmlFiles)
 			throws BpmnValidationException {
@@ -206,8 +207,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			throw new BpmnValidationException(
 					"Given file couldn't be read or doesn't exist!");
 		} catch (Exception e) {
-			logger.error("exception at schematron validation. Cause: {}",
-					e);
+			logger.error("exception at schematron validation. Cause: {}", e);
 			throw new BpmnValidationException(
 					"Something went wrong during schematron validation!");
 		}
@@ -505,5 +505,4 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private String createIdBpmnExpression(String id) {
 		return "//bpmn:*[@id = '" + id + "']";
 	}
-
 }
