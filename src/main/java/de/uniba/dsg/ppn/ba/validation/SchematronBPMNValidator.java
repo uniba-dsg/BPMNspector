@@ -101,6 +101,14 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	@Override
 	public void setLogLevel(Level logLevel) {
 		logger.setLevel(logLevel);
+		setClassLogLevel(preProcessor, logLevel);
+		setClassLogLevel(xmlLocator, logLevel);
+		setClassLogLevel(xsdValidator, logLevel);
+	}
+
+	private void setClassLogLevel(Object classObject, Level logLevel) {
+		((Logger) LoggerFactory.getLogger(classObject.getClass()
+				.getSimpleName())).setLevel(logLevel);
 	}
 
 	@Override
