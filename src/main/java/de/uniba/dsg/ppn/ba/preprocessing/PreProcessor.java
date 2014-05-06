@@ -138,8 +138,7 @@ public class PreProcessor {
 
 					addNodesToDocument(importDefinitionsNode, headFileDocument);
 				} catch (SAXException | IOException e) {
-					logger.error("imported file couldn't be read. Cause: {}",
-							e.getCause());
+					logger.error("imported file couldn't be read. Cause: {}", e);
 				}
 			}
 		}

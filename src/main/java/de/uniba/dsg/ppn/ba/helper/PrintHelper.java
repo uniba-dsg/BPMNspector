@@ -52,7 +52,7 @@ public class PrintHelper {
 			transformer.transform(new DOMSource(document), new StreamResult(
 					System.out));
 		} catch (TransformerException e) {
-			System.err.println("printDocument failed cause of" + e.getCause());
+			System.err.println("printDocument failed cause of" + e);
 		}
 	}
 

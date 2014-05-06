@@ -47,8 +47,7 @@ public class XsdValidator {
 					resolveResourcePaths("BPMNDI.xsd"),
 					resolveResourcePaths("BPMN20.xsd") });
 		} catch (FileNotFoundException | SAXException e) {
-			logger.error("schemafactory couldn't create schema, cause: {}",
-					e.getCause());
+			logger.error("schemafactory couldn't create schema, cause: {}", e);
 		}
 	}
 

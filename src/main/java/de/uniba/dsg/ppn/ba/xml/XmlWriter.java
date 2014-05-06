@@ -25,13 +25,13 @@ public class XmlWriter {
 	private Logger logger;
 
 	public XmlWriter() {
-		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
+		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 		try {
 			context = JAXBContext.newInstance(ValidationResult.class);
 			marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		} catch (JAXBException e) {
-			logger.error("jaxb writer initialization failed: {}", e.getCause());
+			logger.error("jaxb writer initialization failed: {}", e);
 		}
 	}
 

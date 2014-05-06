@@ -189,12 +189,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			}
 		} catch (SAXException | IOException e) {
 			logger.error("file {} couldn't be read. Cause: {}",
-					xmlFile.getName(), e.getCause());
+					xmlFile.getName(), e);
 			throw new BpmnValidationException(
 					"Given file couldn't be read or doesn't exist!");
 		} catch (Exception e) {
 			logger.error("exception at schematron validation. Cause: {}",
-					e.getCause());
+					e);
 			throw new BpmnValidationException(
 					"Something went wrong during schematron validation!");
 		}
@@ -289,12 +289,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
 						}
 					} catch (SAXException | IOException e) {
 						logger.error("file {} couldn't be read. Cause: {}",
-								checkedFile.getName(), e.getCause());
+								checkedFile.getName(), e);
 					}
 				}
 			} catch (SAXException | IOException e) {
 				logger.error("file {} couldn't be read. Cause: {}",
-						checkedFile.getName(), e.getCause());
+						checkedFile.getName(), e);
 			}
 		}
 
@@ -345,7 +345,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			}
 		} catch (SAXException | IOException e) {
 			logger.error("file {} couldn't be read. Cause: {}",
-					headFile.getName(), e.getCause());
+					headFile.getName(), e);
 		}
 	}
 
@@ -387,12 +387,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
 						}
 					} catch (IOException | SAXException e) {
 						logger.error("file {} couldn't be read. Cause: {}",
-								file2.getName(), e.getCause());
+								file2.getName(), e);
 					}
 				}
 			} catch (IOException | SAXException e) {
 				logger.error("file {} couldn't be read. Cause: {}",
-						file1.getName(), e.getCause());
+						file1.getName(), e);
 			}
 		}
 	}
@@ -429,7 +429,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			}
 		} catch (IOException | SAXException e) {
 			logger.error("file {} couldn't be read. Cause: {}", file.getName(),
-					e.getCause());
+					e);
 		}
 
 		return importedFileList;
