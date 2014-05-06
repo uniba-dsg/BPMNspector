@@ -19,6 +19,13 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public interface BpmnValidator {
 
 	/**
+	 * returns the set loglevel of all loggers
+	 * 
+	 * @return the set log level {@link ch.qos.logback.classic.Level}
+	 */
+	Level getLogLevel();
+
+	/**
 	 * Sets the loglevel of all loggers of the bpmn validator to the given level
 	 * 
 	 * @param logLevel

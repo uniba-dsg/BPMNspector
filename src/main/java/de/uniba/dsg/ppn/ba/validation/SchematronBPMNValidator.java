@@ -94,6 +94,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	}
 
 	@Override
+	public Level getLogLevel() {
+		return logger.getLevel();
+	}
+
+	@Override
 	public void setLogLevel(Level logLevel) {
 		logger.setLevel(logLevel);
 	}
