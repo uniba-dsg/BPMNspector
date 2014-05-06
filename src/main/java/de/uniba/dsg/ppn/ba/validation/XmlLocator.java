@@ -36,7 +36,7 @@ public class XmlLocator {
 		saxBuilder = new SAXBuilder();
 		saxBuilder.setJDOMFactory(new LocatedJDOMFactory());
 		xPathFactory = XPathFactory.instance();
-		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
+		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 	}
 
 	/**

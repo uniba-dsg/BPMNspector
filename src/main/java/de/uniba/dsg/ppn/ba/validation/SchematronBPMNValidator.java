@@ -90,7 +90,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
 		xsdValidator = new XsdValidator();
-		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
+		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 	}
 
 	@Override

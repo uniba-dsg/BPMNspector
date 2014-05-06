@@ -51,7 +51,7 @@ public class PreProcessor {
 		xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
-		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
+		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 	}
 
 	/**

@@ -39,7 +39,7 @@ public class XsdValidator {
 		schemaFactory = SchemaFactory
 				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		schemaFactory.setResourceResolver(new ResourceResolver());
-		logger = (Logger) LoggerFactory.getLogger("BpmnValidator");
+		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 		try {
 			schema = schemaFactory.newSchema(new Source[] {
 					resolveResourcePaths("DC.xsd"),
