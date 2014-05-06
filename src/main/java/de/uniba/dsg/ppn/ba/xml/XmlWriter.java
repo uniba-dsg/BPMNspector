@@ -47,7 +47,7 @@ public class XmlWriter {
 	 */
 	public void writeResult(ValidationResult result, File file)
 			throws JAXBException {
-		logger.info("Write XML Result {}", file.getName());
 		marshaller.marshal(result, file);
+		logger.info("XML Result written: {}", file.getName());
 	}
 }
