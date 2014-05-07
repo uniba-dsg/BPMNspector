@@ -5,6 +5,10 @@ apply plugin: "application"
 
 mainClassName = "de.uniba.dsg.ppn.ba.Main"
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
 repositories {
     mavenCentral()
 }
