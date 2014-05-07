@@ -44,6 +44,9 @@ public class Main {
 			for (String parameter : argsAsList) {
 				try {
 					File file = new File(parameter);
+					if (!file.isAbsolute()) {
+						file = file.getAbsoluteFile();
+					}
 					ValidationResult result = validator.validate(file);
 					xmlWriter.writeResult(result,
 							new File(file.getParentFile() + File.separator
