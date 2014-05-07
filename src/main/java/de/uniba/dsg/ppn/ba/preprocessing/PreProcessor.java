@@ -194,14 +194,13 @@ public class PreProcessor {
 			ImportedFile importedFile = new ImportedFile();
 			File file = new File(importedFileNode.getAttributes()
 					.getNamedItem("location").getTextContent());
-			if (file.isAbsolute()) {
-				importedFile.setFile(file);
-			} else {
-				importedFile.setFile(new File(folder.getPath()
+			if (!file.isAbsolute()) {
+				file = new File(folder.getPath()
 						+ File.separator
 						+ importedFileNode.getAttributes()
-								.getNamedItem("location").getTextContent()));
+								.getNamedItem("location").getTextContent());
 			}
+			importedFile.setFile(file);
 			importedFile.setPrefix("ns" + (i + size));
 			importedFile.setNamespace(importedFileNode.getAttributes()
 					.getNamedItem("namespace").getTextContent());
