@@ -2,6 +2,7 @@ package de.uniba.dsg.ppn.ba.preprocessing;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -75,8 +76,8 @@ public class PreProcessor {
 	 */
 	public PreProcessResult preProcess(Document headFileDocument, File folder,
 			List<String[]> namespaceTable) throws XPathExpressionException {
-		ImportedFile[] importedFiles = selectImportedFiles(headFileDocument,
-				folder, namespaceTable.size());
+		List<ImportedFile> importedFiles = selectImportedFiles(
+				headFileDocument, folder, namespaceTable.size(), true);
 		removeBPMNDINode(headFileDocument);
 		logger.info("preprocessing step started");
 
@@ -104,11 +105,11 @@ public class PreProcessor {
 			}
 		}
 
-		for (int i = 0; i < importedFiles.length; i++) {
-			if (importedFiles[i].getFile().exists()) {
+		for (int i = 0; i < importedFiles.size(); i++) {
+			if (importedFiles.get(i).getFile().exists()) {
 				try {
 					Document importedDocument = documentBuilder
-							.parse(importedFiles[i].getFile());
+							.parse(importedFiles.get(i).getFile());
 
 					Element importDefinitionsNode = importedDocument
 							.getDocumentElement();
@@ -116,21 +117,21 @@ public class PreProcessor {
 
 					boolean exists = false;
 					for (String[] s : namespaceTable) {
-						if (s[1].equals(importedFiles[i].getNamespace())) {
+						if (s[1].equals(importedFiles.get(i).getNamespace())) {
 							exists = true;
 						}
 					}
-					logger.debug("namespace of file read: {}",
-							importedFiles[i].getNamespace());
+					logger.debug("namespace of file read: {}", importedFiles
+							.get(i).getNamespace());
 					if (!exists) {
 						namespaceTable.add(new String[] {
-								importedFiles[i].getPrefix(),
-								importedFiles[i].getNamespace() });
+								importedFiles.get(i).getPrefix(),
+								importedFiles.get(i).getNamespace() });
 					}
 					XPathExpression xPathReplaceIds = xpath
 							.compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
-					renameIds(xPathReplaceIds, importedDocument,
-							importedFiles[i].getPrefix());
+					renameIds(xPathReplaceIds, importedDocument, importedFiles
+							.get(i).getPrefix());
 
 					preProcess(importedDocument, folder, namespaceTable);
 
@@ -179,32 +180,44 @@ public class PreProcessor {
 	 * @param size
 	 *            the number of already collected imports for ensuring unique
 	 *            namespace prefixes
-	 * @return an array of importedFile including all bpmn imports with the
+	 * @param onlyBpmnFiles
+	 *            if true, just imports with the import type of the bpmn
+	 *            namespace are returned
+	 * @return a list of importedFile including all bpmn imports with the
 	 *         absolute path, the new namespace prefix and the namespace
 	 */
-	public ImportedFile[] selectImportedFiles(Document document, File folder,
-			int size) {
+	public List<ImportedFile> selectImportedFiles(Document document,
+			File folder, int size, boolean onlyBpmnFiles) {
 		NodeList importedFilesList = document.getElementsByTagNameNS(
 				SchematronBPMNValidator.bpmnNamespace, "import");
-		ImportedFile[] importedFiles = new ImportedFile[importedFilesList
-				.getLength()];
+		List<ImportedFile> importedFiles = new ArrayList<>();
 
 		for (int i = 0; i < importedFilesList.getLength(); i++) {
 			Node importedFileNode = importedFilesList.item(i);
-			ImportedFile importedFile = new ImportedFile();
-			File file = new File(importedFileNode.getAttributes()
-					.getNamedItem("location").getTextContent());
-			if (!file.isAbsolute()) {
-				file = new File(folder.getPath()
-						+ File.separator
-						+ importedFileNode.getAttributes()
-								.getNamedItem("location").getTextContent());
+			String importType = importedFileNode.getAttributes()
+					.getNamedItem("importType").getTextContent();
+			if (onlyBpmnFiles
+					&& !importType
+							.equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
+
+			} else {
+				ImportedFile importedFile = new ImportedFile();
+				File file = new File(importedFileNode.getAttributes()
+						.getNamedItem("location").getTextContent());
+				if (!file.isAbsolute()) {
+					file = new File(folder.getPath()
+							+ File.separator
+							+ importedFileNode.getAttributes()
+									.getNamedItem("location").getTextContent());
+				}
+				importedFile.setFile(file);
+				importedFile.setPrefix("ns" + (i + size));
+				importedFile.setNamespace(importedFileNode.getAttributes()
+						.getNamedItem("namespace").getTextContent());
+				importedFile.setImportType(importType);
+				System.out.println(importedFile.getImportType());
+				importedFiles.add(importedFile);
 			}
-			importedFile.setFile(file);
-			importedFile.setPrefix("ns" + (i + size));
-			importedFile.setNamespace(importedFileNode.getAttributes()
-					.getNamedItem("namespace").getTextContent());
-			importedFiles[i] = importedFile;
 		}
 
 		return importedFiles;

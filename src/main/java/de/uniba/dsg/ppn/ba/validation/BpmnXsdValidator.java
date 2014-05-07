@@ -23,13 +23,13 @@ import de.uniba.dsg.bpmn.Violation;
 
 /**
  * 
- * Does the xsd validation step
+ * Does the bpmn xsd validation step
  * 
  * @author Andreas Vorndran, Philipp Neugebauer
  * @version 1.0
  * 
  */
-public class XsdValidator {
+public class BpmnXsdValidator {
 
 	private SchemaFactory schemaFactory;
 	private Schema schema;

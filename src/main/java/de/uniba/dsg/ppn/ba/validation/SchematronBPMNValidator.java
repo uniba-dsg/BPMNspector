@@ -66,7 +66,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
-	private XsdValidator xsdValidator;
+	private BpmnXsdValidator xsdValidator;
 	private Logger logger;
 	public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 	public final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
@@ -89,7 +89,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		}
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
-		xsdValidator = new XsdValidator();
+		xsdValidator = new BpmnXsdValidator();
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 	}
 
@@ -335,15 +335,15 @@ public class SchematronBPMNValidator implements BpmnValidator {
 			xsdValidator.validateAgainstXsd(headFile, validationResult);
 			Document headFileDocument = documentBuilder.parse(headFile);
 
-			ImportedFile[] importedFiles = preProcessor.selectImportedFiles(
-					headFileDocument, folder, 0);
+			List<ImportedFile> importedFiles = preProcessor
+					.selectImportedFiles(headFileDocument, folder, 0, false);
 
 			String constraint = "EXT.001";
-			for (int i = 0; i < importedFiles.length; i++) {
-				if (!importedFiles[i].getFile().exists()) {
+			for (int i = 0; i < importedFiles.size(); i++) {
+				if (!importedFiles.get(i).getFile().exists()) {
 					String xpathLocation = "//bpmn:import[@location = '"
-							+ importedFiles[i].getFile().getName() + "']";
-					String fileName = importedFiles[i].getFile().getName();
+							+ importedFiles.get(i).getFile().getName() + "']";
+					String fileName = importedFiles.get(i).getFile().getName();
 					int line = xmlLocator.findLine(headFile, xpathLocation);
 					validationResult.getViolations().add(
 							new Violation(constraint, fileName, line,
@@ -351,9 +351,16 @@ public class SchematronBPMNValidator implements BpmnValidator {
 									"The imported file does not exist"));
 					logger.info("violation of constraint {} in {} found.",
 							constraint, fileName);
-				} else {
-					checkConstraint001(importedFiles[i].getFile(), folder,
+				} else if (importedFiles.get(i).getImportType()
+						.equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
+					checkConstraint001(importedFiles.get(i).getFile(), folder,
 							validationResult);
+				} else if (importedFiles.get(i).getImportType()
+						.equals("http://www.w3.org/ns/wsdl")) {
+					// TODO
+				} else if (importedFiles.get(i).getImportType()
+						.equals("http://www.w3.org/2001/XMLSchema")) {
+					// TODO
 				}
 			}
 		} catch (SAXException | IOException e) {
@@ -427,16 +434,16 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		List<File> importedFileList = new ArrayList<>();
 		try {
 			Document document = documentBuilder.parse(file);
-			ImportedFile[] importedFiles = preProcessor.selectImportedFiles(
-					document, folder, 0);
+			List<ImportedFile> importedFiles = preProcessor
+					.selectImportedFiles(document, folder, 0, true);
 			importedFileList.add(file);
 
-			for (int i = 0; i < importedFiles.length; i++) {
-				if (importedFiles[i].getFile().exists()) {
+			for (int i = 0; i < importedFiles.size(); i++) {
+				if (importedFiles.get(i).getFile().exists()) {
 					validationResult.getCheckedFiles().add(
-							importedFiles[i].getFile().getAbsolutePath());
+							importedFiles.get(i).getFile().getAbsolutePath());
 					importedFileList.addAll(searchForImports(
-							importedFiles[i].getFile(), folder,
+							importedFiles.get(i).getFile(), folder,
 							validationResult));
 				}
 			}
