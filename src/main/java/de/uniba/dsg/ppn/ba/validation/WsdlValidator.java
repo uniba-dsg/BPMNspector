@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.XMLConstants;
-import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -21,16 +20,7 @@ import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 
-/**
- * 
- * Does the bpmn xsd validation step
- * 
- * @author Andreas Vorndran, Philipp Neugebauer
- * @version 1.0
- * 
- */
-public class BpmnXsdValidator extends MyValidator {
-
+public class WsdlValidator extends MyValidator {
 	private SchemaFactory schemaFactory;
 	private Schema schema;
 	private Logger logger;
@@ -38,45 +28,30 @@ public class BpmnXsdValidator extends MyValidator {
 	{
 		schemaFactory = SchemaFactory
 				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		schemaFactory.setResourceResolver(new ResourceResolver());
+		// schemaFactory.setResourceResolver(new ResourceResolver());
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 		try {
-			schema = schemaFactory.newSchema(new Source[] {
-					resolveResourcePaths("DC.xsd"),
-					resolveResourcePaths("DI.xsd"),
-					resolveResourcePaths("BPMNDI.xsd"),
-					resolveResourcePaths("BPMN20.xsd") });
+			schema = schemaFactory
+					.newSchema(resolveResourcePaths("XMLSchema.xsd"));
 		} catch (FileNotFoundException | SAXException e) {
 			logger.error("schemafactory couldn't create schema, cause: {}", e);
 		}
 	}
 
-	/**
-	 * Validates the given xmlFile with the xsd bpmn files and writes violations
-	 * to the given validation result
-	 * 
-	 * @param xmlFile
-	 * @param validationResult
-	 * @throws IOException
-	 *             when xmlFile can't be read
-	 * @throws SAXException
-	 *             when validation process fails somehow
-	 */
 	public void validateAgainstXsd(File xmlFile,
 			ValidationResult validationResult) throws IOException, SAXException {
-		logger.info("xsd validation started: {}", xmlFile.getName());
+		logger.info("xml xsd validation started: {}", xmlFile.getName());
 		List<SAXParseException> xsdErrorList = new ArrayList<>();
 		Validator validator = schema.newValidator();
 		validator.setErrorHandler(new XsdValidationErrorHandler(xsdErrorList));
 		validator.validate(new StreamSource(xmlFile));
 		for (SAXParseException saxParseException : xsdErrorList) {
 			validationResult.getViolations().add(
-					new Violation("XSD-Check", xmlFile.getName(),
+					new Violation("XML-XSD-Check", xmlFile.getName(),
 							saxParseException.getLineNumber(), "",
 							saxParseException.getMessage()));
-			logger.info("xsd violation in {} at {} found", xmlFile.getName(),
-					saxParseException.getLineNumber());
+			logger.info("xml xsd violation in {} at {} found",
+					xmlFile.getName(), saxParseException.getLineNumber());
 		}
 	}
-
 }

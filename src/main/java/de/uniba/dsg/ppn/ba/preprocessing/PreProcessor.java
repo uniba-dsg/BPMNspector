@@ -215,7 +215,6 @@ public class PreProcessor {
 				importedFile.setNamespace(importedFileNode.getAttributes()
 						.getNamedItem("namespace").getTextContent());
 				importedFile.setImportType(importType);
-				System.out.println(importedFile.getImportType());
 				importedFiles.add(importedFile);
 			}
 		}

@@ -66,7 +66,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
-	private BpmnXsdValidator xsdValidator;
+	private BpmnXsdValidator bpmnXsdValidator;
+	private WsdlValidator wsdlValidator;
+	private XmlValidator xmlValidator;
 	private Logger logger;
 	public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 	public final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
@@ -89,7 +91,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		}
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
-		xsdValidator = new BpmnXsdValidator();
+		bpmnXsdValidator = new BpmnXsdValidator();
+		wsdlValidator = new WsdlValidator();
+		xmlValidator = new XmlValidator();
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 	}
 
@@ -103,7 +107,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		logger.setLevel(logLevel);
 		setClassLogLevel(preProcessor, logLevel);
 		setClassLogLevel(xmlLocator, logLevel);
-		setClassLogLevel(xsdValidator, logLevel);
+		setClassLogLevel(bpmnXsdValidator, logLevel);
+		setClassLogLevel(wsdlValidator, logLevel);
+		setClassLogLevel(xmlValidator, logLevel);
 	}
 
 	private void setClassLogLevel(Object classObject, Level logLevel) {
@@ -332,7 +338,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	private void checkConstraint001(File headFile, File folder,
 			ValidationResult validationResult) {
 		try {
-			xsdValidator.validateAgainstXsd(headFile, validationResult);
+			bpmnXsdValidator.validateAgainstXsd(headFile, validationResult);
 			Document headFileDocument = documentBuilder.parse(headFile);
 
 			List<ImportedFile> importedFiles = preProcessor
@@ -357,10 +363,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
 							validationResult);
 				} else if (importedFiles.get(i).getImportType()
 						.equals("http://www.w3.org/ns/wsdl")) {
-					// TODO
+					wsdlValidator.validateAgainstXsd(importedFiles.get(i)
+							.getFile(), validationResult);
 				} else if (importedFiles.get(i).getImportType()
 						.equals("http://www.w3.org/2001/XMLSchema")) {
-					// TODO
+					xmlValidator.validateAgainstXsd(importedFiles.get(i)
+							.getFile(), validationResult);
 				}
 			}
 		} catch (SAXException | IOException e) {
