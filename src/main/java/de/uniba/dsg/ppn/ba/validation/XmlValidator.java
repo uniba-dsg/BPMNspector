@@ -39,7 +39,7 @@ public class XmlValidator extends MyValidator {
 
 	public void validateAgainstXsd(File xmlFile,
 			ValidationResult validationResult) throws IOException, SAXException {
-		logger.info("xml validation started: {}", xmlFile.getName());
+		logger.debug("xml validation started: {}", xmlFile.getName());
 		List<SAXParseException> xsdErrorList = new ArrayList<>();
 		Validator validator = schema.newValidator();
 		validator.setErrorHandler(new XsdValidationErrorHandler(xsdErrorList));

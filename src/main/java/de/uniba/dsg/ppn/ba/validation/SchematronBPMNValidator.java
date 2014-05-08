@@ -193,7 +193,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 						} catch (StringIndexOutOfBoundsException e) {
 							fileName = "Element couldn't be found!";
 						}
-						logger.info(
+						logger.debug(
 								"preprocessing needed. violation in {} at {}.",
 								fileName, line);
 					}

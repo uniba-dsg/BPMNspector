@@ -64,7 +64,7 @@ public class BpmnXsdValidator extends MyValidator {
 	 */
 	public void validateAgainstXsd(File xmlFile,
 			ValidationResult validationResult) throws IOException, SAXException {
-		logger.info("xsd validation started: {}", xmlFile.getName());
+		logger.debug("xsd validation started: {}", xmlFile.getName());
 		List<SAXParseException> xsdErrorList = new ArrayList<>();
 		Validator validator = schema.newValidator();
 		validator.setErrorHandler(new XsdValidationErrorHandler(xsdErrorList));
