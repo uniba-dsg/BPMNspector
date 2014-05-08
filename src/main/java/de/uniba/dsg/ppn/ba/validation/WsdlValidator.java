@@ -28,11 +28,10 @@ public class WsdlValidator extends MyValidator {
 	{
 		schemaFactory = SchemaFactory
 				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		// schemaFactory.setResourceResolver(new ResourceResolver());
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 		try {
 			schema = schemaFactory
-					.newSchema(resolveResourcePaths("XMLSchema.xsd"));
+					.newSchema(resolveResourcePaths("wsdl20.xsd"));
 		} catch (FileNotFoundException | SAXException e) {
 			logger.error("schemafactory couldn't create schema, cause: {}", e);
 		}
