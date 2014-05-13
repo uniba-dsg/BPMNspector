@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 
 import javax.xml.transform.stream.StreamSource;
 
-public class MyValidator {
+public class XsdValidator {
 
 	/**
 	 * 

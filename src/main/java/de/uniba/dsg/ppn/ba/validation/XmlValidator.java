@@ -20,7 +20,7 @@ import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 
-public class XmlValidator extends MyValidator {
+public class XmlValidator extends XsdValidator {
 	private SchemaFactory schemaFactory;
 	private Schema schema;
 	private Logger logger;

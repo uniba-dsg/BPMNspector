@@ -29,7 +29,7 @@ import de.uniba.dsg.bpmn.Violation;
  * @version 1.0
  * 
  */
-public class BpmnXsdValidator extends MyValidator {
+public class BpmnXsdValidator extends XsdValidator {
 
 	private SchemaFactory schemaFactory;
 	private Schema schema;
