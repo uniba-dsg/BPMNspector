@@ -92,8 +92,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		preProcessor = new PreProcessor();
 		xmlLocator = new XmlLocator();
 		bpmnXsdValidator = new BpmnXsdValidator();
-		wsdlValidator = new WsdlValidator();
-		xmlValidator = new XmlValidator();
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 	}
 
@@ -108,8 +106,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		setClassLogLevel(preProcessor, logLevel);
 		setClassLogLevel(xmlLocator, logLevel);
 		setClassLogLevel(bpmnXsdValidator, logLevel);
-		setClassLogLevel(wsdlValidator, logLevel);
-		setClassLogLevel(xmlValidator, logLevel);
 	}
 
 	private void setClassLogLevel(Object classObject, Level logLevel) {
@@ -117,7 +113,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
 				.getSimpleName())).setLevel(logLevel);
 	}
 
-	// TODO: parallelization with executor framework?
 	@Override
 	public List<ValidationResult> validateFiles(List<File> xmlFiles)
 			throws BpmnValidationException {
@@ -363,12 +358,21 @@ public class SchematronBPMNValidator implements BpmnValidator {
 							validationResult);
 				} else if (importedFiles.get(i).getImportType()
 						.equals("http://www.w3.org/ns/wsdl")) {
+					if (wsdlValidator == null) {
+						wsdlValidator = new WsdlValidator();
+						setClassLogLevel(wsdlValidator, getLogLevel());
+					}
 					wsdlValidator.validateAgainstXsd(importedFiles.get(i)
 							.getFile(), validationResult);
 				} else if (importedFiles.get(i).getImportType()
 						.equals("http://www.w3.org/2001/XMLSchema")) {
+					if (xmlValidator == null) {
+						xmlValidator = new XmlValidator();
+						setClassLogLevel(xmlValidator, getLogLevel());
+					}
 					xmlValidator.validateAgainstXsd(importedFiles.get(i)
 							.getFile(), validationResult);
+
 				}
 			}
 		} catch (SAXException | IOException e) {
