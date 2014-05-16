@@ -357,7 +357,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 					checkConstraint001(importedFiles.get(i).getFile(), folder,
 							validationResult);
 				} else if (importedFiles.get(i).getImportType()
-						.equals("http://www.w3.org/ns/wsdl")) {
+						.equals("http://www.w3.org/TR/wsdl20/")) {
 					if (wsdlValidator == null) {
 						wsdlValidator = new WsdlValidator();
 						setClassLogLevel(wsdlValidator, getLogLevel());
