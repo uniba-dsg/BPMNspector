@@ -108,6 +108,14 @@ public class SchematronBPMNValidator implements BpmnValidator {
 		setClassLogLevel(bpmnXsdValidator, logLevel);
 	}
 
+	/**
+	 * sets the specified log level for the specified object
+	 * 
+	 * @param classObject
+	 *            the object where the log level should be changed
+	 * @param logLevel
+	 *            the new loglevel
+	 */
 	private void setClassLogLevel(Object classObject, Level logLevel) {
 		((Logger) LoggerFactory.getLogger(classObject.getClass()
 				.getSimpleName())).setLevel(logLevel);
