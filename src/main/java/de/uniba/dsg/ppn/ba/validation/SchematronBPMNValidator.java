@@ -135,6 +135,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	@Override
 	public ValidationResult validate(File xmlFile)
 			throws BpmnValidationException {
+		// TODO: move to static stuff, validation.sch instead of xml
 		final ISchematronResource schematronSchema = SchematronResourcePure
 				.fromClassPath("validation.xml");
 		if (!schematronSchema.isValidSchematron()) {
