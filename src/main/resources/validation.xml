@@ -99,7 +99,7 @@
             <iso:assert test="(./@id = $tasks/@id or ./@id = $sendTasks/@id or ./@id = $receiveTasks/@id or ./@id = $serviceTasks/@id or ./@id = $userTasks/@id or ./@id = $manualTasks/@id or ./@id = $scriptTasks/@id or ./@id = $businessTasks/@id or ./@id = $subProcesses/@id or ./@id = $transactions/@id or ./@id = $adHocSubProcesses/@id or ./@id = $callActivities/@id or ./@id = $startEvents/@id or ./@id = $boundaryEvents/@id or ./@id = $intermediateCatchEvents/@id or ./@id = $intermediateThrowEvents/@id or ./@id = $endEvents/@id or ./@id = $exclusiveGateways/@id or ./@id = $parallelGateways/@id or ./@id = $inclusiveGateways/@id or ./@id = $complexGateways/@id or ./@id = $eventBasedGateways/@id) and not(./@id = $subProcesses/@id and $subProcesses[string(@triggeredByEvent) = 'true'])" diagnostics="id">EXT.022|For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target</iso:assert>
         </iso:rule>
     </iso:pattern>
-    -->
+    
     <iso:pattern name="EXT.023">
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
             <iso:assert test="$allElements/@id = string(./@targetRef) and ./@id = $allElements/bpmn:incoming" diagnostics="id">EXT.023|The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.</iso:assert>
