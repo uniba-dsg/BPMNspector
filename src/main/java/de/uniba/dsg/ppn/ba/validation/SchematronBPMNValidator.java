@@ -178,7 +178,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
 					String location = failedAssert.getLocation();
 					logger.info("violation of constraint {} in {} found.",
 							constraint, fileName);
-					// TODO: maybe an object instead of string array returning?
 					if (line == -1) {
 						try {
 							String xpathId = "";
@@ -186,7 +185,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
 								xpathId = failedAssert.getDiagnosticReference()
 										.get(0).getText().trim();
 							}
-							// TODO: maybe object instead of string array usage?
 							String[] result = searchForViolationFile(xpathId,
 									validationResult,
 									preProcessResult.getNamespaceTable());
