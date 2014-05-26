@@ -30,7 +30,6 @@ public class Wsdl {
 		validator = null;
 	}
 
-	// FIXME: fix file
 	@Test
 	public void testConstraintImportedWsdlSuccess() throws Exception {
 		File f = new File(TestHelper.getTestFilePath() + "wsdl"
