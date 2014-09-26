@@ -9,11 +9,11 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 /**
  * Namespace Context helper class which sets the namespace uri to the bpmn
- * Namespace, if the prefix is bpmn
- * 
+ * namespace if the prefix is bpmn
+ *
  * @author Philipp Neugebauer
  * @version 1.0
- * 
+ *
  */
 public class BpmnNamespaceContext implements NamespaceContext {
 

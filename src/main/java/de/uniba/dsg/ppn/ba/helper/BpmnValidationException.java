@@ -1,9 +1,8 @@
 package de.uniba.dsg.ppn.ba.helper;
 
 /**
- * Used to have validator exception messages, if anything fails during
- * validation
- * 
+ * Used to have validator exception messages if anything fails during validation
+ *
  * @author Philipp Neugebauer
  * @version 1.0
  */
