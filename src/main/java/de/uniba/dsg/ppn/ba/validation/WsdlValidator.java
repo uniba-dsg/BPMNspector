@@ -20,6 +20,13 @@ import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 
+/**
+ * validator for the schema validation of wsdl files
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class WsdlValidator extends XsdValidator {
 	private SchemaFactory schemaFactory;
 	private Schema schema;

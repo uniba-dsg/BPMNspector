@@ -8,10 +8,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
- * 
+ * customized error handler for simple processing of sax errors
+ *
  * @author Andreas Vorndran, Philipp Neugebauer
  * @version 1.0
- * 
+ *
  */
 public class XsdValidationErrorHandler implements ErrorHandler {
 

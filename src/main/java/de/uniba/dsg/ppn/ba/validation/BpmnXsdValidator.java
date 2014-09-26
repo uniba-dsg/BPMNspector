@@ -22,12 +22,12 @@ import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 
 /**
- * 
+ *
  * Does the bpmn xsd validation step
- * 
+ *
  * @author Andreas Vorndran, Philipp Neugebauer
  * @version 1.0
- * 
+ *
  */
 public class BpmnXsdValidator extends XsdValidator {
 
