@@ -35,67 +35,71 @@ Alternatively, you can include the validator into your project and use it as API
 to get a reference to the validator instance through `BpmnValidatorFactory.getValidatorInstance()`
 and then you can call on this object the methods shown below:
 
+``` java
+/**
+ * Interface for the implementation of the validator. Allows the usage of the
+ * validator in other projects. The loglevel is set default to info. If you need
+ * another log level, change the log level before the validation process.
+ * 
+ * @author Philipp Neugebauer
+ * @version 1.0
+ * 
+ */
+public interface BpmnValidator {
+
 	/**
- 	* Interface for the implementation of the validator. Allows the usage of the
- 	* validator in other projects. The loglevel is set default to info. If you need
- 	* another log level, change the log level before the validation process.
- 	* 
- 	* @author Philipp Neugebauer
- 	* @version 1.0
- 	* 
- 	*/
-	public interface BpmnValidator {
+	 * returns the set loglevel of all loggers
+	 * 
+	 * @return the set log level {@link ch.qos.logback.classic.Level}
+	 */
+	Level getLogLevel();
 
-		/**
-	 	* returns the set loglevel of all loggers
-	 	* 
-	 	* @return the set log level {@link ch.qos.logback.classic.Level}
-	 	*/
-		Level getLogLevel();
+	/**
+	 * Sets the loglevel of all loggers of the bpmn validator to the given level
+	 * 
+	 * @param logLevel
+	 *            possible levels: {@link ch.qos.logback.classic.Level}
+	 */
+	void setLogLevel(Level logLevel);
 
-		/**
-	 	* Sets the loglevel of all loggers of the bpmn validator to the given level
-	 	* 
-	 	* @param logLevel
-	 	*            possible levels: {@link ch.qos.logback.classic.Level}
-	 	*/
-		void setLogLevel(Level logLevel);
+	/**
+	 * checks the given xmlFile for bpmn constraint violations
+	 * 
+	 * @param xmlFile
+	 * @return ValidationResult including all checked files and found violations
+	 * @throws BpmnValidationException
+	 *             if something fails during validation process
+	 */
+	ValidationResult validate(File xmlFile) throws BpmnValidationException;
 
-		/**
-	 	* checks the given xmlFile for bpmn constraint violations
-	 	* 
-	 	* @param xmlFile
-	 	* @return ValidationResult including all checked files and found violations
-	 	* @throws BpmnValidationException
-	 	*             if something fails during validation process
-	 	*/
-		ValidationResult validate(File xmlFile) throws BpmnValidationException;
+	/**
+	 * checks the given xmlFiles for bpmn constraint violations
+	 * 
+	 * @param xmlFiles
+	 * @return List<ValidationResult> including all checked files and found
+	 *         violations for each file
+	 * @throws BpmnValidationException
+	 *             if something fails during validation process
+	 */
+	List<ValidationResult> validateFiles(List<File> xmlFiles)
+		throws BpmnValidationException;
 
-		/**
-	 	* checks the given xmlFiles for bpmn constraint violations
-	 	* 
-	 	* @param xmlFiles
-	 	* @return List<ValidationResult> including all checked files and found
-	 	*         violations for each file
-	 	* @throws BpmnValidationException
-	 	*             if something fails during validation process
-	 	*/
-		List<ValidationResult> validateFiles(List<File> xmlFiles)
-			throws BpmnValidationException;
-
-	}
+}
+```
 
 Therefore, code including this tool will look like the following:
 
-	BpmnValidator v = BpmnValidatorFactory.getValidatorInstance();
-	v.setLogLevel(Level.INFO);
-	try {
-		v.validate(new File("FilePath"));
-		//or
-		v.validateFiles(new ArrayList<File>());
-	} catch (BpmnValidationException e) {
-		// handle
-	}
+``` java
+BpmnValidator v = BpmnValidatorFactory.getValidatorInstance();
+v.setLogLevel(Level.INFO);
+try {
+	v.validate(new File("FilePath"));
+	//or
+	v.validateFiles(new ArrayList<File>());
+} catch (BpmnValidationException e) {
+	// handle
+}
+```
 
 # Documentation
 
@@ -131,7 +135,7 @@ There are different helper classes to debug and simplify developing:
 
 `TestMain.java`: allows the simplified testing and presentation of validation results
 
-```
+``` java
 import java.io.File;
 
 import de.uniba.dsg.bpmn.ValidationResult;
