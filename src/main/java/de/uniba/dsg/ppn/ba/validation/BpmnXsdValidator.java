@@ -51,17 +51,7 @@ public class BpmnXsdValidator extends XsdValidator {
 		}
 	}
 
-	/**
-	 * Validates the given xmlFile with the xsd bpmn files and writes violations
-	 * to the given validation result
-	 * 
-	 * @param xmlFile
-	 * @param validationResult
-	 * @throws IOException
-	 *             when xmlFile can't be read
-	 * @throws SAXException
-	 *             when validation process fails somehow
-	 */
+	@Override
 	public void validateAgainstXsd(File xmlFile,
 			ValidationResult validationResult) throws IOException, SAXException {
 		logger.debug("xsd validation started: {}", xmlFile.getName());

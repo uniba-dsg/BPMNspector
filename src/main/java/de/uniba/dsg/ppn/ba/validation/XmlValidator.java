@@ -44,6 +44,7 @@ public class XmlValidator extends XsdValidator {
 		}
 	}
 
+	@Override
 	public void validateAgainstXsd(File xmlFile,
 			ValidationResult validationResult) throws IOException, SAXException {
 		logger.debug("xml validation started: {}", xmlFile.getName());
