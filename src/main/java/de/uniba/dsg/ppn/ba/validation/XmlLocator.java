@@ -19,12 +19,12 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
 
 /**
- * 
+ *
  * Locates the lines of the validation errors
- * 
+ *
  * @author Philipp Neugebauer
  * @version 1.0
- * 
+ *
  */
 public class XmlLocator {
 
@@ -43,9 +43,11 @@ public class XmlLocator {
 	 * Searches the line of the given xpath expression in the given file and
 	 * returns either the line or -1. -1 means, that with the xpath expression
 	 * couldn't be determined a bpmn element.
-	 * 
+	 *
 	 * @param xmlFile
+	 *            the xml file where the error has to be found
 	 * @param xpathExpression
+	 *            the xpath expression to find the error in the file
 	 * @return line or -1
 	 */
 	public int findLine(File xmlFile, String xpathExpression) {

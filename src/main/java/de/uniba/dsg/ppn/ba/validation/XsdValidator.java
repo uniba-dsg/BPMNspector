@@ -24,7 +24,9 @@ public class XsdValidator {
 	 * the given validation result
 	 *
 	 * @param xmlFile
+	 *            the xml file which should be validated
 	 * @param validationResult
+	 *            the result object of the validation
 	 * @throws IOException
 	 *             when xmlFile can't be read
 	 * @throws SAXException
@@ -41,7 +43,8 @@ public class XsdValidator {
 	 * streamsource with the searched source
 	 *
 	 * @param resourceName
-	 * @return the streamsource of the file, which needed to be load
+	 *            the name of the resource file
+	 * @return the streamsource of the file to be load
 	 * @throws FileNotFoundException
 	 *             if the resource file doesn't exist there
 	 */
