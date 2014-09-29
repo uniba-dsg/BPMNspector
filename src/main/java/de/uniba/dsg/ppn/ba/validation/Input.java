@@ -11,7 +11,7 @@ import org.w3c.dom.ls.LSResourceResolver;
 /**
  * Customized LSInput in order to provide access to an resolved resource.
  * 
- * Needed for <xs:include>-resolution when generating a {@link javax.xml.validation.Schema} when using
+ * Needed for &lt;xs:include&gt;-resolution when generating a {@link javax.xml.validation.Schema} when using
  * getClass().getResourceAsStream("path/to/file.xsd")
  * 
  * @author Matthias Geiger

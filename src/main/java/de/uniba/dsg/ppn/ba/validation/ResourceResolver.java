@@ -10,7 +10,7 @@ import org.w3c.dom.ls.LSResourceResolver;
  * Class for representing a custom LSResourceResolver in order to enable resource resolution
  * for BPMN XSD Validation.
  * 
- * Needed for <xs:include>-resolution when generating a {@link javax.xml.validation.Schema} when using
+ * Needed for &lt;xs:include&gt;-resolution when generating a {@link javax.xml.validation.Schema} when using
  * getClass().getResourceAsStream("path/to/file.xsd")
  * 
  * @author Matthias Geiger
