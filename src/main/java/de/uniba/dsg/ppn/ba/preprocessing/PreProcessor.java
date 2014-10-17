@@ -142,10 +142,7 @@ public class PreProcessor {
 			}
 		}
 
-		PreProcessResult result = new PreProcessResult(headFileDocument,
-				namespaceTable);
-
-		return result;
+		return new PreProcessResult(headFileDocument, namespaceTable);
 	}
 
 	/**

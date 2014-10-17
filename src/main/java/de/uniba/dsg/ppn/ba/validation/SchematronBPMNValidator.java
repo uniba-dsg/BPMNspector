@@ -247,10 +247,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 				.transform(new DOMSource(headFileDocument), new StreamResult(
 						new OutputStreamWriter(outputStream, "UTF-8")));
 
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(
-				outputStream.toByteArray());
-
-		return inputStream;
+		return new ByteArrayInputStream(outputStream.toByteArray());
 	}
 
 	/**
