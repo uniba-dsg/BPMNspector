@@ -6,3 +6,7 @@ build/
 .settings/*
 .gradle/
 validator.log
+*.iml
+*.ipr
+*.iws
+.idea/*
