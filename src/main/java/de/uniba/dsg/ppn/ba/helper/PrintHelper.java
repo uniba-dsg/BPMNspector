@@ -22,11 +22,10 @@ import de.uniba.dsg.bpmn.Violation;
  */
 public class PrintHelper {
 
-	private static TransformerFactory transformerFactory;
 	private static Transformer transformer;
 
 	static {
-		transformerFactory = TransformerFactory.newInstance();
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		try {
 			transformer = transformerFactory.newTransformer();
 			transformer

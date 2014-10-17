@@ -35,21 +35,19 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
  */
 public class PreProcessor {
 
-	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
-	private XPathFactory xPathFactory;
 	private XPath xpath;
 	private Logger logger;
 
 	{
-		documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		documentBuilderFactory.setNamespaceAware(true);
 		try {
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
 			// ignore
 		}
-		xPathFactory = XPathFactory.newInstance();
+        XPathFactory xPathFactory = XPathFactory.newInstance();
 		xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());

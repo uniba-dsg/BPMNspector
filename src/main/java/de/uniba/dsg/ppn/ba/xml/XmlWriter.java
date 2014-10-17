@@ -20,14 +20,13 @@ import de.uniba.dsg.bpmn.ValidationResult;
  */
 public class XmlWriter {
 
-	private JAXBContext context;
 	private Marshaller marshaller;
 	private Logger logger;
 
 	public XmlWriter() {
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
 		try {
-			context = JAXBContext.newInstance(ValidationResult.class);
+            JAXBContext context = JAXBContext.newInstance(ValidationResult.class);
 			marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		} catch (JAXBException e) {

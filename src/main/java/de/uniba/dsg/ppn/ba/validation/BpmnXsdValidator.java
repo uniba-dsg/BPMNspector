@@ -31,12 +31,11 @@ import de.uniba.dsg.bpmn.Violation;
  */
 public class BpmnXsdValidator extends XsdValidator {
 
-	private SchemaFactory schemaFactory;
 	private Schema schema;
 	private Logger logger;
 
 	{
-		schemaFactory = SchemaFactory
+		SchemaFactory schemaFactory = SchemaFactory
 				.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		schemaFactory.setResourceResolver(new ResourceResolver());
 		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());

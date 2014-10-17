@@ -59,10 +59,7 @@ import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
  */
 public class SchematronBPMNValidator implements BpmnValidator {
 
-	private DocumentBuilderFactory documentBuilderFactory;
 	private DocumentBuilder documentBuilder;
-	private XPathFactory xPathFactory;
-	private XPath xpath;
 	private XPathExpression xPathExpression;
 	private PreProcessor preProcessor;
 	private XmlLocator xmlLocator;
@@ -74,15 +71,15 @@ public class SchematronBPMNValidator implements BpmnValidator {
 	public final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
 
 	{
-		documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		documentBuilderFactory.setNamespaceAware(true);
 		try {
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
 			// ignore
 		}
-		xPathFactory = XPathFactory.newInstance();
-		xpath = xPathFactory.newXPath();
+        XPathFactory xPathFactory = XPathFactory.newInstance();
+        XPath xpath = xPathFactory.newXPath();
 		xpath.setNamespaceContext(new BpmnNamespaceContext());
 		try {
 			xPathExpression = xpath.compile("//bpmn:*/@id");
