@@ -192,11 +192,9 @@ public class PreProcessor {
             Node importedFileNode = importedFilesList.item(i);
             String importType = importedFileNode.getAttributes()
                     .getNamedItem("importType").getTextContent();
-            if (onlyBpmnFiles
-                    && !importType
+            if (!onlyBpmnFiles
+                    || importType
                     .equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
-
-            } else {
                 ImportedFile importedFile = new ImportedFile();
                 File file = new File(importedFileNode.getAttributes()
                         .getNamedItem("location").getTextContent());
