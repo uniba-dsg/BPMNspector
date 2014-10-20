@@ -30,20 +30,20 @@ public class PrintHelper {
         try {
             transformer = transformerFactory.newTransformer();
             transformer
-                    .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(
                     "{http://xml.apache.org/xslt}indent-amount", "4");
-        } catch (TransformerConfigurationException e) {
+        } catch (TransformerConfigurationException e) { // NOPMD
             // ignore
         }
     }
 
     /**
      * prints the given document to system.out
-     * 
+     *
      * @param document
      *            the document, which should be printed
      */
@@ -58,7 +58,7 @@ public class PrintHelper {
 
     /**
      * prints the violations list in a nice and human-readable way to system.out
-     * 
+     *
      * @param violations
      *            the violations list, which should be printed
      */
