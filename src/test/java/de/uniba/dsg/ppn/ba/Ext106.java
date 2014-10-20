@@ -60,12 +60,12 @@ public class Ext106 {
 		assertEquals(24, v.getLine());
 	}
 
-	@Test
-	public void testConstraintSuccess() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
-				+ "success.bpmn");
-		ValidationResult result = validator.validate(f);
-		assertTrue(result.isValid());
-		assertTrue(result.getViolations().isEmpty());
-	}
+    @Test
+    public void testConstraintCancelEventSuccess() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
+                + "success_cancel_event.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertTrue(result.isValid());
+        assertTrue(result.getViolations().isEmpty());
+    }
 }
