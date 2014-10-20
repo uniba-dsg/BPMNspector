@@ -40,7 +40,7 @@ public class Main {
 
         logger.info("loglevel is set to {}", validator.getLogLevel());
 
-        if (argsAsList.size() > 0) {
+        if (!argsAsList.isEmpty()) {
             for (String parameter : argsAsList) {
                 try {
                     File file = new File(parameter);
