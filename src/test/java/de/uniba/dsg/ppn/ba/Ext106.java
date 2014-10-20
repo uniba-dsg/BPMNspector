@@ -68,4 +68,14 @@ public class Ext106 {
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
+
+    @Test
+    public void testConstraintCancelBoundaryEventSuccess() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
+                + "success_cancel_boundary_event.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertTrue(result.isValid());
+        assertTrue(result.getViolations().isEmpty());
+    }
+
 }
