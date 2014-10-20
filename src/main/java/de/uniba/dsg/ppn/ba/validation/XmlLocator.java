@@ -28,56 +28,56 @@ import ch.qos.logback.classic.Logger;
  */
 public class XmlLocator {
 
-	private SAXBuilder saxBuilder;
-	private XPathFactory xPathFactory;
-	private Logger logger;
+    private SAXBuilder saxBuilder;
+    private XPathFactory xPathFactory;
+    private Logger logger;
 
-	public XmlLocator() {
-		saxBuilder = new SAXBuilder();
-		saxBuilder.setJDOMFactory(new LocatedJDOMFactory());
-		xPathFactory = XPathFactory.instance();
-		logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
-	}
+    public XmlLocator() {
+        saxBuilder = new SAXBuilder();
+        saxBuilder.setJDOMFactory(new LocatedJDOMFactory());
+        xPathFactory = XPathFactory.instance();
+        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
+    }
 
-	/**
-	 * Searches the line of the given xpath expression in the given file and
-	 * returns either the line or -1. -1 means, that with the xpath expression
-	 * couldn't be determined a bpmn element.
-	 *
-	 * @param xmlFile
-	 *            the xml file where the error has to be found
-	 * @param xpathExpression
-	 *            the xpath expression to find the error in the file
-	 * @return line or -1
-	 */
-	public int findLine(File xmlFile, String xpathExpression) {
-		try {
-			Document doc = saxBuilder.build(xmlFile);
-			int bracketPosition = xpathExpression.lastIndexOf('[');
-			int elementPosition = 0;
-			try {
-				elementPosition = Integer.valueOf(xpathExpression.substring(
-						bracketPosition + 1, xpathExpression.lastIndexOf(']')));
-				xpathExpression = xpathExpression.substring(0, bracketPosition);
-			} catch (NumberFormatException e) {
-				// ignore, because then there's no position number in the xpath
-				// expression and the expression needn't to be rewritten
-			}
-			XPathExpression<Element> xpath = xPathFactory.compile(
-					xpathExpression, Filters.element(), null, Namespace
-							.getNamespace("bpmn",
-									SchematronBPMNValidator.bpmnNamespace));
+    /**
+     * Searches the line of the given xpath expression in the given file and
+     * returns either the line or -1. -1 means, that with the xpath expression
+     * couldn't be determined a bpmn element.
+     *
+     * @param xmlFile
+     *            the xml file where the error has to be found
+     * @param xpathExpression
+     *            the xpath expression to find the error in the file
+     * @return line or -1
+     */
+    public int findLine(File xmlFile, String xpathExpression) {
+        try {
+            Document doc = saxBuilder.build(xmlFile);
+            int bracketPosition = xpathExpression.lastIndexOf('[');
+            int elementPosition = 0;
+            try {
+                elementPosition = Integer.valueOf(xpathExpression.substring(
+                        bracketPosition + 1, xpathExpression.lastIndexOf(']')));
+                xpathExpression = xpathExpression.substring(0, bracketPosition);
+            } catch (NumberFormatException e) { // NOPMD
+                // ignore, because then there's no position number in the xpath
+                // expression and the expression needn't to be rewritten
+            }
+            XPathExpression<Element> xpath = xPathFactory.compile(
+                    xpathExpression, Filters.element(), null, Namespace
+                            .getNamespace("bpmn",
+                                    SchematronBPMNValidator.bpmnNamespace));
 
-			List<Element> foundElements = xpath.evaluate(doc);
+            List<Element> foundElements = xpath.evaluate(doc);
 
-			if (foundElements.size() > elementPosition) {
-				return ((LocatedElement) foundElements.get(elementPosition))
-						.getLine();
-			}
-		} catch (IOException | JDOMException e) {
-			logger.error("file {} couldn't be read. Cause: {}",
-					xmlFile.getName(), e);
-		}
-		return -1;
-	}
+            if (foundElements.size() > elementPosition) {
+                return ((LocatedElement) foundElements.get(elementPosition))
+                        .getLine();
+            }
+        } catch (IOException | JDOMException e) {
+            logger.error("file {} couldn't be read. Cause: {}",
+                    xmlFile.getName(), e);
+        }
+        return -1;
+    }
 }
