@@ -55,11 +55,11 @@ public class PreProcessor {
     }
 
     /**
-     * 
+     *
      * does the preprocess step for creating one document including the content
      * of all imported files of the document and a table with the namespaces and
      * unique prefixes of all imports
-     * 
+     *
      * @param headFileDocument
      *            the head document, where all nodes will be added then
      * @param folder
@@ -149,7 +149,7 @@ public class PreProcessor {
     /**
      * adds to all nodes new and unique prefixes in the given document for the
      * validation process and violation searching
-     * 
+     *
      * @param xpathExpression
      * @param document
      * @param namespacePrefix
@@ -168,7 +168,7 @@ public class PreProcessor {
 
     /**
      * collects all imported files with bpmn namespace in the given document
-     * 
+     *
      * @param document
      *            the document, from which the imports are collected
      * @param folder
@@ -194,7 +194,7 @@ public class PreProcessor {
                     .getNamedItem("importType").getTextContent();
             if (onlyBpmnFiles
                     && !importType
-                            .equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
+                    .equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
 
             } else {
                 ImportedFile importedFile = new ImportedFile();
@@ -204,7 +204,7 @@ public class PreProcessor {
                     file = new File(folder.getPath()
                             + File.separator
                             + importedFileNode.getAttributes()
-                                    .getNamedItem("location").getTextContent());
+                            .getNamedItem("location").getTextContent());
                 }
                 importedFile.setFile(file);
                 importedFile.setPrefix("ns" + (i + size));
@@ -221,13 +221,13 @@ public class PreProcessor {
     /**
      * adds the childs of importDefinitionsNode to the definitionsNode of the
      * given headFileDocument
-     * 
+     *
      * @param importDefinitionsNode
      *            the definitionsNode of the document, which should be added to
      *            the headFileDocument
      * @param headFileDocument
      *            the document, where the nodes should be added
-     * 
+     *
      */
     private void addNodesToDocument(Node importDefinitionsNode,
             Document headFileDocument) {
@@ -242,7 +242,7 @@ public class PreProcessor {
 
     /**
      * removes all BPMNDiagram Nodes from the given file
-     * 
+     *
      * @param headFileDocument
      *            the document, where the BPMNDiagram Nodes should be deleted
      *            from

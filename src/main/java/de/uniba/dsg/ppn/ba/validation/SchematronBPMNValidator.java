@@ -108,7 +108,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     /**
      * sets the specified log level for the specified object
-     * 
+     *
      * @param classObject
      *            the object where the log level should be changed
      * @param logLevel
@@ -228,7 +228,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * transforms the given headFileDocument to an inputstream, so that it can
      * be used for the schematron validation process
-     * 
+     *
      * @param headFileDocument
      * @return input stream with the head file document
      * @throws UnsupportedEncodingException
@@ -245,15 +245,15 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 .newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer
-                .transform(new DOMSource(headFileDocument), new StreamResult(
-                        new OutputStreamWriter(outputStream, "UTF-8")));
+        .transform(new DOMSource(headFileDocument), new StreamResult(
+                new OutputStreamWriter(outputStream, "UTF-8")));
 
         return new ByteArrayInputStream(outputStream.toByteArray());
     }
 
     /**
      * searches for the file and line, where the violation occured
-     * 
+     *
      * @param xpathExpression
      *            the expression, through which the file and line should be
      *            identified
@@ -268,7 +268,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      */
     private String[] searchForViolationFile(String xpathExpression,
             ValidationResult validationResult, List<String[]> namespaceTable)
-            throws BpmnValidationException {
+                    throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
@@ -322,7 +322,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     /**
      * checks, if there are violations of the EXT.001 constraint
-     * 
+     *
      * @param headFile
      *            the file which should be checked
      * @param folder
@@ -384,7 +384,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     /**
      * checks, if there are violations of the EXT.002 constraint
-     * 
+     *
      * @param headFile
      *            the file which should be checked
      * @param folder
@@ -433,7 +433,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * searches for all existing files, which are imported in the given file and
      * their imports and so on
-     * 
+     *
      * @param file
      *            where the imports are searched
      * @param folder
@@ -471,7 +471,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * checks, if there are namespace and id duplicates in these two checked
      * files
-     * 
+     *
      * @param file1
      *            first file to check
      * @param file2
@@ -517,7 +517,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     /**
      * creates a xpath expression for finding the id
-     * 
+     *
      * @param id
      *            the id, to which the expression should refer
      * @return the xpath expression, which refers the given id

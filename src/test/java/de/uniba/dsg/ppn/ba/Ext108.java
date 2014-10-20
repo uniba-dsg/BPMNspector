@@ -16,36 +16,36 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext108 {
 
-	SchematronBPMNValidator validator = null;
+    SchematronBPMNValidator validator = null;
 
-	@Before
-	public void setUp() throws Exception {
-		validator = new SchematronBPMNValidator();
-		validator.setLogLevel(Level.OFF);
-	}
+    @Before
+    public void setUp() throws Exception {
+        validator = new SchematronBPMNValidator();
+        validator.setLogLevel(Level.OFF);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		validator = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        validator = null;
+    }
 
-	@Test
-	public void testConstraintFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "108" + File.separator
-				+ "Fail.bpmn");
-		ValidationResult result = validator.validate(f);
-		assertFalse(result.isValid());
-		assertEquals(2, result.getViolations().size());
-		Violation v = result.getViolations().get(0);
-		assertEquals(
-				"A message flow must connect ’InteractionNodes’ from different Pools",
-				v.getMessage());
-		assertEquals("//bpmn:messageFlow[0]", v.getxPath());
-		assertEquals(7, v.getLine());
-		v = result.getViolations().get(1);
-		assertEquals("An End Event MUST NOT be a target for a message flow",
-				v.getMessage());
-		assertEquals("//bpmn:messageFlow[@targetRef][0]", v.getxPath());
-		assertEquals(7, v.getLine());
-	}
+    @Test
+    public void testConstraintFail() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "108" + File.separator
+                + "Fail.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertFalse(result.isValid());
+        assertEquals(2, result.getViolations().size());
+        Violation v = result.getViolations().get(0);
+        assertEquals(
+                "A message flow must connect ’InteractionNodes’ from different Pools",
+                v.getMessage());
+        assertEquals("//bpmn:messageFlow[0]", v.getxPath());
+        assertEquals(7, v.getLine());
+        v = result.getViolations().get(1);
+        assertEquals("An End Event MUST NOT be a target for a message flow",
+                v.getMessage());
+        assertEquals("//bpmn:messageFlow[@targetRef][0]", v.getxPath());
+        assertEquals(7, v.getLine());
+    }
 }

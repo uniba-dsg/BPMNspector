@@ -65,8 +65,8 @@ public class XmlLocator {
             }
             XPathExpression<Element> xpath = xPathFactory.compile(
                     xpathExpression, Filters.element(), null, Namespace
-                            .getNamespace("bpmn",
-                                    SchematronBPMNValidator.bpmnNamespace));
+                    .getNamespace("bpmn",
+                            SchematronBPMNValidator.bpmnNamespace));
 
             List<Element> foundElements = xpath.evaluate(doc);
 

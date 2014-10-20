@@ -17,32 +17,32 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Xsd {
 
-	SchematronBPMNValidator validator = null;
+    SchematronBPMNValidator validator = null;
 
-	@Before
-	public void setUp() throws Exception {
-		validator = new SchematronBPMNValidator();
-		validator.setLogLevel(Level.OFF);
-	}
+    @Before
+    public void setUp() throws Exception {
+        validator = new SchematronBPMNValidator();
+        validator.setLogLevel(Level.OFF);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		validator = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        validator = null;
+    }
 
-	@Test
-	public void testXsdFail() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "xsd" + File.separator
-				+ "xsdfail.bpmn");
-		ValidationResult result = validator.validate(f);
-		assertFalse(result.isValid());
-		assertEquals(1, result.getViolations().size());
-		Violation v = result.getViolations().get(0);
-		assertEquals("xsdfail.bpmn", v.getFileName());
-		assertEquals(6, v.getLine());
-		assertTrue(v.getMessage().contains("cvc-complex-type.2.4.a:"));
-		assertTrue(v.getMessage().contains("outgoing"));
-		assertEquals("", v.getxPath());
-		assertEquals("XSD-Check", v.getConstraint());
-	}
+    @Test
+    public void testXsdFail() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "xsd" + File.separator
+                + "xsdfail.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertFalse(result.isValid());
+        assertEquals(1, result.getViolations().size());
+        Violation v = result.getViolations().get(0);
+        assertEquals("xsdfail.bpmn", v.getFileName());
+        assertEquals(6, v.getLine());
+        assertTrue(v.getMessage().contains("cvc-complex-type.2.4.a:"));
+        assertTrue(v.getMessage().contains("outgoing"));
+        assertEquals("", v.getxPath());
+        assertEquals("XSD-Check", v.getConstraint());
+    }
 }

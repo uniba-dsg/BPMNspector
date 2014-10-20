@@ -14,36 +14,36 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Path {
 
-	SchematronBPMNValidator validator = null;
+    SchematronBPMNValidator validator = null;
 
-	@Before
-	public void setUp() throws Exception {
-		validator = new SchematronBPMNValidator();
-		validator.setLogLevel(Level.OFF);
-	}
+    @Before
+    public void setUp() throws Exception {
+        validator = new SchematronBPMNValidator();
+        validator.setLogLevel(Level.OFF);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		validator = null;
-	}
+    @After
+    public void tearDown() throws Exception {
+        validator = null;
+    }
 
-	@Test
-	public void testConstraintSuccess1() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "path"
-				+ File.separator + "folder" + File.separator
-				+ "success_import.bpmn");
-		ValidationResult result = validator.validate(f);
-		assertTrue(result.isValid());
-		assertTrue(result.getViolations().isEmpty());
-	}
+    @Test
+    public void testConstraintSuccess1() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "path"
+                + File.separator + "folder" + File.separator
+                + "success_import.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertTrue(result.isValid());
+        assertTrue(result.getViolations().isEmpty());
+    }
 
-	@Test
-	public void testConstraintSuccess2() throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "path"
-				+ File.separator + "success_import.bpmn");
-		ValidationResult result = validator.validate(f);
-		assertTrue(result.isValid());
-		assertTrue(result.getViolations().isEmpty());
-	}
+    @Test
+    public void testConstraintSuccess2() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "path"
+                + File.separator + "success_import.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertTrue(result.isValid());
+        assertTrue(result.getViolations().isEmpty());
+    }
 
 }
