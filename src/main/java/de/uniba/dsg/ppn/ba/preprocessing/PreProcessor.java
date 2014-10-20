@@ -185,7 +185,7 @@ public class PreProcessor {
     public List<ImportedFile> selectImportedFiles(Document document,
             File folder, int size, boolean onlyBpmnFiles) {
         NodeList importedFilesList = document.getElementsByTagNameNS(
-                SchematronBPMNValidator.bpmnNamespace, "import");
+                SchematronBPMNValidator.BPMNNAMESPACE, "import");
         List<ImportedFile> importedFiles = new ArrayList<>();
 
         for (int i = 0; i < importedFilesList.getLength(); i++) {
@@ -248,7 +248,7 @@ public class PreProcessor {
     public void removeBPMNDINode(Document headFileDocument) {
         Element definitionsNode = headFileDocument.getDocumentElement();
         NodeList bpmnDiagramNode = headFileDocument.getElementsByTagNameNS(
-                SchematronBPMNValidator.bpmndiNamespace, "BPMNDiagram");
+                SchematronBPMNValidator.BPMNDINAMESPACE, "BPMNDiagram");
         if (bpmnDiagramNode.getLength() > 0) {
             definitionsNode.removeChild(bpmnDiagramNode.item(0));
         }

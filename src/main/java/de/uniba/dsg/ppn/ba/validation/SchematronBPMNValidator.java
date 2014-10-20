@@ -67,8 +67,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
     private WsdlValidator wsdlValidator;
     private XmlValidator xmlValidator;
     private Logger logger;
-    public final static String bpmnNamespace = "http://www.omg.org/spec/BPMN/20100524/MODEL";
-    public final static String bpmndiNamespace = "http://www.omg.org/spec/BPMN/20100524/DI";
+    public final static String BPMNNAMESPACE = "http://www.omg.org/spec/BPMN/20100524/MODEL";
+    public final static String BPMNDINAMESPACE = "http://www.omg.org/spec/BPMN/20100524/DI";
 
     {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory

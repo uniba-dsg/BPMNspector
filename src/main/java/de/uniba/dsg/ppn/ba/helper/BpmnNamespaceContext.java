@@ -20,7 +20,7 @@ public class BpmnNamespaceContext implements NamespaceContext {
     @Override
     public String getNamespaceURI(String prefix) {
         if ("bpmn".equals(prefix)) {
-            return SchematronBPMNValidator.bpmnNamespace;
+            return SchematronBPMNValidator.BPMNNAMESPACE;
         } else if ("xml".equals(prefix)) {
             return XMLConstants.XML_NS_URI;
         }
