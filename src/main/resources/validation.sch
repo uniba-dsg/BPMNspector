@@ -347,7 +347,7 @@
     
     <iso:pattern name="EXT.106">
         <iso:rule context="bpmn:cancelEventDefinition">
-            <iso:assert test="ancestor::bpmn:transaction or ancestor::bpmn:boundaryEvent" diagnostics="id">EXT.106|A cancel EndEvent is only allowed in a transaction sub-process</iso:assert>
+            <iso:assert test="ancestor::bpmn:transaction or (ancestor::bpmn:boundaryEvent and ancestor::bpmn:boundaryEvent/@attachedToRef = $transactions/@id)" diagnostics="id">EXT.106|A cancel EndEvent is only allowed in a transaction sub-process</iso:assert>
         </iso:rule>
     </iso:pattern>
     
