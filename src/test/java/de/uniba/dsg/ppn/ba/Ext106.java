@@ -61,6 +61,21 @@ public class Ext106 {
     }
 
     @Test
+    public void testConstraintCancelBoundaryEventFail() throws Exception {
+        File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
+                + "fail_cancel_boundary_event.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertFalse(result.isValid());
+        assertEquals(1, result.getViolations().size());
+        Violation v = result.getViolations().get(0);
+        assertEquals(
+                "A cancel EndEvent is only allowed in a transaction sub-process",
+                v.getMessage());
+        assertEquals("//bpmn:cancelEventDefinition[0]", v.getxPath());
+        assertEquals(18, v.getLine());
+    }
+
+    @Test
     public void testConstraintCancelEventSuccess() throws Exception {
         File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
                 + "success_cancel_event.bpmn");
