@@ -18,7 +18,9 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext098 {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator = null;
+    private final static String ERRORMESSAGE = "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events";
+    private final static String XPATHSTRING = "//bpmn:startEvent[parent::bpmn:process][0]";
 
     @Before
     public void setUp() {
@@ -39,10 +41,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(2, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
         v = result.getViolations().get(1);
         assertEquals(
@@ -60,10 +60,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
     }
 
@@ -75,10 +73,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
     }
 
@@ -90,10 +86,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
     }
 
@@ -106,10 +100,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(5, v.getLine());
     }
 
@@ -121,10 +113,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
     }
 
@@ -136,10 +126,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
     }
 
@@ -151,10 +139,8 @@ public class Ext098 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events",
-                v.getMessage());
-        assertEquals("//bpmn:startEvent[parent::bpmn:process][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(4, v.getLine());
     }
 
