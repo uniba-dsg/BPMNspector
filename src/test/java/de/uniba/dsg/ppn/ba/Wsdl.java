@@ -43,6 +43,7 @@ public class Wsdl {
 
     @Test
     public void testConstraintImportedWsdlFail() throws BpmnValidationException {
+        final String fileName = "wsdl2primer-fail.wsdl";
         File f = new File(TestHelper.getTestFilePath() + "wsdl"
                 + File.separator + "wsdl-fail.bpmn");
         ValidationResult result = validator.validate(f);
@@ -52,28 +53,27 @@ public class Wsdl {
         assertTrue(v.getMessage().contains("cvc-complex-type.2.4.c:"));
         assertTrue(v.getMessage().contains("xs:schema"));
         assertEquals("", v.getxPath());
-        assertEquals("wsdl2primer-fail.wsdl", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(22, v.getLine());
         v = result.getViolations().get(1);
         assertTrue(v.getMessage().contains("cvc-complex-type.2.4.a:"));
         assertTrue(v.getMessage().contains("DAMAGEDinterface"));
         assertEquals("", v.getxPath());
-        assertEquals("wsdl2primer-fail.wsdl", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(40, v.getLine());
         v = result.getViolations().get(2);
         assertTrue(v.getMessage().contains("cvc-complex-type.3.2.2:"));
         assertTrue(v.getMessage().contains("DAMinterface"));
         assertTrue(v.getMessage().contains("service"));
         assertEquals("", v.getxPath());
-        assertEquals("wsdl2primer-fail.wsdl", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(72, v.getLine());
         v = result.getViolations().get(3);
         assertTrue(v.getMessage().contains("cvc-complex-type.4:"));
         assertTrue(v.getMessage().contains("interface"));
         assertTrue(v.getMessage().contains("service"));
         assertEquals("", v.getxPath());
-        assertEquals("wsdl2primer-fail.wsdl", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(72, v.getLine());
     }
-
 }
