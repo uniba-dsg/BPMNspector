@@ -137,7 +137,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 .fromClassPath("validation.sch");
         if (!schematronSchema.isValidSchematron()) {
             logger.error("schematron file is invalid");
-            throw new BpmnValidationException("Invalid Schematron!");
+            throw new BpmnValidationException("Invalid Schematron file!");
         }
 
         logger.info("Validating {}", xmlFile.getName());
