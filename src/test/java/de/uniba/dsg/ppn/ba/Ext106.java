@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext106 {
@@ -20,18 +21,18 @@ public class Ext106 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintEventFail() throws Exception {
+    public void testConstraintEventFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
                 + "fail_cancel_end_event.bpmn");
         ValidationResult result = validator.validate(f);
@@ -46,7 +47,7 @@ public class Ext106 {
     }
 
     @Test
-    public void testConstraintEventRefFail() throws Exception {
+    public void testConstraintEventRefFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
                 + "fail_sub_process.bpmn");
         ValidationResult result = validator.validate(f);
@@ -61,7 +62,8 @@ public class Ext106 {
     }
 
     @Test
-    public void testConstraintCancelBoundaryEventFail() throws Exception {
+    public void testConstraintCancelBoundaryEventFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
                 + "fail_cancel_boundary_event.bpmn");
         ValidationResult result = validator.validate(f);
@@ -76,7 +78,8 @@ public class Ext106 {
     }
 
     @Test
-    public void testConstraintCancelEventSuccess() throws Exception {
+    public void testConstraintCancelEventSuccess()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
                 + "success_cancel_event.bpmn");
         ValidationResult result = validator.validate(f);
@@ -85,7 +88,8 @@ public class Ext106 {
     }
 
     @Test
-    public void testConstraintCancelBoundaryEventSuccess() throws Exception {
+    public void testConstraintCancelBoundaryEventSuccess()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "106" + File.separator
                 + "success_cancel_boundary_event.bpmn");
         ValidationResult result = validator.validate(f);

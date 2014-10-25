@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext151 {
@@ -20,18 +21,19 @@ public class Ext151 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintNormalSequenceFlowFail1() throws Exception {
+    public void testConstraintNormalSequenceFlowFail1()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "151" + File.separator
                 + "fail_normal_sequence_flow_missing_1.bpmn");
         ValidationResult result = validator.validate(f);
@@ -56,7 +58,8 @@ public class Ext151 {
     }
 
     @Test
-    public void testConstraintNormalSequenceFlowFail2() throws Exception {
+    public void testConstraintNormalSequenceFlowFail2()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "151" + File.separator
                 + "fail_normal_sequence_flow_missing_2.bpmn");
         ValidationResult result = validator.validate(f);
@@ -81,7 +84,8 @@ public class Ext151 {
     }
 
     @Test
-    public void testConstraintSequenceFlowInSubProcessFail1() throws Exception {
+    public void testConstraintSequenceFlowInSubProcessFail1()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "151" + File.separator
                 + "fail_sequence_flow_in_sub_process_missing_1.bpmn");
         ValidationResult result = validator.validate(f);
@@ -105,7 +109,8 @@ public class Ext151 {
     }
 
     @Test
-    public void testConstraintSequenceFlowInSubProcessFail2() throws Exception {
+    public void testConstraintSequenceFlowInSubProcessFail2()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "151" + File.separator
                 + "fail_sequence_flow_in_sub_process_missing_2.bpmn");
         ValidationResult result = validator.validate(f);
@@ -143,7 +148,7 @@ public class Ext151 {
     }
 
     @Test
-    public void testConstraintSuccess() throws Exception {
+    public void testConstraintSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "151" + File.separator
                 + "success.bpmn");
         ValidationResult result = validator.validate(f);
@@ -152,7 +157,7 @@ public class Ext151 {
     }
 
     @Test
-    public void testConstraintSuccess2() throws Exception {
+    public void testConstraintSuccess2() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "151" + File.separator
                 + "success_2.bpmn");
         ValidationResult result = validator.validate(f);

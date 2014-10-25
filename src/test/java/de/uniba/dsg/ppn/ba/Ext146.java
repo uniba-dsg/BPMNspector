@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext146 {
@@ -20,18 +21,18 @@ public class Ext146 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintLinkFail() throws Exception {
+    public void testConstraintLinkFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
                 + "fail_link.bpmn");
         ValidationResult result = validator.validate(f);
@@ -46,7 +47,7 @@ public class Ext146 {
     }
 
     @Test
-    public void testConstraintTimerFail() throws Exception {
+    public void testConstraintTimerFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
                 + "fail_timer.bpmn");
         ValidationResult result = validator.validate(f);
@@ -61,7 +62,7 @@ public class Ext146 {
     }
 
     @Test
-    public void testConstraintTimerRefFail() throws Exception {
+    public void testConstraintTimerRefFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
                 + "fail_timer_ref.bpmn");
         ValidationResult result = validator.validate(f);
@@ -76,7 +77,7 @@ public class Ext146 {
     }
 
     @Test
-    public void testConstraintMultipleFail() throws Exception {
+    public void testConstraintMultipleFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
                 + "fail_multiple.bpmn");
         ValidationResult result = validator.validate(f);
@@ -91,7 +92,7 @@ public class Ext146 {
     }
 
     @Test
-    public void testConstraintConditionalFail() throws Exception {
+    public void testConstraintConditionalFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "146" + File.separator
                 + "fail_conditional.bpmn");
         ValidationResult result = validator.validate(f);
@@ -111,7 +112,7 @@ public class Ext146 {
     }
 
     @Test
-    public void testConstraintSuccess() throws Exception {
+    public void testConstraintSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_message.bpmn");
         ValidationResult result = validator.validate(f);
@@ -120,7 +121,7 @@ public class Ext146 {
     }
 
     @Test
-    public void testConstraintMultipleSuccess() throws Exception {
+    public void testConstraintMultipleSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_multiple.bpmn");
         ValidationResult result = validator.validate(f);

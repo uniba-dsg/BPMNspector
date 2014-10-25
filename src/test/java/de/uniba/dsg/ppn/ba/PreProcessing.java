@@ -12,6 +12,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class PreProcessing {
@@ -19,18 +20,19 @@ public class PreProcessing {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintImportedProcessFail() throws Exception {
+    public void testConstraintImportedProcessFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "preprocessing"
                 + File.separator + "fail_call_ref_process.bpmn");
         ValidationResult result = validator.validate(f);
@@ -46,7 +48,8 @@ public class PreProcessing {
     }
 
     @Test
-    public void testConstraintImportedProcessFail1() throws Exception {
+    public void testConstraintImportedProcessFail1()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "preprocessing"
                 + File.separator + "fail_call_ref_process_call.bpmn");
         ValidationResult result = validator.validate(f);
@@ -69,7 +72,8 @@ public class PreProcessing {
     }
 
     @Test
-    public void testConstraintImportedProcessFail2() throws Exception {
+    public void testConstraintImportedProcessFail2()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "preprocessing"
                 + File.separator + "fail_call_ref_process_call_call.bpmn");
         ValidationResult result = validator.validate(f);
@@ -92,7 +96,8 @@ public class PreProcessing {
     }
 
     @Test
-    public void testConstraintParticipantImportedProcessFail() throws Exception {
+    public void testConstraintParticipantImportedProcessFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "preprocessing"
                 + File.separator + "fail_call_participant_process.bpmn");
         ValidationResult result = validator.validate(f);

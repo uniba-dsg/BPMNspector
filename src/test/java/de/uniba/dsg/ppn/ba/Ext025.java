@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext025 {
@@ -20,18 +21,18 @@ public class Ext025 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintNoIncomingFail() throws Exception {
+    public void testConstraintNoIncomingFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
                 + "fail.bpmn");
         ValidationResult result = validator.validate(f);
@@ -48,7 +49,7 @@ public class Ext025 {
     }
 
     @Test
-    public void testConstraintNoIncomingFail2() throws Exception {
+    public void testConstraintNoIncomingFail2() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
                 + "fail_2.bpmn");
         ValidationResult result = validator.validate(f);
@@ -65,7 +66,7 @@ public class Ext025 {
     }
 
     @Test
-    public void testConstraintSuccess() throws Exception {
+    public void testConstraintSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
                 + "success.bpmn");
         ValidationResult result = validator.validate(f);
@@ -74,7 +75,8 @@ public class Ext025 {
     }
 
     @Test
-    public void testConstraintSuccessNoCondition() throws Exception {
+    public void testConstraintSuccessNoCondition()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
                 + "success_no_condition.bpmn");
         ValidationResult result = validator.validate(f);

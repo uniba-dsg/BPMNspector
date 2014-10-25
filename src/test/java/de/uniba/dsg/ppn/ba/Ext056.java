@@ -12,6 +12,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext056 {
@@ -19,18 +20,19 @@ public class Ext056 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintCallChoreographyFail() throws Exception {
+    public void testConstraintCallChoreographyFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
                 + "fail_call_choreography.bpmn");
         ValidationResult result = validator.validate(f);
@@ -52,7 +54,8 @@ public class Ext056 {
     }
 
     @Test
-    public void testConstraintChoreographyTaskFail() throws Exception {
+    public void testConstraintChoreographyTaskFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
                 + "fail_choreography_task.bpmn");
         ValidationResult result = validator.validate(f);
@@ -75,7 +78,7 @@ public class Ext056 {
 
     @Test
     public void testConstraintChoreographyTaskTransactionFail()
-            throws Exception {
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
                 + "fail_choreography_task_transaction.bpmn");
         ValidationResult result = validator.validate(f);
@@ -97,7 +100,8 @@ public class Ext056 {
     }
 
     @Test
-    public void testConstraintSubChoreographyFail() throws Exception {
+    public void testConstraintSubChoreographyFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "056" + File.separator
                 + "fail_sub_choreography.bpmn");
         ValidationResult result = validator.validate(f);

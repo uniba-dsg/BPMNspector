@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext098 {
@@ -20,18 +21,18 @@ public class Ext098 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintCancelFail() throws Exception {
+    public void testConstraintCancelFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_cancel.bpmn");
         ValidationResult result = validator.validate(f);
@@ -52,7 +53,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintCompensateFail() throws Exception {
+    public void testConstraintCompensateFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_compensate.bpmn");
         ValidationResult result = validator.validate(f);
@@ -67,7 +68,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintErrorFail() throws Exception {
+    public void testConstraintErrorFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_error.bpmn");
         ValidationResult result = validator.validate(f);
@@ -82,7 +83,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintEscalationFail() throws Exception {
+    public void testConstraintEscalationFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_escalation.bpmn");
         ValidationResult result = validator.validate(f);
@@ -97,7 +98,8 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintEscalationRefFail() throws Exception {
+    public void testConstraintEscalationRefFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_escalation_ref.bpmn");
         ValidationResult result = validator.validate(f);
@@ -112,7 +114,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintLinkFail() throws Exception {
+    public void testConstraintLinkFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_link.bpmn");
         ValidationResult result = validator.validate(f);
@@ -127,7 +129,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintMultipleFail() throws Exception {
+    public void testConstraintMultipleFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_multiple.bpmn");
         ValidationResult result = validator.validate(f);
@@ -142,7 +144,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintTerminateFail() throws Exception {
+    public void testConstraintTerminateFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "fail_terminate.bpmn");
         ValidationResult result = validator.validate(f);
@@ -157,7 +159,8 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintConditionalSuccess() throws Exception {
+    public void testConstraintConditionalSuccess()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_conditional.bpmn");
         ValidationResult result = validator.validate(f);
@@ -166,7 +169,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintMessageSuccess() throws Exception {
+    public void testConstraintMessageSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_message.bpmn");
         ValidationResult result = validator.validate(f);
@@ -175,7 +178,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintMultipleSuccess() throws Exception {
+    public void testConstraintMultipleSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_multiple.bpmn");
         ValidationResult result = validator.validate(f);
@@ -184,7 +187,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintNoneSuccess() throws Exception {
+    public void testConstraintNoneSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_none.bpmn");
         ValidationResult result = validator.validate(f);
@@ -193,7 +196,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintSignalSuccess() throws Exception {
+    public void testConstraintSignalSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_signal.bpmn");
         ValidationResult result = validator.validate(f);
@@ -202,7 +205,7 @@ public class Ext098 {
     }
 
     @Test
-    public void testConstraintTimerSuccess() throws Exception {
+    public void testConstraintTimerSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "098" + File.separator
                 + "success_timer.bpmn");
         ValidationResult result = validator.validate(f);

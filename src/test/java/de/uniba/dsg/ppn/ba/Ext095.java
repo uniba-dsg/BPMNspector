@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext095 {
@@ -20,18 +21,18 @@ public class Ext095 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintFail() throws Exception {
+    public void testConstraintFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
                 + "Fail.bpmn");
         ValidationResult result = validator.validate(f);
@@ -48,7 +49,7 @@ public class Ext095 {
     }
 
     @Test
-    public void testConstraintEndFail() throws Exception {
+    public void testConstraintEndFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
                 + "fail_end.bpmn");
         ValidationResult result = validator.validate(f);
@@ -64,7 +65,7 @@ public class Ext095 {
     }
 
     @Test
-    public void testConstraintSuccess() throws Exception {
+    public void testConstraintSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
                 + "Success.bpmn");
         ValidationResult result = validator.validate(f);

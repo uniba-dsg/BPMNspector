@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext135 {
@@ -20,18 +21,18 @@ public class Ext135 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintFail() throws Exception {
+    public void testConstraintFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
                 + "fail.bpmn");
         ValidationResult result = validator.validate(f);
@@ -52,7 +53,7 @@ public class Ext135 {
     }
 
     @Test
-    public void testConstraintSubFail() throws Exception {
+    public void testConstraintSubFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
                 + "fail_no_connection.bpmn");
         ValidationResult result = validator.validate(f);
@@ -67,7 +68,7 @@ public class Ext135 {
     }
 
     @Test
-    public void testConstraintEXSubFail() throws Exception {
+    public void testConstraintEXSubFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
                 + "fail_ex_no_connection.bpmn");
         ValidationResult result = validator.validate(f);
@@ -82,7 +83,8 @@ public class Ext135 {
     }
 
     @Test
-    public void testConstraintBothMultipleSuccess() throws Exception {
+    public void testConstraintBothMultipleSuccess()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
                 + "success_multiple_in_and_out.bpmn");
         ValidationResult result = validator.validate(f);
@@ -91,7 +93,8 @@ public class Ext135 {
     }
 
     @Test
-    public void testConstraintOutMultipleSuccess() throws Exception {
+    public void testConstraintOutMultipleSuccess()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
                 + "success_multiple_out.bpmn");
         ValidationResult result = validator.validate(f);

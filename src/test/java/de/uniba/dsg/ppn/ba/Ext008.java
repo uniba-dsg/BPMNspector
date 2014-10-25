@@ -12,6 +12,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext008 {
@@ -19,18 +20,18 @@ public class Ext008 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintAssociationFail() throws Exception {
+    public void testConstraintAssociationFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "008" + File.separator
                 + "Fail_association.bpmn");
         ValidationResult result = validator.validate(f);
@@ -44,7 +45,7 @@ public class Ext008 {
     }
 
     @Test
-    public void testConstraintGroupFail() throws Exception {
+    public void testConstraintGroupFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "008" + File.separator
                 + "Fail_group.bpmn");
         ValidationResult result = validator.validate(f);
@@ -58,7 +59,8 @@ public class Ext008 {
     }
 
     @Test
-    public void testConstraintTextAnnotationFail() throws Exception {
+    public void testConstraintTextAnnotationFail()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "008" + File.separator
                 + "Fail_text_annotation.bpmn");
         ValidationResult result = validator.validate(f);

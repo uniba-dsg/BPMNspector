@@ -13,6 +13,7 @@ import org.junit.Test;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext105 {
@@ -20,18 +21,18 @@ public class Ext105 {
     SchematronBPMNValidator validator = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         validator = null;
     }
 
     @Test
-    public void testConstraintFail() throws Exception {
+    public void testConstraintFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
                 + "fail_end_without_sub-events.bpmn");
         ValidationResult result = validator.validate(f);
@@ -46,7 +47,7 @@ public class Ext105 {
     }
 
     @Test
-    public void testConstraintSubFail() throws Exception {
+    public void testConstraintSubFail() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
                 + "fail_with_sub-startevent.bpmn");
         ValidationResult result = validator.validate(f);
@@ -61,7 +62,7 @@ public class Ext105 {
     }
 
     @Test
-    public void testConstraintSubSuccess() throws Exception {
+    public void testConstraintSubSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
                 + "success_with_sub-events.bpmn");
         ValidationResult result = validator.validate(f);
@@ -70,7 +71,7 @@ public class Ext105 {
     }
 
     @Test
-    public void testConstraintSuccess() throws Exception {
+    public void testConstraintSuccess() throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "105" + File.separator
                 + "success_without_sub-events.bpmn");
         ValidationResult result = validator.validate(f);
