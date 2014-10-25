@@ -75,7 +75,7 @@ public class XmlLocator {
                         .getLine();
             }
         } catch (IOException | JDOMException e) {
-            logger.error("file {} couldn't be read. Cause: {}",
+            logger.debug("file {} couldn't be read. Cause: {}",
                     xmlFile.getName(), e);
         }
         return -1;

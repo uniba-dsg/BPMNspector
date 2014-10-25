@@ -46,7 +46,7 @@ public class BpmnXsdValidator extends XsdValidator {
                     resolveResourcePaths("BPMNDI.xsd"),
                     resolveResourcePaths("BPMN20.xsd") });
         } catch (FileNotFoundException | SAXException e) {
-            logger.error("schemafactory couldn't create schema, cause: {}", e);
+            logger.debug("schemafactory couldn't create schema, cause: {}", e);
         }
     }
 

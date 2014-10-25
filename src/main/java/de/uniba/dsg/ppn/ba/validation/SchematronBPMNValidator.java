@@ -69,7 +69,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
     private Logger logger;
     public final static String BPMNNAMESPACE = "http://www.omg.org/spec/BPMN/20100524/MODEL";
     public final static String BPMNDINAMESPACE = "http://www.omg.org/spec/BPMN/20100524/DI";
-    private final static String FILENOTFOUNDMESSAGE = "file {} couldn't be read. Cause: {}";
+    private final static String FILENOTFOUNDMESSAGEWITHCAUSE = "file {} couldn't be read. Cause: {}";
+    private final static String FILENOTFOUNDMESSAGE = "file {} couldn't be read.";
 
     {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
@@ -136,7 +137,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         final ISchematronResource schematronSchema = SchematronResourcePure
                 .fromClassPath("validation.sch");
         if (!schematronSchema.isValidSchematron()) {
-            logger.error("schematron file is invalid");
+            logger.debug("schematron file is invalid");
             throw new BpmnValidationException("Invalid Schematron file!");
         }
 
@@ -209,11 +210,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 validationResult.getCheckedFiles().set(i, f.getName());
             }
         } catch (SAXException | IOException e) {
-            logger.error(FILENOTFOUNDMESSAGE, xmlFile.getName(), e);
+            logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, xmlFile.getName(), e);
             throw new BpmnValidationException(
                     "Given file couldn't be read or doesn't exist!");
         } catch (Exception e) {
-            logger.error("exception at schematron validation. Cause: {}", e);
+            logger.debug("exception at schematron validation. Cause: {}", e);
             throw new BpmnValidationException(
                     "Something went wrong during schematron validation!");
         }
@@ -303,12 +304,13 @@ public class SchematronBPMNValidator implements BpmnValidator {
                             break;
                         }
                     } catch (SAXException | IOException e) {
-                        logger.error(FILENOTFOUNDMESSAGE,
+                        logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE,
                                 checkedFile.getName(), e);
                     }
                 }
             } catch (SAXException | IOException e) {
-                logger.error(FILENOTFOUNDMESSAGE, checkedFile.getName(), e);
+                logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE,
+                        checkedFile.getName(), e);
             }
         }
 
@@ -376,7 +378,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             }
         } catch (SAXException | IOException e) {
-            logger.error(FILENOTFOUNDMESSAGE, headFile.getName(), e);
+            logger.error(FILENOTFOUNDMESSAGE, headFile.getName());
+            logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, headFile.getName(), e);
         }
     }
 
@@ -417,11 +420,14 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                     document1, document2, validationResult);
                         }
                     } catch (IOException | SAXException e) {
-                        logger.error(FILENOTFOUNDMESSAGE, file2.getName(), e);
+                        logger.error(FILENOTFOUNDMESSAGE, file2.getName());
+                        logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE,
+                                file2.getName(), e);
                     }
                 }
             } catch (IOException | SAXException e) {
-                logger.error(FILENOTFOUNDMESSAGE, file1.getName(), e);
+                logger.error(FILENOTFOUNDMESSAGE, file1.getName());
+                logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, file1.getName(), e);
             }
         }
     }
@@ -457,7 +463,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             }
         } catch (IOException | SAXException e) {
-            logger.error(FILENOTFOUNDMESSAGE, file.getName(), e);
+            logger.error(FILENOTFOUNDMESSAGE, file.getName());
+            logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, file.getName(), e);
         }
 
         return importedFileList;
