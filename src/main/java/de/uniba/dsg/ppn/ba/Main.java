@@ -55,7 +55,7 @@ public class Main {
                 } catch (BpmnValidationException e) {
                     logger.error(e.getMessage());
                 } catch (JAXBException e) {
-                    logger.error("result of couldn't be written in xml!");
+                    logger.error("result of validation couldn't be written in xml!");
                 }
             }
         } else {
