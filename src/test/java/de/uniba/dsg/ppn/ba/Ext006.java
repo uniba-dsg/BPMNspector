@@ -17,7 +17,11 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext006 {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator = null;
+    private final static String ERRORMESSAGEONE = "An Artifact MUST NOT be a target for a Sequence Flow";
+    private final static String ERRORMESSAGETWO = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";
+    private final static String ERRORMESSAGETHREE = "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.";
+    private final static String XPATHSTRING = "//bpmn:sequenceFlow[@targetRef][0]";
 
     @Before
     public void setUp() {
@@ -38,26 +42,21 @@ public class Ext006 {
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals("An Artifact MUST NOT be a target for a Sequence Flow",
-                v.getMessage());
+        assertEquals(ERRORMESSAGEONE, v.getMessage());
         assertEquals("Fail_association.bpmn", v.getFileName());
-        assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
-        assertEquals(
-                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
-                v.getMessage());
+        assertEquals(ERRORMESSAGETWO, v.getMessage());
         assertEquals("Fail_association.bpmn", v.getFileName());
         assertEquals(
                 "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
                 v.getxPath());
         assertEquals(11, v.getLine());
         v = result.getViolations().get(2);
-        assertEquals(
-                "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                v.getMessage());
+        assertEquals(ERRORMESSAGETHREE, v.getMessage());
         assertEquals("Fail_association.bpmn", v.getFileName());
-        assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
@@ -69,26 +68,21 @@ public class Ext006 {
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals("An Artifact MUST NOT be a target for a Sequence Flow",
-                v.getMessage());
+        assertEquals(ERRORMESSAGEONE, v.getMessage());
         assertEquals("Fail_group.bpmn", v.getFileName());
-        assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
-        assertEquals(
-                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
-                v.getMessage());
+        assertEquals(ERRORMESSAGETWO, v.getMessage());
         assertEquals("Fail_group.bpmn", v.getFileName());
         assertEquals(
                 "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
                 v.getxPath());
         assertEquals(8, v.getLine());
         v = result.getViolations().get(2);
-        assertEquals(
-                "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                v.getMessage());
+        assertEquals(ERRORMESSAGETHREE, v.getMessage());
         assertEquals("Fail_group.bpmn", v.getFileName());
-        assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
@@ -101,26 +95,21 @@ public class Ext006 {
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals("An Artifact MUST NOT be a target for a Sequence Flow",
-                v.getMessage());
+        assertEquals(ERRORMESSAGEONE, v.getMessage());
         assertEquals("Fail_text_annotation.bpmn", v.getFileName());
-        assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
-        assertEquals(
-                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
-                v.getMessage());
+        assertEquals(ERRORMESSAGETWO, v.getMessage());
         assertEquals("Fail_text_annotation.bpmn", v.getFileName());
         assertEquals(
                 "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
                 v.getxPath());
         assertEquals(8, v.getLine());
         v = result.getViolations().get(2);
-        assertEquals(
-                "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                v.getMessage());
+        assertEquals(ERRORMESSAGETHREE, v.getMessage());
         assertEquals("Fail_text_annotation.bpmn", v.getFileName());
-        assertEquals("//bpmn:sequenceFlow[@targetRef][0]", v.getxPath());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 }
