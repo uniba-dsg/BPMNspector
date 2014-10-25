@@ -26,8 +26,11 @@ The stand-alone validator must be used via console. It prints debug loggings
 if `--debug` is added to the JAR invoking. Additionally, the validator needs a number of files, which
 should be validated. Their paths have to be added as parameters to the JAR call and
 must be separated by a whitespace, so that the validation works correctly. The results
-of every ﬁle validation is saved as `validation_result_name_of_the_validated_file.xml` in the
-folder of the validated ﬁle.
+of every file validation is saved as `validation_result_name_of_the_validated_file.xml` in the
+folder of the validated file.
+
+An example of the console call is the following: `java -jar bpmnvalidator.jar my_bpmn_file.bpmn`
+The path to the file(s) can be either relative to the path of the `bpmnvalidator.jar` or absolute.
 
 ## Via JAR
 
