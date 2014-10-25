@@ -36,52 +36,54 @@ public class Ext006 {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
+        final String fileName = "Fail_association.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "006" + File.separator
-                + "Fail_association.bpmn");
+                + fileName);
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
         assertEquals(ERRORMESSAGEONE, v.getMessage());
-        assertEquals("Fail_association.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
         assertEquals(ERRORMESSAGETWO, v.getMessage());
-        assertEquals("Fail_association.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(
                 "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
                 v.getxPath());
         assertEquals(11, v.getLine());
         v = result.getViolations().get(2);
         assertEquals(ERRORMESSAGETHREE, v.getMessage());
-        assertEquals("Fail_association.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
     @Test
     public void testConstraintGroupFail() throws BpmnValidationException {
+        final String fileName = "Fail_group.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "006" + File.separator
-                + "Fail_group.bpmn");
+                + fileName);
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
         assertEquals(ERRORMESSAGEONE, v.getMessage());
-        assertEquals("Fail_group.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
         assertEquals(ERRORMESSAGETWO, v.getMessage());
-        assertEquals("Fail_group.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(
                 "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
                 v.getxPath());
         assertEquals(8, v.getLine());
         v = result.getViolations().get(2);
         assertEquals(ERRORMESSAGETHREE, v.getMessage());
-        assertEquals("Fail_group.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
@@ -89,26 +91,27 @@ public class Ext006 {
     @Test
     public void testConstraintTextAnnotationFail()
             throws BpmnValidationException {
+        final String fileName = "Fail_text_annotation.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "006" + File.separator
-                + "Fail_text_annotation.bpmn");
+                + fileName);
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
         assertEquals(ERRORMESSAGEONE, v.getMessage());
-        assertEquals("Fail_text_annotation.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
         assertEquals(ERRORMESSAGETWO, v.getMessage());
-        assertEquals("Fail_text_annotation.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(
                 "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
                 v.getxPath());
         assertEquals(8, v.getLine());
         v = result.getViolations().get(2);
         assertEquals(ERRORMESSAGETHREE, v.getMessage());
-        assertEquals("Fail_text_annotation.bpmn", v.getFileName());
+        assertEquals(fileName, v.getFileName());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
