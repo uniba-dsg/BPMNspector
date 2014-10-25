@@ -18,7 +18,9 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext146 {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator = null;
+    private final static String ERRORMESSAGE = "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events";
+    private final static String XPATHSTRING = "//bpmn:endEvent[0]";
 
     @Before
     public void setUp() {
@@ -39,10 +41,8 @@ public class Ext146 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
@@ -54,10 +54,8 @@ public class Ext146 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
@@ -69,10 +67,8 @@ public class Ext146 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(8, v.getLine());
     }
 
@@ -84,10 +80,8 @@ public class Ext146 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
@@ -104,10 +98,8 @@ public class Ext146 {
         assertEquals("XSD-Check", v.getConstraint());
         assertEquals(9, v.getLine());
         v = result.getViolations().get(1);
-        assertEquals(
-                "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
