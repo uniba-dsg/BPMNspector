@@ -18,7 +18,9 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext031 {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator = null;
+    private final static String ERRORMESSAGE = "A message flow must connect ’InteractionNodes’ from different Pools";
+    private final static String XPATHSTRING = "//bpmn:messageFlow[0]";
 
     @Before
     public void setUp() {
@@ -39,10 +41,8 @@ public class Ext031 {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "A message flow must connect ’InteractionNodes’ from different Pools",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
     }
 
@@ -54,10 +54,8 @@ public class Ext031 {
         assertFalse(result.isValid());
         assertEquals(2, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "A message flow must connect ’InteractionNodes’ from different Pools",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
         assertEquals("An End Event MUST NOT be a target for a message flow",
@@ -74,10 +72,8 @@ public class Ext031 {
         assertFalse(result.isValid());
         assertEquals(2, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "A message flow must connect ’InteractionNodes’ from different Pools",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
         assertEquals("A Start Event MUST NOT be a source for a message flow",
@@ -94,10 +90,8 @@ public class Ext031 {
         assertFalse(result.isValid());
         assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "A message flow must connect ’InteractionNodes’ from different Pools",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
         v = result.getViolations().get(1);
         assertEquals("A Start Event MUST NOT be a source for a message flow",
