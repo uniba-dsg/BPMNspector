@@ -17,7 +17,9 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class PreProcessing {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator = null;
+    private final static String ERRORMESSAGE = "Referenced process must have at least one None Start Event";
+    private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
 
     @Before
     public void setUp() {
@@ -39,10 +41,8 @@ public class PreProcessing {
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Referenced process must have at least one None Start Event",
-                v.getMessage());
-        assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals("ref_process.bpmn", v.getFileName());
         assertEquals(3, v.getLine());
     }
@@ -56,17 +56,13 @@ public class PreProcessing {
         assertFalse(result.isValid());
         assertEquals(2, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Referenced process must have at least one None Start Event",
-                v.getMessage());
-        assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals("fail_call_ref_process.bpmn", v.getFileName());
         assertEquals(4, v.getLine());
         v = result.getViolations().get(1);
-        assertEquals(
-                "Referenced process must have at least one None Start Event",
-                v.getMessage());
-        assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals("ref_process.bpmn", v.getFileName());
         assertEquals(3, v.getLine());
     }
@@ -80,17 +76,13 @@ public class PreProcessing {
         assertFalse(result.isValid());
         assertEquals(2, result.getViolations().size());
         Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Referenced process must have at least one None Start Event",
-                v.getMessage());
-        assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals("fail_call_ref_process.bpmn", v.getFileName());
         assertEquals(4, v.getLine());
         v = result.getViolations().get(1);
-        assertEquals(
-                "Referenced process must have at least one None Start Event",
-                v.getMessage());
-        assertEquals("//bpmn:*[@id = 'PROCESS_1'][0]", v.getxPath());
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(XPATHSTRING, v.getxPath());
         assertEquals("ref_process.bpmn", v.getFileName());
         assertEquals(3, v.getLine());
     }
