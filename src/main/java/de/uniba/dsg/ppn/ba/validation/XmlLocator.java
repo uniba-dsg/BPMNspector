@@ -28,9 +28,9 @@ import ch.qos.logback.classic.Logger;
  */
 public class XmlLocator {
 
-    private SAXBuilder saxBuilder;
-    private XPathFactory xPathFactory;
-    private Logger logger;
+    private final SAXBuilder saxBuilder;
+    private final XPathFactory xPathFactory;
+    private final Logger logger;
 
     public XmlLocator() {
         saxBuilder = new SAXBuilder();
@@ -65,8 +65,8 @@ public class XmlLocator {
             }
             XPathExpression<Element> xpath = xPathFactory.compile(
                     xpathExpression, Filters.element(), null, Namespace
-                    .getNamespace("bpmn",
-                            SchematronBPMNValidator.BPMNNAMESPACE));
+                            .getNamespace("bpmn",
+                                    SchematronBPMNValidator.BPMNNAMESPACE));
 
             List<Element> foundElements = xpath.evaluate(doc);
 
