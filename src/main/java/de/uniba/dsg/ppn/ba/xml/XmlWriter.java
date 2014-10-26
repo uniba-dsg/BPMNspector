@@ -21,7 +21,7 @@ import de.uniba.dsg.bpmn.ValidationResult;
 public class XmlWriter {
 
     private Marshaller marshaller;
-    private Logger logger;
+    private final Logger logger;
 
     public XmlWriter() {
         logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
@@ -37,7 +37,7 @@ public class XmlWriter {
 
     /**
      * writes the result to the given file
-     * 
+     *
      * @param result
      *            the validation result, which should be writen to a file
      * @param file
