@@ -1,6 +1,5 @@
 package de.uniba.dsg.ppn.ba.validation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.ErrorHandler;
@@ -16,7 +15,7 @@ import org.xml.sax.SAXParseException;
  */
 public class XsdValidationErrorHandler implements ErrorHandler {
 
-    private List<SAXParseException> xsdErrorList = new ArrayList<>();
+    private final List<SAXParseException> xsdErrorList;
 
     public XsdValidationErrorHandler(List<SAXParseException> xsdErrorList) {
         this.xsdErrorList = xsdErrorList;
