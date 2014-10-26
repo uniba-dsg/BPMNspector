@@ -34,7 +34,7 @@ public class XsdValidator {
      */
     public void validateAgainstXsd(File xmlFile,
             ValidationResult validationResult) throws IOException, SAXException {
-
+        // is overrided by the specific child classes
     }
 
     /**
