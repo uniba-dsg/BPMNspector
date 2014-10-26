@@ -19,7 +19,7 @@ public class ImportedFile {
     private String importType;
 
     public ImportedFile() {
-
+        // parameters are set manually after instantiation
     }
 
     public ImportedFile(File file, String prefix, String namespace,
