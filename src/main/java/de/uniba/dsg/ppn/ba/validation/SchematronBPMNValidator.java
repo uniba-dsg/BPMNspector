@@ -274,7 +274,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         String line = "-1";
         String xpathObjectId = "";
         for (int i = 0; i < validationResult.getCheckedFiles().size()
-                && line.equals("-1"); i++) {
+                && "-1".equals(line); i++) {
             File checkedFile = new File(validationResult.getCheckedFiles().get(
                     i));
             try {
@@ -314,7 +314,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             }
         }
 
-        if (line.equals("-1")) {
+        if ("-1".equals(line)) {
             throw new BpmnValidationException("BPMN Element couldn't be found!");
         }
 
