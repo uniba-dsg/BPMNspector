@@ -36,9 +36,8 @@ public class Main {
             ((Logger) LoggerFactory.getLogger(xmlWriter.getClass()
                     .getSimpleName())).setLevel(debugLevel);
             argsAsList.remove("--debug");
+            logger.info("loglevel is set to {}", validator.getLogLevel());
         }
-
-        logger.info("loglevel is set to {}", validator.getLogLevel());
 
         if (!argsAsList.isEmpty()) {
             for (String parameter : argsAsList) {
