@@ -39,7 +39,7 @@ public class WsdlValidator extends XsdValidator {
             schema = schemaFactory
                     .newSchema(resolveResourcePaths("wsdl20.xsd"));
         } catch (FileNotFoundException | SAXException e) {
-            logger.error("schemafactory couldn't create schema, cause: {}", e);
+            logger.debug("schemafactory couldn't create schema, cause: {}", e);
         }
     }
 

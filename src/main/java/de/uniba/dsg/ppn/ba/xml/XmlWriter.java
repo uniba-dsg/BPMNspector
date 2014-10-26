@@ -31,7 +31,7 @@ public class XmlWriter {
             marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         } catch (JAXBException e) {
-            logger.error("jaxb writer initialization failed: {}", e);
+            logger.debug("jaxb writer initialization failed: {}", e);
         }
     }
 
