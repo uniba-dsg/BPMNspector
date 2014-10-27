@@ -2,6 +2,7 @@ apply plugin: "java"
 apply plugin: "idea"
 apply plugin: "eclipse"
 apply plugin: "application"
+apply plugin: 'pmd'
 
 mainClassName = "de.uniba.dsg.ppn.ba.Main"
 
@@ -35,6 +36,31 @@ dependencies {
 
     compile configurations.internal
     compile configurations.external
+}
+
+pmd {
+    ignoreFailures = true
+    toolVersion = "5.1.3"
+        ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            //'java-codesize',
+            //'java-controversial',
+            'java-design',
+            'java-empty',
+            'java-finalizers',
+            'java-imports',
+            //'java-junit', useless
+            'java-migrating',
+            //'java-optimizations', 210 errors
+            'java-strictexception',
+            'java-strings',
+            'java-sunsecure',
+            'java-typeresolution',
+            'java-unnecessary',
+            'java-unusedcode'
+            ]
 }
 
 jar.archiveName = "bpmnvalidator.jar"
