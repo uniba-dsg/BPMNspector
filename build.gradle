@@ -41,26 +41,7 @@ dependencies {
 pmd {
     ignoreFailures = true
     toolVersion = "5.1.3"
-        ruleSets = [
-            'java-basic',
-            'java-braces',
-            'java-clone',
-            //'java-codesize',
-            //'java-controversial',
-            'java-design',
-            'java-empty',
-            'java-finalizers',
-            'java-imports',
-            //'java-junit', useless
-            'java-migrating',
-            //'java-optimizations', 210 errors
-            'java-strictexception',
-            'java-strings',
-            'java-sunsecure',
-            'java-typeresolution',
-            'java-unnecessary',
-            'java-unusedcode'
-            ]
+    ruleSetFiles = files("config/pmd.xml")
 }
 
 jar.archiveName = "bpmnvalidator.jar"
