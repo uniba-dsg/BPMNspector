@@ -188,7 +188,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                     validationResult,
                                     preProcessResult.getNamespaceTable());
                             fileName = result[0];
-                            line = Integer.valueOf(result[1]);
+                            line = Integer.parseInt(result[1]);
                             location = result[2];
                         } catch (BpmnValidationException e) {
                             fileName = e.getMessage();

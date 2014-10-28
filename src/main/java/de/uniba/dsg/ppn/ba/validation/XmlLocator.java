@@ -56,7 +56,7 @@ public class XmlLocator {
             int bracketPosition = xpathExpression.lastIndexOf('[');
             int elementPosition = 0;
             try {
-                elementPosition = Integer.valueOf(xpathExpression.substring(
+                elementPosition = Integer.parseInt(xpathExpression.substring(
                         bracketPosition + 1, xpathExpression.lastIndexOf(']')));
                 xpathExpression = xpathExpression.substring(0, bracketPosition);
             } catch (NumberFormatException e) { // NOPMD
