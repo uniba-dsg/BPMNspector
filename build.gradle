@@ -3,6 +3,7 @@ apply plugin: "idea"
 apply plugin: "eclipse"
 apply plugin: "application"
 apply plugin: 'pmd'
+apply plugin: 'findbugs'
 
 mainClassName = "de.uniba.dsg.ppn.ba.Main"
 
@@ -43,6 +44,18 @@ pmd {
     toolVersion = "5.1.3"
     ruleSetFiles = files("config/pmd.xml")
 }
+
+findbugs {
+    ignoreFailures = true
+    effort = "max"
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+ }
 
 jar.archiveName = "bpmnvalidator.jar"
 
