@@ -4,6 +4,7 @@ apply plugin: "eclipse"
 apply plugin: "application"
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'jacoco'
 
 mainClassName = "de.uniba.dsg.ppn.ba.Main"
 
@@ -56,6 +57,10 @@ tasks.withType(FindBugs) {
         html.enabled = true
     }
  }
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+}
 
 jar.archiveName = "bpmnvalidator.jar"
 
