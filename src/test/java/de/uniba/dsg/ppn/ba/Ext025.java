@@ -73,6 +73,15 @@ public class Ext025 {
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
+    
+    @Test
+    public void testConstraintSuccess_2() throws BpmnValidationException {
+        File f = new File(TestHelper.getTestFilePath() + "025" + File.separator
+                + "success_2.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertTrue(result.isValid());
+        assertTrue(result.getViolations().isEmpty());
+    }
 
     @Test
     public void testConstraintSuccessNoCondition()
