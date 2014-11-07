@@ -75,15 +75,14 @@ public class Ext022 {
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
-    
+
     @Test
-    public void testConstraintTasksSuccess_EventProcess_In_SubProcess() throws BpmnValidationException {
+    public void testConstraintTasksSuccess_EventProcess_In_SubProcess()
+            throws BpmnValidationException {
         File f = new File(TestHelper.getTestFilePath() + "022" + File.separator
                 + "success_event_in_normal_subprocess.bpmn");
         ValidationResult result = validator.validate(f);
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
-    
-    
 }
