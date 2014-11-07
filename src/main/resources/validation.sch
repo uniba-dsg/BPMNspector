@@ -451,7 +451,7 @@
         <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:startEvent]">
             <iso:assert test="bpmn:incoming" diagnostics="id">EXT.150|If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:startEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
+        <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:startEvent] [not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:incoming" diagnostics="id">EXT.150|If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:boundaryEvent">
@@ -496,7 +496,7 @@
         <iso:rule context="bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:endEvent]">
             <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.151|If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:intermediateCatchEvent[/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id] [parent::*/bpmn:endEvent]">
+        <iso:rule context="bpmn:intermediateCatchEvent[./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id] [parent::*/bpmn:endEvent]">
             <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.151|If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:exclusiveGateway[parent::*/bpmn:endEvent]">
@@ -517,7 +517,7 @@
         <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:endEvent]">
             <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.151|If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:endEvent] [not(/bpmn:linkEventDefinition or /bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
+        <iso:rule context="bpmn:intermediateThrowEvent[parent::*/bpmn:endEvent] [not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:outgoing" diagnostics="id">EXT.151|If end events are used, all flow nodes must have an outgoing sequence flow</iso:assert>
         </iso:rule>
     </iso:pattern>
