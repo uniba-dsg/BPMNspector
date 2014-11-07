@@ -39,7 +39,10 @@ public class Main {
             logger.info("loglevel is set to {}", validator.getLogLevel());
         }
 
-        if (!argsAsList.isEmpty()) {
+        if (argsAsList.isEmpty()) {
+            logger.error("There must be files to check!");
+            System.exit(-1);
+        } else {
             for (String parameter : argsAsList) {
                 try {
                     File file = new File(parameter);
@@ -57,9 +60,6 @@ public class Main {
                     logger.error("result of validation couldn't be written in xml!");
                 }
             }
-        } else {
-            logger.error("There must be files to check!");
-            System.exit(-1);
         }
     }
 }
