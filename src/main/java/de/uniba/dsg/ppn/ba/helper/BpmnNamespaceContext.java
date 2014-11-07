@@ -18,7 +18,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 public class BpmnNamespaceContext implements NamespaceContext {
 
     @Override
-    public String getNamespaceURI(String prefix) {
+    public String getNamespaceURI(final String prefix) {
         if ("bpmn".equals(prefix)) {
             return SchematronBPMNValidator.BPMNNAMESPACE;
         } else if ("xml".equals(prefix)) {
@@ -28,12 +28,12 @@ public class BpmnNamespaceContext implements NamespaceContext {
     }
 
     @Override
-    public String getPrefix(String uri) {
+    public String getPrefix(final String uri) {
         return "";
     }
 
     @Override
-    public Iterator<?> getPrefixes(String uri) {
+    public Iterator<?> getPrefixes(final String uri) {
         return null;
     }
 

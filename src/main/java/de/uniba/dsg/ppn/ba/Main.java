@@ -25,10 +25,11 @@ public class Main {
         debugLevel = Level.DEBUG;
     }
 
-    public static void main(String[] args) {
-        SchematronBPMNValidator validator = new SchematronBPMNValidator();
-        ArrayList<String> argsAsList = new ArrayList<>(Arrays.asList(args));
-        XmlWriter xmlWriter = new XmlWriter();
+    public static void main(final String[] args) {
+        final SchematronBPMNValidator validator = new SchematronBPMNValidator();
+        final ArrayList<String> argsAsList = new ArrayList<>(
+                Arrays.asList(args));
+        final XmlWriter xmlWriter = new XmlWriter();
 
         if (argsAsList.contains("--debug")) {
             validator.setLogLevel(debugLevel);

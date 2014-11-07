@@ -25,12 +25,12 @@ public class PrintHelper {
     private static Transformer transformer;
 
     static {
-        TransformerFactory transformerFactory = TransformerFactory
+        final TransformerFactory transformerFactory = TransformerFactory
                 .newInstance();
         try {
             transformer = transformerFactory.newTransformer();
             transformer
-            .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+                    .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -47,7 +47,7 @@ public class PrintHelper {
      * @param document
      *            the document, which should be printed
      */
-    public static void printDocument(Document document) {
+    public static void printDocument(final Document document) {
         try {
             transformer.transform(new DOMSource(document), new StreamResult(
                     System.out));
@@ -62,7 +62,7 @@ public class PrintHelper {
      * @param violations
      *            the violations list, which should be printed
      */
-    public static void printViolations(List<Violation> violations) {
+    public static void printViolations(final List<Violation> violations) {
         System.out.println("Violations count: " + violations.size());
         System.out.println("--------------------");
         for (Violation v : violations) {
