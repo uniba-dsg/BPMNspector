@@ -137,5 +137,14 @@ public class Ext150 {
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
+    
+    @Test
+    public void testConstraintSuccess_LinkEvent() throws BpmnValidationException {
+        File f = new File(TestHelper.getTestFilePath() + "150" + File.separator
+                + "success_linkevent.bpmn");
+        ValidationResult result = validator.validate(f);
+        assertTrue(result.isValid());
+        assertTrue(result.getViolations().isEmpty());
+    }
 
 }
