@@ -43,8 +43,7 @@ public class Ext021 {
         assertEquals(
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
                 v.getMessage());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@sourceRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][0]",
                 v.getxPath());
         assertEquals(7, v.getLine());
     }

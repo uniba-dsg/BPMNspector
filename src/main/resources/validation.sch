@@ -89,13 +89,13 @@
     </iso:pattern>
     
     <iso:pattern name="EXT.021">
-        <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@sourceRef)]">
+        <iso:rule context="bpmn:*[./@id = $sequenceFlows/@sourceRef]">
             <iso:assert test="(./@id = $tasks/@id or ./@id = $sendTasks/@id or ./@id = $receiveTasks/@id or ./@id = $serviceTasks/@id or ./@id = $userTasks/@id or ./@id = $manualTasks/@id or ./@id = $scriptTasks/@id or ./@id = $businessTasks/@id or ./@id = $subProcesses/@id or ./@id = $transactions/@id or ./@id = $adHocSubProcesses/@id or ./@id = $callActivities/@id or ./@id = $startEvents/@id or ./@id = $boundaryEvents/@id or ./@id = $intermediateCatchEvents/@id or ./@id = $intermediateThrowEvents/@id or ./@id = $endEvents/@id or ./@id = $exclusiveGateways/@id or ./@id = $parallelGateways/@id or ./@id = $inclusiveGateways/@id or ./@id = $complexGateways/@id or ./@id = $eventBasedGateways/@id) and not(./@id = $subProcesses[@triggeredByEvent = 'true']/@id)" diagnostics="id">EXT.021|For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.022">
-        <iso:rule context="bpmn:*[./@id = string($sequenceFlows/@targetRef)]">
+        <iso:rule context="bpmn:*[./@id = $sequenceFlows/@targetRef]">
             <iso:assert test="(./@id = $tasks/@id or ./@id = $sendTasks/@id or ./@id = $receiveTasks/@id or ./@id = $serviceTasks/@id or ./@id = $userTasks/@id or ./@id = $manualTasks/@id or ./@id = $scriptTasks/@id or ./@id = $businessTasks/@id or ./@id = $subProcesses/@id or ./@id = $transactions/@id or ./@id = $adHocSubProcesses/@id or ./@id = $callActivities/@id or ./@id = $startEvents/@id or ./@id = $boundaryEvents/@id or ./@id = $intermediateCatchEvents/@id or ./@id = $intermediateThrowEvents/@id or ./@id = $endEvents/@id or ./@id = $exclusiveGateways/@id or ./@id = $parallelGateways/@id or ./@id = $inclusiveGateways/@id or ./@id = $complexGateways/@id or ./@id = $eventBasedGateways/@id) and not(./@id = $subProcesses[@triggeredByEvent = 'true']/@id)" diagnostics="id">EXT.022|For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target</iso:assert>
         </iso:rule>
     </iso:pattern>
