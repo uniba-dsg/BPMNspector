@@ -50,8 +50,7 @@ public class Ext006 {
         v = result.getViolations().get(1);
         assertEquals(ERRORMESSAGETWO, v.getMessage());
         assertEquals(fileName, v.getFileName());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(11, v.getLine());
         v = result.getViolations().get(2);
@@ -77,8 +76,7 @@ public class Ext006 {
         v = result.getViolations().get(1);
         assertEquals(ERRORMESSAGETWO, v.getMessage());
         assertEquals(fileName, v.getFileName());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(8, v.getLine());
         v = result.getViolations().get(2);
@@ -105,8 +103,7 @@ public class Ext006 {
         v = result.getViolations().get(1);
         assertEquals(ERRORMESSAGETWO, v.getMessage());
         assertEquals(fileName, v.getFileName());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(8, v.getLine());
         v = result.getViolations().get(2);

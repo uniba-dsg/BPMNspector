@@ -42,8 +42,7 @@ public class Ext109 {
         assertEquals(
                 "If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present",
                 v.getMessage());
-        assertEquals(
-                "//bpmn:endEvent[@id = string(//bpmn:messageFlow/@sourceRef)][0]",
+        assertEquals("//bpmn:endEvent[@id = //bpmn:messageFlow/@sourceRef][0]",
                 v.getxPath());
         assertEquals(16, v.getLine());
     }

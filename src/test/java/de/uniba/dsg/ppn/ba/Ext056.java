@@ -20,7 +20,7 @@ public class Ext056 {
     private SchematronBPMNValidator validator = null;
     private final static String ERRORMESSAGEONE = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";
     private final static String ERRORMESSAGETWO = "A SubProcess must not contain Choreography Activities";
-    private final static String XPATHSTRING = "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]";
+    private final static String XPATHSTRING = "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]";
 
     @Before
     public void setUp() {

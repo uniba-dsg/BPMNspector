@@ -66,25 +66,25 @@
     <!-- Your constraints go here -->
     <iso:pattern name="EXT.006">
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
-            <iso:assert test="not((string(./@targetRef) = $associations/@id) or (string(./@targetRef) = $textAnnotations/@id) or (string(./@targetRef) = $groups/@id))" diagnostics="id">EXT.006|An Artifact MUST NOT be a target for a Sequence Flow</iso:assert>
+            <iso:assert test="not((./@targetRef = $associations/@id) or (./@targetRef = $textAnnotations/@id) or (./@targetRef = $groups/@id))" diagnostics="id">EXT.006|An Artifact MUST NOT be a target for a Sequence Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.007">
         <iso:rule context="bpmn:sequenceFlow[@sourceRef]">
-            <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))" diagnostics="id">EXT.007|An Artifact MUST NOT be a source for a Sequence Flow</iso:assert>
+            <iso:assert test="not((./@sourceRef = $associations/@id) or (./@sourceRef = $textAnnotations/@id) or (./@sourceRef = $groups/@id))" diagnostics="id">EXT.007|An Artifact MUST NOT be a source for a Sequence Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
 
     <iso:pattern name="EXT.008">
         <iso:rule context="bpmn:messageFlow[@targetRef]">
-            <iso:assert test="not((string(./@targetRef) = $associations/@id) or (string(./@targetRef) = $textAnnotations/@id) or (string(./@targetRef) = $groups/@id))" diagnostics="targetRef">EXT.008|An Artifact MUST NOT be a target for a Message Flow</iso:assert>
+            <iso:assert test="not((./@targetRef = $associations/@id) or (./@targetRef = $textAnnotations/@id) or (./@targetRef = $groups/@id))" diagnostics="targetRef">EXT.008|An Artifact MUST NOT be a target for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.009">
         <iso:rule context="bpmn:messageFlow[@sourceRef]">
-            <iso:assert test="not((string(./@sourceRef) = $associations/@id) or (string(./@sourceRef) = $textAnnotations/@id) or (string(./@sourceRef) = $groups/@id))" diagnostics="sourceRef">EXT.009|An Artifact MUST NOT be a source for a Message Flow</iso:assert>
+            <iso:assert test="not((./@sourceRef = $associations/@id) or (./@sourceRef = $textAnnotations/@id) or (./@sourceRef = $groups/@id))" diagnostics="sourceRef">EXT.009|An Artifact MUST NOT be a source for a Message Flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
@@ -102,70 +102,70 @@
     
     <iso:pattern name="EXT.023">
         <iso:rule context="bpmn:sequenceFlow[@targetRef]">
-            <iso:assert test="$allElements/@id = string(./@targetRef) and ./@id = $allElements/bpmn:incoming" diagnostics="id">EXT.023|The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.</iso:assert>
+            <iso:assert test="$allElements/@id = ./@targetRef and ./@id = $allElements/bpmn:incoming" diagnostics="id">EXT.023|The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:sequenceFlow[@sourceRef]">
-            <iso:assert test="$allElements/@id = string(./@sourceRef) and ./@id = $allElements/bpmn:outgoing" diagnostics="id">EXT.023|The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.</iso:assert>
+            <iso:assert test="$allElements/@id =./@sourceRef and ./@id = $allElements/bpmn:outgoing" diagnostics="id">EXT.023|The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.025">
-        <iso:rule context="bpmn:sequenceFlow[bpmn:conditionExpression] [not(string(@sourceRef)=$exclusiveGateways/@id)] [not(string(@sourceRef)=$parallelGateways/@id)] [not(string(@sourceRef)=$inclusiveGateways/@id)] [not(string(@sourceRef)=$complexGateways/@id)] [not(string(@sourceRef)=$eventBasedGateways/@id)]">
+        <iso:rule context="bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = $exclusiveGateways/@id)] [not(@sourceRef = $parallelGateways/@id)] [not(@sourceRef = $inclusiveGateways/@id)] [not(@sourceRef = $complexGateways/@id)] [not(@sourceRef = $eventBasedGateways/@id)]">
             <iso:assert test="$tasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $sendTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $receiveTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $serviceTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $userTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $manualTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $scriptTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $businessTasks[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $callActivities[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $subProcesses[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $transactions[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1] or $adHocSubProcesses[bpmn:outgoing=(current()/@id)] [count(bpmn:outgoing) > 1]" diagnostics="id">EXT.025|An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.026">
         <iso:rule context="bpmn:exclusiveGateway[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:parallelGateway[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:inclusiveGateway[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:complexGateway[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:eventBasedGateway[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:task[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:sendTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:receiveTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:serviceTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:userTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:manualTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:scriptTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:businessRuleTask[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:subProcess[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:transaction[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:adHocSubProcess[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:callActivity[@default]">
-            <iso:assert test="$sequenceFlows[@id=string(current()/@default)]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
+            <iso:assert test="$sequenceFlows[@id = current()/@default]/@sourceRef=./@id" diagnostics="id">EXT.026|If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef</iso:assert>
         </iso:rule>        
     </iso:pattern>
     
@@ -323,12 +323,12 @@
     
     <iso:pattern name="EXT.102">
         <iso:rule context="bpmn:messageFlow[@sourceRef]">
-            <iso:assert test="not(string(./@sourceRef) = $startEvents/@id)" diagnostics="sourceRef">EXT.102|A Start Event MUST NOT be a source for a message flow</iso:assert>
+            <iso:assert test="not(./@sourceRef = $startEvents/@id)" diagnostics="sourceRef">EXT.102|A Start Event MUST NOT be a source for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.103">
-        <iso:rule context="bpmn:startEvent[@id = string($messageFlows/@targetRef)]">
+        <iso:rule context="bpmn:startEvent[@id = $messageFlows/@targetRef]">
             <iso:assert test="./bpmn:messageEventDefinition or ./bpmn:eventDefinitionRef = $messageEventDefinitions/@id" diagnostics="id">EXT.103|If a Start Event is target of a MessageFlow definition, at least one messageEventDefinition must be present</iso:assert>
         </iso:rule>
     </iso:pattern>
@@ -359,12 +359,12 @@
     
     <iso:pattern name="EXT.108">
         <iso:rule context="bpmn:messageFlow[@targetRef]">
-            <iso:assert test="not(string(./@targetRef) = $endEvents/@id)" diagnostics="targetRef">EXT.108|An End Event MUST NOT be a target for a message flow</iso:assert>
+            <iso:assert test="not(./@targetRef = $endEvents/@id)" diagnostics="targetRef">EXT.108|An End Event MUST NOT be a target for a message flow</iso:assert>
         </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.109">
-        <iso:rule context="bpmn:endEvent[@id = string($messageFlows/@sourceRef)]">
+        <iso:rule context="bpmn:endEvent[@id = $messageFlows/@sourceRef]">
             <iso:assert test="./bpmn:messageEventDefinition or ./bpmn:eventDefinitionRef = $messageEventDefinitions/@id" diagnostics="id">EXT.109|If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present</iso:assert>
         </iso:rule>
     </iso:pattern>

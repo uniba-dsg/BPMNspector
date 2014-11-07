@@ -42,8 +42,7 @@ public class Ext036 {
         assertEquals(
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
                 v.getMessage());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(10, v.getLine());
         v = result.getViolations().get(1);
@@ -65,8 +64,7 @@ public class Ext036 {
         assertEquals(
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
                 v.getMessage());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(10, v.getLine());
         v = result.getViolations().get(1);
@@ -88,8 +86,7 @@ public class Ext036 {
         assertEquals(
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
                 v.getMessage());
-        assertEquals(
-                "//bpmn:*[./@id = string(//bpmn:sequenceFlow/@targetRef)][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(10, v.getLine());
         v = result.getViolations().get(1);

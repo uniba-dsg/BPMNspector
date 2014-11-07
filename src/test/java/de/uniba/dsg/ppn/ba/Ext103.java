@@ -43,7 +43,7 @@ public class Ext103 {
                 "If a Start Event is target of a MessageFlow definition, at least one messageEventDefinition must be present",
                 v.getMessage());
         assertEquals(
-                "//bpmn:startEvent[@id = string(//bpmn:messageFlow/@targetRef)][0]",
+                "//bpmn:startEvent[@id = //bpmn:messageFlow/@targetRef][0]",
                 v.getxPath());
         assertEquals(13, v.getLine());
     }
