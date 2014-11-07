@@ -37,15 +37,22 @@ public class Ext036 {
                 + "fail_call_choreography.bpmn");
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
-        assertEquals(2, result.getViolations().size());
+        assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
         assertEquals(
-                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
+                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
                 v.getMessage());
-        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][1]",
                 v.getxPath());
         assertEquals(10, v.getLine());
         v = result.getViolations().get(1);
+        assertEquals(
+                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
+                v.getMessage());
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][1]",
+                v.getxPath());
+        assertEquals(10, v.getLine());
+        v = result.getViolations().get(2);
         assertEquals("A Process must not contain Choreography Activities",
                 v.getMessage());
         assertEquals("//bpmn:process[0]", v.getxPath());
@@ -59,15 +66,22 @@ public class Ext036 {
                 + "fail_choreography_task.bpmn");
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
-        assertEquals(2, result.getViolations().size());
+        assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
         assertEquals(
-                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
+                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
                 v.getMessage());
-        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][1]",
                 v.getxPath());
         assertEquals(10, v.getLine());
         v = result.getViolations().get(1);
+        assertEquals(
+                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
+                v.getMessage());
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][1]",
+                v.getxPath());
+        assertEquals(10, v.getLine());
+        v = result.getViolations().get(2);
         assertEquals("A Process must not contain Choreography Activities",
                 v.getMessage());
         assertEquals("//bpmn:process[0]", v.getxPath());
@@ -81,15 +95,22 @@ public class Ext036 {
                 + "fail_sub_choreography.bpmn");
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
-        assertEquals(2, result.getViolations().size());
+        assertEquals(3, result.getViolations().size());
         Violation v = result.getViolations().get(0);
         assertEquals(
-                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
+                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
                 v.getMessage());
-        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][1]",
                 v.getxPath());
         assertEquals(10, v.getLine());
         v = result.getViolations().get(1);
+        assertEquals(
+                "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
+                v.getMessage());
+        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][1]",
+                v.getxPath());
+        assertEquals(10, v.getLine());
+        v = result.getViolations().get(2);
         assertEquals("A Process must not contain Choreography Activities",
                 v.getMessage());
         assertEquals("//bpmn:process[0]", v.getxPath());
