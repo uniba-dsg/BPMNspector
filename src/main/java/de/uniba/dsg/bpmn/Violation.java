@@ -45,7 +45,7 @@ public class Violation {
 
     /**
      * Constructor
-     * 
+     *
      * @param constraint
      *            id of the failed constraint
      * @param fileName
@@ -103,16 +103,16 @@ public class Violation {
 
     @Override
     public String toString() {
-        String str = "[" + fileName + ", line " + line + "]: Violation of "
-                + constraint;
+        final StringBuffer stringBuffer = new StringBuffer(200);
+        stringBuffer.append(String.format("[%s, %s]: Violation of %s",
+                fileName, line, constraint));
 
-        if (message != null && !message.equals("")) {
-            str += ": " + message;
+        if (message != null && !message.isEmpty()) {
+            stringBuffer.append(String.format(": %s", message));
         }
-        if (xPath != null && !xPath.equals("")) {
-            str += "(XPath: " + xPath + ")";
+        if (xPath != null && !xPath.isEmpty()) {
+            stringBuffer.append(String.format("(XPath: %s)", xPath));
         }
-        return str;
+        return stringBuffer.toString();
     }
-
 }
