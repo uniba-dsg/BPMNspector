@@ -17,6 +17,7 @@ import org.jdom2.xpath.XPathFactory;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 
 /**
  *
@@ -63,10 +64,10 @@ public class XmlLocator {
                 // ignore, because then there's no position number in the xpath
                 // expression and the expression needn't to be rewritten
             }
-            XPathExpression<Element> xpath = xPathFactory.compile(
-                    xpathExpression, Filters.element(), null, Namespace
-                            .getNamespace("bpmn",
-                                    SchematronBPMNValidator.BPMNNAMESPACE));
+            XPathExpression<Element> xpath = xPathFactory
+                    .compile(xpathExpression, Filters.element(), null,
+                            Namespace.getNamespace("bpmn",
+                            ConstantHelper.BPMNNAMESPACE));
 
             List<Element> foundElements = xpath.evaluate(doc);
 
