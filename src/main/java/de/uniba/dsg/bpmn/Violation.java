@@ -27,18 +27,16 @@ import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 public class Violation {
 
     @XmlAttribute(required = true)
-    private String constraint;
+    private final String constraint;
 
     @XmlAttribute(required = true)
-    private String fileName;
+    private final String fileName;
 
     @XmlAttribute
-    private int line;
+    private final int line;
 
     @XmlElement(namespace = ConstantHelper.PINAMESPACE)
-    private String message;
-
-    public Violation() {
+    private final String xPath;
 
     @XmlElement(namespace = ConstantHelper.PINAMESPACE)
     private final String message;
