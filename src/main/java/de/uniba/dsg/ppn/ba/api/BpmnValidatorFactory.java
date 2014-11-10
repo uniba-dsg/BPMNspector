@@ -12,14 +12,14 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
  */
 public class BpmnValidatorFactory {
 
-    private static BpmnValidator bpmnValidator;
+    private final static BpmnValidator bpmnValidator;
 
     static {
         bpmnValidator = new SchematronBPMNValidator();
     }
 
     /**
-     * 
+     *
      * @return the instance of the bpmn validator
      */
     public static BpmnValidator getValidatorInstance() {

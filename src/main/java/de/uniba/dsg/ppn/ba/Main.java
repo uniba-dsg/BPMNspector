@@ -17,8 +17,8 @@ import de.uniba.dsg.ppn.ba.xml.XmlWriter;
 
 public class Main {
 
-    private static Logger logger;
-    private static Level debugLevel;
+    private final static Logger logger;
+    private final static Level debugLevel;
 
     static {
         logger = (Logger) LoggerFactory.getLogger(Main.class.getSimpleName());
@@ -38,9 +38,9 @@ public class Main {
                     .getSimpleName())).setLevel(debugLevel);
             argsAsList.remove("--debug");
         }
-        
+
         logger.info("loglevel is set to {}", logger.getEffectiveLevel());
-        
+
         if (argsAsList.isEmpty()) {
             logger.error("There must be files to check!");
             System.exit(-1);

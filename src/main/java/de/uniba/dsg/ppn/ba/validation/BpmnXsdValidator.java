@@ -32,7 +32,7 @@ import de.uniba.dsg.bpmn.Violation;
 public class BpmnXsdValidator extends XsdValidator {
 
     private Schema schema;
-    private Logger logger;
+    private final Logger logger;
 
     {
         SchemaFactory schemaFactory = SchemaFactory
