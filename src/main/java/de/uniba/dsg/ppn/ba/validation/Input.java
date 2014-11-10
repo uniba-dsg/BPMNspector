@@ -32,13 +32,13 @@ public class Input implements LSInput {
     private String systemId;
 
     private BufferedInputStream inputStream;
-    
+
     private final Logger logger;
 
     /**
      * Constructor to generate a customized input source Input using an
      * InputStream
-     * 
+     *
      * @param publicId
      * @param sysId
      * @param input
@@ -133,8 +133,10 @@ public class Input implements LSInput {
                 inputStream.read(input);
                 return new String(input, Charset.forName("UTF-8"));
             } catch (IOException e) {
-            	logger.debug("Input stream couldn't be converted to String. Cause: {}", e);
-            	return null;
+                logger.debug(
+                        "Input stream couldn't be converted to String. Cause: {}",
+                        e);
+                return null;
             }
         }
     }
