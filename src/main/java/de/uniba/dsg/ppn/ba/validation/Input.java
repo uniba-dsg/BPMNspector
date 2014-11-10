@@ -4,9 +4,13 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
+
+import ch.qos.logback.classic.Logger;
 
 /**
  * Customized LSInput in order to provide access to an resolved resource.
@@ -28,6 +32,8 @@ public class Input implements LSInput {
     private String systemId;
 
     private BufferedInputStream inputStream;
+    
+    private final Logger logger;
 
     /**
      * Constructor to generate a customized input source Input using an
@@ -41,6 +47,7 @@ public class Input implements LSInput {
         this.publicId = publicId;
         this.systemId = sysId;
         this.inputStream = new BufferedInputStream(input);
+        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
     }
 
     /*
@@ -124,11 +131,10 @@ public class Input implements LSInput {
             try {
                 byte[] input = new byte[inputStream.available()];
                 inputStream.read(input);
-                return new String(input);
+                return new String(input, Charset.forName("UTF-8"));
             } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Exception " + e);
-                return null;
+            	logger.debug("Input stream couldn't be converted to String. Cause: {}", e);
+            	return null;
             }
         }
     }
