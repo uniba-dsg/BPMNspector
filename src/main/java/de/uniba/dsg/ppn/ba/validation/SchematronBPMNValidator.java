@@ -66,9 +66,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
     private BpmnXsdValidator bpmnXsdValidator;
     private WsdlValidator wsdlValidator;
     private XmlValidator xmlValidator;
-    private Logger logger;
-    public final static String BPMNNAMESPACE = "http://www.omg.org/spec/BPMN/20100524/MODEL";
-    public final static String BPMNDINAMESPACE = "http://www.omg.org/spec/BPMN/20100524/DI";
+    private final Logger logger;
     private final static String FILENOTFOUNDMESSAGEWITHCAUSE = "file {} couldn't be read. Cause: {}";
     private final static String FILENOTFOUNDMESSAGE = "file {} couldn't be read.";
 
@@ -213,7 +211,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             printLogstatements(e, xmlFile.getName());
             throw new BpmnValidationException(
                     "Given file couldn't be read or doesn't exist!");
-        } catch (Exception e) {
+        } catch (Exception e) { // NOPMD
             logger.debug("exception at schematron validation. Cause: {}", e);
             throw new BpmnValidationException(
                     "Something went wrong during schematron validation!");

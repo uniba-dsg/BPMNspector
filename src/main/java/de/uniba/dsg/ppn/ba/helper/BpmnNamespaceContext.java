@@ -5,8 +5,6 @@ import java.util.Iterator;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-
 /**
  * Namespace Context helper class which sets the namespace uri to the bpmn
  * namespace if the prefix is bpmn
@@ -20,7 +18,7 @@ public class BpmnNamespaceContext implements NamespaceContext {
     @Override
     public String getNamespaceURI(final String prefix) {
         if ("bpmn".equals(prefix)) {
-            return SchematronBPMNValidator.BPMNNAMESPACE;
+            return ConstantHelper.BPMNNAMESPACE;
         } else if ("xml".equals(prefix)) {
             return XMLConstants.XML_NS_URI;
         }

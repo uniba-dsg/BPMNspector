@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+
 /**
  * Basic class representing a single Violation of a BPMN constraint.
  *
@@ -21,7 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  * Moreover, the attribute message can be used to provide a description of the
  * violation.
  */
-@XmlType(namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
+@XmlType(namespace = ConstantHelper.PINAMESPACE)
 public class Violation {
 
     @XmlAttribute(required = true)
@@ -33,15 +35,13 @@ public class Violation {
     @XmlAttribute
     private int line;
 
-    @XmlElement(namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
-    private String xPath;
-
-    @XmlElement(namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
+    @XmlElement(namespace = ConstantHelper.PINAMESPACE)
     private String message;
 
     public Violation() {
 
-    }
+    @XmlElement(namespace = ConstantHelper.PINAMESPACE)
+    private final String message;
 
     /**
      * Constructor

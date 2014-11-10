@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 
 /**
  * Does the preprocessing step for creating only one document contenting
@@ -189,7 +189,7 @@ public class PreProcessor {
     public List<ImportedFile> selectImportedFiles(Document document,
             File folder, int size, boolean onlyBpmnFiles) {
         NodeList importedFilesList = document.getElementsByTagNameNS(
-                SchematronBPMNValidator.BPMNNAMESPACE, "import");
+                ConstantHelper.BPMNNAMESPACE, "import");
         List<ImportedFile> importedFiles = new ArrayList<>();
 
         for (int i = 0; i < importedFilesList.getLength(); i++) {
@@ -252,7 +252,7 @@ public class PreProcessor {
     public void removeBPMNDINode(Document headFileDocument) {
         Element definitionsNode = headFileDocument.getDocumentElement();
         NodeList bpmnDiagramNode = headFileDocument.getElementsByTagNameNS(
-                SchematronBPMNValidator.BPMNDINAMESPACE, "BPMNDiagram");
+                ConstantHelper.BPMNDINAMESPACE, "BPMNDiagram");
         if (bpmnDiagramNode.getLength() > 0) {
             definitionsNode.removeChild(bpmnDiagramNode.item(0));
         }

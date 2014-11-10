@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+
 /**
  * This class contains the result of a validation run. If the file is not valid
  * there is a list of violations, which can be used to get the violation
@@ -21,20 +23,20 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "http://www.uniba.de/pi/bpmn-cons/validation", propOrder = {
-        "valid", "checkedFiles", "violations" })
-@XmlRootElement(name = "validationResult", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
+@XmlType(namespace = ConstantHelper.PINAMESPACE, propOrder = { "valid",
+        "checkedFiles", "violations" })
+@XmlRootElement(name = "validationResult", namespace = ConstantHelper.PINAMESPACE)
 public class ValidationResult {
 
-    @XmlElement(namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
+    @XmlElement(namespace = ConstantHelper.PINAMESPACE)
     private boolean valid;
 
-    @XmlElementWrapper(name = "checkedFile", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
-    @XmlElements(value = { @XmlElement(name = "file", namespace = "http://www.uniba.de/pi/bpmn-cons/validation", type = String.class) })
+    @XmlElementWrapper(name = "checkedFile", namespace = ConstantHelper.PINAMESPACE)
+    @XmlElements(value = { @XmlElement(name = "file", namespace = ConstantHelper.PINAMESPACE, type = String.class) })
     private List<String> checkedFiles;
 
-    @XmlElementWrapper(name = "violations", namespace = "http://www.uniba.de/pi/bpmn-cons/validation")
-    @XmlElements(value = { @XmlElement(name = "violation", namespace = "http://www.uniba.de/pi/bpmn-cons/validation", type = Violation.class) })
+    @XmlElementWrapper(name = "violations", namespace = ConstantHelper.PINAMESPACE)
+    @XmlElements(value = { @XmlElement(name = "violation", namespace = ConstantHelper.PINAMESPACE, type = Violation.class) })
     private List<Violation> violations;
 
     /**
@@ -47,7 +49,7 @@ public class ValidationResult {
 
     /**
      * Constructor
-     * 
+     *
      * @param valid
      *            are violations found?
      * @param checkedFiles
@@ -71,7 +73,7 @@ public class ValidationResult {
 
     /**
      * sets the attribute valid to the given value
-     * 
+     *
      * @param valid
      */
     public void setValid(boolean valid) {
