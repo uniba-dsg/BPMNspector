@@ -96,7 +96,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * @param logLevel
      *            the new loglevel
      */
-    private void setClassLogLevel(Object classObject, Level logLevel) {
+    private void setClassLogLevel(Object classObject, Level logLevel) { // NOPMD
         ((Logger) LoggerFactory.getLogger(classObject.getClass()
                 .getSimpleName())).setLevel(logLevel);
     }
