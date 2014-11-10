@@ -47,7 +47,6 @@ pmd {
 }
 
 findbugs {
-    ignoreFailures = true
     effort = "max"
 }
 
