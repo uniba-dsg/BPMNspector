@@ -28,6 +28,8 @@
 	<rule ref="rulesets/java/migrating.xml" />
 	<rule ref="rulesets/java/optimizations.xml">
 		<exclude name="AvoidInstantiatingObjectsInLoops" />
+		<exclude name="MethodArgumentCouldBeFinal" />
+		<exclude name="LocalVariableCouldBeFinal" />
 	</rule>
 	<rule ref="rulesets/java/strictexception.xml" />
 	<rule ref="rulesets/java/strings.xml" />
