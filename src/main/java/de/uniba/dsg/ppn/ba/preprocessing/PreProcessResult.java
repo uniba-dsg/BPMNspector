@@ -14,8 +14,8 @@ import org.w3c.dom.Document;
  */
 public class PreProcessResult {
 
-    private Document documentResult;
-    private List<String[]> namespaceTable;
+    private final Document documentResult;
+    private final List<String[]> namespaceTable;
 
     public PreProcessResult(Document documentResult,
             List<String[]> namespaceTable) {
@@ -27,16 +27,7 @@ public class PreProcessResult {
         return documentResult;
     }
 
-    public void setDocumentResult(Document documentResult) {
-        this.documentResult = documentResult;
-    }
-
     public List<String[]> getNamespaceTable() {
         return namespaceTable;
     }
-
-    public void setNamespaceTable(List<String[]> namespaceTable) {
-        this.namespaceTable = namespaceTable;
-    }
-
 }
