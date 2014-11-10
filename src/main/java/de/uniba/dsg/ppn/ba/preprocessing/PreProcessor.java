@@ -195,7 +195,7 @@ public class PreProcessor {
                             + importedFileNode.getAttributes()
                                     .getNamedItem("location").getTextContent());
                 }
-                String prefix = ("ns" + (i + size));
+                String prefix = "ns" + (i + size);
                 String namespace = importedFileNode.getAttributes()
                         .getNamedItem("namespace").getTextContent();
                 importedFiles.add(new ImportedFile(file, prefix, namespace,
