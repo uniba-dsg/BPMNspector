@@ -17,7 +17,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext056 {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGEONE = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";
     private final static String ERRORMESSAGETWO = "A SubProcess must not contain Choreography Activities";
     private final static String ERRORMESSAGETHREE = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source";

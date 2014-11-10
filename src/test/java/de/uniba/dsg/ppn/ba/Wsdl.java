@@ -18,7 +18,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Wsdl {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
 
     @Before
     public void setUp() {
@@ -43,7 +43,7 @@ public class Wsdl {
 
     @Test
     public void testConstraintImportedWsdlFail() throws BpmnValidationException {
-        final String fileName = "wsdl2primer-fail.wsdl";
+        String fileName = "wsdl2primer-fail.wsdl";
         File f = new File(TestHelper.getTestFilePath() + "wsdl"
                 + File.separator + "wsdl-fail.bpmn");
         ValidationResult result = validator.validate(f);

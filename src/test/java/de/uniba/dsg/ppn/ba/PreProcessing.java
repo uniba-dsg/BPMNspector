@@ -17,7 +17,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class PreProcessing {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "Referenced process must have at least one None Start Event";
     private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
 

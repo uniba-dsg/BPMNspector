@@ -15,7 +15,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Path {
 
-    SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
 
     @Before
     public void setUp() {

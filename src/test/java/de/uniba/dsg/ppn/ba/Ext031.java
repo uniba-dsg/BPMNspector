@@ -18,7 +18,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext031 {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "A message flow must connect ’InteractionNodes’ from different Pools";
     private final static String XPATHSTRING = "//bpmn:messageFlow[0]";
 

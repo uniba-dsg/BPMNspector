@@ -18,7 +18,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext146 {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events";
     private final static String XPATHSTRING = "//bpmn:endEvent[0]";
 

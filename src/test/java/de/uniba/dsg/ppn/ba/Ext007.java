@@ -17,7 +17,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext007 {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGEONE = "An Artifact MUST NOT be a source for a Sequence Flow";
     private final static String ERRORMESSAGETWO = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source";
     private final static String ERRORMESSAGETHREE = "The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.";
@@ -36,7 +36,7 @@ public class Ext007 {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
-        final String fileName = "Fail_association.bpmn";
+        String fileName = "Fail_association.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "007" + File.separator
                 + fileName);
         ValidationResult result = validator.validate(f);
@@ -62,7 +62,7 @@ public class Ext007 {
 
     @Test
     public void testConstraintGroupFail() throws BpmnValidationException {
-        final String fileName = "Fail_group.bpmn";
+        String fileName = "Fail_group.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "007" + File.separator
                 + fileName);
         ValidationResult result = validator.validate(f);
@@ -89,7 +89,7 @@ public class Ext007 {
     @Test
     public void testConstraintTextAnnotationFail()
             throws BpmnValidationException {
-        final String fileName = "Fail_text_annotation.bpmn";
+        String fileName = "Fail_text_annotation.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "007" + File.separator
                 + fileName);
         ValidationResult result = validator.validate(f);

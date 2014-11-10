@@ -17,7 +17,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext006 {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGEONE = "An Artifact MUST NOT be a target for a Sequence Flow";
     private final static String ERRORMESSAGETWO = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";
     private final static String ERRORMESSAGETHREE = "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.";
@@ -36,7 +36,7 @@ public class Ext006 {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
-        final String fileName = "Fail_association.bpmn";
+        String fileName = "Fail_association.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "006" + File.separator
                 + fileName);
         ValidationResult result = validator.validate(f);
@@ -62,7 +62,7 @@ public class Ext006 {
 
     @Test
     public void testConstraintGroupFail() throws BpmnValidationException {
-        final String fileName = "Fail_group.bpmn";
+        String fileName = "Fail_group.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "006" + File.separator
                 + fileName);
         ValidationResult result = validator.validate(f);
@@ -89,7 +89,7 @@ public class Ext006 {
     @Test
     public void testConstraintTextAnnotationFail()
             throws BpmnValidationException {
-        final String fileName = "Fail_text_annotation.bpmn";
+        String fileName = "Fail_text_annotation.bpmn";
         File f = new File(TestHelper.getTestFilePath() + "006" + File.separator
                 + fileName);
         ValidationResult result = validator.validate(f);

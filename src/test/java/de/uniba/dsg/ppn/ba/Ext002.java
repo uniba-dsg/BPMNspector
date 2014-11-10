@@ -18,7 +18,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class Ext002 {
 
-    private SchematronBPMNValidator validator = null;
+    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "Files have id duplicates";
     private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
 
