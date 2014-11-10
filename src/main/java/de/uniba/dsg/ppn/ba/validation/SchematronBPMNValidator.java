@@ -78,7 +78,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         documentBuilderFactory.setNamespaceAware(true);
         try {
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) { // NOPMD
+        } catch (ParserConfigurationException e) {
             // ignore
         }
         XPathFactory xPathFactory = XPathFactory.newInstance();
@@ -86,7 +86,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         xpath.setNamespaceContext(new BpmnNamespaceContext());
         try {
             xPathExpression = xpath.compile("//bpmn:*/@id");
-        } catch (XPathExpressionException e) { // NOPMD
+        } catch (XPathExpressionException e) {
             // ignore
         }
         preProcessor = new PreProcessor();

@@ -45,7 +45,7 @@ public class PreProcessor {
         documentBuilderFactory.setNamespaceAware(true);
         try {
             documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) { // NOPMD
+        } catch (ParserConfigurationException e) {
             // ignore
         }
         XPathFactory xPathFactory = XPathFactory.newInstance();

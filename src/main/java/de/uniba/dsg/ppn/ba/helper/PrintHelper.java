@@ -36,7 +36,7 @@ public class PrintHelper {
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(
                     "{http://xml.apache.org/xslt}indent-amount", "4");
-        } catch (TransformerConfigurationException e) { // NOPMD
+        } catch (TransformerConfigurationException e) {
             // ignore
         }
     }
