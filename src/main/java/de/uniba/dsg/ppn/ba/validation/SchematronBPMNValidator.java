@@ -249,7 +249,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      */
     private String[] searchForViolationFile(String xpathExpression,
             ValidationResult validationResult, List<String[]> namespaceTable)
-            throws BpmnValidationException {
+                    throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
