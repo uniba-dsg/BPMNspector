@@ -37,7 +37,7 @@ public class PreProcessor {
 
     private DocumentBuilder documentBuilder;
     private XPath xpath;
-    private Logger logger;
+    private final Logger logger;
 
     {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
