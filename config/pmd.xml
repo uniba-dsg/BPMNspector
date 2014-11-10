@@ -10,6 +10,7 @@
 	<rule ref="rulesets/java/controversial.xml">
 		<exclude name="DataflowAnomalyAnalysis" />
 		<exclude name="OnlyOneReturn" />
+		<exclude name="AtLeastOneConstructor" />
 	</rule>
 	<rule ref="rulesets/java/design.xml">
 		<exclude name="NonStaticInitializer" />
