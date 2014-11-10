@@ -503,7 +503,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         return "//bpmn:*[@id = '" + id + "']";
     }
 
-    private void printLogstatements(Exception exception, String fileName) {
+    private void printLogstatements(Exception exception, String fileName) { // NOPMD
         logger.error(FILENOTFOUNDMESSAGE, fileName);
         logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, fileName, exception);
     }
