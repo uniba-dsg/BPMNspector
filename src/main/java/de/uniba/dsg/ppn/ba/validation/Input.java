@@ -148,6 +148,7 @@ public class Input implements LSInput {
      */
     @Override
     public void setBaseURI(String baseURI) {
+        // not used
     }
 
     /*
@@ -157,6 +158,7 @@ public class Input implements LSInput {
      */
     @Override
     public void setByteStream(InputStream byteStream) {
+        // not used
     }
 
     /*
@@ -166,6 +168,7 @@ public class Input implements LSInput {
      */
     @Override
     public void setCertifiedText(boolean certifiedText) {
+        // not used
     }
 
     /*
@@ -175,6 +178,7 @@ public class Input implements LSInput {
      */
     @Override
     public void setCharacterStream(Reader characterStream) {
+        // not used
     }
 
     /*
@@ -184,6 +188,7 @@ public class Input implements LSInput {
      */
     @Override
     public void setEncoding(String encoding) {
+        // not used
     }
 
     /*
@@ -193,6 +198,7 @@ public class Input implements LSInput {
      */
     @Override
     public void setStringData(String stringData) {
+        // not used
     }
 
     /*
