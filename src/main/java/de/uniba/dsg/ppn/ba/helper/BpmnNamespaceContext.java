@@ -16,7 +16,7 @@ import javax.xml.namespace.NamespaceContext;
 public class BpmnNamespaceContext implements NamespaceContext {
 
     @Override
-    public String getNamespaceURI(final String prefix) {
+    public String getNamespaceURI(String prefix) {
         if ("bpmn".equals(prefix)) {
             return ConstantHelper.BPMNNAMESPACE;
         } else if ("xml".equals(prefix)) {
@@ -26,12 +26,12 @@ public class BpmnNamespaceContext implements NamespaceContext {
     }
 
     @Override
-    public String getPrefix(final String uri) {
+    public String getPrefix(String uri) {
         return "";
     }
 
     @Override
-    public Iterator<?> getPrefixes(final String uri) {
+    public Iterator<?> getPrefixes(String uri) {
         return null;
     }
 

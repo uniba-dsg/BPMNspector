@@ -10,7 +10,7 @@ public class BpmnValidationException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
-    public BpmnValidationException(final String text) {
+    public BpmnValidationException(String text) {
         super(text);
     }
 }
