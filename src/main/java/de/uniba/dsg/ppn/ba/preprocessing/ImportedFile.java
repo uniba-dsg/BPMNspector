@@ -13,14 +13,10 @@ import java.io.File;
  */
 public class ImportedFile {
 
-    private File file;
-    private String prefix;
-    private String namespace;
-    private String importType;
-
-    public ImportedFile() {
-        // parameters are set manually after instantiation
-    }
+    private final File file;
+    private final String prefix;
+    private final String namespace;
+    private final String importType;
 
     public ImportedFile(File file, String prefix, String namespace,
             String importType) {
@@ -34,32 +30,15 @@ public class ImportedFile {
         return file;
     }
 
-    public void setFile(File file) {
-        this.file = file;
-    }
-
     public String getPrefix() {
         return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
     }
 
     public String getNamespace() {
         return namespace;
     }
 
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
     public String getImportType() {
         return importType;
     }
-
-    public void setImportType(String importType) {
-        this.importType = importType;
-    }
-
 }

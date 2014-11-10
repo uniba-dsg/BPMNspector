@@ -199,21 +199,19 @@ public class PreProcessor {
             if (!onlyBpmnFiles
                     || "http://www.omg.org/spec/BPMN/20100524/MODEL"
                             .equals(importType)) {
-                ImportedFile importedFile = new ImportedFile();
                 File file = new File(importedFileNode.getAttributes()
                         .getNamedItem("location").getTextContent());
                 if (!file.isAbsolute()) {
                     file = new File(folder.getPath()
                             + File.separator
                             + importedFileNode.getAttributes()
-                            .getNamedItem("location").getTextContent());
+                                    .getNamedItem("location").getTextContent());
                 }
-                importedFile.setFile(file);
-                importedFile.setPrefix("ns" + (i + size));
-                importedFile.setNamespace(importedFileNode.getAttributes()
-                        .getNamedItem("namespace").getTextContent());
-                importedFile.setImportType(importType);
-                importedFiles.add(importedFile);
+                String prefix = ("ns" + (i + size));
+                String namespace = importedFileNode.getAttributes()
+                        .getNamedItem("namespace").getTextContent();
+                importedFiles.add(new ImportedFile(file, prefix, namespace,
+                        importType));
             }
         }
 
