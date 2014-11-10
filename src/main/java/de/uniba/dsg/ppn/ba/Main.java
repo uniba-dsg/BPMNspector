@@ -37,9 +37,10 @@ public class Main {
             ((Logger) LoggerFactory.getLogger(xmlWriter.getClass()
                     .getSimpleName())).setLevel(debugLevel);
             argsAsList.remove("--debug");
-            logger.info("loglevel is set to {}", validator.getLogLevel());
         }
-
+        
+        logger.info("loglevel is set to {}", logger.getEffectiveLevel());
+        
         if (argsAsList.isEmpty()) {
             logger.error("There must be files to check!");
             System.exit(-1);
