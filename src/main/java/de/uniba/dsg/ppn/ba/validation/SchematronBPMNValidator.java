@@ -210,7 +210,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 validationResult.getCheckedFiles().set(i, f.getName());
             }
         } catch (SAXException | IOException e) {
-            logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, xmlFile.getName(), e);
+            printLogstatements(e, xmlFile.getName());
             throw new BpmnValidationException(
                     "Given file couldn't be read or doesn't exist!");
         } catch (Exception e) {
@@ -269,7 +269,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      */
     private String[] searchForViolationFile(String xpathExpression,
             ValidationResult validationResult, List<String[]> namespaceTable)
-            throws BpmnValidationException {
+                    throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
@@ -304,13 +304,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
                             break;
                         }
                     } catch (SAXException | IOException e) {
-                        logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE,
-                                checkedFile.getName(), e);
+                        printLogstatements(e, checkedFile.getName());
                     }
                 }
             } catch (SAXException | IOException e) {
-                logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE,
-                        checkedFile.getName(), e);
+                printLogstatements(e, checkedFile.getName());
             }
         }
 
@@ -378,8 +376,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             }
         } catch (SAXException | IOException e) {
-            logger.error(FILENOTFOUNDMESSAGE, headFile.getName());
-            logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, headFile.getName(), e);
+            printLogstatements(e, headFile.getName());
         }
     }
 
@@ -426,8 +423,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                     }
                 }
             } catch (IOException | SAXException e) {
-                logger.error(FILENOTFOUNDMESSAGE, file1.getName());
-                logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, file1.getName(), e);
+                printLogstatements(e, file1.getName());
             }
         }
     }
@@ -463,8 +459,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             }
         } catch (IOException | SAXException e) {
-            logger.error(FILENOTFOUNDMESSAGE, file.getName());
-            logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, file.getName(), e);
+            printLogstatements(e, file.getName());
         }
 
         return importedFileList;
@@ -526,5 +521,10 @@ public class SchematronBPMNValidator implements BpmnValidator {
      */
     private String createIdBpmnExpression(String id) {
         return "//bpmn:*[@id = '" + id + "']";
+    }
+
+    private void printLogstatements(Exception exception, String fileName) {
+        logger.error(FILENOTFOUNDMESSAGE, fileName);
+        logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, fileName, exception);
     }
 }
