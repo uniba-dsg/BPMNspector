@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -22,8 +19,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import ch.qos.logback.classic.Logger;
-import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 
 /**
  * Does the preprocessing step for creating only one document contenting
@@ -35,22 +32,13 @@ import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
  */
 public class PreProcessor {
 
-    private DocumentBuilder documentBuilder;
-    private XPath xpath;
+    private final DocumentBuilder documentBuilder;
+    private final XPath xpath;
     private final Logger logger;
 
     {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
-                .newInstance();
-        documentBuilderFactory.setNamespaceAware(true);
-        try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            // ignore
-        }
-        XPathFactory xPathFactory = XPathFactory.newInstance();
-        xpath = xPathFactory.newXPath();
-        xpath.setNamespaceContext(new BpmnNamespaceContext());
+        documentBuilder = SetupHelper.setupDocumentBuilder();
+        xpath = SetupHelper.setupXPath();
         logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
     }
 

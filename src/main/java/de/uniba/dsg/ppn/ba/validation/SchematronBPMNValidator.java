@@ -10,19 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
@@ -39,8 +35,8 @@ import com.phloc.schematron.pure.SchematronResourcePure;
 
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnNamespaceContext;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
@@ -59,11 +55,11 @@ import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
  */
 public class SchematronBPMNValidator implements BpmnValidator {
 
-    private DocumentBuilder documentBuilder;
-    private XPathExpression xPathExpression;
-    private PreProcessor preProcessor;
-    private XmlLocator xmlLocator;
-    private BpmnXsdValidator bpmnXsdValidator;
+    private final DocumentBuilder documentBuilder;
+    private final XPathExpression xPathExpression;
+    private final PreProcessor preProcessor;
+    private final XmlLocator xmlLocator;
+    private final BpmnXsdValidator bpmnXsdValidator;
     private WsdlValidator wsdlValidator;
     private XmlValidator xmlValidator;
     private final Logger logger;
@@ -71,22 +67,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
     private final static String FILENOTFOUNDMESSAGE = "file {} couldn't be read.";
 
     {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
-                .newInstance();
-        documentBuilderFactory.setNamespaceAware(true);
-        try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            // ignore
-        }
-        XPathFactory xPathFactory = XPathFactory.newInstance();
-        XPath xpath = xPathFactory.newXPath();
-        xpath.setNamespaceContext(new BpmnNamespaceContext());
-        try {
-            xPathExpression = xpath.compile("//bpmn:*/@id");
-        } catch (XPathExpressionException e) {
-            // ignore
-        }
+        documentBuilder = SetupHelper.setupDocumentBuilder();
+        xPathExpression = SetupHelper.setupXPathExpression();
         preProcessor = new PreProcessor();
         xmlLocator = new XmlLocator();
         bpmnXsdValidator = new BpmnXsdValidator();
@@ -267,7 +249,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      */
     private String[] searchForViolationFile(String xpathExpression,
             ValidationResult validationResult, List<String[]> namespaceTable)
-                    throws BpmnValidationException {
+            throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
