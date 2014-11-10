@@ -185,8 +185,7 @@ public class PreProcessor {
             String importType = importedFileNode.getAttributes()
                     .getNamedItem("importType").getTextContent();
             if (!onlyBpmnFiles
-                    || "http://www.omg.org/spec/BPMN/20100524/MODEL"
-                            .equals(importType)) {
+                    || ConstantHelper.BPMNNAMESPACE.equals(importType)) {
                 File file = new File(importedFileNode.getAttributes()
                         .getNamedItem("location").getTextContent());
                 if (!file.isAbsolute()) {
