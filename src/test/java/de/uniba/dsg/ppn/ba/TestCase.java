@@ -15,7 +15,7 @@ import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 public class TestCase {
 
-    protected SchematronBPMNValidator validator;
+    protected final SchematronBPMNValidator validator;
 
     {
         validator = new SchematronBPMNValidator();
