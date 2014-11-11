@@ -280,7 +280,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                     .substring(xpathExpression.indexOf('_') + 1));
                             line = String.valueOf(xmlLocator.findLine(
                                     checkedFile, xpathObjectId));
-                            xpathObjectId += "[0]";
+                            xpathObjectId += "[0]"; // NOPMD
                             fileName = checkedFile.getName();
                             break;
                         }
@@ -322,7 +322,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
             String constraint = "EXT.001";
             for (int i = 0; i < importedFiles.size(); i++) {
-                if (!importedFiles.get(i).getFile().exists()) {
+                if (!importedFiles.get(i).getFile().exists()) { // NOPMD
                     String xpathLocation = "//bpmn:import[@location = '"
                             + importedFiles.get(i).getFile().getName() + "']";
                     String fileName = importedFiles.get(i).getFile().getName();

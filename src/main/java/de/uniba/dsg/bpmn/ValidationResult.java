@@ -33,11 +33,11 @@ public class ValidationResult {
 
     @XmlElementWrapper(name = "checkedFile", namespace = ConstantHelper.PINAMESPACE)
     @XmlElements(value = { @XmlElement(name = "file", namespace = ConstantHelper.PINAMESPACE, type = String.class) })
-    private List<String> checkedFiles;
+    private List<String> checkedFiles; // NOPMD
 
     @XmlElementWrapper(name = "violations", namespace = ConstantHelper.PINAMESPACE)
     @XmlElements(value = { @XmlElement(name = "violation", namespace = ConstantHelper.PINAMESPACE, type = Violation.class) })
-    private List<Violation> violations;
+    private List<Violation> violations; // NOPMD
 
     /**
      * default constructor for JAXB
