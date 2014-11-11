@@ -11,11 +11,13 @@
 		<exclude name="DataflowAnomalyAnalysis" />
 		<exclude name="OnlyOneReturn" />
 		<exclude name="AtLeastOneConstructor" />
+		<exclude name="UseObjectForClearerAPI" />
 	</rule>
 	<rule ref="rulesets/java/design.xml">
 		<exclude name="NonStaticInitializer" />
 		<exclude name="UseUtilityClass" />
 		<exclude name="PreserveStackTrace" />
+		<exclude name="AvoidReassigningParameters" />
 	</rule>
 	<rule ref="rulesets/java/empty.xml/EmptyCatchBlock" message="Exception catch block must not be empty">
 		<properties>
