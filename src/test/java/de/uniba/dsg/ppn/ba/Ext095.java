@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext095 extends TestCase {
@@ -32,12 +29,9 @@ public class Ext095 extends TestCase {
         verifyValidResult(createFile("Success.bpmn"));
     }
 
-    private void assertViolation(Violation v, String xpath, int line) {
-        assertEquals(
-                "EventDefinitions defined in a throw event are not allowed to be used somewhere else",
-                v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+    @Override
+    protected String getErrorMessage() {
+        return "EventDefinitions defined in a throw event are not allowed to be used somewhere else";
     }
 
     @Override

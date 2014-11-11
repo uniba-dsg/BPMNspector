@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext135 extends TestCase {
@@ -50,10 +47,9 @@ public class Ext135 extends TestCase {
         verifyValidResult(createFile("success_multiple_out.bpmn"));
     }
 
-    private void assertViolation(Violation v, String xpath, int line) {
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+    @Override
+    protected String getErrorMessage() {
+        return ERRORMESSAGE;
     }
 
     @Override

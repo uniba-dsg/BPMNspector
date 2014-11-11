@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext105 extends TestCase {
@@ -36,12 +33,9 @@ public class Ext105 extends TestCase {
         verifyValidResult(createFile("success_without_sub-events.bpmn"));
     }
 
-    private void assertViolation(Violation v, String xpath, int line) {
-        assertEquals(
-                "An end event must be present when a start event is used in the same process level",
-                v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+    @Override
+    protected String getErrorMessage() {
+        return "An end event must be present when a start event is used in the same process level";
     }
 
     @Override

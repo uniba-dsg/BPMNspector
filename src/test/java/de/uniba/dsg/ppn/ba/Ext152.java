@@ -47,11 +47,9 @@ public class Ext152 extends TestCase {
         verifyValidResult(createFile("success.bpmn"));
     }
 
-    private void assertViolation(Violation v, String xpath, int line) {
-        assertEquals("A Sequence Flow must not cross the border of a Pool",
-                v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+    @Override
+    protected String getErrorMessage() {
+        return "A Sequence Flow must not cross the border of a Pool";
     }
 
     @Override
