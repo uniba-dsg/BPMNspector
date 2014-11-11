@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
@@ -48,6 +49,28 @@ public class TestCase {
         assertFalse(result.isValid());
         assertEquals(violationsCount, result.getViolations().size());
         return result;
+    }
+
+    protected void assertViolation(Violation v, String message,
+            String fileName, String xpath, int line) {
+        assertViolation(v, message, xpath, line);
+        assertEquals(fileName, v.getFileName());
+    }
+
+    protected void assertViolation(Violation v, String message, String xpath,
+            int line) {
+        assertEquals(message, v.getMessage());
+        assertEquals(xpath, v.getxPath());
+        assertEquals(line, v.getLine());
+    }
+
+    protected void assertViolation(Violation v, String xpath, int line) {
+        assertViolation(v, getErrorMessage(), xpath, line);
+    }
+
+    protected String getErrorMessage() {
+        throw new UnsupportedOperationException(
+                "must be overriden by every child class!");
     }
 
     protected String getExtNumber() {
