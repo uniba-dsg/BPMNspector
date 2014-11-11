@@ -336,16 +336,16 @@ public class SchematronBPMNValidator implements BpmnValidator {
                         .equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
                     checkConstraint001(importedFiles.get(i).getFile(), folder,
                             validationResult);
-                } else if (importedFiles.get(i).getImportType()
-                        .equals("http://www.w3.org/TR/wsdl20/")) {
+                } else if ("http://www.w3.org/TR/wsdl20/".equals(importedFiles
+                        .get(i).getImportType())) {
                     if (wsdlValidator == null) {
                         wsdlValidator = new WsdlValidator();
                         setClassLogLevel(wsdlValidator, getLogLevel());
                     }
                     wsdlValidator.validateAgainstXsd(importedFiles.get(i)
                             .getFile(), validationResult);
-                } else if (importedFiles.get(i).getImportType()
-                        .equals("http://www.w3.org/2001/XMLSchema")) {
+                } else if ("http://www.w3.org/2001/XMLSchema"
+                        .equals(importedFiles.get(i).getImportType())) {
                     if (xmlValidator == null) {
                         xmlValidator = new XmlValidator();
                         setClassLogLevel(xmlValidator, getLogLevel());
