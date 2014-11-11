@@ -1,18 +1,20 @@
 package de.uniba.dsg.ppn.ba;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import java.io.File;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
-
-import static org.junit.Assert.*;
-
-public class Ext001 {
+public class Ext001 extends TestCase {
 
     private SchematronBPMNValidator validator;
 
@@ -24,8 +26,7 @@ public class Ext001 {
 
     @Test
     public void testConstraintFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
-                + "Fail.bpmn");
+        File f = createFile("Fail.bpmn");
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
@@ -38,8 +39,7 @@ public class Ext001 {
 
     @Test
     public void testConstraintFail2() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
-                + "Fail2.bpmn");
+        File f = createFile("Fail2.bpmn");
         ValidationResult result = validator.validate(f);
         assertFalse(result.isValid());
         assertEquals(1, result.getViolations().size());
@@ -51,10 +51,11 @@ public class Ext001 {
 
     @Test
     public void testConstraintSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "001" + File.separator
-                + "Success.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("Success.bpmn"));
+    }
+
+    @Override
+    protected String getExtNumber() {
+        return "001";
     }
 }
