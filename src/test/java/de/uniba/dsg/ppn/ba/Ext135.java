@@ -1,88 +1,63 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
+public class Ext135 extends TestCase {
 
-import static org.junit.Assert.*;
-
-public class Ext135 {
-
-    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows";
-
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
 
     @Test
     public void testConstraintFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
-                + "fail.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(2, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
-        assertEquals(10, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("//bpmn:parallelGateway[1]", v.getxPath());
-        assertEquals(20, v.getLine());
+        ValidationResult result = verifyInValidResult(createFile("fail.bpmn"),
+                2);
+        assertViolation(result.getViolations().get(0),
+                "//bpmn:parallelGateway[0]", 10);
+        assertViolation(result.getViolations().get(1),
+                "//bpmn:parallelGateway[1]", 20);
     }
 
     @Test
     public void testConstraintSubFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
-                + "fail_no_connection.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
-        assertEquals(4, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("fail_no_connection.bpmn"), 1);
+        assertViolation(result.getViolations().get(0),
+                "//bpmn:parallelGateway[0]", 4);
     }
 
     @Test
     public void testConstraintEXSubFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
-                + "fail_ex_no_connection.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("//bpmn:exclusiveGateway[0]", v.getxPath());
-        assertEquals(4, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("fail_ex_no_connection.bpmn"), 1);
+        assertViolation(result.getViolations().get(0),
+                "//bpmn:exclusiveGateway[0]", 4);
     }
 
     @Test
     public void testConstraintBothMultipleSuccess()
             throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
-                + "success_multiple_in_and_out.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("success_multiple_in_and_out.bpmn"));
     }
 
     @Test
     public void testConstraintOutMultipleSuccess()
             throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "135" + File.separator
-                + "success_multiple_out.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("success_multiple_out.bpmn"));
+    }
+
+    private void assertViolation(Violation v, String xpath, int line) {
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(xpath, v.getxPath());
+        assertEquals(line, v.getLine());
+    }
+
+    @Override
+    protected String getExtNumber() {
+        return "135";
     }
 }
