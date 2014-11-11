@@ -36,6 +36,7 @@ import com.phloc.schematron.pure.SchematronResourcePure;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
@@ -332,8 +333,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                     "The imported file does not exist"));
                     logger.info("violation of constraint {} in {} found.",
                             constraint, fileName);
-                } else if (importedFiles.get(i).getImportType()
-                        .equals("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
+                } else if (ConstantHelper.BPMNNAMESPACE.equals(importedFiles
+                        .get(i).getImportType())) {
                     checkConstraint001(importedFiles.get(i).getFile(), folder,
                             validationResult);
                 } else if ("http://www.w3.org/TR/wsdl20/".equals(importedFiles
