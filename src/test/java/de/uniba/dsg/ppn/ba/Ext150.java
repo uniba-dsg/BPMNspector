@@ -69,7 +69,6 @@ public class Ext150 extends TestCase {
                 v.getMessage());
         assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
         assertEquals(14, v.getLine());
-        v = result.getViolations().get(1);
         assertFirstViolation(
                 result.getViolations().get(1),
                 "//bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][0]",
