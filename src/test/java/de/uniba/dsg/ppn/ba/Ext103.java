@@ -1,34 +1,19 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
-
-import static org.junit.Assert.*;
-
-public class Ext103 {
-
-    private SchematronBPMNValidator validator;
-
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
+public class Ext103 extends TestCase {
 
     @Test
     public void testConstraintFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "103" + File.separator
-                + "Fail.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
+        ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
+                1);
         Violation v = result.getViolations().get(0);
         assertEquals(
                 "If a Start Event is target of a MessageFlow definition, at least one messageEventDefinition must be present",
@@ -41,19 +26,16 @@ public class Ext103 {
 
     @Test
     public void testConstraintSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "103" + File.separator
-                + "Success.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("Success.bpmn"));
     }
 
     @Test
     public void testConstraintRefSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "103" + File.separator
-                + "Success_ref.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("Success_ref.bpmn"));
+    }
+
+    @Override
+    protected String getExtNumber() {
+        return "103";
     }
 }
