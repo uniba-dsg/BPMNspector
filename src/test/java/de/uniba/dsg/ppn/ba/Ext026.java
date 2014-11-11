@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -32,11 +30,12 @@ public class Ext026 extends TestCase {
     }
 
     private void assertViolation(Violation v, String xpath) {
-        assertEquals(
-                "If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef",
-                v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(11, v.getLine());
+        assertViolation(v, xpath, 11);
+    }
+
+    @Override
+    protected String getErrorMessage() {
+        return "If an activity or gateway references a sequenceFlow as default flow - the referenced sequence flow must reference the activity/the gateway as sourceRef";
     }
 
     @Override

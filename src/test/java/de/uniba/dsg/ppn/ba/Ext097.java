@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -36,11 +34,12 @@ public class Ext097 extends TestCase {
     }
 
     private void assertViolation(Violation v, int line) {
-        assertEquals(
-                "A Start event must be present when an End event is used in the same process level",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[0]", v.getxPath());
-        assertEquals(line, v.getLine());
+        assertViolation(v, "//bpmn:endEvent[0]", line);
+    }
+
+    @Override
+    protected String getErrorMessage() {
+        return "A Start event must be present when an End event is used in the same process level";
     }
 
     @Override

@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -9,6 +7,8 @@ import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext025 extends TestCase {
+
+    private static final String XPATHSTRING = "//bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] [not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] [not(@sourceRef = //bpmn:eventBasedGateway/@id)][0]";
 
     @Test
     public void testConstraintNoIncomingFail() throws BpmnValidationException {
@@ -42,13 +42,12 @@ public class Ext025 extends TestCase {
     }
 
     private void assertViolation(Violation v) {
-        assertEquals(
-                "An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present",
-                v.getMessage());
-        assertEquals(
-                "//bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] [not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] [not(@sourceRef = //bpmn:eventBasedGateway/@id)][0]",
-                v.getxPath());
-        assertEquals(19, v.getLine());
+        assertViolation(v, XPATHSTRING, 19);
+    }
+
+    @Override
+    protected String getErrorMessage() {
+        return "An Activity must not have only one outgoing conditional sequence flow if conditionExpression is present";
     }
 
     @Override

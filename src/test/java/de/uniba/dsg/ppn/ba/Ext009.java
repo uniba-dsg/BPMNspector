@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -33,10 +31,12 @@ public class Ext009 extends TestCase {
     }
 
     private void assertViolation(Violation v) {
-        assertEquals("An Artifact MUST NOT be a source for a Message Flow",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
-        assertEquals(7, v.getLine());
+        assertViolation(v, "//bpmn:messageFlow[@sourceRef][0]", 7);
+    }
+
+    @Override
+    protected String getErrorMessage() {
+        return "An Artifact MUST NOT be a source for a Message Flow";
     }
 
     @Override

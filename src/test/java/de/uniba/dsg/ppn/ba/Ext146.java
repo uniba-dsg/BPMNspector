@@ -65,9 +65,12 @@ public class Ext146 extends TestCase {
     }
 
     private void assertViolation(Violation v, int line) {
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(line, v.getLine());
+        assertViolation(v, XPATHSTRING, line);
+    }
+
+    @Override
+    protected String getErrorMessage() {
+        return ERRORMESSAGE;
     }
 
     @Override

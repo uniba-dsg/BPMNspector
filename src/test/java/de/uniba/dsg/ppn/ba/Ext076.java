@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -37,11 +35,12 @@ public class Ext076 extends TestCase {
     }
 
     private void assertViolation(Violation v) {
-        assertEquals(
-                "Naming Convention: name = Data Object Name [Data Object Reference State]",
-                v.getMessage());
-        assertEquals("//bpmn:dataObjectReference[@name][0]", v.getxPath());
-        assertEquals(5, v.getLine());
+        assertViolation(v, "//bpmn:dataObjectReference[@name][0]", 5);
+    }
+
+    @Override
+    protected String getErrorMessage() {
+        return "Naming Convention: name = Data Object Name [Data Object Reference State]";
     }
 
     @Override
