@@ -1,107 +1,77 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
+public class Ext031 extends TestCase {
 
-import static org.junit.Assert.*;
-
-public class Ext031 {
-
-    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "A message flow must connect ’InteractionNodes’ from different Pools";
     private final static String XPATHSTRING = "//bpmn:messageFlow[0]";
 
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
-
     @Test
     public void testConstraintCircleFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "031" + File.separator
-                + "Fail_circle.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(7, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_circle.bpmn"), 1);
+        assertFirstViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFromPoolFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "031" + File.separator
-                + "Fail_message_flow_from_pool.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(2, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(7, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals("An End Event MUST NOT be a target for a message flow",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[@targetRef][0]", v.getxPath());
-        assertEquals(7, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_message_flow_from_pool.bpmn"), 2);
+        assertFirstViolation(result.getViolations().get(0));
+        assertTargetViolation(result.getViolations().get(1));
     }
 
     @Test
     public void testConstraintToPoolFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "031" + File.separator
-                + "Fail_message_flow_to_pool.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(2, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_message_flow_to_pool.bpmn"), 2);
+        assertFirstViolation(result.getViolations().get(0));
+        assertSourceViolation(result.getViolations().get(1));
+    }
+
+    @Test
+    public void testConstraintSamePoolFail() throws BpmnValidationException {
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_message_flow_in_same_pool.bpmn"), 3);
+        assertFirstViolation(result.getViolations().get(0));
+        assertSourceViolation(result.getViolations().get(1));
+        assertTargetViolation(result.getViolations().get(2));
+    }
+
+    @Test
+    public void testConstraintSuccess() throws BpmnValidationException {
+        verifyValidResult(createFile("Success.bpmn"));
+    }
+
+    private void assertFirstViolation(Violation v) {
         assertEquals(ERRORMESSAGE, v.getMessage());
         assertEquals(XPATHSTRING, v.getxPath());
         assertEquals(7, v.getLine());
-        v = result.getViolations().get(1);
+    }
+
+    private void assertSourceViolation(Violation v) {
         assertEquals("A Start Event MUST NOT be a source for a message flow",
                 v.getMessage());
         assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
         assertEquals(7, v.getLine());
     }
 
-    @Test
-    public void testConstraintSamePoolFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "031" + File.separator
-                + "Fail_message_flow_in_same_pool.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(3, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(7, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals("A Start Event MUST NOT be a source for a message flow",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
-        assertEquals(7, v.getLine());
-        v = result.getViolations().get(2);
+    private void assertTargetViolation(Violation v) {
         assertEquals("An End Event MUST NOT be a target for a message flow",
                 v.getMessage());
         assertEquals("//bpmn:messageFlow[@targetRef][0]", v.getxPath());
         assertEquals(7, v.getLine());
     }
 
-    @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "031" + File.separator
-                + "Success.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+    @Override
+    protected String getExtNumber() {
+        return "031";
     }
 }
