@@ -22,7 +22,6 @@ public class Ext025 extends TestCase {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_2.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
-
     }
 
     @Test
