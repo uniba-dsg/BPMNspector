@@ -1,66 +1,47 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
-
-import static org.junit.Assert.*;
-
-public class Ext095 {
-
-    private SchematronBPMNValidator validator;
-
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
+public class Ext095 extends TestCase {
 
     @Test
     public void testConstraintFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
-                + "Fail.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(
-                "EventDefinitions defined in a throw event are not allowed to be used somewhere else",
-                v.getMessage());
-        assertEquals(
+        ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
+                1);
+        assertViolation(result.getViolations().get(0),
                 "//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]",
-                v.getxPath());
-        assertEquals(13, v.getLine());
+                13);
     }
 
     @Test
     public void testConstraintEndFail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
-                + "fail_end.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(
-                "EventDefinitions defined in a throw event are not allowed to be used somewhere else",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent/bpmn:messageEventDefinition[0]",
-                v.getxPath());
-        assertEquals(10, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("fail_end.bpmn"), 1);
+        assertViolation(result.getViolations().get(0),
+                "//bpmn:endEvent/bpmn:messageEventDefinition[0]", 10);
     }
 
     @Test
     public void testConstraintSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "095" + File.separator
-                + "Success.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("Success.bpmn"));
+    }
+
+    private void assertViolation(Violation v, String xpath, int line) {
+        assertEquals(
+                "EventDefinitions defined in a throw event are not allowed to be used somewhere else",
+                v.getMessage());
+        assertEquals(xpath, v.getxPath());
+        assertEquals(line, v.getLine());
+    }
+
+    @Override
+    protected String getExtNumber() {
+        return "095";
     }
 }

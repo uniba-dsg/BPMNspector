@@ -1,65 +1,42 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
-
-import static org.junit.Assert.*;
-
-public class Ext076 {
-
-    private SchematronBPMNValidator validator;
-
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
+public class Ext076 extends TestCase {
 
     @Test
     public void testConstraintFail1() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-                + "Fail_1.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Naming Convention: name = Data Object Name [Data Object Reference State]",
-                v.getMessage());
-        assertEquals("//bpmn:dataObjectReference[@name][0]", v.getxPath());
-        assertEquals(5, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_1.bpmn"), 1);
+        assertViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFail2() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-                + "Fail_2.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(
-                "Naming Convention: name = Data Object Name [Data Object Reference State]",
-                v.getMessage());
-        assertEquals("//bpmn:dataObjectReference[@name][0]", v.getxPath());
-        assertEquals(5, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_2.bpmn"), 1);
+        assertViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFail3() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-                + "Fail_3.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(1, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
+        ValidationResult result = verifyInValidResult(
+                createFile("Fail_3.bpmn"), 1);
+        assertViolation(result.getViolations().get(0));
+    }
+
+    @Test
+    public void testConstraintSuccess() throws BpmnValidationException {
+        verifyValidResult(createFile("Success.bpmn"));
+    }
+
+    private void assertViolation(Violation v) {
         assertEquals(
                 "Naming Convention: name = Data Object Name [Data Object Reference State]",
                 v.getMessage());
@@ -67,12 +44,8 @@ public class Ext076 {
         assertEquals(5, v.getLine());
     }
 
-    @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "076" + File.separator
-                + "Success.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+    @Override
+    protected String getExtNumber() {
+        return "076";
     }
 }
