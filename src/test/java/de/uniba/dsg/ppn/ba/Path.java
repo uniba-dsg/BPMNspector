@@ -1,43 +1,28 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
-import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
-public class Path {
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
-    private SchematronBPMNValidator validator;
-
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
+public class Path extends TestCase {
 
     @Test
     public void testConstraintSuccess1() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "path"
+        File f = new File(getTestFilePath() + File.separator + "path"
                 + File.separator + "folder" + File.separator
                 + "success_import.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(f);
     }
 
     @Test
     public void testConstraintSuccess2() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "path"
-                + File.separator + "success_import.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("success_import.bpmn"));
     }
 
+    @Override
+    protected String getExtNumber() {
+        return "path";
+    }
 }
