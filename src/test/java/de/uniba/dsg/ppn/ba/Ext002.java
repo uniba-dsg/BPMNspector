@@ -1,92 +1,56 @@
 package de.uniba.dsg.ppn.ba;
 
-import ch.qos.logback.classic.Level;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
+public class Ext002 extends TestCase {
 
-import static org.junit.Assert.*;
-
-public class Ext002 {
-
-    private SchematronBPMNValidator validator;
     private final static String ERRORMESSAGE = "Files have id duplicates";
     private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
 
-    @Before
-    public void setUp() {
-        validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
-    }
-
     @Test
     public void testConstraintImport1Fail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
-                + "fail_import.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(8, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("fail_import.bpmn", v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(4, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("import.bpmn", v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(3, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("fail_import.bpmn"), 8);
+        assertViolation(result.getViolations().get(0), "fail_import.bpmn", 4);
+        assertViolation(result.getViolations().get(1), "import.bpmn", 3);
     }
 
     @Test
     public void testConstraintImport2Fail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
-                + "fail_import2.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(8, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("import.bpmn", v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(3, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("import2.bpmn", v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(3, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("fail_import2.bpmn"), 8);
+        assertViolation(result.getViolations().get(0), "import.bpmn", 3);
+        assertViolation(result.getViolations().get(1), "import2.bpmn", 3);
     }
 
     @Test
     public void testConstraintImport3Fail() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
-                + "fail_import3.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertFalse(result.isValid());
-        assertEquals(16, result.getViolations().size());
-        Violation v = result.getViolations().get(0);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("fail_import3.bpmn", v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(4, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals("fail_import2.bpmn", v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(5, v.getLine());
+        ValidationResult result = verifyInValidResult(
+                createFile("fail_import3.bpmn"), 16);
+        assertViolation(result.getViolations().get(0), "fail_import3.bpmn", 4);
+        assertViolation(result.getViolations().get(1), "fail_import2.bpmn", 5);
     }
 
     @Test
     public void testConstraintSuccess() throws BpmnValidationException {
-        File f = new File(TestHelper.getTestFilePath() + "002" + File.separator
-                + "success_import.bpmn");
-        ValidationResult result = validator.validate(f);
-        assertTrue(result.isValid());
-        assertTrue(result.getViolations().isEmpty());
+        verifyValidResult(createFile("success_import.bpmn"));
+    }
+
+    private void assertViolation(Violation v, String fileName, int line) {
+        assertEquals(ERRORMESSAGE, v.getMessage());
+        assertEquals(fileName, v.getFileName());
+        assertEquals(XPATHSTRING, v.getxPath());
+        assertEquals(line, v.getLine());
+    }
+
+    @Override
+    protected String getExtNumber() {
+        return "002";
     }
 }
