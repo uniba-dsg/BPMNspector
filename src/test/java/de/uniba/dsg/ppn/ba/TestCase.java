@@ -1,5 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -31,10 +33,22 @@ public class TestCase {
         return new File(path);
     }
 
+    protected ValidationResult validate(File f) throws BpmnValidationException {
+        return validator.validate(f);
+    }
+
     protected void verifyValidResult(File f) throws BpmnValidationException {
-        ValidationResult result = validator.validate(f);
+        ValidationResult result = validate(f);
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
+    }
+
+    protected ValidationResult verifyInValidResult(File f, int violationsCount)
+            throws BpmnValidationException {
+        ValidationResult result = validate(f);
+        assertFalse(result.isValid());
+        assertEquals(violationsCount, result.getViolations().size());
+        return result;
     }
 
     protected String getExtNumber() {
