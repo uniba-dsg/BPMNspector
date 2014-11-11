@@ -1,17 +1,15 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+
+import static org.junit.Assert.assertTrue;
 
 public class Path {
 
@@ -21,11 +19,6 @@ public class Path {
     public void setUp() {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
-    }
-
-    @After
-    public void tearDown() {
-        validator = null;
     }
 
     @Test
