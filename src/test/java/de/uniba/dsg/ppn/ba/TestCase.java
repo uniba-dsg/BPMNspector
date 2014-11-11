@@ -22,7 +22,7 @@ public class TestCase {
         validator.setLogLevel(Level.OFF);
     }
 
-    private static String getTestFilePath() {
+    protected static String getTestFilePath() {
         return Paths.get(System.getProperty("user.dir"))
                 .resolve("src/test/resources").toString();
     }
