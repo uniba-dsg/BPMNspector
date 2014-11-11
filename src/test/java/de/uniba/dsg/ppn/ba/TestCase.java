@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.nio.file.Paths;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmn.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
@@ -52,7 +51,7 @@ public class TestCase {
     }
 
     protected String getExtNumber() {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException(
+                "must be overriden by every child class!");
     }
-
 }
