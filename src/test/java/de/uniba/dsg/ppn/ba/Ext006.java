@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -44,27 +42,16 @@ public class Ext006 extends TestCase {
     }
 
     private void assertFirstViolation(Violation v, String fileName) {
-        assertEquals(ERRORMESSAGEONE, v.getMessage());
-        assertGeneralViolation(v, fileName);
+        assertViolation(v, ERRORMESSAGEONE, fileName, XPATHSTRING, 7);
     }
 
     private void assertSecondViolation(Violation v, String fileName, int line) {
-        assertEquals(ERRORMESSAGETWO, v.getMessage());
-        assertEquals(fileName, v.getFileName());
-        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]",
-                v.getxPath());
-        assertEquals(line, v.getLine());
+        assertViolation(v, ERRORMESSAGETWO, fileName,
+                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]", line);
     }
 
     private void assertThirdViolation(Violation v, String fileName) {
-        assertEquals(ERRORMESSAGETHREE, v.getMessage());
-        assertGeneralViolation(v, fileName);
-    }
-
-    private void assertGeneralViolation(Violation v, String fileName) {
-        assertEquals(fileName, v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(7, v.getLine());
+        assertViolation(v, ERRORMESSAGETHREE, fileName, XPATHSTRING, 7);
     }
 
     @Override

@@ -55,11 +55,9 @@ public class PreProcessing extends TestCase {
         assertEquals(4, v.getLine());
     }
 
-    private void assertViolation(Violation v, String fileName, int line) {
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(fileName, v.getFileName());
-        assertEquals(line, v.getLine());
+    @Override
+    protected void assertViolation(Violation v, String fileName, int line) {
+        assertViolation(v, ERRORMESSAGE, fileName, XPATHSTRING, line);
     }
 
     @Override

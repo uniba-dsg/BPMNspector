@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -42,11 +40,9 @@ public class Ext002 extends TestCase {
         verifyValidResult(createFile("success_import.bpmn"));
     }
 
-    private void assertViolation(Violation v, String fileName, int line) {
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(fileName, v.getFileName());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(line, v.getLine());
+    @Override
+    protected void assertViolation(Violation v, String fileName, int line) {
+        assertViolation(v, ERRORMESSAGE, fileName, XPATHSTRING, line);
     }
 
     @Override
