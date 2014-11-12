@@ -75,7 +75,7 @@ public class PreProcessor {
 
         for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
             Node idNode = foundNodesHeadFile.item(j);
-            if (idNode.getTextContent().indexOf(":") != -1) {
+            if (idNode.getTextContent().contains(":")) {
                 String prefix = idNode.getTextContent().substring(0,
                         idNode.getTextContent().indexOf(":"));
                 String namespace = headFileDocument.getDocumentElement()
