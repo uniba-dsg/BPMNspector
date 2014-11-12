@@ -101,16 +101,16 @@ public class Violation {
 
     @Override
     public String toString() {
-        final StringBuffer stringBuffer = new StringBuffer(200);
-        stringBuffer.append(String.format("[%s, %s]: Violation of %s",
+        final StringBuilder stringBuilder = new StringBuilder(200);
+        stringBuilder.append(String.format("[%s, %s]: Violation of %s",
                 fileName, line, constraint));
 
         if (message != null && !message.isEmpty()) {
-            stringBuffer.append(String.format(": %s", message));
+            stringBuilder.append(String.format(": %s", message));
         }
         if (xPath != null && !xPath.isEmpty()) {
-            stringBuffer.append(String.format("(XPath: %s)", xPath));
+            stringBuilder.append(String.format("(XPath: %s)", xPath));
         }
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 }
