@@ -31,6 +31,8 @@ dependencies {
     internal 'ch.qos.logback:logback-core:1.1.2'
     internal 'ch.qos.logback:logback-classic:1.1.2'
     internal 'org.slf4j:slf4j-api:1.7.7'
+    internal 'com.phloc:phloc-commons:4.3.5'
+    
 
     external files(fileTree(dir: "lib", includes: ['*.jar']))
 
