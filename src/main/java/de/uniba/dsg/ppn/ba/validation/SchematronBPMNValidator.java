@@ -497,7 +497,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * @return the xpath expression, which refers the given id
      */
     private String createIdBpmnExpression(String id) {
-        return "//bpmn:*[@id = '" + id + "']";
+        return String.format("//bpmn:*[@id = '%s']", id);
     }
 
     private void printLogstatements(Exception exception, String fileName) { // NOPMD
