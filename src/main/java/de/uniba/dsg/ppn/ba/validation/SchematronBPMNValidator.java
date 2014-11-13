@@ -64,8 +64,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
     private WsdlValidator wsdlValidator;
     private XmlValidator xmlValidator;
     private final Logger logger;
-    private final static String FILENOTFOUNDMESSAGEWITHCAUSE = "file {} couldn't be read. Cause: {}";
-    private final static String FILENOTFOUNDMESSAGE = "file {} couldn't be read.";
 
     {
         documentBuilder = SetupHelper.setupDocumentBuilder();
@@ -398,9 +396,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                     document1, document2, validationResult);
                         }
                     } catch (IOException | SAXException e) {
-                        logger.error(FILENOTFOUNDMESSAGE, file2.getName());
-                        logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE,
-                                file2.getName(), e);
+                        printLogstatements(e, file2.getName());
                     }
                 }
             } catch (IOException | SAXException e) {
@@ -505,7 +501,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
     }
 
     private void printLogstatements(Exception exception, String fileName) { // NOPMD
-        logger.error(FILENOTFOUNDMESSAGE, fileName);
-        logger.debug(FILENOTFOUNDMESSAGEWITHCAUSE, fileName, exception);
+        logger.error(ConstantHelper.FILENOTFOUNDMESSAGE, fileName);
+        logger.debug(ConstantHelper.FILENOTFOUNDMESSAGEWITHCAUSE, fileName,
+                exception);
     }
 }

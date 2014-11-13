@@ -67,7 +67,7 @@ public class XmlLocator {
             XPathExpression<Element> xpath = xPathFactory
                     .compile(xpathExpression, Filters.element(), null,
                             Namespace.getNamespace("bpmn",
-                            ConstantHelper.BPMNNAMESPACE));
+                                    ConstantHelper.BPMNNAMESPACE));
 
             List<Element> foundElements = xpath.evaluate(doc);
 
@@ -76,7 +76,7 @@ public class XmlLocator {
                         .getLine();
             }
         } catch (IOException | JDOMException e) {
-            logger.debug("file {} couldn't be read. Cause: {}",
+            logger.debug(ConstantHelper.FILENOTFOUNDMESSAGEWITHCAUSE,
                     xmlFile.getName(), e);
         }
         return -1;
