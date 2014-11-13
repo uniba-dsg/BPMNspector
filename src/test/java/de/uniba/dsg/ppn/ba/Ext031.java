@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -51,23 +49,19 @@ public class Ext031 extends TestCase {
     }
 
     private void assertFirstViolation(Violation v) {
-        assertEquals(ERRORMESSAGE, v.getMessage());
-        assertEquals(XPATHSTRING, v.getxPath());
-        assertEquals(7, v.getLine());
+        assertViolation(v, ERRORMESSAGE, XPATHSTRING, 7);
     }
 
     private void assertSourceViolation(Violation v) {
-        assertEquals("A Start Event MUST NOT be a source for a message flow",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[@sourceRef][0]", v.getxPath());
-        assertEquals(7, v.getLine());
+        assertViolation(v,
+                "A Start Event MUST NOT be a source for a message flow",
+                "//bpmn:messageFlow[@sourceRef][0]", 7);
     }
 
     private void assertTargetViolation(Violation v) {
-        assertEquals("An End Event MUST NOT be a target for a message flow",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[@targetRef][0]", v.getxPath());
-        assertEquals(7, v.getLine());
+        assertViolation(v,
+                "An End Event MUST NOT be a target for a message flow",
+                "//bpmn:messageFlow[@targetRef][0]", 7);
     }
 
     @Override
