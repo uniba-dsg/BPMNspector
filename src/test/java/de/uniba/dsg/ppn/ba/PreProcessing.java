@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -46,13 +44,10 @@ public class PreProcessing extends TestCase {
             throws BpmnValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_call_participant_process.bpmn"), 1);
-        Violation v = result.getViolations().get(0);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(0),
                 "An end event must be present when a start event is used in the same process level",
-                v.getMessage());
-        assertEquals("//bpmn:*[@id = '_3'][0]", v.getxPath());
-        assertEquals("ref_participant_process.bpmn", v.getFileName());
-        assertEquals(4, v.getLine());
+                "//bpmn:*[@id = '_3'][0]", 4);
     }
 
     @Override

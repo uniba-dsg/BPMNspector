@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext108 extends TestCase {
@@ -14,17 +11,13 @@ public class Ext108 extends TestCase {
     public void testConstraintFail() throws BpmnValidationException {
         ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
                 2);
-        Violation v = result.getViolations().get(0);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(0),
                 "A message flow must connect ’InteractionNodes’ from different Pools",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[0]", v.getxPath());
-        assertEquals(7, v.getLine());
-        v = result.getViolations().get(1);
-        assertEquals("An End Event MUST NOT be a target for a message flow",
-                v.getMessage());
-        assertEquals("//bpmn:messageFlow[@targetRef][0]", v.getxPath());
-        assertEquals(7, v.getLine());
+                "//bpmn:messageFlow[0]", 7);
+        assertViolation(result.getViolations().get(1),
+                "An End Event MUST NOT be a target for a message flow",
+                "//bpmn:messageFlow[@targetRef][0]", 7);
     }
 
     @Override

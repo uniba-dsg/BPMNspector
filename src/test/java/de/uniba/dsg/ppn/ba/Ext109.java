@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext109 extends TestCase {
@@ -14,13 +11,10 @@ public class Ext109 extends TestCase {
     public void testConstraintFail() throws BpmnValidationException {
         ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
                 1);
-        Violation v = result.getViolations().get(0);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(0),
                 "If an end event is source of a MessageFlow definition, at least one messageEventDefinition must be present",
-                v.getMessage());
-        assertEquals("//bpmn:endEvent[@id = //bpmn:messageFlow/@sourceRef][0]",
-                v.getxPath());
-        assertEquals(16, v.getLine());
+                "//bpmn:endEvent[@id = //bpmn:messageFlow/@sourceRef][0]", 16);
     }
 
     @Test

@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -63,12 +61,10 @@ public class Ext150 extends TestCase {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_sequence_flow_in_sub_process_missing_2.bpmn"),
                 2);
-        Violation v = result.getViolations().get(0);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(0),
                 "A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
-                v.getMessage());
-        assertEquals("//bpmn:parallelGateway[0]", v.getxPath());
-        assertEquals(14, v.getLine());
+                "//bpmn:parallelGateway[0]", 14);
         assertFirstViolation(
                 result.getViolations().get(1),
                 "//bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][0]",
