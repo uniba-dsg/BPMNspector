@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext056 extends TestCase {
@@ -19,63 +16,37 @@ public class Ext056 extends TestCase {
     @Test
     public void testConstraintCallChoreographyFail()
             throws BpmnValidationException {
-        ValidationResult result = verifyInValidResult(
-                createFile("fail_call_choreography.bpmn"), 3);
-        assertFirstViolation(result.getViolations().get(0));
-        assertSourceViolation(result.getViolations().get(1));
-        assertTargetViolation(result.getViolations().get(2),
-                "//bpmn:subProcess[0]");
+        assertTests("fail_call_choreography.bpmn", "//bpmn:subProcess[0]");
     }
 
     @Test
     public void testConstraintChoreographyTaskFail()
             throws BpmnValidationException {
-        ValidationResult result = verifyInValidResult(
-                createFile("fail_choreography_task.bpmn"), 3);
-        assertFirstViolation(result.getViolations().get(0));
-        assertSourceViolation(result.getViolations().get(1));
-        assertTargetViolation(result.getViolations().get(2),
-                "//bpmn:subProcess[0]");
+        assertTests("fail_choreography_task.bpmn", "//bpmn:subProcess[0]");
     }
 
     @Test
     public void testConstraintChoreographyTaskTransactionFail()
             throws BpmnValidationException {
-        ValidationResult result = verifyInValidResult(
-                createFile("fail_choreography_task_transaction.bpmn"), 3);
-        assertFirstViolation(result.getViolations().get(0));
-        assertSourceViolation(result.getViolations().get(1));
-        assertTargetViolation(result.getViolations().get(2),
+        assertTests("fail_choreography_task_transaction.bpmn",
                 "//bpmn:transaction[0]");
     }
 
     @Test
     public void testConstraintSubChoreographyFail()
             throws BpmnValidationException {
-        ValidationResult result = verifyInValidResult(
-                createFile("fail_sub_choreography.bpmn"), 3);
-        assertFirstViolation(result.getViolations().get(0));
-        assertSourceViolation(result.getViolations().get(1));
-        assertTargetViolation(result.getViolations().get(2),
-                "//bpmn:subProcess[0]");
+        assertTests("fail_sub_choreography.bpmn", "//bpmn:subProcess[0]");
     }
 
-    private void assertFirstViolation(Violation v) {
-        assertEquals(ERRORMESSAGESOURCE, v.getMessage());
-        assertEquals(XPATHSTRINGSOURCE, v.getxPath());
-        assertEquals(11, v.getLine());
-    }
-
-    private void assertSourceViolation(Violation v) {
-        assertEquals(ERRORMESSAGETARGET, v.getMessage());
-        assertEquals(XPATHSTRINGTARGET, v.getxPath());
-        assertEquals(11, v.getLine());
-    }
-
-    private void assertTargetViolation(Violation v, String xpath) {
-        assertEquals(ERRORMESSAGECOREGRAPHY, v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(4, v.getLine());
+    private void assertTests(String fileName, String xpath)
+            throws BpmnValidationException {
+        ValidationResult result = verifyInValidResult(createFile(fileName), 3);
+        assertViolation(result.getViolations().get(0), ERRORMESSAGESOURCE,
+                XPATHSTRINGSOURCE, 11);
+        assertViolation(result.getViolations().get(1), ERRORMESSAGETARGET,
+                XPATHSTRINGTARGET, 11);
+        assertViolation(result.getViolations().get(2), ERRORMESSAGECOREGRAPHY,
+                xpath, 4);
     }
 
     @Override

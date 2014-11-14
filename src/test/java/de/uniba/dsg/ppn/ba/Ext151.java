@@ -97,15 +97,11 @@ public class Ext151 extends TestCase {
     }
 
     private void assertFirstViolation(Violation v, String xpath, int line) {
-        assertEquals(ERRORMESSAGEONE, v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+        assertViolation(v, ERRORMESSAGEONE, xpath, line);
     }
 
     private void assertSecondViolation(Violation v, String xpath, int line) {
-        assertEquals(ERRORMESSAGETWO, v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+        assertViolation(v, ERRORMESSAGETWO, xpath, line);
     }
 
     @Override
