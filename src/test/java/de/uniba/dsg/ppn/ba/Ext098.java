@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
@@ -19,12 +17,10 @@ public class Ext098 extends TestCase {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_cancel.bpmn"), 2);
         assertViolation(result.getViolations().get(0), 4);
-        Violation v = result.getViolations().get(1);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(1),
                 "A cancel EndEvent is only allowed in a transaction sub-process",
-                v.getMessage());
-        assertEquals("//bpmn:cancelEventDefinition[0]", v.getxPath());
-        assertEquals(6, v.getLine());
+                "//bpmn:cancelEventDefinition[0]", 6);
     }
 
     @Test

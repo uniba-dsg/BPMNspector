@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext028 extends TestCase {
@@ -14,11 +11,9 @@ public class Ext028 extends TestCase {
     public void testConstraintFail() throws BpmnValidationException {
         ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
                 1);
-        Violation v = result.getViolations().get(0);
-        assertEquals("A Sequence Flow must not cross the border of a Pool",
-                v.getMessage());
-        assertEquals("//bpmn:sequenceFlow[0]", v.getxPath());
-        assertEquals(16, v.getLine());
+        assertViolation(result.getViolations().get(0),
+                "A Sequence Flow must not cross the border of a Pool",
+                "//bpmn:sequenceFlow[0]", 16);
     }
 
     @Test

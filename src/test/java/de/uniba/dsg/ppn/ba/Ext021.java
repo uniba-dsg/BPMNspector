@@ -1,11 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext021 extends TestCase {
@@ -15,13 +12,10 @@ public class Ext021 extends TestCase {
             throws BpmnValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_event_sub_process.bpmn"), 1);
-        Violation v = result.getViolations().get(0);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(0),
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
-                v.getMessage());
-        assertEquals("//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][0]",
-                v.getxPath());
-        assertEquals(7, v.getLine());
+                "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][0]", 7);
     }
 
     @Test
