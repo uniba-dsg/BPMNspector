@@ -43,8 +43,8 @@ public class ValidationResult {
      * default constructor for JAXB
      */
     public ValidationResult() {
-        this.checkedFiles = new ArrayList<String>();
-        this.violations = new ArrayList<Violation>();
+        this.checkedFiles = new ArrayList<>();
+        this.violations = new ArrayList<>();
     }
 
     /**
@@ -74,7 +74,7 @@ public class ValidationResult {
     /**
      * sets the attribute valid to the given value
      *
-     * @param valid
+     * @param valid sets valid field
      */
     public void setValid(boolean valid) {
         this.valid = valid;
