@@ -2,8 +2,8 @@ package de.uniba.dsg.ppn.ba.artifacts;
 
 import org.junit.Test;
 
-import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
@@ -11,7 +11,7 @@ public class ArtifactTest extends TestCase {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
-        ValidationResult result = verifyInValidResult(
+        de.uniba.dsg.bpmnspector.common.ValidationResult result = verifyInValidResult(
                 createFile("Fail_association.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }

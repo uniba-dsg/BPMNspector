@@ -2,8 +2,7 @@ package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
 import org.junit.Test;
 
-import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
@@ -28,7 +27,8 @@ public class ArtifactSequenceFlowTest extends TestCase {
 
     private void assertTests(String fileName, int line)
             throws BpmnValidationException {
-        ValidationResult result = verifyInValidResult(createFile(fileName), 3);
+        de.uniba.dsg.bpmnspector.common.ValidationResult result = verifyInValidResult(
+                createFile(fileName), 3);
         assertFirstViolation(result.getViolations().get(0), fileName);
         assertSecondViolation(result.getViolations().get(1), fileName, line);
         assertThirdViolation(result.getViolations().get(2), fileName);

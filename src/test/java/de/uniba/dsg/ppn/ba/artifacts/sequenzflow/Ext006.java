@@ -1,6 +1,6 @@
 package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
-import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.bpmnspector.common.Violation;
 
 public class Ext006 extends ArtifactSequenceFlowTest {
 
@@ -10,7 +10,8 @@ public class Ext006 extends ArtifactSequenceFlowTest {
     private final static String XPATHSTRING = "//bpmn:sequenceFlow[@targetRef][0]";
 
     @Override
-    protected void assertFirstViolation(Violation v, String fileName) {
+    protected void assertFirstViolation(
+            de.uniba.dsg.bpmnspector.common.Violation v, String fileName) {
         assertViolation(v, ERRORMESSAGEONE, fileName, XPATHSTRING, 7);
     }
 
