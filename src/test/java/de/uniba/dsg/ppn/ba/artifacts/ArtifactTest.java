@@ -1,12 +1,13 @@
-package de.uniba.dsg.ppn.ba;
+package de.uniba.dsg.ppn.ba.artifacts;
 
 import org.junit.Test;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.ppn.ba.TestCase;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
-public class Ext009 extends TestCase {
+public class ArtifactTest extends TestCase {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
@@ -30,17 +31,8 @@ public class Ext009 extends TestCase {
         assertViolation(result.getViolations().get(0));
     }
 
-    private void assertViolation(Violation v) {
-        assertViolation(v, "//bpmn:messageFlow[@sourceRef][0]", 7);
-    }
-
-    @Override
-    protected String getErrorMessage() {
-        return "An Artifact MUST NOT be a source for a Message Flow";
-    }
-
-    @Override
-    protected String getExtNumber() {
-        return "009";
+    protected void assertViolation(Violation v) {
+        throw new UnsupportedOperationException(
+                "must be overriden by every child class!");
     }
 }
