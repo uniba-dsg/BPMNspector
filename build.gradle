@@ -9,7 +9,7 @@ apply plugin: 'jacoco'
 mainClassName = "de.uniba.dsg.ppn.ba.Main"
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.1'
+    gradleVersion = '2.2'
 }
 
 repositories {
