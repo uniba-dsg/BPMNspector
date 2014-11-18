@@ -1,7 +1,5 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
@@ -16,14 +14,11 @@ public class Ext152 extends TestCase {
                 createFile("fail_1.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:sequenceFlow[0]", 16);
-        Violation v = result.getViolations().get(1);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(1),
                 "If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow",
-                v.getMessage());
-        assertEquals(
                 "//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]",
-                v.getxPath());
-        assertEquals(7, v.getLine());
+                7);
     }
 
     @Test
@@ -32,14 +27,11 @@ public class Ext152 extends TestCase {
                 createFile("fail_2.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:sequenceFlow[1]", 17);
-        Violation v = result.getViolations().get(1);
-        assertEquals(
+        assertViolation(
+                result.getViolations().get(1),
                 "If end events are used, all flow nodes must have an outgoing sequence flow",
-                v.getMessage());
-        assertEquals(
                 "//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]",
-                v.getxPath());
-        assertEquals(7, v.getLine());
+                7);
     }
 
     @Test
