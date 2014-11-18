@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import ch.qos.logback.classic.Level;
-import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 /**
@@ -49,7 +49,7 @@ public interface BpmnValidator {
      *
      * @param xmlFiles
      *            the list of xml files to validate
-     * @return list of {@link de.uniba.dsg.bpmn.ValidationResult} including all
+     * @return list of {@link de.uniba.dsg.bpmnspector.common.ValidationResult} including all
      *         checked files and found violations for each file
      * @throws BpmnValidationException
      *             if something fails during validation process

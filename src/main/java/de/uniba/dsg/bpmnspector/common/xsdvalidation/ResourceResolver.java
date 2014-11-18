@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba.validation;
+package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
 import java.io.InputStream;
 

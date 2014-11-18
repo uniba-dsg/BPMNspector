@@ -12,7 +12,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
-import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.bpmnspector.common.Violation;
 
 /**
  * PrintHelper for printing some objects to system.out

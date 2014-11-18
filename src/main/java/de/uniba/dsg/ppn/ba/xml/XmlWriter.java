@@ -9,7 +9,7 @@ import javax.xml.bind.Marshaller;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
-import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
 
 /**
  * This class is used for writing xml files via jaxb

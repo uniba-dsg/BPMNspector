@@ -20,6 +20,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.XmlValidator;
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.LoggerFactory;
@@ -33,8 +36,8 @@ import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
 
-import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;

@@ -1,4 +1,4 @@
-package de.uniba.dsg.bpmn;
+package de.uniba.dsg.bpmnspector.common;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

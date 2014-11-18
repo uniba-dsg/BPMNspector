@@ -1,4 +1,4 @@
-package de.uniba.dsg.bpmn;
+package de.uniba.dsg.bpmnspector.common;
 
 import java.util.ArrayList;
 import java.util.List;

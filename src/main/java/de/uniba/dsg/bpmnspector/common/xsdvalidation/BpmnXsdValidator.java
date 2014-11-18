@@ -1,4 +1,4 @@
-package de.uniba.dsg.ppn.ba.validation;
+package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,8 +18,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import ch.qos.logback.classic.Logger;
-import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmn.Violation;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
 
 /**
  *

@@ -2,7 +2,7 @@ package de.uniba.dsg.ppn.ba;
 
 import org.junit.Test;
 
-import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
 public class Ext088 extends TestCase {

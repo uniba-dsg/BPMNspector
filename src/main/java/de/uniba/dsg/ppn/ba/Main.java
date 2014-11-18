@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import de.uniba.dsg.bpmn.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 import de.uniba.dsg.ppn.ba.xml.XmlWriter;
