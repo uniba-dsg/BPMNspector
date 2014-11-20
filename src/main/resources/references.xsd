@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="references" type="tReferences"/>
+	<xs:complexType name="tReferences">
+		<xs:sequence>
+			<xs:element ref="element" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="element" type="tElement"/>
+	<xs:complexType name="tElement">
+		<xs:sequence>
+			<!-- name of the parent element if needed for hierarchie -->
+			<xs:element name="parent" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<!-- names of the child elements -->
+			<xs:element name="child" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<!-- all references, which can be found for this element -->
+			<xs:element ref="reference" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<!-- name of the element -->
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:element name="reference" type="tReference"/>
+	<xs:complexType name="tReference">
+		<xs:sequence>
+			<!-- name of the reference -->
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<!-- all possible (super-) types by their names (uses the hierarchie of the elements) -->
+			<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<!-- The number used in the bachelor thesis -->
+		<xs:attribute name="number" type="xs:int" use="required"/>
+		<!-- QName: true, IDREF: false -->
+		<xs:attribute name="qname" type="xs:boolean" use="required"/>
+		<!-- Attribute: true, Element: false -->
+		<xs:attribute name="attribute" type="xs:boolean" use="required"/>
+		<!-- specifies if special hard coded handling is needed -->
+		<xs:attribute name="special" type="xs:boolean" use="optional"/>
+	</xs:complexType>
+</xs:schema>

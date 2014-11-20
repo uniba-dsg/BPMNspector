@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<references xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="main/resources/references.xsd">
+	<element name="association">
+		<reference number="4" qname="true" attribute="true">
+			<name>sourceRef</name>
+		</reference>
+		<reference number="5" qname="true" attribute="true">
+			<name>targetRef</name>
+		</reference>
+	</element>
+	<element name="group">
+		<reference number="6" qname="true" attribute="true">
+			<name>categoryValueRef</name>
+			<type>categoryValue</type>
+		</reference>
+	</element>
+	<element name="correlationKey">
+		<reference number="7" qname="true" attribute="false">
+			<name>correlationPropertyRef</name>
+			<type>correlationProperty</type>
+		</reference>
+	</element>
+	<element name="correlationPropertyRetrievalExpression">
+		<reference number="8" qname="true" attribute="true">
+			<name>messageRef</name>
+			<type>message</type>
+		</reference>
+	</element>
+	<element name="correlationSubscription">
+		<reference number="9" qname="true" attribute="true">
+			<name>correlationKeyRef</name>
+			<type>correlationKey</type>
+		</reference>
+	</element>
+	<element name="correlationPropertyBinding">
+		<reference number="10" qname="true" attribute="true">
+			<name>correlationPropertyRef</name>
+			<type>correlationProperty</type>
+		</reference>
+	</element>
+	<element name="error">
+		<reference number="11" qname="true" attribute="true">
+			<name>structureRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="escalation">
+		<reference number="12" qname="true" attribute="true">
+			<name>structureRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="formalExpression">
+		<reference number="13" qname="true" attribute="true">
+			<name>evaluatesToTypeRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="flowElement">
+		<child>flowNode</child>
+		<child>sequenceFlow</child>
+		<child>dataObject</child>
+		<child>dataObjectReference</child>
+		<child>dataStoreReference</child>
+		<reference number="14" qname="true" attribute="false">
+			<name>categoryValueRef</name>
+			<type>categoryValue</type>
+		</reference>
+	</element>
+	<element name="message">
+		<reference number="16" qname="true" attribute="true">
+			<name>itemRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="resourceParameter">
+		<reference number="17" qname="true" attribute="true">
+			<name>type</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="sequenceFlow">
+		<parent>flowElement</parent>
+		<reference number="18" qname="false" attribute="true" special="true">
+			<name>sourceRef</name>
+			<type>activity</type>
+			<type>gateway</type>
+			<type>exclusiveGateway</type>
+			<type>inclusiveGateway</type>
+			<type>parallelGateway</type>
+			<type>complexGateway</type>
+			<type>eventBasedGateway</type>
+			<type>event</type>
+			<type>throwEvent</type>
+			<type>catchEvent</type>
+		</reference>
+		<reference number="19" qname="false" attribute="true" special="true">
+			<name>targetRef</name>
+			<type>activity</type>
+			<type>gateway</type>
+			<type>exclusiveGateway</type>
+			<type>inclusiveGateway</type>
+			<type>parallelGateway</type>
+			<type>complexGateway</type>
+			<type>eventBasedGateway</type>
+			<type>event</type>
+			<type>throwEvent</type>
+			<type>catchEvent</type>
+		</reference>
+	</element>
+	<element name="flowNode">
+		<parent>flowElement</parent>
+		<child>gateway</child>
+		<child>exclusiveGateway</child>
+		<child>inclusiveGateway</child>
+		<child>parallelGateway</child>
+		<child>complexGateway</child>
+		<child>eventBasedGateway</child>
+		<child>activity</child>
+		<child>choreographyActivity</child>
+		<child>choreographyTask</child>
+		<child>subChoreography</child>
+		<child>callChoreography</child>
+		<child>event</child>
+		<child>throwEvent</child>
+		<child>catchEvent</child>
+		<reference number="20" qname="true" attribute="false">
+			<name>incoming</name>
+			<type>sequenceFlow</type>
+		</reference>
+		<reference number="21" qname="true" attribute="false">
+			<name>outgoing</name>
+			<type>sequenceFlow</type>
+		</reference>
+	</element>
+	<element name="operation">
+		<reference number="23" qname="true" attribute="false">
+			<name>inMessageRef</name>
+			<type>message</type>
+		</reference>
+		<reference number="24" qname="true" attribute="false">
+			<name>outMessageRef</name>
+			<type>message</type>
+		</reference>
+		<reference number="25" qname="true" attribute="false">
+			<name>errorRef</name>
+			<type>error</type>
+		</reference>
+	</element>
+	<element name="collaboration">
+		<child>choreography</child>
+		<child>globalChoreographyTask</child>
+		<child>globalConversation</child>
+		<reference number="27" qname="true" attribute="false">
+			<name>choreographyRef</name>
+			<type>choreography</type>
+		</reference>
+	</element>
+	<element name="participant">
+		<reference number="28" qname="true" attribute="true">
+			<name>processRef</name>
+			<type>process</type>
+		</reference>
+		<reference number="29" qname="true" attribute="false">
+			<name>interfaceRef</name>
+			<type>interface</type>
+		</reference>
+		<reference number="30" qname="true" attribute="false">
+			<name>endPointRef</name>
+			<type>endPoint</type>
+		</reference>
+	</element>
+	<element name="partnerEntity">
+		<reference number="31" qname="true" attribute="false">
+			<name>participantRef</name>
+			<type>participant</type>
+		</reference>
+	</element>
+	<element name="partnerRole">
+		<reference number="32" qname="true" attribute="false">
+			<name>participantRef</name>
+			<type>participant</type>
+		</reference>
+	</element>
+	<element name="participantAssociation">
+		<reference number="33" qname="true" attribute="false">
+			<name>innerParticipantRef</name>
+			<type>participant</type>
+		</reference>
+		<reference number="34" qname="true" attribute="false">
+			<name>outerParticipantRef</name>
+			<type>participant</type>
+		</reference>
+	</element>
+	<element name="messageFlow">
+		<reference number="35" qname="true" attribute="true">
+			<name>sourceRef</name>
+			<type>pool</type>
+			<type>participant</type>
+			<type>activity</type>
+			<type>event</type>
+			<type>throwEvent</type>
+			<type>catchEvent</type>
+		</reference>
+		<reference number="36" qname="true" attribute="true">
+			<name>targetRef</name>
+			<type>pool</type>
+			<type>participant</type>
+			<type>activity</type>
+			<type>event</type>
+			<type>throwEvent</type>
+			<type>catchEvent</type>
+		</reference>
+		<reference number="37" qname="true" attribute="true">
+			<name>messageRef</name>
+			<type>message</type>
+		</reference>
+	</element>
+	<element name="process">
+		<parent>callableElement</parent>
+		<reference number="47" qname="true" attribute="false">
+			<name>supports</name>
+			<type>process</type>
+		</reference>
+		<reference number="48" qname="true" attribute="true">
+			<name>definitionalCollaborationRef</name>
+			<type>collaboration</type>
+		</reference>
+	</element>
+	<element name="activity">
+		<parent>flowNode</parent>
+		<child>task</child>
+		<child>serviceTask</child>
+		<child>sendTask</child>
+		<child>receiveTask</child>
+		<child>userTask</child>
+		<child>manualTask</child>
+		<child>scriptTask</child>
+		<child>businessRuleTask</child>
+		<child>subProcess</child>
+		<child>adHocSubProcess</child>
+		<child>transaction</child>
+		<child>callActivity</child>
+		<reference number="49" qname="false" attribute="true">
+			<name>default</name>
+			<type>sequenceFlow</type>
+		</reference>
+	</element>
+	<element name="resourceRole">
+		<reference number="50" qname="true" attribute="false">
+			<name>resourceRef</name>
+			<type>resource</type>
+		</reference>
+	</element>
+	<element name="resourceParameterBinding">
+		<reference number="51" qname="true" attribute="true">
+			<name>parameterRef</name>
+			<type>resourceParameter</type>
+		</reference>
+	</element>
+	<element name="serviceTask">
+		<parent>activity</parent>
+		<reference number="52" qname="true" attribute="true">
+			<name>operationRef</name>
+			<type>operation</type>
+		</reference>
+	</element>
+	<element name="sendTask">
+		<parent>activity</parent>
+		<reference number="53" qname="true" attribute="true">
+			<name>messageRef</name>
+			<type>message</type>
+		</reference>
+		<reference number="54" qname="true" attribute="true">
+			<name>operationRef</name>
+			<type>operation</type>
+		</reference>
+	</element>
+	<element name="receiveTask">
+		<parent>activity</parent>
+		<reference number="55" qname="true" attribute="true">
+			<name>messageRef</name>
+			<type>message</type>
+		</reference>
+		<reference number="56" qname="true" attribute="true">
+			<name>operationRef</name>
+			<type>operation</type>
+		</reference>
+	</element>
+	<element name="callActivity">
+		<parent>activity</parent>
+		<reference number="57" qname="true" attribute="true">
+			<name>calledElement</name>
+			<type>process</type>
+			<type>globalTask</type>
+			<type>globalUserTask</type>
+			<type>globalManualTask</type>
+			<type>globalScriptTask</type>
+			<type>globalBusinessRuleTask</type>
+		</reference>
+	</element>
+	<element name="callableElement">
+		<child>process</child>
+		<child>globalTask</child>
+		<child>globalUserTask</child>
+		<child>globalManualTask</child>
+		<child>globalScriptTask</child>
+		<child>globalBusinessRuleTask</child>
+		<reference number="58" qname="true" attribute="false">
+			<name>supportedInterfaceRefs</name>
+			<type>interface</type>
+		</reference>
+	</element>
+	<element name="ioBinding">
+		<reference number="59" qname="false" attribute="true">
+			<name>inputDataRef</name>
+			<type>dataInput</type>
+		</reference>
+		<reference number="60" qname="false" attribute="true">
+			<name>outputDataRef</name>
+			<type>dataOutput</type>
+		</reference>
+		<reference number="61" qname="true" attribute="true">
+			<name>operationRef</name>
+			<type>operation</type>
+		</reference>
+	</element>
+	<element name="multiInstanceLoopCharacteristics">
+		<reference number="62" qname="true" attribute="false" special="true">
+			<name>loopDataInputRef</name>
+			<type>property</type>
+			<type>dataObject</type>
+			<type>dataInput</type>
+			<type>dataOutput</type>
+			<type>dataStore</type>
+			<type>dataStoreReference</type>
+			<type>dataObjectReference</type>
+		</reference>
+		<reference number="63" qname="true" attribute="false" special="true">
+			<name>loopDataOutputRef</name>
+			<type>property</type>
+			<type>dataObject</type>
+			<type>dataInput</type>
+			<type>dataOutput</type>
+			<type>dataStore</type>
+			<type>dataStoreReference</type>
+			<type>dataObjectReference</type>
+		</reference>
+		<reference number="64" qname="true" attribute="true">
+			<name>oneBehaviorEventRef</name>
+			<type>eventDefinition</type>
+			<type>linkEventDefinition</type>
+			<type>errorEventDefinition</type>
+			<type>terminateEventDefinition</type>
+			<type>cancelEventDefinition</type>
+			<type>messageEventDefinition</type>
+			<type>compensateEventDefinition</type>
+			<type>escalationEventDefinition</type>
+			<type>timerEventDefinition</type>
+			<type>conditionalEventDefinition</type>
+			<type>signalEventDefinition</type>
+		</reference>
+		<reference number="65" qname="true" attribute="true">
+			<name>noneBehaviorEventRef</name>
+			<type>eventDefinition</type>
+			<type>linkEventDefinition</type>
+			<type>errorEventDefinition</type>
+			<type>terminateEventDefinition</type>
+			<type>cancelEventDefinition</type>
+			<type>messageEventDefinition</type>
+			<type>compensateEventDefinition</type>
+			<type>escalationEventDefinition</type>
+			<type>timerEventDefinition</type>
+			<type>conditionalEventDefinition</type>
+			<type>signalEventDefinition</type>
+		</reference>
+	</element>
+	<element name="dataObject">
+		<parent>flowElement</parent>
+		<reference number="66" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="dataObjectReference">
+		<parent>flowElement</parent>
+		<reference number="67" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+		<reference number="68" qname="false" attribute="true">
+			<name>dataObjectRef</name>
+			<type>dataObject</type>
+		</reference>
+	</element>
+	<element name="dataStore">
+		<reference number="69" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="dataStoreReference">
+		<parent>flowElement</parent>
+		<reference number="70" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+		<reference number="71" qname="true" attribute="true">
+			<name>dataStoreRef</name>
+			<type>dataStore</type>
+		</reference>
+	</element>
+	<element name="property">
+		<reference number="72" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="dataInput">
+		<reference number="73" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="dataOutput">
+		<reference number="74" qname="true" attribute="true">
+			<name>itemSubjectRef</name>
+			<type>itemDefinition</type>
+		</reference>
+	</element>
+	<element name="inputSet">
+		<reference number="75" qname="false" attribute="false">
+			<name>dataInputRefs</name>
+			<type>dataInput</type>
+		</reference>
+		<reference number="76" qname="false" attribute="false">
+			<name>optionalInputRefs</name>
+			<type>dataInput</type>
+		</reference>
+		<reference number="77" qname="false" attribute="false">
+			<name>whileExecutingInputRef</name>
+			<type>dataInput</type>
+		</reference>
+		<reference number="78" qname="false" attribute="false">
+			<name>outputSetRefs</name>
+			<type>outputSet</type>
+		</reference>
+	</element>
+	<element name="outputSet">
+		<reference number="79" qname="false" attribute="false">
+			<name>dataOutputRefs</name>
+			<type>dataOutput</type>
+		</reference>
+		<reference number="80" qname="false" attribute="false">
+			<name>optionalOutputRefs</name>
+			<type>dataOutput</type>
+		</reference>
+		<reference number="81" qname="false" attribute="false">
+			<name>whileExecutingOutputRefs</name>
+			<type>dataOutput</type>
+		</reference>
+		<reference number="82" qname="false" attribute="false">
+			<name>inputSetRefs</name>
+			<type>inputSet</type>
+		</reference>
+	</element>
+	<element name="dataAssociation">
+		<child>dataInputAssociation</child>
+		<child>dataOutputAssociation</child>
+		<reference number="83" qname="false" attribute="false">
+			<name>sourceRef</name>
+			<type>property</type>
+			<type>dataObject</type>
+			<type>dataInput</type>
+			<type>dataOutput</type>
+			<type>dataStore</type>
+			<type>dataStoreReference</type>
+			<type>dataObjectReference</type>
+		</reference>
+		<reference number="84" qname="false" attribute="false">
+			<name>targetRef</name>
+			<type>property</type>
+			<type>dataObject</type>
+			<type>dataInput</type>
+			<type>dataOutput</type>
+			<type>dataStore</type>
+			<type>dataStoreReference</type>
+			<type>dataObjectReference</type>
+		</reference>
+	</element>
+	<element name="catchEvent">
+		<parent>flowNode</parent>
+		<child>startEvent</child>
+		<child>intermediateCatchEvent</child>
+		<child>boundaryEvent</child>
+		<reference number="85" qname="true" attribute="false">
+			<name>eventDefinitionRef</name>
+			<type>eventDefinition</type>
+			<type>linkEventDefinition</type>
+			<type>errorEventDefinition</type>
+			<type>terminateEventDefinition</type>
+			<type>cancelEventDefinition</type>
+			<type>messageEventDefinition</type>
+			<type>compensateEventDefinition</type>
+			<type>escalationEventDefinition</type>
+			<type>timerEventDefinition</type>
+			<type>conditionalEventDefinition</type>
+			<type>signalEventDefinition</type>
+		</reference>
+	</element>
+	<element name="throwEvent">
+		<parent>flowNode</parent>
+		<child>implicitThrowEvent</child>
+		<child>intermediateThrowEvent</child>
+		<child>endEvent</child>
+		<reference number="86" qname="true" attribute="false">
+			<name>eventDefinitionRef</name>
+			<type>eventDefinition</type>
+			<type>linkEventDefinition</type>
+			<type>errorEventDefinition</type>
+			<type>terminateEventDefinition</type>
+			<type>cancelEventDefinition</type>
+			<type>messageEventDefinition</type>
+			<type>compensateEventDefinition</type>
+			<type>escalationEventDefinition</type>
+			<type>timerEventDefinition</type>
+			<type>conditionalEventDefinition</type>
+			<type>signalEventDefinition</type>
+		</reference>
+	</element>
+	<element name="boundaryEvent">
+		<reference number="87" qname="true" attribute="true">
+			<name>attachedToRef</name>
+			<type>activity</type>
+		</reference>
+	</element>
+	<element name="compensateEventDefinition">
+		<reference number="88" qname="true" attribute="true">
+			<name>activityRef</name>
+			<type>activity</type>
+		</reference>
+	</element>
+	<element name="errorEventDefinition">
+		<reference number="89" qname="true" attribute="true">
+			<name>errorRef</name>
+			<type>error</type>
+		</reference>
+	</element>
+	<element name="escalationEventDefinition">
+		<reference number="90" qname="true" attribute="true">
+			<name>escalationRef</name>
+			<type>escalation</type>
+		</reference>
+	</element>
+	<element name="linkEventDefinition">
+		<reference number="91" qname="true" attribute="false">
+			<name>source</name>
+			<type>linkEventDefinition</type>
+		</reference>
+		<reference number="92" qname="true" attribute="false">
+			<name>target</name>
+			<type>linkEventDefinition</type>
+		</reference>
+	</element>
+	<element name="messageEventDefinition">
+		<reference number="93" qname="true" attribute="true">
+			<name>messageRef</name>
+			<type>message</type>
+		</reference>
+		<reference number="94" qname="true" attribute="false">
+			<name>operationRef</name>
+			<type>operation</type>
+		</reference>
+	</element>
+	<element name="signalEventDefinition">
+		<reference number="95" qname="true" attribute="true">
+			<name>signalRef</name>
+			<type>signal</type>
+		</reference>
+	</element>
+	<element name="exclusiveGateway">
+		<parent>flowNode</parent>
+		<reference number="96" qname="false" attribute="true">
+			<name>default</name>
+			<type>sequenceFlow</type>
+		</reference>
+	</element>
+	<element name="inclusiveGateway">
+		<parent>flowNode</parent>
+		<reference number="97" qname="false" attribute="true">
+			<name>default</name>
+			<type>sequenceFlow</type>
+		</reference>
+	</element>
+	<element name="complexGateway">
+		<parent>flowNode</parent>
+		<reference number="98" qname="false" attribute="true">
+			<name>default</name>
+			<type>sequenceFlow</type>
+		</reference>
+	</element>
+	<element name="lane">
+		<reference number="99" qname="true" attribute="true">
+			<name>partitionElementRef</name>
+		</reference>
+		<reference number="100" qname="false" attribute="false">
+			<name>flowNodeRef</name>
+			<type>flowNode</type>
+		</reference>
+	</element>
+</references>

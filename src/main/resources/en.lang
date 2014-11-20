@@ -1,0 +1,116 @@
+# ---------------------------------------------
+# A english language file for the validator.
+#
+# A project of the lspi of the university of Bamberg.
+#
+# Autor: Andreas Vorndran
+# Last change: 06.02.13
+# ---------------------------------------------
+#
+# general parts
+error=Error
+info=Info
+warning=Warning
+
+# view
+view.no_violations=No violations found.
+view.violations=The following violations were found:
+view.path.info=Please insert the absolute path to the file.
+view.path.example=C:/absolute/path/example.bpmn
+view.title=Reference Validator
+view.button.open=Open
+view.button.validate=Validate 
+view.label.validation=Validation Level:
+view.radio.existence=Existence
+view.radio.reference=Reference Type
+view.label.log=Log Level:
+view.radio.off=Off
+view.radio.severe=Error
+view.radio.info=Info
+view.check.single=single file validation
+view.menu.language=Language
+view.menu.english=English
+view.menu.german=German
+view.tooltip.existence=Only the existence of the referenced element will be validated.
+view.tooltip.reference=The type of the referenced element will be validated.
+view.tooltip.off=Nothing will be logged.
+view.tooltip.severe=Only technical problems will be logged.
+view.tooltip.info=The program flow will be logged.
+view.tooltip.single=Only the given file will be validated, the dependent files will not be validated.
+
+# logger
+logger.security.part1=A security problem occurred for file 'log/ 
+logger.security.part2=while creating the logger.
+logger.io.part1=An I/O problem occurred for file 'log/
+logger.io.part2=while creating the logger.
+
+# reference loader
+loader.jdom=Problems occurred while traversing the 'references.xml' file.
+loader.io=Problems occurred while loading the 'references.xml' file.
+loader.sax=Problems occurred while trying to check the references XML file against the corresponding XSD file.
+loader.xsd.general=While the XSD validation of the 'references.xml' file the following errors occurred:
+# Also used in BPMNReferenceValidator
+loader.xsd.error.part1=In line 
+loader.xsd.error.part2= the following error occurred:
+
+# BPMNReferenceValidator
+validator.logger.bpmnelements=BPMNELEMENTS
+validator.logger.elements=ELEMENTS
+validator.logger.prefix=Prefix: 
+validator.logger.importedfiles=IMPORTEDFILES
+validator.logger.checkingreference=CHECKINGREFERENCE
+validator.logger.violationlist=VIOLATIONLIST
+validator.logger.importedfilepaths=IMPORTEDFILEPATHS
+validator.illegalargument.validatinglevel.part1=The property 
+validator.illegalargument.validatinglevel.part2= is not specified for the validating level.
+validator.illegalargument.namespace.part1=The files for the namespace 
+validator.illegalargument.namespace.part2= have an id overlap.
+validator.jdom=Problems occurred while traversing the file 
+validator.jdom.imported.part1=Problems occurred while traversing the imported file '
+validator.jdom.imported.part2='.
+validator.io=Problems occurred while loading the file 
+validator.io.imorted.part1=Problems occurred while loading the imported file '
+validator.io.imorted.part2='.
+validator.special.62.version1=dataInput (because the parent is a task)
+validator.special.62.version2=dataObject (because the parent is a subProcess)
+validator.special.63.version1=dataOutput (because the parent is a task)
+validator.special.63.version2=dataObject (because the parent is a subProcess)
+validator.xsd.general.part1=While the XSD validation of the '
+validator.xsd.general.part2=' file the following errors occurred:
+validator.xsd.sax=Problems occurred while schema validating the file 
+
+#FileImporter
+importer.path.notempty.notnull=Invalid Path. The path must not be null or empty.
+importer.path.invalid=Invalid Path:
+importer.path.notexistentOrDir=The File must exist and must not be a directory.
+
+# BPMNElement
+bpmnelement.references=references: 
+
+# BPMNFileTree
+bpmnfiletree.parent=parent file name: 
+bpmnfiletree.children=child file names: 
+
+# ExistenceViolation
+existenceviolation.line=Existing: In line 
+existenceviolation.reference.default= the reference 
+existenceviolation.element= of the element 
+existenceviolation.end.default= has no referenced element.
+existenceviolation.reference.prefix= the reference 
+existenceviolation.prefix=cannot be resolved: Prefix 
+existenceviolation.end.prefix=refers either to an unsupported file type or no file is attached to this namespace.
+
+# TypeViolation
+typeviolation.reference=Reference type: The reference 
+typeviolation.line= in line 
+typeviolation.element= of the element 
+typeviolation.incorrecttype= has the incorrect type 
+typeviolation.expectedtype=. Expected was 
+
+# reference
+reference.number=number: 
+reference.name=, name: 
+reference.qname=, qname: 
+reference.attribute=, attribute: 
+reference.types=, types: 
+reference.special=, special: 
