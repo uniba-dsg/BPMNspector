@@ -1,6 +1,5 @@
 package de.uniba.dsg.ppn.ba.artifacts;
 
-
 public class Ext008 extends ArtifactTest {
 
     @Override
@@ -17,5 +16,4 @@ public class Ext008 extends ArtifactTest {
     protected String getExtNumber() {
         return "008";
     }
-
 }

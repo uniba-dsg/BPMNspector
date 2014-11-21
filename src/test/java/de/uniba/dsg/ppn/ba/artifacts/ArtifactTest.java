@@ -11,7 +11,7 @@ public class ArtifactTest extends TestCase {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
-        de.uniba.dsg.bpmnspector.common.ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInValidResult(
                 createFile("Fail_association.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }

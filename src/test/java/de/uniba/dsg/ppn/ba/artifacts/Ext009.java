@@ -1,6 +1,5 @@
 package de.uniba.dsg.ppn.ba.artifacts;
 
-
 public class Ext009 extends ArtifactTest {
 
     @Override

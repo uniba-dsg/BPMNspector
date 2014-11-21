@@ -10,8 +10,7 @@ public class Ext007 extends ArtifactSequenceFlowTest {
     private final static String XPATHSTRING = "//bpmn:sequenceFlow[@sourceRef][0]";
 
     @Override
-    protected void assertFirstViolation(
-            de.uniba.dsg.bpmnspector.common.Violation v, String fileName) {
+    protected void assertFirstViolation(Violation v, String fileName) {
         assertViolation(v, ERRORMESSAGEONE, fileName, XPATHSTRING, 7);
     }
 
@@ -30,5 +29,4 @@ public class Ext007 extends ArtifactSequenceFlowTest {
     protected String getExtNumber() {
         return "007";
     }
-
 }
