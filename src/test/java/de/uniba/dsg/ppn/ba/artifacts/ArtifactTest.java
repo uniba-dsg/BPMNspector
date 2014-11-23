@@ -7,7 +7,7 @@ import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
-public class ArtifactTest extends TestCase {
+abstract class ArtifactTest extends TestCase {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
