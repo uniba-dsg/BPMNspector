@@ -17,12 +17,12 @@ import de.uniba.dsg.ppn.ba.xml.XmlWriter;
 
 public class Main {
 
-    private final static Logger logger;
-    private final static Level debugLevel;
+    private final static Logger LOGGER;
+    private final static Level DEBUGLEVEL;
 
     static {
-        logger = (Logger) LoggerFactory.getLogger(Main.class.getSimpleName());
-        debugLevel = Level.DEBUG;
+        DEBUGLEVEL = Level.DEBUG;
+        LOGGER = (Logger) LoggerFactory.getLogger(Main.class.getSimpleName());
     }
 
     public static void main(final String[] args) {
@@ -32,17 +32,17 @@ public class Main {
         final XmlWriter xmlWriter = new XmlWriter();
 
         if (argsAsList.contains("--debug")) {
-            validator.setLogLevel(debugLevel);
-            logger.setLevel(debugLevel);
+            validator.setLogLevel(DEBUGLEVEL);
+            LOGGER.setLevel(DEBUGLEVEL);
             ((Logger) LoggerFactory.getLogger(xmlWriter.getClass()
-                    .getSimpleName())).setLevel(debugLevel);
+                    .getSimpleName())).setLevel(DEBUGLEVEL);
             argsAsList.remove("--debug");
         }
 
-        logger.info("loglevel is set to {}", logger.getEffectiveLevel());
+        LOGGER.info("loglevel is set to {}", LOGGER.getEffectiveLevel());
 
         if (argsAsList.isEmpty()) {
-            logger.error("There must be files to check!");
+            LOGGER.error("There must be files to check!");
             System.exit(-1);
         } else {
             for (String parameter : argsAsList) {
@@ -57,9 +57,9 @@ public class Main {
                                     + "validation_result_" + file.getName()
                                     + ".xml"));
                 } catch (BpmnValidationException e) {
-                    logger.error(e.getMessage());
+                    LOGGER.error(e.getMessage());
                 } catch (JAXBException e) {
-                    logger.error("result of validation couldn't be written in xml!");
+                    LOGGER.error("result of validation couldn't be written in xml!");
                 }
             }
         }
