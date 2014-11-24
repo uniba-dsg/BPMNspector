@@ -1,6 +1,6 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -21,7 +21,7 @@ public class Reference {
 
 	private final int number;
 	private final String name;
-	private final ArrayList<String> types;
+	private final List<String> types;
 	private final boolean qname;
 	private final boolean attribute;
 	private final boolean special;
@@ -49,7 +49,7 @@ public class Reference {
 	 *            the reference to the language properties (for the toString
 	 *            method)
 	 */
-	public Reference(int number, String name, ArrayList<String> types,
+	public Reference(int number, String name, List<String> types,
 			boolean qname, boolean attribute, boolean special,
 			Properties language) {
 		this.number = number;
@@ -78,7 +78,7 @@ public class Reference {
 	/**
 	 * @return the types
 	 */
-	public ArrayList<String> getTypes() {
+	public List<String> getTypes() {
 		return types;
 	}
 

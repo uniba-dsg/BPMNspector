@@ -4,11 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,7 +39,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 	private Level level;
 	private Properties language;
-	private HashMap<String, BPMNElement> bpmnRefElements;
+	private Map<String, BPMNElement> bpmnRefElements;
 	private Logger LOGGER;
 
 	private final FileImporter bpmnImporter;
@@ -54,7 +50,9 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public static final String CONSTRAINT_REF_EXISTENCE = "REF_EXISTENCE";
 	public static final String CONSTRAINT_REF_TYPE = "REF_TYPE";
 
-	/**
+    public static final String EXISTENCE = "existence";
+    public static final String REFERENCE = "referenceType";
+    /**
 	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
 	 * 
 	 * @throws ValidatorException
@@ -80,8 +78,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			ProcessFileSet fileSetImport = bpmnImporter.loadAllFiles(filePath,
 					true);
 			List<Violation> importedFileViolations = startValidation(
-					fileSetImport, "referenceType");
-			valid = valid && importedFileViolations.size() == 0;
+					fileSetImport, REFERENCE);
+			valid = valid && importedFileViolations.isEmpty();
 			violations.addAll(importedFileViolations);
 		}
 
@@ -103,8 +101,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			ProcessFileSet fileSetImport = bpmnImporter.loadAllFiles(filePath,
 					true);
 			List<Violation> importedFileViolations = startValidation(
-					fileSetImport, "existence");
-			valid = valid && importedFileViolations.size() == 0;
+					fileSetImport, EXISTENCE);
+			valid = valid && importedFileViolations.isEmpty();
 			violations.addAll(importedFileViolations);
 		}
 
@@ -116,11 +114,11 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public ValidationResult validateSingleFile(String path)
 			throws ValidatorException {
 		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true);
-		List<Violation> violations = startValidation(fileSet, "referenceType");
-		boolean valid = violations.size() == 0;
+		List<Violation> violations = startValidation(fileSet, REFERENCE);
+		boolean valid = violations.isEmpty();
 		List<String> checkedFiles = new ArrayList<>();
 		checkedFiles.add(path);
-		return new ValidationResult(valid, fileSet.getProcessedFiles(),
+		return new ValidationResult(valid, checkedFiles,
 				violations);
 	}
 
@@ -128,11 +126,11 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public ValidationResult validateSingleFileExistenceOnly(String path)
 			throws ValidatorException {
 		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true);
-		List<Violation> violations = startValidation(fileSet, "existence");
-		boolean valid = violations.size() == 0;
+		List<Violation> violations = startValidation(fileSet, EXISTENCE);
+		boolean valid = violations.isEmpty();
 		List<String> checkedFiles = new ArrayList<>();
 		checkedFiles.add(path);
-		return new ValidationResult(valid, fileSet.getProcessedFiles(),
+		return new ValidationResult(valid, checkedFiles,
 				violations);
 	}
 
@@ -224,7 +222,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		Document baseDocument = fileSet.getBpmnBaseFile();
 
 		// Get all Elements to Check from Base BPMN Process
-		HashMap<String, Element> elements = getAllElements(baseDocument);
+		Map<String, Element> elements = getAllElements(baseDocument);
 
 		String ownPrefix = "";
 		// special case if a prefix is used for the target namespace
@@ -240,9 +238,9 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		LOGGER.fine("ownprefix after getAllElements():" + ownPrefix);
 
 		// Store all Elements and their IDs in referenced Files into nested
-		// HashMap:
+		// Map:
 		// outerKey: namespace, innerKey: Id
-		HashMap<String, HashMap<String, Element>> importedElements = getAllElementsGroupedByNamespace(fileSet
+		Map<String, Map<String, Element>> importedElements = getAllElementsGroupedByNamespace(fileSet
 				.getReferencedBpmnFiles());
 
 		LOGGER.info(language.getProperty("validator.logger.elements")
@@ -303,12 +301,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 						// if the current element has the reference start
 						// the validation
 						if (referencedId != null) {
-							if ("existence".equals(validationLevel)) {
+							if (EXISTENCE.equals(validationLevel)) {
 								validateExistence(elements, importedElements,
 										violationList, currentElement, line,
 										checkingReference, referencedId,
 										ownPrefix);
-							} else if ("referenceType".equals(validationLevel)) {
+							} else if (REFERENCE.equals(validationLevel)) {
 								validateReferenceType(elements,
 										importedElements, violationList,
 										currentElement, line,
@@ -334,7 +332,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			}
 		}
 		// log violations
-		if (violationList.size() > 0) {
+		if (!violationList.isEmpty()) {
 			String violationListLogText = "";
 			for (Violation violation : violationList) {
 				violationListLogText = violationListLogText
@@ -354,8 +352,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 *            the document to get the elements from
 	 * @return the hash map with elements reachable through their id
 	 */
-	private HashMap<String, Element> getAllElements(Document document) {
-		HashMap<String, Element> elements = new HashMap<>();
+	private Map<String, Element> getAllElements(Document document) {
+		Map<String, Element> elements = new HashMap<>();
 		Element rootNode = document.getRootElement();
 		Filter<Element> filter = Filters.element();
 		IteratorIterable<Element> list = rootNode.getDescendants(filter);
@@ -383,17 +381,17 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 *            the files to be analyzed
 	 * @return the grouped elements
 	 */
-	private HashMap<String, HashMap<String, Element>> getAllElementsGroupedByNamespace(
+	private Map<String, Map<String, Element>> getAllElementsGroupedByNamespace(
 			List<Document> bpmnFiles) {
-		HashMap<String, HashMap<String, Element>> groupedElements = new HashMap<>();
+		Map<String, Map<String, Element>> groupedElements = new HashMap<>();
 
 		for (Document doc : bpmnFiles) {
 			String targetNamespace = doc.getRootElement().getAttributeValue(
 					"targetNamespace");
-			HashMap<String, Element> docElements = getAllElements(doc);
+			Map<String, Element> docElements = getAllElements(doc);
 
 			if (groupedElements.containsKey(targetNamespace)) {
-				HashMap<String, Element> previousElems = groupedElements
+				Map<String, Element> previousElems = groupedElements
 						.get(targetNamespace);
 				previousElems.putAll(docElements);
 			} else {
@@ -423,8 +421,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 * @param referencedId
 	 *            the referenced ID
 	 */
-	private void validateReferenceType(HashMap<String, Element> elements,
-			HashMap<String, HashMap<String, Element>> importedElements,
+	private void validateReferenceType(Map<String, Element> elements,
+			Map<String, Map<String, Element>> importedElements,
 			List<Violation> violationList, Element currentElement, int line,
 			Reference checkingReference, String referencedId, String ownPrefix) {
 		if (checkingReference.isQname()) {
@@ -442,7 +440,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 						namespace = nsp.getURI();
 					}
 				}
-				HashMap<String, Element> relevantElements = importedElements
+				Map<String, Element> relevantElements = importedElements
 						.get(namespace);
 				// case if the namespace is used for the root file and an
 				// imported file
@@ -548,8 +546,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 * @param referencedId
 	 *            the referenced ID
 	 */
-	private void validateExistence(HashMap<String, Element> elements,
-			HashMap<String, HashMap<String, Element>> importedElements,
+	private void validateExistence(Map<String, Element> elements,
+			Map<String, Map<String, Element>> importedElements,
 			List<Violation> violationList, Element currentElement, int line,
 			Reference checkingReference, String referencedId, String ownPrefix) {
 		if (checkingReference.isQname()) {
@@ -559,7 +557,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				String[] parts = referencedId.split(":");
 				String prefix = parts[0];
 				String importedId = parts[1];
-				HashMap<String, Element> relevantElements = importedElements
+				Map<String, Element> relevantElements = importedElements
 						.get(prefix);
 				// case if the namespace is used for the root file and an
 				// imported file
@@ -628,18 +626,20 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			int line, Element currentElement, Reference checkingReference,
 			Element referencedElement) {
 		boolean foundType = false;
-		ArrayList<String> referencedTypes = checkingReference.getTypes();
+		List<String> referencedTypes = checkingReference.getTypes();
 		// do not check references which are only for existence validation
 		if (referencedTypes != null) {
 			// find all possible types (with subtypes/children)
-			@SuppressWarnings("unchecked")
-			ArrayList<String> types = (ArrayList<String>) referencedTypes
-					.clone();
+//			@SuppressWarnings("unchecked")
+//			ArrayList<String> types = (ArrayList<String>) referencedTypes
+//					.clone();
+            List<String> types = new ArrayList<>(referencedTypes);
 			boolean childfound;
 			do {
 				childfound = false;
-				@SuppressWarnings("unchecked")
-				ArrayList<String> typesCopy = (ArrayList<String>) types.clone();
+//				@SuppressWarnings("unchecked")
+//				ArrayList<String> typesCopy = (ArrayList<String>) types.clone();
+                List<String> typesCopy = new ArrayList<>(types);
 				for (String type : typesCopy) {
 					if (bpmnRefElements.containsKey(type)) {
 						BPMNElement bpmnElement = bpmnRefElements.get(type);
@@ -683,8 +683,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 					} else if (checkingReference.getNumber() == 62) {
 						Element parent = currentElement.getParentElement();
 						if (parent != null) {
-							ArrayList<String> tasks = getBPMNTasksList();
-							ArrayList<String> subprocesses = getBPMNSubProcessList();
+							List<String> tasks = getBPMNTasksList();
+							List<String> subprocesses = getBPMNSubProcessList();
 							if (tasks.contains(parent.getName())) {
 								if (!referencedElement.getName().equals(
 										"dataInput")) {
@@ -706,8 +706,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 					} else if (checkingReference.getNumber() == 63) {
 						Element parent = currentElement.getParentElement();
 						if (parent != null) {
-							ArrayList<String> tasks = getBPMNTasksList();
-							ArrayList<String> subprocesses = getBPMNSubProcessList();
+							List<String> tasks = getBPMNTasksList();
+							List<String> subprocesses = getBPMNSubProcessList();
 							if (tasks.contains(parent.getName())) {
 								if (!referencedElement.getName().equals(
 										"dataOutput")) {
@@ -735,7 +735,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	/**
 	 * @return a list with BPMN task and its subtypes
 	 */
-	private ArrayList<String> getBPMNTasksList() {
+	private List<String> getBPMNTasksList() {
 		ArrayList<String> tasks = new ArrayList<>();
 		tasks.add("task");
 		tasks.add("serviceTask");
@@ -751,7 +751,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	/**
 	 * @return a list with BPMN subProcesses
 	 */
-	private ArrayList<String> getBPMNSubProcessList() {
+	private List<String> getBPMNSubProcessList() {
 		ArrayList<String> subprocesses = new ArrayList<>();
 		subprocesses.add("subProcess");
 		subprocesses.add("adHocSubProcess");
@@ -803,7 +803,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	private void createAndAddReferenceTypeViolation(
 			List<Violation> violationList, int line, Element currentElement,
 			Reference checkingReference, Element referencedElement,
-			ArrayList<String> types) {
+			List<String> types) {
 
 		String message = ViolationMessageCreator.createTypeViolationMessage(
 				currentElement.getName(), line, checkingReference.getName(),

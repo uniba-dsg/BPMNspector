@@ -67,9 +67,9 @@ public class ReferenceLoader {
 	 *             if problems occurred while loading, traversing or checking
 	 *             the 'references.xml' file against its XSD
 	 */
-	public HashMap<String, BPMNElement> load(String referencesPath,
+	public Map<String, BPMNElement> load(String referencesPath,
 			String XSDPath) throws ValidatorException {
-		HashMap<String, BPMNElement> bpmnElements = new HashMap<>();
+		Map<String, BPMNElement> bpmnElements = new HashMap<>();
 		SAXBuilder builder = new SAXBuilder();
 		try {
 			// schema validation
@@ -81,7 +81,7 @@ public class ReferenceLoader {
 			validator.setErrorHandler(new XSDValidationLoggingErrorHandler());
 			validator.validate(new StreamSource(getClass().getResourceAsStream(
 					referencesPath)));
-			if (XSDErrorList.size() > 0) {
+			if (!XSDErrorList.isEmpty()) {
 				String xsdErrorText = language.getProperty("loader.xsd.general")
 						+ System.lineSeparator();
 				for (SAXParseException saxParseException : XSDErrorList) {
@@ -109,7 +109,7 @@ public class ReferenceLoader {
 				// element, which inherits the references from the current
 				// element)
 				List<Element> childrenInFile = element.getChildren("child");
-				if (childrenInFile.size() > 0) {
+				if (!childrenInFile.isEmpty()) {
 					children = new ArrayList<>();
 					for (Element child : childrenInFile) {
 						children.add(child.getText());
@@ -125,7 +125,7 @@ public class ReferenceLoader {
 					String referenceName = reference.getChild("name").getText();
 					ArrayList<String> types = null;
 					List<Element> typesInFile = reference.getChildren("type");
-					if (typesInFile.size() > 0) {
+					if (!typesInFile.isEmpty()) {
 						types = new ArrayList<>();
 						for (Element type : typesInFile) {
 							types.add(type.getText());
@@ -177,7 +177,7 @@ public class ReferenceLoader {
 	}
 
 	private boolean convertToBoolean(String string) {
-        return string.equals("true");
+        return "true".equals(string);
 	}
 
 	/**

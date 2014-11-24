@@ -135,7 +135,6 @@ public class FileImporter {
 	private Map<String, List<Document>> processImports(Document baseDoc,
 			Path baseDocPath, List<String> processedFiles)
 			throws ValidatorException {
-		Map<String, List<Document>> resolvedFiles = new HashMap<>();
 		Element rootNode = baseDoc.getRootElement();
 		Filter<Element> filter = Filters.element();
 		IteratorIterable<Element> list = rootNode.getDescendants(filter);
@@ -147,8 +146,7 @@ public class FileImporter {
 		while (list.hasNext()) {
 			Element element = list.next();
 			if ("import".equals(element.getName())
-					&& "http://www.omg.org/spec/BPMN/20100524/MODEL"
-							.equals(element.getNamespaceURI())) {
+					&& ProcessFileSet.BPMN2_NAMESPACE.equals(element.getNamespaceURI())) {
 				String path = element.getAttributeValue("location");
 
 				// Navigate from the folder containing the baseFile
@@ -210,6 +208,7 @@ public class FileImporter {
 				}
 			}
 		}
+        Map<String, List<Document>> resolvedFiles = new HashMap<>();
 		resolvedFiles.put(ProcessFileSet.BPMN2_NAMESPACE, resolvedBpmnFiles);
 		resolvedFiles.put(ProcessFileSet.WSDL_NAMESPACE, resolvedWsdlFiles);
 		resolvedFiles.put(ProcessFileSet.XSD_NAMESPACE, resolvedXsdFiles);
