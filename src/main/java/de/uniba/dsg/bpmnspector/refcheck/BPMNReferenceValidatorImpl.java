@@ -187,10 +187,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		ReferenceLoader referenceLoader = new ReferenceLoader(language, LOGGER);
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
-		String bpmnElementsLogText = "";
+		StringBuilder bpmnElementsLogText = new StringBuilder();
 		for (String key : bpmnRefElements.keySet()) {
-			bpmnElementsLogText = bpmnElementsLogText + key + " :: "
-					+ bpmnRefElements.get(key) + System.lineSeparator();
+            bpmnElementsLogText.append(String.format("%s :: %s", key, bpmnRefElements.get(key)));
+            bpmnElementsLogText.append(System.lineSeparator());
 		}
 		LOGGER.info(language.getProperty("validator.logger.bpmnelements")
 				+ System.lineSeparator() + bpmnElementsLogText);
@@ -245,15 +245,17 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 		LOGGER.info(language.getProperty("validator.logger.elements")
 				+ System.lineSeparator() + elements.toString());
-		String importedFilesLogText = "";
+		StringBuilder importedFilesLogText = new StringBuilder(language.getProperty("validator.logger.importedfiles"))
+                .append(System.lineSeparator());
 		for (String key : importedElements.keySet()) {
-			importedFilesLogText = importedFilesLogText
-					+ language.getProperty("validator.logger.prefix") + key
-					+ System.lineSeparator() + importedElements.get(key)
-					+ System.lineSeparator();
+            importedFilesLogText.append(language.getProperty("validator.logger.prefix"))
+                    .append(key)
+                    .append(System.lineSeparator())
+                    .append(importedElements.get(key))
+                    .append(System.lineSeparator());
 		}
-		LOGGER.info(language.getProperty("validator.logger.importedfiles")
-				+ System.lineSeparator() + importedFilesLogText);
+
+		LOGGER.info(importedFilesLogText.toString());
 		// get all elements of the file for validate their references
 		Filter<Element> filter = Filters.element();
 		IteratorIterable<Element> list = baseDocument.getDescendants(filter);
@@ -313,18 +315,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 										checkingReference, referencedId,
 										ownPrefix);
 							} else {
-								LOGGER.severe(language
-										.getProperty("validator.illegalargument.validatinglevel.part1")
-										+ validationLevel
-										+ " "
-										+ language
-												.getProperty("validator.illegalargument.validatinglevel.part2"));
-								throw new ValidatorException(
-										language.getProperty("validator.illegalargument.validatinglevel.part1")
-												+ validationLevel
-												+ " "
-												+ language
-														.getProperty("validator.illegalargument.validatinglevel.part2"));
+                                StringBuilder logText = new StringBuilder(language
+                                        .getProperty("validator.illegalargument.validatinglevel.part1"));
+                                logText.append(validationLevel).append(' ')
+                                        .append(language.getProperty("validator.illegalargument.validatinglevel.part2"));
+								LOGGER.severe(logText.toString());
+								throw new ValidatorException(logText.toString());
 							}
 						}
 					}
@@ -333,13 +329,13 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		}
 		// log violations
 		if (!violationList.isEmpty()) {
-			String violationListLogText = "";
+			StringBuilder violationListLogText =
+                    new StringBuilder(language.getProperty("validator.logger.violationlist"))
+                    .append(System.lineSeparator());
 			for (Violation violation : violationList) {
-				violationListLogText = violationListLogText
-						+ violation.getMessage() + System.lineSeparator();
+				violationListLogText.append(violation.getMessage()).append(System.lineSeparator());
 			}
-			LOGGER.info(language.getProperty("validator.logger.violationlist")
-					+ System.lineSeparator() + violationListLogText);
+			LOGGER.info(violationListLogText.toString());
 		}
 		return violationList;
 	}

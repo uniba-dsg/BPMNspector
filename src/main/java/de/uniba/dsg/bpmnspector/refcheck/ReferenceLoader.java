@@ -82,18 +82,18 @@ public class ReferenceLoader {
 			validator.validate(new StreamSource(getClass().getResourceAsStream(
 					referencesPath)));
 			if (!XSDErrorList.isEmpty()) {
-				String xsdErrorText = language.getProperty("loader.xsd.general")
-						+ System.lineSeparator();
+				StringBuilder xsdErrorText = new StringBuilder(language.getProperty("loader.xsd.general"))
+						.append(System.lineSeparator());
 				for (SAXParseException saxParseException : XSDErrorList) {
-					xsdErrorText = xsdErrorText
-							+ language.getProperty("loader.xsd.error.part1")
-							+ saxParseException.getLineNumber() + " "
-							+ language.getProperty("loader.xsd.error.part2")
-							+ saxParseException.getMessage()
-							+ System.lineSeparator();
+					xsdErrorText.append(language.getProperty("loader.xsd.error.part1"))
+                            .append(saxParseException.getLineNumber())
+                            .append(' ')
+                            .append(language.getProperty("loader.xsd.error.part2"))
+                            .append(saxParseException.getMessage())
+                            .append(System.lineSeparator());
 				}
-				LOGGER.severe(xsdErrorText);
-				throw new ValidatorException(xsdErrorText);
+				LOGGER.severe(xsdErrorText.toString());
+				throw new ValidatorException(xsdErrorText.toString());
 			}
 
 			Document document = builder.build(getClass()
