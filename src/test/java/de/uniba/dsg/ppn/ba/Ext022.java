@@ -34,7 +34,7 @@ public class Ext022 extends TestCase {
     }
 
     @Test
-    public void testConstraintTasksSuccess_EventProcess_In_SubProcess()
+    public void testConstraintTasksSuccessEventProcessInSubProcess()
             throws BpmnValidationException {
         verifyValidResult(createFile("success_event_in_normal_subprocess.bpmn"));
     }

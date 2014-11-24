@@ -1,26 +1,13 @@
 package de.uniba.dsg.ppn.ba.validation;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-import com.phloc.schematron.ISchematronResource;
-import com.phloc.schematron.pure.SchematronResourcePure;
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
-import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
-import de.uniba.dsg.bpmnspector.common.xsdvalidation.XmlValidator;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
-import de.uniba.dsg.ppn.ba.helper.SetupHelper;
-import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
-import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
-import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
-import org.oclc.purl.dsdl.svrl.FailedAssert;
-import org.oclc.purl.dsdl.svrl.SchematronOutputType;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.Transformer;
@@ -32,9 +19,31 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.oclc.purl.dsdl.svrl.FailedAssert;
+import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+
+import com.phloc.schematron.ISchematronResource;
+import com.phloc.schematron.pure.SchematronResourcePure;
+
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.XmlValidator;
+import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+import de.uniba.dsg.ppn.ba.helper.SetupHelper;
+import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
+import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
+import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
 
 /**
  * Implementation of BpmnValidator
@@ -83,10 +92,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * sets the specified log level for the specified object
      *
-     * @param classObject the object where the log level should be changed
-     * @param logLevel    the new loglevel
+     * @param classObject
+     *            the object where the log level should be changed
+     * @param logLevel
+     *            the new loglevel
      */
-    private void setClassLogLevel(Object classObject, Level logLevel) { // NOPMD
+    private void setClassLogLevel(Object classObject, Level logLevel) {
         ((Logger) LoggerFactory.getLogger(classObject.getClass()
                 .getSimpleName())).setLevel(logLevel);
     }
@@ -202,8 +213,10 @@ public class SchematronBPMNValidator implements BpmnValidator {
      *
      * @param headFileDocument
      * @return input stream with the head file document
-     * @throws UnsupportedEncodingException if the encoding isn't supported
-     * @throws TransformerException         if anything fails during transformation process
+     * @throws UnsupportedEncodingException
+     *             if the encoding isn't supported
+     * @throws TransformerException
+     *             if anything fails during transformation process
      */
     private ByteArrayInputStream transformDocumentToInputStream(
             Document headFileDocument) throws UnsupportedEncodingException,
@@ -214,8 +227,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 .newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer
-                .transform(new DOMSource(headFileDocument), new StreamResult(
-                        new OutputStreamWriter(outputStream, "UTF-8")));
+        .transform(new DOMSource(headFileDocument), new StreamResult(
+                new OutputStreamWriter(outputStream, "UTF-8")));
 
         return new ByteArrayInputStream(outputStream.toByteArray());
     }
@@ -223,17 +236,21 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * searches for the file and line, where the violation occured
      *
-     * @param xpathExpression  the expression, through which the file and line should be
-     *                         identified
-     * @param validationResult for getting all checked files
-     * @param namespaceTable   to identify the file, where the violation occured
+     * @param xpathExpression
+     *            the expression, through which the file and line should be
+     *            identified
+     * @param validationResult
+     *            for getting all checked files
+     * @param namespaceTable
+     *            to identify the file, where the violation occured
      * @return string array with filename, line and xpath expression to find the
-     * element
-     * @throws BpmnValidationException if no element can be found
+     *         element
+     * @throws BpmnValidationException
+     *             if no element can be found
      */
     private String[] searchForViolationFile(String xpathExpression,
-                                            ValidationResult validationResult, List<String[]> namespaceTable)
-            throws BpmnValidationException {
+            ValidationResult validationResult, List<String[]> namespaceTable)
+                    throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
@@ -280,19 +297,22 @@ public class SchematronBPMNValidator implements BpmnValidator {
             throw new BpmnValidationException("BPMN Element couldn't be found!");
         }
 
-        return new String[]{fileName, line, xpathObjectId};
+        return new String[] { fileName, line, xpathObjectId };
     }
 
     /**
      * checks, if there are violations of the EXT.001 constraint
      *
-     * @param headFile         the file which should be checked
-     * @param folder           the parent folder of the file
-     * @param validationResult the current validation result of validating process for adding
-     *                         found violations
+     * @param headFile
+     *            the file which should be checked
+     * @param folder
+     *            the parent folder of the file
+     * @param validationResult
+     *            the current validation result of validating process for adding
+     *            found violations
      */
     private void checkConstraint001(File headFile, File folder,
-                                    ValidationResult validationResult) {
+            ValidationResult validationResult) {
         try {
             bpmnXsdValidator.validateAgainstXsd(headFile, validationResult);
             Document headFileDocument = documentBuilder.parse(headFile);
@@ -314,10 +334,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                     "The imported file does not exist"));
                     logger.info("violation of constraint {} in {} found.",
                             constraint, fileName);
-                } else if (ConstantHelper.BPMNNAMESPACE.equals(importedFile.getImportType())) {
-                    checkConstraint001(file, folder,
-                            validationResult);
-                } else if ("http://www.w3.org/TR/wsdl20/".equals(importedFile.getImportType())) {
+                } else if (ConstantHelper.BPMNNAMESPACE.equals(importedFile
+                        .getImportType())) {
+                    checkConstraint001(file, folder, validationResult);
+                } else if ("http://www.w3.org/TR/wsdl20/".equals(importedFile
+                        .getImportType())) {
                     if (wsdlValidator == null) {
                         wsdlValidator = new WsdlValidator();
                         setClassLogLevel(wsdlValidator, getLogLevel());
@@ -340,14 +361,18 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * checks, if there are violations of the EXT.002 constraint
      *
-     * @param headFile         the file which should be checked
-     * @param folder           the parent folder of the file
-     * @param validationResult the current validation result of validating process for adding
-     *                         found violations
-     * @throws XPathExpressionException if there's an invalid xpath expression used
+     * @param headFile
+     *            the file which should be checked
+     * @param folder
+     *            the parent folder of the file
+     * @param validationResult
+     *            the current validation result of validating process for adding
+     *            found violations
+     * @throws XPathExpressionException
+     *             if there's an invalid xpath expression used
      */
     private void checkConstraint002(File headFile, File folder,
-                                    ValidationResult validationResult) throws XPathExpressionException {
+            ValidationResult validationResult) throws XPathExpressionException {
         List<File> importedFileList = searchForImports(headFile, folder,
                 validationResult);
 
@@ -383,13 +408,16 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * searches for all existing files, which are imported in the given file and
      * their imports and so on
      *
-     * @param file             where the imports are searched
-     * @param folder           parent folder of file
-     * @param validationResult to add all imported files to the checked file list
+     * @param file
+     *            where the imports are searched
+     * @param folder
+     *            parent folder of file
+     * @param validationResult
+     *            to add all imported files to the checked file list
      * @return List<File> including all imported files in file
      */
     private List<File> searchForImports(File file, File folder,
-                                        ValidationResult validationResult) {
+            ValidationResult validationResult) {
         List<File> importedFileList = new ArrayList<>();
         try {
             Document document = documentBuilder.parse(file);
@@ -400,9 +428,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
             for (ImportedFile importedFile : importedFiles) {
                 File impFile = importedFile.getFile();
                 if (impFile.exists()) {
-                    validationResult.getCheckedFiles().add(impFile.getAbsolutePath());
-                    importedFileList.addAll(searchForImports(
-                            impFile, folder,
+                    validationResult.getCheckedFiles().add(
+                            impFile.getAbsolutePath());
+                    importedFileList.addAll(searchForImports(impFile, folder,
                             validationResult));
                 }
             }
@@ -417,16 +445,22 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * checks, if there are namespace and id duplicates in these two checked
      * files
      *
-     * @param file1            first file to check
-     * @param file2            second file to check
-     * @param document1        parsed file1
-     * @param document2        parsed file2
-     * @param validationResult for adding violations to the current validation result
-     * @throws XPathExpressionException if there are invalid xpath expressions
+     * @param file1
+     *            first file to check
+     * @param file2
+     *            second file to check
+     * @param document1
+     *            parsed file1
+     * @param document2
+     *            parsed file2
+     * @param validationResult
+     *            for adding violations to the current validation result
+     * @throws XPathExpressionException
+     *             if there are invalid xpath expressions
      */
     private void checkNamespacesAndIdDuplicates(File file1, File file2,
-                                                Document document1, Document document2,
-                                                ValidationResult validationResult) throws XPathExpressionException {
+            Document document1, Document document2,
+            ValidationResult validationResult) throws XPathExpressionException {
         NodeList foundNodes1 = (NodeList) xPathExpression.evaluate(document1,
                 XPathConstants.NODESET);
         NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
@@ -457,7 +491,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
     /**
      * creates a xpath expression for finding the id
      *
-     * @param id the id, to which the expression should refer
+     * @param id
+     *            the id, to which the expression should refer
      * @return the xpath expression, which refers the given id
      */
     private String createIdBpmnExpression(String id) {

@@ -6,7 +6,7 @@ import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
-public class ArtifactSequenceFlowTest extends TestCase {
+abstract class ArtifactSequenceFlowTest extends TestCase {
 
     @Test
     public void testConstraintAssociationFail() throws BpmnValidationException {
