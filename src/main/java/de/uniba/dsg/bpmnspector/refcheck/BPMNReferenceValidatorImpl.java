@@ -3,12 +3,11 @@ package de.uniba.dsg.bpmnspector.refcheck;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jdom2.Attribute;
+import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -222,7 +221,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		Document baseDocument = fileSet.getBpmnBaseFile();
 
 		// Get all Elements to Check from Base BPMN Process
-		Map<String, Element> elements = getAllElements(baseDocument);
+		Map<String, Element> elements = JDOMUtils.getAllElements(baseDocument);
 
 		String ownPrefix = "";
 		// special case if a prefix is used for the target namespace
@@ -240,7 +239,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		// Store all Elements and their IDs in referenced Files into nested
 		// Map:
 		// outerKey: namespace, innerKey: Id
-		Map<String, Map<String, Element>> importedElements = getAllElementsGroupedByNamespace(fileSet
+		Map<String, Map<String, Element>> importedElements = JDOMUtils.getAllElementsGroupedByNamespace(fileSet
 				.getReferencedBpmnFiles());
 
 		LOGGER.info(language.getProperty("validator.logger.elements")
@@ -338,65 +337,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			LOGGER.info(violationListLogText.toString());
 		}
 		return violationList;
-	}
-
-	/**
-	 * This method puts all elements with an id found in the given document into
-	 * a hash map. The key is the id, the value the element.
-	 *
-	 * @param document
-	 *            the document to get the elements from
-	 * @return the hash map with elements reachable through their id
-	 */
-	private Map<String, Element> getAllElements(Document document) {
-		Map<String, Element> elements = new HashMap<>();
-		Element rootNode = document.getRootElement();
-		Filter<Element> filter = Filters.element();
-		IteratorIterable<Element> list = rootNode.getDescendants(filter);
-		while (list.hasNext()) {
-			Element element = list.next();
-			Attribute id = element.getAttribute("id");
-			// put the element if it has an id
-			if (id != null) {
-				String id_value = id.getValue();
-				if (id_value != null && !id_value.equals("")) {
-					elements.put(id_value, element);
-				}
-			}
-		}
-
-		return elements;
-	}
-
-	/**
-	 * Creates a HashMap which uses the namespace-URI as an ID and another
-	 * HashMap as value. The inner HashMap contains all Elements accessible via
-	 * the ID as key {@see getAllElements()}
-	 *
-	 * @param bpmnFiles
-	 *            the files to be analyzed
-	 * @return the grouped elements
-	 */
-	private Map<String, Map<String, Element>> getAllElementsGroupedByNamespace(
-			List<Document> bpmnFiles) {
-		Map<String, Map<String, Element>> groupedElements = new HashMap<>();
-
-		for (Document doc : bpmnFiles) {
-			String targetNamespace = doc.getRootElement().getAttributeValue(
-					"targetNamespace");
-			Map<String, Element> docElements = getAllElements(doc);
-
-			if (groupedElements.containsKey(targetNamespace)) {
-				Map<String, Element> previousElems = groupedElements
-						.get(targetNamespace);
-				previousElems.putAll(docElements);
-			} else {
-				groupedElements.put(targetNamespace, docElements);
-			}
-		}
-
-		return groupedElements;
-
 	}
 
 	/**
@@ -747,7 +687,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
                         ViolationMessageCreator.DEFAULT_MSG,
 						XPathHelper.getAbsolutePath(currentElement), language);
 		Violation violation = new Violation(CONSTRAINT_REF_EXISTENCE,
-				getUriFromElement(currentElement), line,
+				JDOMUtils.getUriFromElement(currentElement), line,
 				XPathHelper.getAbsolutePath(currentElement), message);
 		violationList.add(violation);
 	}
@@ -779,21 +719,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				referencedElement.getName(), types.toString(), language);
 
 		Violation violation = new Violation(CONSTRAINT_REF_TYPE,
-				getUriFromElement(currentElement), line,
+				JDOMUtils.getUriFromElement(currentElement), line,
 				XPathHelper.getAbsolutePath(currentElement), message);
 
 		violationList.add(violation);
-	}
-
-	private String getUriFromElement(Element element) {
-		try {
-			return element.getXMLBaseURI().toString();
-
-		} catch (URISyntaxException e) {
-			LOGGER.severe("Base URI of current element " + element.getName()
-					+ " could not be restored.");
-			return "unknown file";
-		}
 	}
 
 }
