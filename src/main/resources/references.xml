@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<references xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="main/resources/references.xsd">
+<references xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="references.xsd">
 	<element name="association">
 		<reference number="4" qname="true" attribute="true">
 			<name>sourceRef</name>

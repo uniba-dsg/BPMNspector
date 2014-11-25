@@ -1,6 +1,7 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,111 +70,131 @@ public class ReferenceLoader {
 	 */
 	public Map<String, BPMNElement> load(String referencesPath,
 			String XSDPath) throws ValidatorException {
-		Map<String, BPMNElement> bpmnElements = new HashMap<>();
-		SAXBuilder builder = new SAXBuilder();
-		try {
-			// schema validation
-			SchemaFactory schemaFactory = SchemaFactory
-					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			Schema schema = schemaFactory.newSchema(new StreamSource(getClass()
-					.getResourceAsStream(XSDPath)));
-			Validator validator = schema.newValidator();
-			validator.setErrorHandler(new XSDValidationLoggingErrorHandler());
-			validator.validate(new StreamSource(getClass().getResourceAsStream(
-					referencesPath)));
-			if (!XSDErrorList.isEmpty()) {
-				StringBuilder xsdErrorText = new StringBuilder(language.getProperty("loader.xsd.general"))
-						.append(System.lineSeparator());
-				for (SAXParseException saxParseException : XSDErrorList) {
-					xsdErrorText.append(language.getProperty("loader.xsd.error.part1"))
-                            .append(saxParseException.getLineNumber())
-                            .append(' ')
-                            .append(language.getProperty("loader.xsd.error.part2"))
-                            .append(saxParseException.getMessage())
-                            .append(System.lineSeparator());
-				}
-				LOGGER.severe(xsdErrorText.toString());
-				throw new ValidatorException(xsdErrorText.toString());
-			}
+		try (InputStream refPathStream = getClass().getResourceAsStream(referencesPath)) {
 
-			Document document = builder.build(getClass()
-					.getResourceAsStream(referencesPath));
+			validateReferencesFile(referencesPath, XSDPath);
+
+			Document document = new SAXBuilder().build(refPathStream);
 			Element root = document.getRootElement();
-			// separates all BPMN elements
-			List<Element> elements = root.getChildren();
-			for (Element element : elements) {
-				String elementName = element.getAttributeValue("name");
-				String parent = element.getChildText("parent");
-				List<String> children = null;
-				// separates possible child elements (element names of the
-				// element, which inherits the references from the current
-				// element)
-				List<Element> childrenInFile = element.getChildren("child");
-				if (!childrenInFile.isEmpty()) {
-					children = new ArrayList<>();
-					for (Element child : childrenInFile) {
-						children.add(child.getText());
-					}
-				}
-				// separates the references for the current element
-				List<Reference> references = new ArrayList<>();
-				List<Element> referencesInFile = element
-						.getChildren("reference");
-				for (Element reference : referencesInFile) {
-					int number = Integer.parseInt(reference
-                            .getAttributeValue("number"));
-					String referenceName = reference.getChild("name").getText();
-					ArrayList<String> types = null;
-					List<Element> typesInFile = reference.getChildren("type");
-					if (!typesInFile.isEmpty()) {
-						types = new ArrayList<>();
-						for (Element type : typesInFile) {
-							types.add(type.getText());
-						}
-					}
-					boolean qname = convertToBoolean(reference
-							.getAttributeValue("qname"));
-					boolean attribute = convertToBoolean(reference
-							.getAttributeValue("attribute"));
-					boolean special = false;
-					String specialAttribute = reference
-							.getAttributeValue("special");
-					if (specialAttribute != null) {
-						special = convertToBoolean(specialAttribute);
-					}
-					Reference bpmnReference = new Reference(number,
-							referenceName, types, qname, attribute, special,
-							language);
-					references.add(bpmnReference);
-				}
-				BPMNElement bpmnElement = new BPMNElement(elementName, parent,
-						children, references, language);
-				bpmnElements.put(elementName, bpmnElement);
-			}
+
+			return createReferences(root);
+
 		} catch (JDOMException e) {
 			LOGGER.severe(language.getProperty("loader.jdom"));
 			throw new ValidatorException(language.getProperty("loader.jdom"), e);
 		} catch (IOException e) {
 			LOGGER.severe(language.getProperty("loader.io"));
 			throw new ValidatorException(language.getProperty("loader.io"), e);
-		} catch (SAXException e) {
-			LOGGER.severe(language.getProperty("loader.sax"));
-			throw new ValidatorException(language.getProperty("loader.sax"), e);
 		}
-		// add not jet existing key references of the element children
+
+
+	}
+
+	private Map<String, BPMNElement> createReferences(Element rootElem) {
+		Map<String, BPMNElement> bpmnElements = new HashMap<>();
+		// separates all BPMN elements
+		List<Element> elements = rootElem.getChildren();
+		for (Element element : elements) {
+            String elementName = element.getAttributeValue("name");
+            String parent = element.getChildText("parent");
+            List<String> children = null;
+            // separates possible child elements (element names of the
+            // element, which inherits the references from the current
+            // element)
+            List<Element> childrenInFile = element.getChildren("child");
+            if (!childrenInFile.isEmpty()) {
+                children = new ArrayList<>();
+                for (Element child : childrenInFile) {
+                    children.add(child.getText());
+                }
+            }
+            // separates the references for the current element
+            List<Reference> references = new ArrayList<>();
+            List<Element> referencesInFile = element
+					.getChildren("reference");
+            for (Element reference : referencesInFile) {
+                int number = Integer.parseInt(reference
+.getAttributeValue("number"));
+                String referenceName = reference.getChild("name").getText();
+                ArrayList<String> types = null;
+                List<Element> typesInFile = reference.getChildren("type");
+                if (!typesInFile.isEmpty()) {
+                    types = new ArrayList<>();
+                    for (Element type : typesInFile) {
+                        types.add(type.getText());
+                    }
+                }
+                boolean qname = convertToBoolean(reference
+                        .getAttributeValue("qname"));
+                boolean attribute = convertToBoolean(reference
+                        .getAttributeValue("attribute"));
+                boolean special = false;
+                String specialAttribute = reference
+                        .getAttributeValue("special");
+                if (specialAttribute != null) {
+                    special = convertToBoolean(specialAttribute);
+                }
+                Reference bpmnReference = new Reference(number,
+                        referenceName, types, qname, attribute, special,
+                        language);
+                references.add(bpmnReference);
+            }
+            BPMNElement bpmnElement = new BPMNElement(elementName, parent,
+                    children, references, language);
+            bpmnElements.put(elementName, bpmnElement);
+        }
+
+		// add not yet existing key references of the element children
 		Map<String, BPMNElement> missingMap = new HashMap<>();
-		for (String key : bpmnElements.keySet()) {
-			BPMNElement bpmnElement = bpmnElements.get(key);
-			if (bpmnElement.getChildren() != null) {
-				for (String childName : bpmnElement.getChildren()) {
+
+		for(Map.Entry<String, BPMNElement> entry : bpmnElements.entrySet()) {
+			if(entry.getValue().getChildren() != null) {
+				for (String childName : entry.getValue().getChildren()) {
 					if (!bpmnElements.containsKey(childName)) {
-						missingMap.put(childName, bpmnElement);
+						missingMap.put(childName, entry.getValue());
 					}
 				}
 			}
 		}
+
 		bpmnElements.putAll(missingMap);
+
 		return bpmnElements;
+	}
+
+	private void validateReferencesFile(String referencesPath, String XSDPath)
+			throws ValidatorException, IOException {
+		try (InputStream refPathStream = getClass().getResourceAsStream(referencesPath);
+				InputStream xsdPathStream = getClass().getResourceAsStream(XSDPath)) {
+			SchemaFactory schemaFactory = SchemaFactory
+					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = schemaFactory
+					.newSchema(new StreamSource(xsdPathStream));
+			Validator validator = schema.newValidator();
+			validator.setErrorHandler(new XSDValidationLoggingErrorHandler());
+			validator.validate(new StreamSource(refPathStream));
+			if (!XSDErrorList.isEmpty()) {
+				StringBuilder xsdErrorText = new StringBuilder(
+						language.getProperty("loader.xsd.general"))
+						.append(System.lineSeparator());
+				for (SAXParseException saxParseException : XSDErrorList) {
+					xsdErrorText.append(language
+							.getProperty("loader.xsd.error.part1"))
+							.append(saxParseException.getLineNumber())
+							.append(' ')
+							.append(language
+									.getProperty("loader.xsd.error.part2"))
+							.append(saxParseException.getMessage())
+							.append(System.lineSeparator());
+				}
+				LOGGER.severe(xsdErrorText.toString());
+				throw new ValidatorException(xsdErrorText.toString());
+			}
+		} catch (SAXException e) {
+			LOGGER.severe(language.getProperty("loader.sax"));
+			throw new ValidatorException(language.getProperty("loader.sax"), e);
+		}
+
 	}
 
 	private boolean convertToBoolean(String string) {

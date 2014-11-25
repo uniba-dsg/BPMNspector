@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import de.uniba.dsg.bpmnspector.refcheck.RefTypeChecker;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -112,7 +113,7 @@ public class TestBPMNFiles {
 		assertViolationCount(result, 2);
 		
 		validateResultType(result.getViolations().get(0), 10, "incoming", "participant");
-		validateResultType(result.getViolations().get(1), 30, "dafault", "startEvent");
+		validateResultType(result.getViolations().get(1), 30, "default", "startEvent");
 	}
 
 	/**
@@ -458,8 +459,9 @@ public class TestBPMNFiles {
 	}
 	
 	private static void validateResultType(Violation foundError, int expectedLine, String validType, String typeToBeFound) {
-		if(foundError.getConstraint()==null || !foundError.getConstraint().equals(BPMNReferenceValidatorImpl.CONSTRAINT_REF_TYPE)) {
-			fail("found violation has the wrong type. Expected: "+BPMNReferenceValidatorImpl.CONSTRAINT_REF_TYPE+" Found: "+foundError.getConstraint());
+		if(foundError.getConstraint()==null || !foundError.getConstraint().equals(
+				RefTypeChecker.CONSTRAINT_REF_TYPE)) {
+			fail("found violation has the wrong type. Expected: "+RefTypeChecker.CONSTRAINT_REF_TYPE+" Found: "+foundError.getConstraint());
 		}
 		
 		if(foundError.getLine()<=0 || foundError.getLine()!=expectedLine) {
@@ -468,15 +470,15 @@ public class TestBPMNFiles {
 		
 		if(foundError.getMessage()==null || !foundError.getMessage().contains("incorrect type "+typeToBeFound)) {
 			fail("Violation Message does not contain expected String: 'incorrect type "+typeToBeFound+"'\n\t Message was: "+foundError.getMessage());
-		} else if(!foundError.getMessage().contains(validType));
+		} else if(!foundError.getMessage().contains(validType)) {
+			fail("Valid Type ("+validType+") is not found in list of expected types."+foundError.getMessage());
+		}
 	}
 	
 	private static void assertViolationCount(ValidationResult result, int expectedViolationsCount) {
 		if(expectedViolationsCount!=0) { 
 			assertFalse(result.isValid());
 			assertEquals(expectedViolationsCount, result.getViolations().size());
-		} else {
-			
 		}
 	}
 }
