@@ -49,9 +49,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public static final String CONSTRAINT_REF_EXISTENCE = "REF_EXISTENCE";
 	public static final String CONSTRAINT_REF_TYPE = "REF_TYPE";
 
-    public static final String EXISTENCE = "existence";
-    public static final String REFERENCE = "referenceType";
-    /**
+	public static final String EXISTENCE = "existence";
+	public static final String REFERENCE = "referenceType";
+
+	/**
 	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
 	 *
 	 * @throws ValidatorException
@@ -117,8 +118,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		boolean valid = violations.isEmpty();
 		List<String> checkedFiles = new ArrayList<>();
 		checkedFiles.add(path);
-		return new ValidationResult(valid, checkedFiles,
-				violations);
+		return new ValidationResult(valid, checkedFiles, violations);
 	}
 
 	@Override
@@ -129,8 +129,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		boolean valid = violations.isEmpty();
 		List<String> checkedFiles = new ArrayList<>();
 		checkedFiles.add(path);
-		return new ValidationResult(valid, checkedFiles,
-				violations);
+		return new ValidationResult(valid, checkedFiles, violations);
 	}
 
 	@Override
@@ -188,8 +187,9 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				"/references.xsd");
 		StringBuilder bpmnElementsLogText = new StringBuilder();
 		for (String key : bpmnRefElements.keySet()) {
-            bpmnElementsLogText.append(String.format("%s :: %s", key, bpmnRefElements.get(key)));
-            bpmnElementsLogText.append(System.lineSeparator());
+			bpmnElementsLogText.append(String.format("%s :: %s", key,
+					bpmnRefElements.get(key)));
+			bpmnElementsLogText.append(System.lineSeparator());
 		}
 		LOGGER.info(language.getProperty("validator.logger.bpmnelements")
 				+ System.lineSeparator() + bpmnElementsLogText);
@@ -239,19 +239,21 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		// Store all Elements and their IDs in referenced Files into nested
 		// Map:
 		// outerKey: namespace, innerKey: Id
-		Map<String, Map<String, Element>> importedElements = JDOMUtils.getAllElementsGroupedByNamespace(fileSet
-				.getReferencedBpmnFiles());
+		Map<String, Map<String, Element>> importedElements = JDOMUtils
+				.getAllElementsGroupedByNamespace(fileSet
+						.getReferencedBpmnFiles());
 
 		LOGGER.info(language.getProperty("validator.logger.elements")
 				+ System.lineSeparator() + elements.toString());
-		StringBuilder importedFilesLogText = new StringBuilder(language.getProperty("validator.logger.importedfiles"))
-                .append(System.lineSeparator());
+		StringBuilder importedFilesLogText = new StringBuilder(
+				language.getProperty("validator.logger.importedfiles"))
+				.append(System.lineSeparator());
 		for (String key : importedElements.keySet()) {
-            importedFilesLogText.append(language.getProperty("validator.logger.prefix"))
-                    .append(key)
-                    .append(System.lineSeparator())
-                    .append(importedElements.get(key))
-                    .append(System.lineSeparator());
+			importedFilesLogText
+					.append(language.getProperty("validator.logger.prefix"))
+					.append(key).append(System.lineSeparator())
+					.append(importedElements.get(key))
+					.append(System.lineSeparator());
 		}
 
 		LOGGER.info(importedFilesLogText.toString());
@@ -287,7 +289,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 						if (checkingReference.isAttribute()) {
 							referencedId = currentElement
 									.getAttributeValue(checkingReference
-                                            .getName());
+											.getName());
 							line = ((LocatedElement) currentElement).getLine();
 						} else {
 							for (Element child : currentElement.getChildren()) {
@@ -314,10 +316,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 										checkingReference, referencedId,
 										ownPrefix);
 							} else {
-                                StringBuilder logText = new StringBuilder(language
-                                        .getProperty("validator.illegalargument.validatinglevel.part1"));
-                                logText.append(validationLevel).append(' ')
-                                        .append(language.getProperty("validator.illegalargument.validatinglevel.part2"));
+								StringBuilder logText = new StringBuilder(
+										language.getProperty("validator.illegalargument.validatinglevel.part1"));
+								logText.append(validationLevel)
+										.append(' ')
+										.append(language
+												.getProperty("validator.illegalargument.validatinglevel.part2"));
 								LOGGER.severe(logText.toString());
 								throw new ValidatorException(logText.toString());
 							}
@@ -328,11 +332,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		}
 		// log violations
 		if (!violationList.isEmpty()) {
-			StringBuilder violationListLogText =
-                    new StringBuilder(language.getProperty("validator.logger.violationlist"))
-                    .append(System.lineSeparator());
+			StringBuilder violationListLogText = new StringBuilder(
+					language.getProperty("validator.logger.violationlist"))
+					.append(System.lineSeparator());
 			for (Violation violation : violationList) {
-				violationListLogText.append(violation.getMessage()).append(System.lineSeparator());
+				violationListLogText.append(violation.getMessage()).append(
+						System.lineSeparator());
 			}
 			LOGGER.info(violationListLogText.toString());
 		}
@@ -363,8 +368,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			Reference checkingReference, String referencedId, String ownPrefix) {
 		if (checkingReference.isQname()) {
 
-            // Check whether the QName is prefixed
-			if (referencedId.contains(":")) { 	// reference ID is prefixed and therefore probably to find in an
+			// Check whether the QName is prefixed
+			if (referencedId.contains(":")) { // reference ID is prefixed and
+												// therefore probably to find in
+												// an
 												// imported file
 				String[] parts = referencedId.split(":");
 				String prefix = parts[0];
@@ -375,68 +382,80 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				for (Namespace nsp : currentElement.getNamespacesInScope()) {
 					if (nsp.getPrefix().equals(prefix)) {
 						namespace = nsp.getURI();
-                        break;
+						break;
 					}
 				}
 
 				Map<String, Element> relevantImportedElements = importedElements
 						.get(namespace);
 
-                // Checking whether the namespace is used for the root and/or the imported file
-                // to determine the correct element to be checked
-                if (ownPrefix.equals(prefix)) { // namespace is used for the root file
+				// Checking whether the namespace is used for the root and/or
+				// the imported file
+				// to determine the correct element to be checked
+				if (ownPrefix.equals(prefix)) { // namespace is used for the
+												// root file
 
-                    // check whether element with ID importedId exists in root or another file
-                    if (elements.containsKey(importedId)) { // elem is in root file
-                        checkTypeAndAddViolation(violationList, line,
-                                currentElement, checkingReference,
-                                elements.get(importedId));
-                    } else if(relevantImportedElements != null &&
-                            relevantImportedElements.containsKey(importedId)) { // element is found in the imported file
-                        checkTypeAndAddViolation(violationList, line,
-                                currentElement, checkingReference,
-                                relevantImportedElements.get(importedId));
-                    } else {
-                        createAndAddExistenceViolation(violationList, line,
-                                currentElement, checkingReference);
-                    }
+					// check whether element with ID importedId exists in root
+					// or another file
+					if (elements.containsKey(importedId)) { // elem is in root
+															// file
+						checkTypeAndAddViolation(violationList, line,
+								currentElement, checkingReference,
+								elements.get(importedId));
+					} else if (relevantImportedElements != null
+							&& relevantImportedElements.containsKey(importedId)) { // element
+																					// is
+																					// found
+																					// in
+																					// the
+																					// imported
+																					// file
+						checkTypeAndAddViolation(violationList, line,
+								currentElement, checkingReference,
+								relevantImportedElements.get(importedId));
+					} else {
+						createAndAddExistenceViolation(violationList, line,
+								currentElement, checkingReference);
+					}
 
-                } else if (relevantImportedElements != null) {  //NOPMD
-                    // namespace is used by an imported file
-                    if (relevantImportedElements.containsKey(importedId)) {
-                        checkTypeAndAddViolation(violationList, line,
-                                currentElement, checkingReference,
-                                relevantImportedElements
-                                        .get(importedId));
-                    } else {
-                        createAndAddExistenceViolation(violationList, line,
-                                currentElement, checkingReference);
-                    }
-                } else {
-                    // invalid namespace: not used in any file
-                    // case if the namespace is not used for the root file or an imported file
-                    // import does not exist or is no BPMN file (as it has to be)
-                    createAndAddExistenceViolation(violationList, line,
-                            currentElement, checkingReference);
-                }
+				} else if (relevantImportedElements != null) { // NOPMD
+					// namespace is used by an imported file
+					if (relevantImportedElements.containsKey(importedId)) {
+						checkTypeAndAddViolation(violationList, line,
+								currentElement, checkingReference,
+								relevantImportedElements.get(importedId));
+					} else {
+						createAndAddExistenceViolation(violationList, line,
+								currentElement, checkingReference);
+					}
+				} else {
+					// invalid namespace: not used in any file
+					// case if the namespace is not used for the root file or an
+					// imported file
+					// import does not exist or is no BPMN file (as it has to
+					// be)
+					createAndAddExistenceViolation(violationList, line,
+							currentElement, checkingReference);
+				}
 
 			} else { // no QName prefix - the elem has to be in the root file
-                if (elements.containsKey(referencedId)) {
-                    checkTypeAndAddViolation(violationList, line, currentElement,
-                            checkingReference, elements.get(referencedId));
-                } else {
-                    createAndAddExistenceViolation(violationList, line,
-                            currentElement, checkingReference);
-                }
+				if (elements.containsKey(referencedId)) {
+					checkTypeAndAddViolation(violationList, line,
+							currentElement, checkingReference,
+							elements.get(referencedId));
+				} else {
+					createAndAddExistenceViolation(violationList, line,
+							currentElement, checkingReference);
+				}
 			}
 
 		} else { // reference uses IDREF - ref has to exist in root file
 			if (elements.containsKey(referencedId)) {
-                checkTypeAndAddViolation(violationList, line, currentElement,
-                        checkingReference, elements.get(referencedId));
+				checkTypeAndAddViolation(violationList, line, currentElement,
+						checkingReference, elements.get(referencedId));
 			} else {
-                createAndAddExistenceViolation(violationList, line,
-                        currentElement, checkingReference);
+				createAndAddExistenceViolation(violationList, line,
+						currentElement, checkingReference);
 			}
 		}
 	}
@@ -464,6 +483,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			Map<String, Map<String, Element>> importedElements,
 			List<Violation> violationList, Element currentElement, int line,
 			Reference checkingReference, String referencedId, String ownPrefix) {
+		boolean foundViolation = false;
 		if (checkingReference.isQname()) {
 			// reference ID is prefixed and therefore probably to find in an
 			// imported file
@@ -471,52 +491,51 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				String[] parts = referencedId.split(":");
 				String prefix = parts[0];
 				String importedId = parts[1];
-                Map<String, Element> relevantElements = importedElements
+
+				Map<String, Element> relevantImportedElements = importedElements
 						.get(prefix);
-				// case if the namespace is used for the root file and an
-				// imported file
-				if (ownPrefix.equals(prefix) && relevantElements != null) {
-					if (!elements.containsKey(importedId)
-							&& !relevantElements.containsKey(importedId)) {
-						createAndAddExistenceViolation(violationList, line,
-								currentElement, checkingReference);
-					}
-					// case if the namespace is only used for the root file
-				} else if (ownPrefix.equals(prefix)) {
-					if (!elements.containsKey(importedId)) {
-						createAndAddExistenceViolation(violationList, line,
-								currentElement, checkingReference);
-					}
-					// case if the namespace is not used for the roor file or an
-					// imported file
-				} else if (relevantElements == null) {
+
+				if (ownPrefix.equals(prefix)
+						&& relevantImportedElements != null // namespace is used
+															// for the root
+						&& !elements.containsKey(importedId) // file and an
+																// imported file
+						&& !relevantImportedElements.containsKey(importedId)) {
+					foundViolation = true;
+
+				} else if (ownPrefix.equals(prefix) && // namespace is used for
+														// the root file only
+						!elements.containsKey(importedId)) {
+					foundViolation = true;
+
+				} else if (relevantImportedElements != null && // NOPMD //
+																// namespace is
+																// used by an
+																// imported file
+						!relevantImportedElements.containsKey(importedId)) {
+					foundViolation = true;
+
+				} else { // invalid namespace: not used in any file
 					// import does not exist or is no BPMN file (as it has to
 					// be)
-					createAndAddExistenceViolation(violationList, line,
-							currentElement, checkingReference);
+					foundViolation = true;
+				}
 
-					// case if the namespace is used by an imported file
-				} else {
-					if (relevantElements.get(importedId) == null) {
-						createAndAddExistenceViolation(violationList, line,
-								currentElement, checkingReference);
-					}
-				}
-				// the referenced element has no prefix and therefore is to find
-				// in the root file
-			} else {
+			} else { // no QName prefix - the elem has to be in the root file
 				if (!elements.containsKey(referencedId)) {
-					createAndAddExistenceViolation(violationList, line,
-							currentElement, checkingReference);
+					foundViolation = true;
 				}
 			}
-			// checking reference is IDREF (!QName) and therefore is to find in
-			// the root file
-		} else {
+
+		} else { // reference uses IDREF - ref has to exist in root file
 			if (!elements.containsKey(referencedId)) {
-				createAndAddExistenceViolation(violationList, line,
-						currentElement, checkingReference);
+				foundViolation = true;
 			}
+		}
+
+		if (foundViolation) {
+			createAndAddExistenceViolation(violationList, line, currentElement,
+					checkingReference);
 		}
 	}
 
@@ -539,16 +558,16 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	private void checkTypeAndAddViolation(List<Violation> violationList,
 			int line, Element currentElement, Reference checkingReference,
 			Element referencedElement) {
-		boolean foundType = false;
+		boolean validType = false;
 		List<String> referencedTypes = checkingReference.getTypes();
 		// do not check references which are only for existence validation
 		if (referencedTypes != null) {
 			// find all possible types (with subtypes/children)
-            List<String> types = new ArrayList<>(referencedTypes);
+			List<String> types = new ArrayList<>(referencedTypes);
 			boolean childfound;
 			do {
 				childfound = false;
-                List<String> typesCopy = new ArrayList<>(types);
+				List<String> typesCopy = new ArrayList<>(types);
 				for (String type : typesCopy) {
 					if (bpmnRefElements.containsKey(type)) {
 						BPMNElement bpmnElement = bpmnRefElements.get(type);
@@ -567,78 +586,75 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			// validate if the referenced element has one of the correct types
 			for (String type : types) {
 				if (referencedElement.getName().equals(type)) {
-					foundType = true;
+					validType = true;
 					break;
 				}
 			}
-			if (!foundType) {
+
+			if (!validType
+					|| checkingReference.isSpecial() && !performSpecialChecks(
+							currentElement, checkingReference,
+							referencedElement)) {
 				createAndAddReferenceTypeViolation(violationList, line,
 						currentElement, checkingReference, referencedElement,
 						types);
-			} else {
-				// special cases for additional checks (look up bachelor thesis
-				// for the reference number)
-				if (checkingReference.isSpecial()) {
-					if (checkingReference.getNumber() == 18
-							|| checkingReference.getNumber() == 19) {
-                        String isEventSubprocess = referencedElement
-								.getAttributeValue("triggeredByEvent");
-						if (isEventSubprocess != null
-								&& isEventSubprocess.equals("true")) {
-							createAndAddReferenceTypeViolation(violationList,
-									line, currentElement, checkingReference,
-									referencedElement, types);
-						}
-					} else if (checkingReference.getNumber() == 62) {
-						Element parent = currentElement.getParentElement();
-						if (parent != null) {
-							List<String> tasks = getBPMNTasksList();
-							List<String> subprocesses = getBPMNSubProcessList();
-							if (tasks.contains(parent.getName())) {
-								if (!referencedElement.getName().equals(
-										"dataInput")) {
-									createAndAddReferenceTypeViolation(
-											violationList, line,
-											currentElement, checkingReference,
-											referencedElement, types);
-								}
-							} else if (subprocesses.contains(parent.getName())) {
-								if (!referencedElement.getName().equals(
-										"dataObject")) {
-									createAndAddReferenceTypeViolation(
-											violationList, line,
-											currentElement, checkingReference,
-											referencedElement, types);
-								}
-							}
-						}
-					} else if (checkingReference.getNumber() == 63) {
-						Element parent = currentElement.getParentElement();
-						if (parent != null) {
-							List<String> tasks = getBPMNTasksList();
-							List<String> subprocesses = getBPMNSubProcessList();
-							if (tasks.contains(parent.getName())) {
-								if (!referencedElement.getName().equals(
-										"dataOutput")) {
-									createAndAddReferenceTypeViolation(
-											violationList, line,
-											currentElement, checkingReference,
-											referencedElement, types);
-								}
-							} else if (subprocesses.contains(parent.getName())) {
-								if (!referencedElement.getName().equals(
-										"dataObject")) {
-									createAndAddReferenceTypeViolation(
-											violationList, line,
-											currentElement, checkingReference,
-											referencedElement, types);
-								}
-							}
-						}
+			}
+		}
+	}
+
+	/**
+	 * Method to perform additional checks for special cases
+	 *
+	 * @param currentElement
+	 *            Element to check
+	 * @param checkingReference
+	 *            reference to check
+	 * @param referencedElement
+	 *            referenced element
+	 * @return true if no violation is found, false otherwise
+	 */
+	private boolean performSpecialChecks(Element currentElement,
+			Reference checkingReference, Element referencedElement) {
+		// perform additional checks for special cases (look up bachelor thesis
+		// for the reference number)
+		boolean validType = true;
+		if (checkingReference.getNumber() == 18
+				|| checkingReference.getNumber() == 19) {
+			String isEventSubprocess = referencedElement
+					.getAttributeValue("triggeredByEvent");
+			if (isEventSubprocess != null && isEventSubprocess.equals("true")) {
+				validType = false;
+			}
+		} else if (checkingReference.getNumber() == 62) {
+			Element parent = currentElement.getParentElement();
+			if (parent != null) {
+				List<String> tasks = getBPMNTasksList();
+				List<String> subprocesses = getBPMNSubProcessList();
+				if (tasks.contains(parent.getName())
+						&& !referencedElement.getName().equals("dataInput")) {
+					validType = false;
+				} else if (subprocesses.contains(parent.getName())
+						&& !referencedElement.getName().equals("dataObject")) {
+					validType = false;
+				}
+			}
+		} else if (checkingReference.getNumber() == 63) {
+			Element parent = currentElement.getParentElement();
+			if (parent != null) {
+				List<String> tasks = getBPMNTasksList();
+				List<String> subprocesses = getBPMNSubProcessList();
+				if (tasks.contains(parent.getName())) {
+					if (!referencedElement.getName().equals("dataOutput")) {
+						validType = false;
+					}
+				} else if (subprocesses.contains(parent.getName())) {
+					if (!referencedElement.getName().equals("dataObject")) {
+						validType = false;
 					}
 				}
 			}
 		}
+		return validType;
 	}
 
 	/**
@@ -681,10 +697,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 */
 	private void createAndAddExistenceViolation(List<Violation> violationList,
 			int line, Element currentElement, Reference checkingReference) {
-        String message = ViolationMessageCreator
-                .createExistenceViolationMessage(currentElement.getName(),
-                        checkingReference.getName(), line,
-                        ViolationMessageCreator.DEFAULT_MSG,
+		String message = ViolationMessageCreator
+				.createExistenceViolationMessage(currentElement.getName(),
+						checkingReference.getName(), line,
+						ViolationMessageCreator.DEFAULT_MSG,
 						XPathHelper.getAbsolutePath(currentElement), language);
 		Violation violation = new Violation(CONSTRAINT_REF_EXISTENCE,
 				JDOMUtils.getUriFromElement(currentElement), line,
