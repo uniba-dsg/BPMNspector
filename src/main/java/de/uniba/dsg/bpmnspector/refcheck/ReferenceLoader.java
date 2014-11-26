@@ -174,8 +174,8 @@ public class ReferenceLoader {
 			validator.setErrorHandler(new XSDValidationLoggingErrorHandler());
 			validator.validate(new StreamSource(refPathStream));
 			if (!XSDErrorList.isEmpty()) {
-				StringBuilder xsdErrorText = new StringBuilder(
-						language.getProperty("loader.xsd.general"))
+				StringBuilder xsdErrorText = new StringBuilder(200)
+						.append(language.getProperty("loader.xsd.general"))
 						.append(System.lineSeparator());
 				for (SAXParseException saxParseException : XSDErrorList) {
 					xsdErrorText.append(language

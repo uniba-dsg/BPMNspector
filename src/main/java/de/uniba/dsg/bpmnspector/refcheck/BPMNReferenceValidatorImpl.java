@@ -192,7 +192,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		ReferenceLoader referenceLoader = new ReferenceLoader(language, LOGGER);
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
-		StringBuilder bpmnElementsLogText = new StringBuilder();
+		StringBuilder bpmnElementsLogText = new StringBuilder(500);
 		for (String key : bpmnRefElements.keySet()) {
 			bpmnElementsLogText.append(String.format("%s :: %s", key,
 					bpmnRefElements.get(key)));
@@ -252,8 +252,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 		LOGGER.info(language.getProperty("validator.logger.elements")
 				+ System.lineSeparator() + elements.toString());
-		StringBuilder importedFilesLogText = new StringBuilder(
-				language.getProperty("validator.logger.importedfiles"))
+		StringBuilder importedFilesLogText = new StringBuilder(100)
+				.append(language.getProperty("validator.logger.importedfiles"))
 				.append(System.lineSeparator());
 		for (String key : importedElements.keySet()) {
 			importedFilesLogText
