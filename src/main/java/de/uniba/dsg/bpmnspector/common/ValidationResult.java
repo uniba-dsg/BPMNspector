@@ -45,6 +45,7 @@ public class ValidationResult {
     public ValidationResult() {
         this.checkedFiles = new ArrayList<>();
         this.violations = new ArrayList<>();
+        this.valid = true;
     }
 
     /**
