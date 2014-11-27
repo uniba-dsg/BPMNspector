@@ -25,17 +25,18 @@ public class Main {
         LOGGER = (Logger) LoggerFactory.getLogger(Main.class.getSimpleName());
     }
 
-    public static void main(final String[] args) {
+    public static void main(final String... args) {
         final SchematronBPMNValidator validator = new SchematronBPMNValidator();
         final ArrayList<String> argsAsList = new ArrayList<>(
                 Arrays.asList(args));
         final XmlWriter xmlWriter = new XmlWriter();
 
-        if (argsAsList.contains("--debug")) {
+        if (argsAsList.contains("--debug") || argsAsList.contains("-d")) {
             validator.setLogLevel(DEBUGLEVEL);
             LOGGER.setLevel(DEBUGLEVEL);
             ((Logger) LoggerFactory.getLogger(xmlWriter.getClass()
                     .getSimpleName())).setLevel(DEBUGLEVEL);
+            argsAsList.remove("-d");
             argsAsList.remove("--debug");
         }
 
