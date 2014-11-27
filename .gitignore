@@ -10,3 +10,4 @@ validator.log
 *.ipr
 *.iws
 .idea/*
+reports/

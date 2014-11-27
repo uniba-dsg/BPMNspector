@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,14 +62,20 @@ public class BPMNspectorMain {
     }
 
     private static void createXmlReport(ValidationResult result) {
-        String firstFile = result.getCheckedFiles().get(0);
-        String fileName = Paths.get(firstFile).getFileName().toString();
-        Path logFile = Paths.get("logs").resolve(fileName+"_validation_result.xml");
         try {
+            String firstFile = result.getCheckedFiles().get(0);
+            String fileName = Paths.get(firstFile).getFileName().toString();
+            Path reportPath = Paths.get("reports");
+
+            if(!Files.exists(reportPath)) {
+                Files.createDirectory(reportPath);
+            }
+
+            Path reportFile = reportPath.resolve(fileName + "_validation_result.xml");
+
             XmlWriter xmlWriter = new XmlWriter();
-            xmlWriter.writeResult(result,
-                    logFile.toFile());
-        } catch (JAXBException e) {
+            xmlWriter.writeResult(result,reportFile.toFile());
+        } catch (JAXBException | IOException e) {
             LOGGER.error("result of validation couldn't be written in xml!", e);
         }
     }
