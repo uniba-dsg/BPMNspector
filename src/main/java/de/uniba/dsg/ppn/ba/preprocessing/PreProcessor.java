@@ -34,6 +34,8 @@ public class PreProcessor {
 
     private final DocumentBuilder documentBuilder;
     private final XPath xpath;
+    private final XPathExpression xPathChangeNamespaceIds;
+    private final XPathExpression xPathReplaceIds;
     private static final Logger LOGGER;
 
     static {
@@ -44,6 +46,8 @@ public class PreProcessor {
     {
         documentBuilder = SetupHelper.setupDocumentBuilder();
         xpath = SetupHelper.setupXPath();
+        xPathChangeNamespaceIds = setupXPathNamespaceIds();
+        xPathReplaceIds = setupXPathReplaceIds();
     }
 
     /**
@@ -73,27 +77,13 @@ public class PreProcessor {
         BpmnHelper.removeBPMNDINode(headFileDocument);
         LOGGER.info("preprocessing step started");
 
-        XPathExpression xPathChangeNamespaceIds = xpath
-                .compile("//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
         NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
                 .evaluate(headFileDocument, XPathConstants.NODESET);
 
         for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
             Node idNode = foundNodesHeadFile.item(j);
             if (idNode.getTextContent().contains(":")) {
-                String prefix = idNode.getTextContent().substring(0,
-                        idNode.getTextContent().indexOf(":"));
-                String namespace = headFileDocument.getDocumentElement()
-                        .lookupNamespaceURI(prefix);
-                String newPrefix = "";
-                for (ImportedFile importedFile : importedFiles) {
-                    if (namespace.equals(importedFile.getNamespace())) {
-                        newPrefix = importedFile.getPrefix();
-                    }
-                }
-                LOGGER.debug("new prefix will be set {}", newPrefix);
-                idNode.setTextContent(idNode.getTextContent().replace(
-                        prefix + ":", newPrefix + "_"));
+                replaceGlobalIds(headFileDocument, importedFiles, idNode);
             }
         }
 
@@ -105,6 +95,23 @@ public class PreProcessor {
         }
 
         return new PreProcessResult(headFileDocument, namespaceTable);
+    }
+
+    private void replaceGlobalIds(Document headFileDocument,
+            List<ImportedFile> importedFiles, Node idNode) {
+        String prefix = idNode.getTextContent().substring(0,
+                idNode.getTextContent().indexOf(":"));
+        String namespace = headFileDocument.getDocumentElement()
+                .lookupNamespaceURI(prefix);
+        String newPrefix = "";
+        for (ImportedFile importedFile : importedFiles) {
+            if (namespace.equals(importedFile.getNamespace())) {
+                newPrefix = importedFile.getPrefix();
+            }
+        }
+        LOGGER.debug("new prefix will be set {}", newPrefix);
+        idNode.setTextContent(idNode.getTextContent().replace(prefix + ":",
+                newPrefix + "_"));
     }
 
     private void addNamespacesAndRenameIds(Document headFileDocument,
@@ -128,8 +135,6 @@ public class PreProcessor {
                 namespaceTable.add(new String[] { file.getPrefix(),
                         file.getNamespace() });
             }
-            XPathExpression xPathReplaceIds = xpath
-                    .compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
             renameIds(xPathReplaceIds, importedDocument, file.getPrefix());
 
             preProcess(importedDocument, folder, namespaceTable);
@@ -185,5 +190,29 @@ public class PreProcessor {
                     importDefinitionsNode.getChildNodes().item(j), true);
             definitionsNode.appendChild(importedNode);
         }
+    }
+
+    private XPathExpression setupXPathNamespaceIds() {
+        XPathExpression xPathChangeNamespaceIds = null;
+        try {
+            xPathChangeNamespaceIds = xpath
+                    .compile("//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
+        } catch (XPathExpressionException e) {
+            // won't happen, developer's responsibility
+        }
+
+        return xPathChangeNamespaceIds;
+    }
+
+    private XPathExpression setupXPathReplaceIds() {
+        XPathExpression xPathReplaceIds = null;
+        try {
+            xPathReplaceIds = xpath
+                    .compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
+        } catch (XPathExpressionException e) {
+            // won't happen, developer's responsibility
+        }
+
+        return xPathReplaceIds;
     }
 }
