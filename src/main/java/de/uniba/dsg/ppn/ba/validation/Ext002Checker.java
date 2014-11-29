@@ -30,6 +30,7 @@ public class Ext002Checker {
     private final XPathExpression xPathExpression;
     private final XmlLocator xmlLocator;
     private final static Logger LOGGER;
+    private static final String CONSTRAINTNUMBER = "EXT.002";
 
     static {
         LOGGER = (Logger) LoggerFactory.getLogger(Ext002Checker.class
@@ -80,7 +81,7 @@ public class Ext002Checker {
                         }
                     } catch (IOException | SAXException e) {
                         LogHelper
-                                .printLogstatements(LOGGER, e, file2.getName());
+                        .printLogstatements(LOGGER, e, file2.getName());
                     }
                 }
             } catch (IOException | SAXException e) {
@@ -150,7 +151,6 @@ public class Ext002Checker {
                 XPathConstants.NODESET);
         NodeList foundNodes2 = (NodeList) xPathExpression.evaluate(document2,
                 XPathConstants.NODESET);
-        String constraint = "EXT.002";
         for (int k = 1; k < foundNodes1.getLength(); k++) {
             String importedFile1Id = foundNodes1.item(k).getNodeValue();
             for (int l = 1; l < foundNodes2.getLength(); l++) {
@@ -159,16 +159,17 @@ public class Ext002Checker {
                     String xpathLocation = BpmnExpressionCreator
                             .createIdBpmnExpression(importedFile1Id);
                     validationResult.getViolations().add(
-                            new Violation(constraint, file1.getName(),
+                            new Violation(CONSTRAINTNUMBER, file1.getName(),
                                     xmlLocator.findLine(file1, xpathLocation),
                                     xpathLocation + "[0]",
                                     "Files have id duplicates"));
                     validationResult.getViolations().add(
-                            new Violation(constraint, file2.getName(),
+                            new Violation(CONSTRAINTNUMBER, file2.getName(),
                                     xmlLocator.findLine(file2, xpathLocation),
                                     xpathLocation + "[0]",
                                     "Files have id duplicates"));
-                    LOGGER.info("violation of constraint {} found.", constraint);
+                    LOGGER.info("violation of constraint {} found.",
+                            CONSTRAINTNUMBER);
                 }
             }
         }
