@@ -2,7 +2,7 @@ package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
 import de.uniba.dsg.bpmnspector.common.Violation;
 
-public class Ext007 extends ArtifactSequenceFlowTest {
+public class Ext007 extends AbstractArtifactSequenceFlowTest {
 
     private final static String ERRORMESSAGEONE = "An Artifact MUST NOT be a source for a Sequence Flow";
     private final static String ERRORMESSAGETWO = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source";

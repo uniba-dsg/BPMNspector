@@ -2,7 +2,7 @@ package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
 import de.uniba.dsg.bpmnspector.common.Violation;
 
-public class Ext006 extends ArtifactSequenceFlowTest {
+public class Ext006 extends AbstractArtifactSequenceFlowTest {
 
     private final static String ERRORMESSAGEONE = "An Artifact MUST NOT be a target for a Sequence Flow";
     private final static String ERRORMESSAGETWO = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";

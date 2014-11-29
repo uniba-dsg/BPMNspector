@@ -1,6 +1,6 @@
 package de.uniba.dsg.ppn.ba.artifacts;
 
-public class Ext008 extends ArtifactTest {
+public class Ext008 extends AbstractArtifactTest {
 
     @Override
     protected void assertViolation(de.uniba.dsg.bpmnspector.common.Violation v) {
