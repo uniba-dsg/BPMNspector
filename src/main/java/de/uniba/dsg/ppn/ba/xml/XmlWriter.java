@@ -21,17 +21,21 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
 public class XmlWriter {
 
     private Marshaller marshaller;
-    private final Logger logger;
+    private static final Logger LOGGER;
 
-    public XmlWriter() {
-        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
+    static {
+        LOGGER = (Logger) LoggerFactory.getLogger(XmlWriter.class
+                .getSimpleName());
+    }
+
+    {
         try {
             JAXBContext context = JAXBContext
                     .newInstance(ValidationResult.class);
             marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         } catch (JAXBException e) {
-            logger.debug("jaxb writer initialization failed: {}", e);
+            LOGGER.debug("jaxb writer initialization failed: {}", e);
         }
     }
 
@@ -48,6 +52,6 @@ public class XmlWriter {
     public void writeResult(ValidationResult result, File file)
             throws JAXBException {
         marshaller.marshal(result, file);
-        logger.info("XML Result written: {}", file.getName());
+        LOGGER.info("XML Result written: {}", file.getName());
     }
 }
