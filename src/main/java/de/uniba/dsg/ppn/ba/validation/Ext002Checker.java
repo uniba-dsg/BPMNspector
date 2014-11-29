@@ -20,7 +20,7 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
 import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
-import de.uniba.dsg.ppn.ba.helper.LogHelper;
+import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 
@@ -80,12 +80,12 @@ public class Ext002Checker {
                                     document1, document2, validationResult);
                         }
                     } catch (IOException | SAXException e) {
-                        LogHelper
-                        .printLogstatements(LOGGER, e, file2.getName());
+                        PrintHelper.printLogstatements(LOGGER, e,
+                                file2.getName());
                     }
                 }
             } catch (IOException | SAXException e) {
-                LogHelper.printLogstatements(LOGGER, e, file1.getName());
+                PrintHelper.printLogstatements(LOGGER, e, file1.getName());
             }
         }
     }
@@ -121,7 +121,7 @@ public class Ext002Checker {
                 }
             }
         } catch (IOException | SAXException e) {
-            LogHelper.printLogstatements(LOGGER, e, file.getName());
+            PrintHelper.printLogstatements(LOGGER, e, file.getName());
         }
 
         return importedFileList;
