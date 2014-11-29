@@ -156,7 +156,7 @@ public class Ext002Checker {
             for (int l = 1; l < foundNodes2.getLength(); l++) {
                 String importedFile2Id = foundNodes2.item(l).getNodeValue();
                 if (importedFile1Id.equals(importedFile2Id)) {
-                    String xpathLocation = BpmnExpressionCreator
+                    String xpathLocation = BpmnHelper
                             .createIdBpmnExpression(importedFile1Id);
                     validationResult.getViolations().add(
                             new Violation(CONSTRAINTNUMBER, file1.getName(),
