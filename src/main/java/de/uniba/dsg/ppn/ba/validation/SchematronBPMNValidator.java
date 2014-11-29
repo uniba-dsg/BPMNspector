@@ -69,8 +69,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     @Override
     public void setLogLevel(Level logLevel) {
+        // FIXME: without phloc libraries
         ((Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
-                .setLevel(logLevel);
+        .setLevel(logLevel);
     }
 
     @Override
@@ -114,49 +115,17 @@ public class SchematronBPMNValidator implements BpmnValidator {
             SchematronOutputType schematronOutputType = schematronSchema
                     .applySchematronValidationToSVRL(new StreamSource(
                             DocumentTransformer
-                                    .transformToInputStream(headFileDocument)));
+                            .transformToInputStream(headFileDocument)));
             for (int i = 0; i < schematronOutputType
                     .getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
                 if (schematronOutputType
                         .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-                    FailedAssert failedAssert = (FailedAssert) schematronOutputType
-                            .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-                    String message = failedAssert.getText().trim();
-                    String constraint = message.substring(0,
-                            message.indexOf('|'));
-                    String errorMessage = message.substring(message
-                            .indexOf('|') + 1);
-                    int line = xmlLocator.findLine(xmlFile,
-                            failedAssert.getLocation());
-                    String fileName = xmlFile.getName();
-                    String location = failedAssert.getLocation();
-                    LOGGER.info("violation of constraint {} in {} found.",
-                            constraint, fileName);
-                    if (line == -1) {
-                        try {
-                            String xpathId = "";
-                            if (failedAssert.getDiagnosticReferenceCount() > 0) {
-                                xpathId = failedAssert.getDiagnosticReference()
-                                        .get(0).getText().trim();
-                            }
-                            String[] result = searchForViolationFile(xpathId,
-                                    validationResult,
-                                    preProcessResult.getNamespaceTable());
-                            fileName = result[0];
-                            line = Integer.parseInt(result[1]);
-                            location = result[2];
-                        } catch (BpmnValidationException e) {
-                            fileName = e.getMessage();
-                        } catch (StringIndexOutOfBoundsException e) {
-                            fileName = "Element couldn't be found!";
-                        }
-                        LOGGER.debug(
-                                "preprocessing needed. violation in {} at {}.",
-                                fileName, line);
-                    }
-                    validationResult.getViolations().add(
-                            new Violation(constraint, fileName, line, location,
-                                    errorMessage));
+                    handleSchematronErrors(
+                            xmlFile,
+                            validationResult,
+                            preProcessResult,
+                            (FailedAssert) schematronOutputType
+                            .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i));
                 }
             }
 
@@ -181,6 +150,42 @@ public class SchematronBPMNValidator implements BpmnValidator {
         return validationResult;
     }
 
+    private void handleSchematronErrors(File xmlFile,
+            ValidationResult validationResult,
+            PreProcessResult preProcessResult, FailedAssert failedAssert) {
+        String message = failedAssert.getText().trim();
+        String constraint = message.substring(0, message.indexOf('|'));
+        String errorMessage = message.substring(message.indexOf('|') + 1);
+        int line = xmlLocator.findLine(xmlFile, failedAssert.getLocation());
+        String fileName = xmlFile.getName();
+        String location = failedAssert.getLocation();
+        LOGGER.info("violation of constraint {} in {} found.", constraint,
+                fileName);
+        if (line == -1) {
+            try {
+                String xpathId = "";
+                if (failedAssert.getDiagnosticReferenceCount() > 0) {
+                    xpathId = failedAssert.getDiagnosticReference().get(0)
+                            .getText().trim();
+                }
+                String[] result = searchForViolationFile(xpathId,
+                        validationResult, preProcessResult.getNamespaceTable());
+                fileName = result[0];
+                line = Integer.parseInt(result[1]);
+                location = result[2];
+            } catch (BpmnValidationException e) {
+                fileName = e.getMessage();
+            } catch (StringIndexOutOfBoundsException e) {
+                fileName = "Element couldn't be found!";
+            }
+            LOGGER.debug("preprocessing needed. violation in {} at {}.",
+                    fileName, line);
+        }
+        validationResult.getViolations().add(
+                new Violation(constraint, fileName, line, location,
+                        errorMessage));
+    }
+
     /**
      * searches for the file and line, where the violation occured
      *
@@ -196,9 +201,10 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * @throws BpmnValidationException
      *             if no element can be found
      */
+    // TODO: extract in own object?
     private String[] searchForViolationFile(String xpathExpression,
             ValidationResult validationResult, List<String[]> namespaceTable)
-            throws BpmnValidationException {
+                    throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
@@ -241,7 +247,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             } catch (SAXException | IOException e) {
                 PrintHelper
-                .printLogstatements(LOGGER, e, checkedFile.getName());
+                        .printLogstatements(LOGGER, e, checkedFile.getName());
             }
         }
 
