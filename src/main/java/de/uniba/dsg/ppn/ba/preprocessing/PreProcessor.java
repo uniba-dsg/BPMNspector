@@ -83,7 +83,7 @@ public class PreProcessor {
         for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
             Node idNode = foundNodesHeadFile.item(j);
             if (idNode.getTextContent().contains(":")) {
-                replaceGlobalIds(headFileDocument, importedFiles, idNode);
+                renameGlobalIds(headFileDocument, importedFiles, idNode);
             }
         }
 
@@ -97,7 +97,7 @@ public class PreProcessor {
         return new PreProcessResult(headFileDocument, namespaceTable);
     }
 
-    private void replaceGlobalIds(Document headFileDocument,
+    private void renameGlobalIds(Document headFileDocument,
             List<ImportedFile> importedFiles, Node idNode) {
         String prefix = idNode.getTextContent().substring(0,
                 idNode.getTextContent().indexOf(":"));
