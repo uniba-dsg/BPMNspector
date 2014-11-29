@@ -13,6 +13,9 @@
 		<exclude name="AtLeastOneConstructor" />
 		<exclude name="UseObjectForClearerAPI" />
 	</rule>
+	<!--
+	<rule ref="rulesets/java/coupling.xml" />
+	-->
 	<rule ref="rulesets/java/design.xml">
 		<exclude name="NonStaticInitializer" />
 		<exclude name="UseUtilityClass" />
@@ -27,7 +30,13 @@
 	<rule ref="rulesets/java/empty.xml" />
 	<rule ref="rulesets/java/finalizers.xml" />
 	<rule ref="rulesets/java/imports.xml" />
+	<rule ref="rulesets/java/logging-java.xml" />
 	<rule ref="rulesets/java/migrating.xml" />
+	<rule ref="rulesets/java/naming.xml">
+        <exclude name="ShortVariable" />
+        <exclude name="LongVariable" />
+        <exclude name="ShortClassName" />
+    </rule>
 	<rule ref="rulesets/java/optimizations.xml">
 		<exclude name="AvoidInstantiatingObjectsInLoops" />
 		<exclude name="MethodArgumentCouldBeFinal" />
