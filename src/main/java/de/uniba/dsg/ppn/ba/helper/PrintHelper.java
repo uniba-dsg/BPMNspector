@@ -20,12 +20,13 @@ import de.uniba.dsg.bpmnspector.common.Violation;
  * @author Philipp Neugebauer
  * @version 1.0
  */
+@SuppressWarnings("PMD.SystemPrintln")
 public class PrintHelper {
 
     private static Transformer transformer;
 
     static {
-        final TransformerFactory transformerFactory = TransformerFactory
+        TransformerFactory transformerFactory = TransformerFactory
                 .newInstance();
         try {
             transformer = transformerFactory.newTransformer();
