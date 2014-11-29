@@ -29,24 +29,28 @@ import de.uniba.dsg.bpmnspector.common.Violation;
  */
 public class WsdlValidator extends XsdValidator {
     private Schema schema;
-    private final Logger logger;
+    private static final Logger LOGGER;
+
+    static {
+        LOGGER = (Logger) LoggerFactory.getLogger(WsdlValidator.class
+                .getSimpleName());
+    }
 
     {
         SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
         try {
             schema = schemaFactory
                     .newSchema(resolveResourcePaths("wsdl20.xsd"));
         } catch (FileNotFoundException | SAXException e) {
-            logger.debug("schemafactory couldn't create schema, cause: {}", e);
+            LOGGER.debug("schemafactory couldn't create schema, cause: {}", e);
         }
     }
 
     @Override
     public void validateAgainstXsd(File xmlFile,
             ValidationResult validationResult) throws IOException, SAXException {
-        logger.debug("xml xsd validation started: {}", xmlFile.getName());
+        LOGGER.debug("xml xsd validation started: {}", xmlFile.getName());
         List<SAXParseException> xsdErrorList = new ArrayList<>();
         Validator validator = schema.newValidator();
         validator.setErrorHandler(new XsdValidationErrorHandler(xsdErrorList));
@@ -56,7 +60,7 @@ public class WsdlValidator extends XsdValidator {
                     new Violation("XML-XSD-Check", xmlFile.getName(),
                             saxParseException.getLineNumber(), "",
                             saxParseException.getMessage()));
-            logger.info("xml xsd violation in {} at {} found",
+            LOGGER.info("xml xsd violation in {} at {} found",
                     xmlFile.getName(), saxParseException.getLineNumber());
         }
     }

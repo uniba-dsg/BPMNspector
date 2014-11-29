@@ -33,7 +33,11 @@ public class Input implements LSInput {
 
     private BufferedInputStream inputStream;
 
-    private final Logger logger;
+    private static final Logger LOGGER;
+
+    static {
+        LOGGER = (Logger) LoggerFactory.getLogger(Input.class.getSimpleName());
+    }
 
     /**
      * Constructor to generate a customized input source Input using an
@@ -47,12 +51,11 @@ public class Input implements LSInput {
         this.publicId = publicId;
         this.systemId = sysId;
         this.inputStream = new BufferedInputStream(input);
-        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getPublicId()
      */
     @Override
@@ -62,7 +65,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setPublicId(java.lang.String)
      */
     @Override
@@ -72,7 +75,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getBaseURI()
      */
     @Override
@@ -82,7 +85,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getByteStream()
      */
     @Override
@@ -92,17 +95,17 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getCertifiedText()
      */
     @Override
-    public boolean getCertifiedText() {
+    public boolean getCertifiedText() { // NOPMD
         return false;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getCharacterStream()
      */
     @Override
@@ -112,7 +115,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getEncoding()
      */
     @Override
@@ -122,7 +125,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getStringData()
      */
     @Override
@@ -133,7 +136,7 @@ public class Input implements LSInput {
                 inputStream.read(input);
                 return new String(input, Charset.forName("UTF-8"));
             } catch (IOException e) {
-                logger.debug(
+                LOGGER.debug(
                         "Input stream couldn't be converted to String. Cause: {}",
                         e);
                 return null;
@@ -143,7 +146,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setBaseURI(java.lang.String)
      */
     @Override
@@ -153,7 +156,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setByteStream(java.io.InputStream)
      */
     @Override
@@ -163,7 +166,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setCertifiedText(boolean)
      */
     @Override
@@ -173,7 +176,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setCharacterStream(java.io.Reader)
      */
     @Override
@@ -183,7 +186,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setEncoding(java.lang.String)
      */
     @Override
@@ -193,7 +196,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setStringData(java.lang.String)
      */
     @Override
@@ -203,7 +206,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#getSystemId()
      */
     @Override
@@ -213,7 +216,7 @@ public class Input implements LSInput {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.w3c.dom.ls.LSInput#setSystemId(java.lang.String)
      */
     @Override

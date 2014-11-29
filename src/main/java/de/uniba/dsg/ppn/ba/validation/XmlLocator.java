@@ -31,13 +31,17 @@ public class XmlLocator {
 
     private final SAXBuilder saxBuilder;
     private final XPathFactory xPathFactory;
-    private final Logger logger;
+    private static final Logger LOGGER;
+
+    static {
+        LOGGER = (Logger) LoggerFactory.getLogger(XmlLocator.class
+                .getSimpleName());
+    }
 
     public XmlLocator() {
         saxBuilder = new SAXBuilder();
         saxBuilder.setJDOMFactory(new LocatedJDOMFactory());
         xPathFactory = XPathFactory.instance();
-        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
     }
 
     /**
@@ -76,7 +80,7 @@ public class XmlLocator {
                         .getLine();
             }
         } catch (IOException | JDOMException e) {
-            logger.debug(ConstantHelper.FILENOTFOUNDMESSAGEWITHCAUSE,
+            LOGGER.debug(ConstantHelper.FILENOTFOUNDMESSAGEWITHCAUSE,
                     xmlFile.getName(), e);
         }
         return -1;
