@@ -18,7 +18,7 @@ import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.XmlValidator;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
-import de.uniba.dsg.ppn.ba.helper.LogHelper;
+import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 
@@ -68,7 +68,7 @@ public class Ext001Checker {
                         validationResult);
             }
         } catch (SAXException | IOException e) {
-            LogHelper.printLogstatements(LOGGER, e, headFile.getName());
+            PrintHelper.printLogstatements(LOGGER, e, headFile.getName());
         }
     }
 

@@ -12,6 +12,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
+import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmnspector.common.Violation;
 
 /**
@@ -31,7 +32,7 @@ public class PrintHelper {
         try {
             transformer = transformerFactory.newTransformer();
             transformer
-                    .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -74,6 +75,13 @@ public class PrintHelper {
             System.out.println("Constraint: " + v.getConstraint());
             System.out.println("--------------------");
         }
+    }
+
+    public static void printLogstatements(Logger logger, Exception exception,
+            String fileName) {
+        logger.error(ConstantHelper.FILENOTFOUNDMESSAGE, fileName);
+        logger.debug(ConstantHelper.FILENOTFOUNDMESSAGEWITHCAUSE, fileName,
+                exception);
     }
 
 }
