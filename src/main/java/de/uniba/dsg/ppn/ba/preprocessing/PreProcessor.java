@@ -2,7 +2,6 @@ package de.uniba.dsg.ppn.ba.preprocessing;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,7 +18,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import ch.qos.logback.classic.Logger;
-import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
+import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 
 /**
@@ -34,12 +34,16 @@ public class PreProcessor {
 
     private final DocumentBuilder documentBuilder;
     private final XPath xpath;
-    private final Logger logger;
+    private static final Logger LOGGER;
+
+    static {
+        LOGGER = (Logger) LoggerFactory.getLogger(PreProcessor.class
+                .getSimpleName());
+    }
 
     {
         documentBuilder = SetupHelper.setupDocumentBuilder();
         xpath = SetupHelper.setupXPath();
-        logger = (Logger) LoggerFactory.getLogger(getClass().getSimpleName());
     }
 
     /**
@@ -63,10 +67,11 @@ public class PreProcessor {
      */
     public PreProcessResult preProcess(Document headFileDocument, File folder,
             List<String[]> namespaceTable) throws XPathExpressionException {
-        List<ImportedFile> importedFiles = selectImportedFiles(
-                headFileDocument, folder, namespaceTable.size(), true);
-        removeBPMNDINode(headFileDocument);
-        logger.info("preprocessing step started");
+        List<ImportedFile> importedFiles = ImportedFilesCrawler
+                .selectImportedFiles(headFileDocument, folder,
+                        namespaceTable.size(), true);
+        BpmnHelper.removeBPMNDINode(headFileDocument);
+        LOGGER.info("preprocessing step started");
 
         XPathExpression xPathChangeNamespaceIds = xpath
                 .compile("//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
@@ -86,7 +91,7 @@ public class PreProcessor {
                         newPrefix = importedFile.getPrefix();
                     }
                 }
-                logger.debug("new prefix will be set {}", newPrefix);
+                LOGGER.debug("new prefix will be set {}", newPrefix);
                 idNode.setTextContent(idNode.getTextContent().replace(
                         prefix + ":", newPrefix + "_"));
             }
@@ -94,48 +99,50 @@ public class PreProcessor {
 
         for (int i = 0; i < importedFiles.size(); i++) {
             if (importedFiles.get(i).getFile().exists()) {
-                try {
-                    Document importedDocument = documentBuilder
-                            .parse(importedFiles.get(i).getFile());
-
-                    Element importDefinitionsNode = importedDocument
-                            .getDocumentElement();
-                    removeBPMNDINode(importedDocument);
-
-                    boolean exists = false;
-                    for (String[] s : namespaceTable) {
-                        if (s[1].equals(importedFiles.get(i).getNamespace())) {
-                            exists = true;
-                        }
-                    }
-                    logger.debug("namespace of file read: {}", importedFiles
-                            .get(i).getNamespace());
-                    if (!exists) {
-                        namespaceTable.add(new String[] {
-                                importedFiles.get(i).getPrefix(),
-                                importedFiles.get(i).getNamespace() });
-                    }
-                    XPathExpression xPathReplaceIds = xpath
-                            .compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
-                    renameIds(xPathReplaceIds, importedDocument, importedFiles
-                            .get(i).getPrefix());
-
-                    preProcess(importedDocument, folder, namespaceTable);
-
-                    logger.info("integration of document will be done now");
-
-                    addNodesToDocument(importDefinitionsNode, headFileDocument);
-                } catch (SAXException | IOException e) {
-                    logger.debug(
-                            "imported file {} couldn't be read. Cause: {}",
-                            importedFiles.get(i).getFile().getName(), e);
-                    logger.error("imported file {} couldn't be read.",
-                            importedFiles.get(i).getFile().getName());
-                }
+                addNamespacesAndRenameIds(headFileDocument,
+                        importedFiles.get(i), namespaceTable, folder);
             }
         }
 
         return new PreProcessResult(headFileDocument, namespaceTable);
+    }
+
+    private void addNamespacesAndRenameIds(Document headFileDocument,
+            ImportedFile file, List<String[]> namespaceTable, File folder)
+            throws XPathExpressionException {
+        try {
+            Document importedDocument = documentBuilder.parse(file.getFile());
+
+            Element importDefinitionsNode = importedDocument
+                    .getDocumentElement();
+            BpmnHelper.removeBPMNDINode(importedDocument);
+
+            boolean exists = false;
+            for (String[] s : namespaceTable) {
+                if (s[1].equals(file.getNamespace())) {
+                    exists = true;
+                }
+            }
+            LOGGER.debug("namespace of file read: {}", file.getNamespace());
+            if (!exists) {
+                namespaceTable.add(new String[] { file.getPrefix(),
+                        file.getNamespace() });
+            }
+            XPathExpression xPathReplaceIds = xpath
+                    .compile("//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef | //bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | //bpmn:dataOutputRefs");
+            renameIds(xPathReplaceIds, importedDocument, file.getPrefix());
+
+            preProcess(importedDocument, folder, namespaceTable);
+
+            LOGGER.info("integration of document will be done now");
+
+            addNodesToDocument(importDefinitionsNode, headFileDocument);
+        } catch (SAXException | IOException e) {
+            LOGGER.debug("imported file {} couldn't be read. Cause: {}", file
+                    .getFile().getName(), e);
+            LOGGER.error("imported file {} couldn't be read.", file.getFile()
+                    .getName());
+        }
     }
 
     /**
@@ -159,53 +166,6 @@ public class PreProcessor {
     }
 
     /**
-     * collects all imported files with bpmn namespace in the given document
-     *
-     * @param document
-     *            the document, from which the imports are collected
-     * @param folder
-     *            the parent folder of the document
-     * @param size
-     *            the number of already collected imports for ensuring unique
-     *            namespace prefixes
-     * @param onlyBpmnFiles
-     *            if true, just imports with the import type of the bpmn
-     *            namespace are returned
-     * @return a list of importedFile including all bpmn imports with the
-     *         absolute path, the new namespace prefix and the namespace
-     */
-    public List<ImportedFile> selectImportedFiles(Document document,
-            File folder, int size, boolean onlyBpmnFiles) {
-        NodeList importedFilesList = document.getElementsByTagNameNS(
-                ConstantHelper.BPMNNAMESPACE, "import");
-        List<ImportedFile> importedFiles = new ArrayList<>();
-
-        for (int i = 0; i < importedFilesList.getLength(); i++) {
-            Node importedFileNode = importedFilesList.item(i);
-            String importType = importedFileNode.getAttributes()
-                    .getNamedItem("importType").getTextContent();
-            if (!onlyBpmnFiles
-                    || ConstantHelper.BPMNNAMESPACE.equals(importType)) {
-                File file = new File(importedFileNode.getAttributes()
-                        .getNamedItem("location").getTextContent());
-                if (!file.isAbsolute()) {
-                    file = new File(folder.getPath()
-                            + File.separator
-                            + importedFileNode.getAttributes()
-                                    .getNamedItem("location").getTextContent());
-                }
-                String prefix = "ns" + (i + size);
-                String namespace = importedFileNode.getAttributes()
-                        .getNamedItem("namespace").getTextContent();
-                importedFiles.add(new ImportedFile(file, prefix, namespace,
-                        importType));
-            }
-        }
-
-        return importedFiles;
-    }
-
-    /**
      * adds the childs of importDefinitionsNode to the definitionsNode of the
      * given headFileDocument
      *
@@ -224,22 +184,6 @@ public class PreProcessor {
             Node importedNode = headFileDocument.importNode(
                     importDefinitionsNode.getChildNodes().item(j), true);
             definitionsNode.appendChild(importedNode);
-        }
-    }
-
-    /**
-     * removes all BPMNDiagram Nodes from the given file
-     *
-     * @param headFileDocument
-     *            the document, where the BPMNDiagram Nodes should be deleted
-     *            from
-     */
-    public void removeBPMNDINode(Document headFileDocument) {
-        Element definitionsNode = headFileDocument.getDocumentElement();
-        NodeList bpmnDiagramNode = headFileDocument.getElementsByTagNameNS(
-                ConstantHelper.BPMNDINAMESPACE, "BPMNDiagram");
-        if (bpmnDiagramNode.getLength() > 0) {
-            definitionsNode.removeChild(bpmnDiagramNode.item(0));
         }
     }
 }
