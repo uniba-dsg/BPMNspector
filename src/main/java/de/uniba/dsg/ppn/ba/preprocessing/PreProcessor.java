@@ -3,6 +3,7 @@ package de.uniba.dsg.ppn.ba.preprocessing;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.xpath.XPath;
@@ -70,7 +71,7 @@ public class PreProcessor {
      *             if a xpath expression is invalid
      */
     public PreProcessResult preProcess(Document headFileDocument, File folder,
-            List<String[]> namespaceTable) throws XPathExpressionException {
+            Map<String, String> namespaceTable) throws XPathExpressionException {
         List<ImportedFile> importedFiles = ImportedFilesCrawler
                 .selectImportedFiles(headFileDocument, folder,
                         namespaceTable.size(), true);
@@ -123,7 +124,7 @@ public class PreProcessor {
     }
 
     private void addNamespacesAndRenameIds(Document headFileDocument,
-            ImportedFile file, List<String[]> namespaceTable, File folder)
+            ImportedFile file, Map<String, String> namespaceTable, File folder)
             throws XPathExpressionException {
         try {
             Document importedDocument = documentBuilder.parse(file.getFile());
@@ -132,16 +133,10 @@ public class PreProcessor {
                     .getDocumentElement();
             BpmnHelper.removeBPMNDINode(importedDocument);
 
-            boolean exists = false;
-            for (String[] s : namespaceTable) {
-                if (s[1].equals(file.getNamespace())) {
-                    exists = true;
-                }
-            }
+
             LOGGER.debug("namespace of file read: {}", file.getNamespace());
-            if (!exists) {
-                namespaceTable.add(new String[] { file.getPrefix(),
-                        file.getNamespace() });
+            if (!namespaceTable.containsKey(file.getNamespace())) {
+                namespaceTable.put(file.getNamespace(),file.getPrefix());
             }
             renameIds(xPathReplaceIds, importedDocument, file.getPrefix());
 
