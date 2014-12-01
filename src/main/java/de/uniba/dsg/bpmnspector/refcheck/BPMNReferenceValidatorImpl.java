@@ -255,11 +255,11 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		StringBuilder importedFilesLogText = new StringBuilder(100)
 				.append(language.getProperty("validator.logger.importedfiles"))
 				.append(System.lineSeparator());
-		for (String key : importedElements.keySet()) {
+		for (Map.Entry entry : importedElements.entrySet()) {
 			importedFilesLogText
 					.append(language.getProperty("validator.logger.prefix"))
-					.append(key).append(System.lineSeparator())
-					.append(importedElements.get(key))
+					.append(entry.getKey()).append(System.lineSeparator())
+					.append(entry.getValue())
 					.append(System.lineSeparator());
 		}
 
