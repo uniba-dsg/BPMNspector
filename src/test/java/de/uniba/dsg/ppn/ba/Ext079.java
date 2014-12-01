@@ -18,7 +18,7 @@ public class Ext079 extends TestCase {
 
     @Test
     public void testConstraintSuccess() throws BpmnValidationException {
-        verifyValidResult(createFile("Success.bpmn"));
+        verifyValidResult(createFile("success.bpmn"));
     }
 
     @Override
