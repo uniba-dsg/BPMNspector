@@ -74,24 +74,32 @@ public class PreProcessor {
         List<ImportedFile> importedFiles = ImportedFilesCrawler
                 .selectImportedFiles(headFileDocument, folder,
                         namespaceTable.size(), true);
-        BpmnHelper.removeBPMNDINode(headFileDocument);
-        LOGGER.info("preprocessing step started");
+        if(importedFiles.isEmpty()) {
+            LOGGER.debug("Skipping preprocessing for '{}' as there are no imports.", headFileDocument.getBaseURI());
+        } else {
+            LOGGER.info("Starting to preprocess file.");
 
-        NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
-                .evaluate(headFileDocument, XPathConstants.NODESET);
+            BpmnHelper.removeBPMNDINode(headFileDocument);
 
-        for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
-            Node idNode = foundNodesHeadFile.item(j);
-            if (idNode.getTextContent().contains(":")) {
-                renameGlobalIds(headFileDocument, importedFiles, idNode);
+            XPathExpression xPathChangeNamespaceIds = xpath
+                    .compile(
+                            "//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
+            NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
+                    .evaluate(headFileDocument, XPathConstants.NODESET);
+
+            for (int j = 0; j < foundNodesHeadFile.getLength(); j++) {
+                Node idNode = foundNodesHeadFile.item(j);
+                if (idNode.getTextContent().contains(":")) {
+                    renameGlobalIds(headFileDocument, importedFiles, idNode);
             }
-        }
 
-        for (int i = 0; i < importedFiles.size(); i++) {
-            if (importedFiles.get(i).getFile().exists()) {
-                addNamespacesAndRenameIds(headFileDocument,
-                        importedFiles.get(i), namespaceTable, folder);
+            for (ImportedFile importedFile : importedFiles) {
+                if (importedFile.getFile().exists()) {
+                    addNamespacesAndRenameIds(headFileDocument,
+                            importedFile, namespaceTable, folder);
+                }
             }
+            LOGGER.info("Preprocessing completed.");
         }
 
         return new PreProcessResult(headFileDocument, namespaceTable);
@@ -109,7 +117,7 @@ public class PreProcessor {
                 newPrefix = importedFile.getPrefix();
             }
         }
-        LOGGER.debug("new prefix will be set {}", newPrefix);
+        LOGGER.debug("new prefix '{}' for ID {}", newPrefix, idNode.getTextContent());
         idNode.setTextContent(idNode.getTextContent().replace(prefix + ":",
                 newPrefix + "_"));
     }
@@ -137,9 +145,10 @@ public class PreProcessor {
             }
             renameIds(xPathReplaceIds, importedDocument, file.getPrefix());
 
+            LOGGER.debug("Checking imported file for further imports.");
             preProcess(importedDocument, folder, namespaceTable);
 
-            LOGGER.info("integration of document will be done now");
+            LOGGER.debug("integration of document will be done now");
 
             addNodesToDocument(importDefinitionsNode, headFileDocument);
         } catch (SAXException | IOException e) {
