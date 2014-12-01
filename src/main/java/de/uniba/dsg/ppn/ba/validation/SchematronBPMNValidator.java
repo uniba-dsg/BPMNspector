@@ -210,46 +210,30 @@ public class SchematronBPMNValidator implements BpmnValidator {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
-        for (int i = 0; i < validationResult.getCheckedFiles().size()
-                && "-1".equals(line); i++) {
-            File checkedFile = new File(validationResult.getCheckedFiles().get(
-                    i));
+
+        String namespacePrefix = xpathExpression.substring(0,
+                xpathExpression.indexOf('_'));
+        String namespace = "";
+        for (Map.Entry<String, String> entry : namespaceTable.entrySet()) {
+            if (entry.getValue().equals(namespacePrefix)) {
+                namespace = entry.getKey();
+            }
+        }
+
+        for (String checkedFilePath : validationResult.getCheckedFiles()) {
+            File checkedFile = new File(checkedFilePath);
             try {
                 Document document = documentBuilder.parse(checkedFile);
-                String namespacePrefix = xpathExpression.substring(0,
-                        xpathExpression.indexOf('_'));
-                String namespace = "";
-
-                for (Map.Entry<String, String> entry : namespaceTable
-                        .entrySet()) {
-                    if (entry.getValue().equals(namespacePrefix)) {
-                        namespace = entry.getKey();
-
-                    }
-                }
-
-                for (String checkedFilePath : validationResult
-                        .getCheckedFiles()) {
-                    checkedFile = new File(checkedFilePath);
-                    try {
-                        document = documentBuilder.parse(checkedFile);
-                        if (document.getDocumentElement()
-                                .getAttribute("targetNamespace")
-                                .equals(namespace)) {
-                            xpathObjectId = BpmnHelper
-                                    .createIdBpmnExpression(xpathExpression
-                                            .substring(xpathExpression
-                                                    .indexOf('_') + 1));
-                            line = String.valueOf(xmlLocator.findLine(
-                                    checkedFile, xpathObjectId));
-                            xpathObjectId += "[0]"; // NOPMD
-                            fileName = checkedFile.getName();
-                            break;
-                        }
-                    } catch (SAXException | IOException e) {
-                        PrintHelper.printLogstatements(LOGGER, e,
-                                checkedFile.getName());
-                    }
+                if (document.getDocumentElement()
+                        .getAttribute("targetNamespace").equals(namespace)) {
+                    xpathObjectId = BpmnHelper
+                            .createIdBpmnExpression(xpathExpression
+                                    .substring(xpathExpression.indexOf('_') + 1));
+                    line = String.valueOf(xmlLocator.findLine(checkedFile,
+                            xpathObjectId));
+                    xpathObjectId += "[0]"; // NOPMD
+                    fileName = checkedFile.getName();
+                    break;
                 }
             } catch (SAXException | IOException e) {
                 PrintHelper
