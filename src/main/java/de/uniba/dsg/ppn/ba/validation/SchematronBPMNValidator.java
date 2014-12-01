@@ -3,7 +3,9 @@ package de.uniba.dsg.ppn.ba.validation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.transform.stream.StreamSource;
@@ -107,7 +109,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             ext002Checker.checkConstraint002(xmlFile, parentFolder,
                     validationResult);
 
-            List<String[]> namespaceTable = new ArrayList<>();
+            Map<String, String> namespaceTable = new HashMap<>();
             PreProcessResult preProcessResult = preProcessor.preProcess(
                     headFileDocument, parentFolder, namespaceTable);
 
@@ -197,7 +199,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      *             if no element can be found
      */
     private String[] searchForViolationFile(String xpathExpression,
-            ValidationResult validationResult, List<String[]> namespaceTable)
+            ValidationResult validationResult, Map<String, String> namespaceTable)
             throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
@@ -211,11 +213,14 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 String namespacePrefix = xpathExpression.substring(0,
                         xpathExpression.indexOf('_'));
                 String namespace = "";
-                for (String[] s : namespaceTable) {
-                    if (s[0].equals(namespacePrefix)) {
-                        namespace = s[1];
+
+                for(Map.Entry<String, String> entry : namespaceTable.entrySet()) {
+                    if(entry.getValue().equals(namespacePrefix)) {
+                        namespace = entry.getKey();
+
                     }
                 }
+
                 for (String checkedFilePath : validationResult
                         .getCheckedFiles()) {
                     checkedFile = new File(checkedFilePath);

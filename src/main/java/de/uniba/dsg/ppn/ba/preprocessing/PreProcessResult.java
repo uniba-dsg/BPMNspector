@@ -1,6 +1,6 @@
 package de.uniba.dsg.ppn.ba.preprocessing;
 
-import java.util.List;
+import java.util.Map;
 
 import org.w3c.dom.Document;
 
@@ -15,10 +15,10 @@ import org.w3c.dom.Document;
 public class PreProcessResult {
 
     private final Document documentResult;
-    private final List<String[]> namespaceTable;
+    private final Map<String, String> namespaceTable;
 
     public PreProcessResult(Document documentResult,
-            List<String[]> namespaceTable) {
+           Map<String, String> namespaceTable) {
         this.documentResult = documentResult;
         this.namespaceTable = namespaceTable;
     }
@@ -27,7 +27,7 @@ public class PreProcessResult {
         return documentResult;
     }
 
-    public List<String[]> getNamespaceTable() {
+    public Map<String, String> getNamespaceTable() {
         return namespaceTable;
     }
 }
