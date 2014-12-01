@@ -109,9 +109,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
             ext002Checker.checkConstraint002(xmlFile, parentFolder,
                     validationResult);
 
-            Map<String, String> namespaceTable = new HashMap<>();
             PreProcessResult preProcessResult = preProcessor.preProcess(
-                    headFileDocument, parentFolder, namespaceTable);
+                    headFileDocument, parentFolder, new HashMap<>());
 
             SchematronOutputType schematronOutputType = schematronSchema
                     .applySchematronValidationToSVRL(new StreamSource(
@@ -132,8 +131,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                             failedAssert.getLocation());
                     String fileName = xmlFile.getName();
                     String location = failedAssert.getLocation();
-                    LOGGER.info("violation of constraint {} in {} found.",
-                            constraint, fileName);
+
                     if (line == -1) {
                         try {
                             String xpathId = "";
@@ -149,13 +147,17 @@ public class SchematronBPMNValidator implements BpmnValidator {
                             location = result[2];
                         } catch (BpmnValidationException e) {
                             fileName = e.getMessage();
+                            LOGGER.error(
+                                    "Line of affected Element could not be determined.");
                         } catch (StringIndexOutOfBoundsException e) {
                             fileName = "Element couldn't be found!";
+                            LOGGER.error("Line of affected Element could not be determined.");
                         }
-                        LOGGER.debug(
-                                "preprocessing needed. violation in {} at {}.",
-                                fileName, line);
+
                     }
+                    String logText = String.format("violation of constraint %s found in %s at line %s.",
+                            constraint, fileName, line);
+                    LOGGER.info(logText);
                     validationResult.getViolations().add(
                             new Violation(constraint, fileName, line, location,
                                     errorMessage));
