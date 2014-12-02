@@ -195,7 +195,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 					bpmnRefElements.get(key)));
 			bpmnElementsLogText.append(System.lineSeparator());
 		}
-		LOGGER.info(language.getProperty("validator.logger.bpmnelements")
+		LOGGER.debug(language.getProperty("validator.logger.bpmnelements")
 				+ System.lineSeparator() + bpmnElementsLogText);
 	}
 
@@ -243,7 +243,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				.getAllElementsGroupedByNamespace(fileSet
 						.getReferencedBpmnFiles());
 
-		LOGGER.info(language.getProperty("validator.logger.elements")
+		LOGGER.debug(language.getProperty("validator.logger.elements")
 				+ System.lineSeparator() + elements.toString());
 		StringBuilder importedFilesLogText = new StringBuilder(100)
 				.append(language.getProperty("validator.logger.importedfiles"))
@@ -256,7 +256,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 					.append(System.lineSeparator());
 		}
 
-		LOGGER.info(importedFilesLogText.toString());
+		LOGGER.debug(importedFilesLogText.toString());
 		// get all elements of the file for validate their references
 		Filter<Element> filter = Filters.element();
 		IteratorIterable<Element> list = baseDocument.getDescendants(filter);
@@ -278,8 +278,9 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				for (BPMNElement checkingElement : checkingBPMNElements) {
 					for (Reference checkingReference : checkingElement
 							.getReferences()) {
-						LOGGER.info(language
-								.getProperty("validator.logger.checkingreference")
+						LOGGER.debug(language
+								.getProperty(
+										"validator.logger.checkingreference")
 								+ System.lineSeparator()
 								+ currentName
 								+ "  ::   " + checkingReference);
