@@ -75,16 +75,15 @@ public class PreProcessor {
         List<ImportedFile> importedFiles = ImportedFilesCrawler
                 .selectImportedFiles(headFileDocument, folder,
                         namespaceTable.size(), true);
-        if(importedFiles.isEmpty()) {
-            LOGGER.debug("Skipping preprocessing for '{}' as there are no imports.", headFileDocument.getBaseURI());
+        if (importedFiles.isEmpty()) {
+            LOGGER.debug(
+                    "Skipping preprocessing for '{}' as there are no imports.",
+                    headFileDocument.getBaseURI());
         } else {
             LOGGER.info("Starting to preprocess file.");
 
             BpmnHelper.removeBPMNDINode(headFileDocument);
 
-            XPathExpression xPathChangeNamespaceIds = xpath
-                    .compile(
-                            "//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
             NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
                     .evaluate(headFileDocument, XPathConstants.NODESET);
 
@@ -92,15 +91,16 @@ public class PreProcessor {
                 Node idNode = foundNodesHeadFile.item(j);
                 if (idNode.getTextContent().contains(":")) {
                     renameGlobalIds(headFileDocument, importedFiles, idNode);
-            }
-
-            for (ImportedFile importedFile : importedFiles) {
-                if (importedFile.getFile().exists()) {
-                    addNamespacesAndRenameIds(headFileDocument,
-                            importedFile, namespaceTable, folder);
                 }
+
+                for (ImportedFile importedFile : importedFiles) {
+                    if (importedFile.getFile().exists()) {
+                        addNamespacesAndRenameIds(headFileDocument,
+                                importedFile, namespaceTable, folder);
+                    }
+                }
+                LOGGER.info("Preprocessing completed.");
             }
-            LOGGER.info("Preprocessing completed.");
         }
 
         return new PreProcessResult(headFileDocument, namespaceTable);
@@ -118,14 +118,15 @@ public class PreProcessor {
                 newPrefix = importedFile.getPrefix();
             }
         }
-        LOGGER.debug("new prefix '{}' for ID {}", newPrefix, idNode.getTextContent());
+        LOGGER.debug("new prefix '{}' for ID {}", newPrefix,
+                idNode.getTextContent());
         idNode.setTextContent(idNode.getTextContent().replace(prefix + ":",
                 newPrefix + "_"));
     }
 
     private void addNamespacesAndRenameIds(Document headFileDocument,
             ImportedFile file, Map<String, String> namespaceTable, File folder)
-            throws XPathExpressionException {
+                    throws XPathExpressionException {
         try {
             Document importedDocument = documentBuilder.parse(file.getFile());
 
@@ -133,10 +134,9 @@ public class PreProcessor {
                     .getDocumentElement();
             BpmnHelper.removeBPMNDINode(importedDocument);
 
-
             LOGGER.debug("namespace of file read: {}", file.getNamespace());
             if (!namespaceTable.containsKey(file.getNamespace())) {
-                namespaceTable.put(file.getNamespace(),file.getPrefix());
+                namespaceTable.put(file.getNamespace(), file.getPrefix());
             }
             renameIds(xPathReplaceIds, importedDocument, file.getPrefix());
 
