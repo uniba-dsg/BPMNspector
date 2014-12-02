@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
@@ -27,15 +27,10 @@ public class Ext001Checker {
     private WsdlValidator wsdlValidator;
     private XmlValidator xmlValidator;
     private final DocumentBuilder documentBuilder;
-    private final static Logger LOGGER;
+    private final static Logger LOGGER = LoggerFactory.getLogger(Ext001Checker.class.getSimpleName());
     private final BpmnXsdValidator bpmnXsdValidator;
     private final XmlLocator xmlLocator;
     private static final String CONSTRAINTNUMBER = "EXT.001";
-
-    static {
-        LOGGER = (Logger) LoggerFactory.getLogger(Ext001Checker.class
-                .getSimpleName());
-    }
 
     {
         documentBuilder = SetupHelper.setupDocumentBuilder();

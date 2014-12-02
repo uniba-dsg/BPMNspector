@@ -10,12 +10,12 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
@@ -29,13 +29,8 @@ public class Ext002Checker {
     private final DocumentBuilder documentBuilder;
     private final XPathExpression xPathExpression;
     private final XmlLocator xmlLocator;
-    private final static Logger LOGGER;
+    private final static Logger LOGGER = LoggerFactory.getLogger(Ext002Checker.class.getSimpleName());
     private static final String CONSTRAINTNUMBER = "EXT.002";
-
-    static {
-        LOGGER = (Logger) LoggerFactory.getLogger(Ext002Checker.class
-                .getSimpleName());
-    }
 
     {
         documentBuilder = SetupHelper.setupDocumentBuilder();
