@@ -1,12 +1,10 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import org.jdom2.Document;
@@ -21,6 +19,7 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.refcheck.importer.FileImporter;
 import de.uniba.dsg.bpmnspector.refcheck.importer.ProcessFileSet;
+import org.slf4j.LoggerFactory;
 
 /**
  * The implementation of the BPMNReferenceValidator. For more information and an
@@ -35,10 +34,9 @@ import de.uniba.dsg.bpmnspector.refcheck.importer.ProcessFileSet;
  */
 public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
-	private Level level;
 	private Properties language;
 	private Map<String, BPMNElement> bpmnRefElements;
-	private Logger LOGGER;
+
 
 	private final FileImporter bpmnImporter;
     private final ExistenceChecker existenceChecker;
@@ -49,6 +47,9 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 	public static final String EXISTENCE = "existence";
 	public static final String REFERENCE = "referenceType";
+
+	private static final org.slf4j.Logger LOGGER = LoggerFactory
+			.getLogger(BPMNReferenceValidator.class.getSimpleName());
 
 	/**
 	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
@@ -134,10 +135,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 	@Override
 	public void setLogLevel(Level level) {
-		if (LOGGER != null) {
-			LOGGER.setLevel(level);
-		}
-		this.level = level;
+		// TODO decide what to do with setLogLevel methods
 	}
 
 	@Override
@@ -188,7 +186,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 *             "references.xsd" occurred
 	 */
 	private void loadReferences() throws ValidatorException {
-		LOGGER = ValidationLoggerFactory.createLogger(null, level, language);
 		ReferenceLoader referenceLoader = new ReferenceLoader(language);
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
@@ -220,10 +217,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			String validationLevel) throws ValidatorException {
 
 		List<Violation> violationList = new ArrayList<>();
-		// TODO improve logging
-		File file = new File(fileSet.getBpmnBaseFile().getBaseURI());
-		LOGGER = ValidationLoggerFactory.createLogger(file.getName(), level,
-				language);
 
 		Document baseDocument = fileSet.getBpmnBaseFile();
 
@@ -241,7 +234,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			}
 		}
 
-		LOGGER.fine("ownprefix after getAllElements():" + ownPrefix);
+		LOGGER.debug("ownprefix after getAllElements():" + ownPrefix);
 
 		// Store all Elements and their IDs in referenced Files into nested
 		// Map:
@@ -331,7 +324,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 										.append(language
 												.getProperty(
                                                         "validator.illegalargument.validatinglevel.part2"));
-								LOGGER.severe(logText.toString());
+								LOGGER.error(logText.toString());
 								throw new ValidatorException(logText.toString());
 							}
 						}
