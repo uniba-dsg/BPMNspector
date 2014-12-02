@@ -11,6 +11,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,7 +19,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
 import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
@@ -40,7 +40,7 @@ public class PreProcessor {
     private static final Logger LOGGER;
 
     static {
-        LOGGER = (Logger) LoggerFactory.getLogger(PreProcessor.class
+        LOGGER = LoggerFactory.getLogger(PreProcessor.class
                 .getSimpleName());
     }
 
@@ -75,6 +75,9 @@ public class PreProcessor {
         List<ImportedFile> importedFiles = ImportedFilesCrawler
                 .selectImportedFiles(headFileDocument, folder,
                         namespaceTable.size(), true);
+
+        BpmnHelper.removeBPMNDINode(headFileDocument);
+
         if (importedFiles.isEmpty()) {
             LOGGER.debug(
                     "Skipping preprocessing for '{}' as there are no imports.",
@@ -82,7 +85,7 @@ public class PreProcessor {
         } else {
             LOGGER.info("Starting to preprocess file.");
 
-            BpmnHelper.removeBPMNDINode(headFileDocument);
+
 
             NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
                     .evaluate(headFileDocument, XPathConstants.NODESET);
@@ -92,15 +95,15 @@ public class PreProcessor {
                 if (idNode.getTextContent().contains(":")) {
                     renameGlobalIds(headFileDocument, importedFiles, idNode);
                 }
-
-                for (ImportedFile importedFile : importedFiles) {
-                    if (importedFile.getFile().exists()) {
-                        addNamespacesAndRenameIds(headFileDocument,
-                                importedFile, namespaceTable, folder);
-                    }
-                }
-                LOGGER.info("Preprocessing completed.");
             }
+
+            for (ImportedFile importedFile : importedFiles) {
+                if (importedFile.getFile().exists()) {
+                    addNamespacesAndRenameIds(headFileDocument,
+                            importedFile, namespaceTable, folder);
+                }
+            }
+            LOGGER.info("Preprocessing completed.");
         }
 
         return new PreProcessResult(headFileDocument, namespaceTable);
