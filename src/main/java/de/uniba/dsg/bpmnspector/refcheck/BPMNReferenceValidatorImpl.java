@@ -189,7 +189,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 */
 	private void loadReferences() throws ValidatorException {
 		LOGGER = ValidationLoggerFactory.createLogger(null, level, language);
-		ReferenceLoader referenceLoader = new ReferenceLoader(language, LOGGER);
+		ReferenceLoader referenceLoader = new ReferenceLoader(language);
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
 		StringBuilder bpmnElementsLogText = new StringBuilder(500);

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
@@ -37,7 +36,6 @@ import org.xml.sax.SAXParseException;
 public class ReferenceLoader {
 
 	private final List<SAXParseException> XSDErrorList;
-	private final Logger LOGGER;
 	private final Properties language;
 
 	/**
@@ -45,12 +43,9 @@ public class ReferenceLoader {
 	 * 
 	 * @param language
 	 *            the reference to the language properties
-	 * @param LOGGER
-	 *            the reference to the logger
 	 */
-	public ReferenceLoader(Properties language, Logger LOGGER) {
+	public ReferenceLoader(Properties language) {
 		this.language = language;
-		this.LOGGER = LOGGER;
 		XSDErrorList = new ArrayList<>();
 	}
 
@@ -80,10 +75,8 @@ public class ReferenceLoader {
 			return createReferences(root);
 
 		} catch (JDOMException e) {
-			LOGGER.severe(language.getProperty("loader.jdom"));
 			throw new ValidatorException(language.getProperty("loader.jdom"), e);
 		} catch (IOException e) {
-			LOGGER.severe(language.getProperty("loader.io"));
 			throw new ValidatorException(language.getProperty("loader.io"), e);
 		}
 
@@ -187,11 +180,9 @@ public class ReferenceLoader {
 							.append(saxParseException.getMessage())
 							.append(System.lineSeparator());
 				}
-				LOGGER.severe(xsdErrorText.toString());
 				throw new ValidatorException(xsdErrorText.toString());
 			}
 		} catch (SAXException e) {
-			LOGGER.severe(language.getProperty("loader.sax"));
 			throw new ValidatorException(language.getProperty("loader.sax"), e);
 		}
 
