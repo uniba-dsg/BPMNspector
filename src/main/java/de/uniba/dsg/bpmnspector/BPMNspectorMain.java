@@ -1,6 +1,6 @@
 package de.uniba.dsg.bpmnspector;
 
-import ch.qos.logback.classic.Level;
+
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
@@ -23,6 +23,10 @@ public class BPMNspectorMain {
     public static void main(String[] args) {
         BPMNspectorCli cli = new BPMNspectorCli();
         CliParameter params = cli.parse(args);
+
+        if(params.isDebug()) {
+            setDebugLevel();
+        }
 
         try {
             BPMNspector inspector = new BPMNspector();
@@ -57,7 +61,8 @@ public class BPMNspectorMain {
     }
 
     private static void setDebugLevel() {
-        ((ch.qos.logback.classic.Logger) LOGGER).setLevel(Level.DEBUG);
+        ch.qos.logback.classic.Logger rootLogger  = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
+        rootLogger.setLevel(ch.qos.logback.classic.Level.DEBUG);
         LOGGER.debug("Debug mode activated.");
     }
 
