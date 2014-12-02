@@ -49,7 +49,6 @@ dependencies {
 }
 
 pmd {
-    ignoreFailures = true
     toolVersion = '5.2.1'
     ruleSetFiles = files("config/pmd.xml")
     ruleSets = []

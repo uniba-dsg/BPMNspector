@@ -71,8 +71,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     @Override
     public void setLogLevel(Level logLevel) {
+        // FIXME: without phloc libraries
         ((Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
-                .setLevel(logLevel);
+        .setLevel(logLevel);
     }
 
     @Override
@@ -120,47 +121,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
                     .getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
                 if (schematronOutputType
                         .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-                    FailedAssert failedAssert = (FailedAssert) schematronOutputType
-                            .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i);
-                    String message = failedAssert.getText().trim();
-                    String constraint = message.substring(0,
-                            message.indexOf('|'));
-                    String errorMessage = message.substring(message
-                            .indexOf('|') + 1);
-                    int line = xmlLocator.findLine(xmlFile,
-                            failedAssert.getLocation());
-                    String fileName = xmlFile.getName();
-                    String location = failedAssert.getLocation();
-
-                    if (line == -1) {
-                        try {
-                            String xpathId = "";
-                            if (failedAssert.getDiagnosticReferenceCount() > 0) {
-                                xpathId = failedAssert.getDiagnosticReference()
-                                        .get(0).getText().trim();
-                            }
-                            String[] result = searchForViolationFile(xpathId,
-                                    validationResult,
-                                    preProcessResult.getNamespaceTable());
-                            fileName = result[0];
-                            line = Integer.parseInt(result[1]);
-                            location = result[2];
-                        } catch (BpmnValidationException e) {
-                            fileName = e.getMessage();
-                            LOGGER.error(
-                                    "Line of affected Element could not be determined.");
-                        } catch (StringIndexOutOfBoundsException e) {
-                            fileName = "Element couldn't be found!";
-                            LOGGER.error("Line of affected Element could not be determined.");
-                        }
-
-                    }
-                    String logText = String.format("violation of constraint %s found in %s at line %s.",
-                            constraint, fileName, line);
-                    LOGGER.info(logText);
-                    validationResult.getViolations().add(
-                            new Violation(constraint, fileName, line, location,
-                                    errorMessage));
+                    handleSchematronErrors(
+                            xmlFile,
+                            validationResult,
+                            preProcessResult,
+                            (FailedAssert) schematronOutputType
+                                    .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i));
                 }
             }
 
@@ -185,6 +151,46 @@ public class SchematronBPMNValidator implements BpmnValidator {
         return validationResult;
     }
 
+    private void handleSchematronErrors(File xmlFile,
+            ValidationResult validationResult,
+            PreProcessResult preProcessResult, FailedAssert failedAssert) {
+        String message = failedAssert.getText().trim();
+        String constraint = message.substring(0, message.indexOf('|'));
+        String errorMessage = message.substring(message.indexOf('|') + 1);
+        int line = xmlLocator.findLine(xmlFile, failedAssert.getLocation());
+        String fileName = xmlFile.getName();
+        String location = failedAssert.getLocation();
+
+        if (line == -1) {
+            try {
+                String xpathId = "";
+                if (failedAssert.getDiagnosticReferenceCount() > 0) {
+                    xpathId = failedAssert.getDiagnosticReference().get(0)
+                            .getText().trim();
+                }
+                String[] result = searchForViolationFile(xpathId,
+                        validationResult, preProcessResult.getNamespaceTable());
+                fileName = result[0];
+                line = Integer.parseInt(result[1]);
+                location = result[2];
+            } catch (BpmnValidationException e) {
+                fileName = e.getMessage();
+                LOGGER.error("Line of affected Element could not be determined.");
+            } catch (StringIndexOutOfBoundsException e) {
+                fileName = "Element couldn't be found!";
+                LOGGER.error("Line of affected Element could not be determined.");
+            }
+        }
+
+        String logText = String.format(
+                "violation of constraint %s found in %s at line %s.",
+                constraint, fileName, line);
+        LOGGER.info(logText);
+        validationResult.getViolations().add(
+                new Violation(constraint, fileName, line, location,
+                        errorMessage));
+    }
+
     /**
      * searches for the file and line, where the violation occured
      *
@@ -200,9 +206,10 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * @throws BpmnValidationException
      *             if no element can be found
      */
+    // TODO: extract in own object?
     private String[] searchForViolationFile(String xpathExpression,
-            ValidationResult validationResult, Map<String, String> namespaceTable)
-            throws BpmnValidationException {
+            ValidationResult validationResult,
+            Map<String, String> namespaceTable) throws BpmnValidationException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
@@ -210,8 +217,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
         String namespacePrefix = xpathExpression.substring(0,
                 xpathExpression.indexOf('_'));
         String namespace = "";
-        for(Map.Entry<String, String> entry : namespaceTable.entrySet()) {
-            if(entry.getValue().equals(namespacePrefix)) {
+        for (Map.Entry<String, String> entry : namespaceTable.entrySet()) {
+            if (entry.getValue().equals(namespacePrefix)) {
                 namespace = entry.getKey();
             }
         }
@@ -221,21 +228,19 @@ public class SchematronBPMNValidator implements BpmnValidator {
             try {
                 Document document = documentBuilder.parse(checkedFile);
                 if (document.getDocumentElement()
-                        .getAttribute("targetNamespace")
-                        .equals(namespace)) {
+                        .getAttribute("targetNamespace").equals(namespace)) {
                     xpathObjectId = BpmnHelper
                             .createIdBpmnExpression(xpathExpression
-                                    .substring(xpathExpression
-                                            .indexOf('_') + 1));
-                    line = String.valueOf(xmlLocator.findLine(
-                            checkedFile, xpathObjectId));
+                                    .substring(xpathExpression.indexOf('_') + 1));
+                    line = String.valueOf(xmlLocator.findLine(checkedFile,
+                            xpathObjectId));
                     xpathObjectId += "[0]"; // NOPMD
                     fileName = checkedFile.getName();
                     break;
                 }
             } catch (SAXException | IOException e) {
-                PrintHelper.printLogstatements(LOGGER, e,
-                        checkedFile.getName());
+                PrintHelper
+                .printLogstatements(LOGGER, e, checkedFile.getName());
             }
         }
 
