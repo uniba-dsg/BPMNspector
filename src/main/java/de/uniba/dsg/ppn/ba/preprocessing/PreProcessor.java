@@ -84,9 +84,6 @@ public class PreProcessor {
 
             BpmnHelper.removeBPMNDINode(headFileDocument);
 
-            XPathExpression xPathChangeNamespaceIds = xpath
-                    .compile(
-                            "//bpmn:*/@sourceRef | //bpmn:*/@targetRef | //bpmn:*/@calledElement | //bpmn:*/@processRef | //bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef | //bpmn:*/eventDefinitionRef");
             NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
                     .evaluate(headFileDocument, XPathConstants.NODESET);
 
@@ -129,7 +126,7 @@ public class PreProcessor {
 
     private void addNamespacesAndRenameIds(Document headFileDocument,
             ImportedFile file, Map<String, String> namespaceTable, File folder)
-            throws XPathExpressionException {
+                    throws XPathExpressionException {
         try {
             Document importedDocument = documentBuilder.parse(file.getFile());
 
