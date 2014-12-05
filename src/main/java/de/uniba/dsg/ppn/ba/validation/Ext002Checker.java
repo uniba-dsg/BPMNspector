@@ -23,6 +23,7 @@ import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
 import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
+import org.xml.sax.SAXParseException;
 
 public class Ext002Checker {
 
@@ -115,6 +116,14 @@ public class Ext002Checker {
                             validationResult));
                 }
             }
+        } catch (SAXParseException e) {
+            validationResult.getViolations().add(
+                    new Violation("XSD-Check", file.getName(),
+                            e.getLineNumber(), "",
+                            e.getMessage()));
+            validationResult.getCheckedFiles().add(file.getName());
+            LOGGER.info("XML not well-formed in {} at line {}", file.getName(),
+                    e.getLineNumber());
         } catch (IOException | SAXException e) {
             PrintHelper.printLogstatements(LOGGER, e, file.getName());
         }

@@ -30,6 +30,7 @@ import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
+import org.xml.sax.SAXParseException;
 
 /**
  * Implementation of BpmnValidator
@@ -134,6 +135,15 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 File f = new File(validationResult.getCheckedFiles().get(i));
                 validationResult.getCheckedFiles().set(i, f.getName());
             }
+        } catch (SAXParseException e) {
+            // Occurs if Document is not well-formed
+            validationResult.getViolations().add(
+                    new Violation("XSD-Check", xmlFile.getName(),
+                            e.getLineNumber(), "",
+                            e.getMessage()));
+            validationResult.getCheckedFiles().add(xmlFile.getName());
+            LOGGER.info("XML not well-formed in {} at line {}", xmlFile.getName(),
+                    e.getLineNumber());
         } catch (SAXException | IOException e) {
             PrintHelper.printLogstatements(LOGGER, e, xmlFile.getName());
             throw new BpmnValidationException(

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import de.uniba.dsg.bpmnspector.common.Violation;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -24,6 +25,7 @@ import org.xml.sax.SAXException;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Helper Class to Import all referenced BPMN, WSDL and XSD files referenced by
@@ -81,25 +83,34 @@ public class FileImporter {
 	 *             not schema valid
 	 */
 	public ProcessFileSet loadAllFiles(String pathToBaseFile,
-			boolean processImports) throws ValidatorException {
+			boolean processImports, ValidationResult validationResult) throws ValidatorException {
 
 		File baseFile = checkPathAndCreateFile(pathToBaseFile);
 
 		try {
-			bpmnXsdValidator.validateAgainstXsd(baseFile, new ValidationResult());
+			bpmnXsdValidator.validateAgainstXsd(baseFile, validationResult);
 			Document baseDoc = builder.build(baseFile);
 			List<String> processedFiles = new ArrayList<>();
 			processedFiles.add(baseFile.getAbsolutePath());
 			if (processImports) {
 				return new ProcessFileSet(baseDoc, processImports(baseDoc,
-						baseFile.toPath(), processedFiles), processedFiles);
+						baseFile.toPath(), processedFiles, validationResult), processedFiles);
 			} else {
 				return new ProcessFileSet(baseDoc, null, null);
 			}
 
 		} catch (SAXException e) {
-			String errorText = language.getProperty("validator.xsd.sax")+": "+e.getMessage();
-			throw new ValidatorException(errorText, e);
+			// Occurs if Document is not a well-formed XML document
+			if(e instanceof SAXParseException) {
+				validationResult.getViolations().add(
+						new Violation("XSD-Check", baseFile.getName(),
+								((SAXParseException) e).getLineNumber(), "",
+								e.getMessage()));
+				return null;
+			} else {
+				String errorText = language.getProperty("validator.xsd.sax")+": "+e.getMessage();
+				throw new ValidatorException(errorText, e);
+			}
 		} catch (JDOMException e) {
 			String errorText = language.getProperty("validator.jdom") + "'"
 					+ pathToBaseFile + "'.";
@@ -133,7 +144,7 @@ public class FileImporter {
 	}
 
 	private Map<String, List<Document>> processImports(Document baseDoc,
-			Path baseDocPath, List<String> processedFiles)
+			Path baseDocPath, List<String> processedFiles, ValidationResult validationResult)
 			throws ValidatorException {
 		Element rootNode = baseDoc.getRootElement();
 		Filter<Element> filter = Filters.element();
@@ -161,12 +172,12 @@ public class FileImporter {
 
 						try {
 							
-							bpmnXsdValidator.validateAgainstXsd(file, new ValidationResult());
+							bpmnXsdValidator.validateAgainstXsd(file, validationResult);
 							Document bpmnDoc = builder.build(file);
 							processedFiles.add(file.getAbsolutePath());
 							resolvedBpmnFiles.add(bpmnDoc);
 							Map<String, List<Document>> processResults = processImports(
-									bpmnDoc, file.toPath(), processedFiles);
+									bpmnDoc, file.toPath(), processedFiles, validationResult);
 							resolvedBpmnFiles.addAll(processResults
 									.get(ProcessFileSet.BPMN2_NAMESPACE));
 							resolvedWsdlFiles.addAll(processResults

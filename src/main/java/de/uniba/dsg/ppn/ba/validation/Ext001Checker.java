@@ -21,6 +21,7 @@ import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
 import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
+import org.xml.sax.SAXParseException;
 
 public class Ext001Checker {
 
@@ -62,6 +63,8 @@ public class Ext001Checker {
                 checkConstraintsinFile(importedFile, headFile, folder,
                         validationResult);
             }
+        } catch (SAXParseException e) {
+            createAndLogWellFormednesViolation(e, headFile, validationResult);
         } catch (SAXException | IOException e) {
             PrintHelper.printLogstatements(LOGGER, e, headFile.getName());
         }
@@ -89,17 +92,35 @@ public class Ext001Checker {
             if (wsdlValidator == null) {
                 wsdlValidator = new WsdlValidator();
             }
-            wsdlValidator.validateAgainstXsd(file, validationResult);
+            try {
+                wsdlValidator.validateAgainstXsd(file, validationResult);
+            } catch (SAXParseException e) {
+                createAndLogWellFormednesViolation(e, file, validationResult);
+            }
         } else if ("http://www.w3.org/2001/XMLSchema".equals(importedFile
                 .getImportType())) {
             if (xmlValidator == null) {
                 xmlValidator = new XmlValidator();
             }
-            xmlValidator.validateAgainstXsd(file, validationResult);
+            try {
+                xmlValidator.validateAgainstXsd(file, validationResult);
+            } catch (SAXParseException e) {
+                createAndLogWellFormednesViolation(e, file, validationResult);
+            }
         }
     }
 
     private String createImportString(String fileName) {
         return String.format("//bpmn:import[@location = '%s']", fileName);
+    }
+
+    private void createAndLogWellFormednesViolation(SAXParseException e, File affectedFile, ValidationResult validationResult) {
+        validationResult.getViolations().add(
+                new Violation("XSD-Check", affectedFile.getName(),
+                        e.getLineNumber(), "",
+                        e.getMessage()));
+        validationResult.getCheckedFiles().add(affectedFile.getName());
+        LOGGER.info("XML not well-formed in {} at line {}", affectedFile.getName(),
+                e.getLineNumber());
     }
 }

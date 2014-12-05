@@ -69,44 +69,58 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 	@Override
 	public ValidationResult validate(String path) throws ValidatorException {
-		List<Violation> violations = new LinkedList<>();
+		ValidationResult result = new ValidationResult();
 
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true);
+		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true, result);
 
-		boolean valid = true;
+		if(fileSet!=null) {
+			for (String filePath : fileSet.getProcessedFiles()) {
+				ProcessFileSet fileSetImport = bpmnImporter
+						.loadAllFiles(filePath,
+								true, result);
+				if(fileSetImport!=null) {
+					List<Violation> importedFileViolations = startValidation(
+							fileSetImport, REFERENCE);
+					result.setValid(result.isValid() && importedFileViolations
+							.isEmpty());
+					result.getViolations().addAll(importedFileViolations);
+				} else {
+					result.setValid(false);
+				}
+			}
 
-		for (String filePath : fileSet.getProcessedFiles()) {
-			ProcessFileSet fileSetImport = bpmnImporter.loadAllFiles(filePath,
-					true);
-			List<Violation> importedFileViolations = startValidation(
-					fileSetImport, REFERENCE);
-			valid = valid && importedFileViolations.isEmpty();
-			violations.addAll(importedFileViolations);
+			result.getCheckedFiles().addAll(fileSet.getProcessedFiles());
 		}
 
-		return new ValidationResult(valid, fileSet.getProcessedFiles(),
-				violations);
+		return result;
 	}
 
 	@Override
 	public ValidationResult validateExistenceOnly(String path)
 			throws ValidatorException {
-
+		ValidationResult result = new ValidationResult();
 		List<Violation> violations = new LinkedList<>();
 
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true);
+		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true,result);
 
 		boolean valid = true;
+		if(fileSet!=null) {
+			for (String filePath : fileSet.getProcessedFiles()) {
+				ProcessFileSet fileSetImport = bpmnImporter
+						.loadAllFiles(filePath,
+								true, result);
+				if(fileSetImport!=null) {
+					List<Violation> importedFileViolations = startValidation(
+							fileSetImport, EXISTENCE);
+					result.setValid(result.isValid() && importedFileViolations.isEmpty());
+					violations.addAll(importedFileViolations);
+				} else {
+					result.setValid(false);
+				}
+			}
 
-		for (String filePath : fileSet.getProcessedFiles()) {
-			ProcessFileSet fileSetImport = bpmnImporter.loadAllFiles(filePath,
-					true);
-			List<Violation> importedFileViolations = startValidation(
-					fileSetImport, EXISTENCE);
-			valid = valid && importedFileViolations.isEmpty();
-			violations.addAll(importedFileViolations);
+			result.getCheckedFiles().addAll(fileSet.getProcessedFiles());
 		}
-
 		return new ValidationResult(valid, fileSet.getProcessedFiles(),
 				violations);
 	}
@@ -114,23 +128,31 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	@Override
 	public ValidationResult validateSingleFile(String path)
 			throws ValidatorException {
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true);
-		List<Violation> violations = startValidation(fileSet, REFERENCE);
-		boolean valid = violations.isEmpty();
-		List<String> checkedFiles = new ArrayList<>();
-		checkedFiles.add(path);
-		return new ValidationResult(valid, checkedFiles, violations);
+		ValidationResult result = new ValidationResult();
+		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true,result);
+		if (fileSet == null) {
+			result.setValid(false);
+		} else {
+			result.getViolations().addAll(startValidation(fileSet, REFERENCE));
+			result.setValid(result.getViolations().isEmpty());
+			result.getCheckedFiles().add(path);
+		}
+		return result;
 	}
 
 	@Override
 	public ValidationResult validateSingleFileExistenceOnly(String path)
 			throws ValidatorException {
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true);
-		List<Violation> violations = startValidation(fileSet, EXISTENCE);
-		boolean valid = violations.isEmpty();
-		List<String> checkedFiles = new ArrayList<>();
-		checkedFiles.add(path);
-		return new ValidationResult(valid, checkedFiles, violations);
+		ValidationResult result = new ValidationResult();
+		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true, result);
+		if (fileSet == null) {
+			result.setValid(false);
+		} else {
+			result.getViolations().addAll(startValidation(fileSet, EXISTENCE));
+			result.setValid(result.getViolations().isEmpty());
+			result.getCheckedFiles().add(path);
+		}
+		return result;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class TestBpmnFileImporter {
 	@Test
 	public void testSingleImport() {
 		try {
-			ProcessFileSet fileSet = importer.loadAllFiles("src/test/resources/test-18-referenz-6-teil-2.bpmn", false);
+			ProcessFileSet fileSet = importer.loadAllFiles("src/test/resources/test-18-referenz-6-teil-2.bpmn", false, new ValidationResult());
 			assertNotNull(fileSet.getBpmnBaseFile());
 		} catch (ValidatorException e) {
 			e.printStackTrace();
@@ -45,7 +46,7 @@ public class TestBpmnFileImporter {
 	@Test
 	public void testBpmnImportChaining() {
 		try {
-			ProcessFileSet fileSet = importer.loadAllFiles("src/test/resources/test-import-2steps.bpmn", true);
+			ProcessFileSet fileSet = importer.loadAllFiles("src/test/resources/test-import-2steps.bpmn", true, new ValidationResult());
 			assertNotNull(fileSet.getBpmnBaseFile());
 			assertTrue(fileSet.getReferencedBpmnFiles().size()==2);
 		} catch (ValidatorException e) {
