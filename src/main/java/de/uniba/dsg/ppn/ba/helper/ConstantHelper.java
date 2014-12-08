@@ -1,5 +1,11 @@
 package de.uniba.dsg.ppn.ba.helper;
 
+/**
+ * This class provides the constants used in the whole project
+ *
+ * @author Philipp Neugebauer
+ *
+ */
 public class ConstantHelper {
 
     public final static String PINAMESPACE = "http://www.uniba.de/pi/bpmn-cons/validation";

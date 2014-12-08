@@ -10,6 +10,12 @@ import org.w3c.dom.NodeList;
 
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 
+/**
+ * Collects all imported files from a provided document
+ *
+ * @author Philipp Neugebauer
+ *
+ */
 public class ImportedFilesCrawler {
 
     /**
@@ -46,7 +52,7 @@ public class ImportedFilesCrawler {
                     file = new File(folder.getPath()
                             + File.separator
                             + importedFileNode.getAttributes()
-                                    .getNamedItem("location").getTextContent());
+                            .getNamedItem("location").getTextContent());
                 }
                 String prefix = "ns" + (i + size);
                 String namespace = importedFileNode.getAttributes()
