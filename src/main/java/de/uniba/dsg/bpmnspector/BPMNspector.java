@@ -55,6 +55,9 @@ public class BPMNspector {
             try {
                 xsdValidator.validateAgainstXsd(file.toFile(), result);
                 result.getCheckedFiles().add(file.toAbsolutePath().toString());
+            } catch (ValidatorException e) {
+                // ValidatorException thrown because File is not well-formed
+                // can be ignored here as no further processing is required
             } catch (SAXException | IOException ex) {
                 throw new ValidatorException("Schema validation failed due to internal error.", ex);
             }

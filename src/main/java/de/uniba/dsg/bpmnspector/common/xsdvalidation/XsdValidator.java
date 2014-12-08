@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.xml.transform.stream.StreamSource;
 
+import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import org.xml.sax.SAXException;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
@@ -17,7 +18,7 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
  * @version 1.0
  *
  */
-public class XsdValidator {
+public abstract class XsdValidator {
 
     /**
      * Validates the given xmlFile with the xsd files and writes violations to
@@ -32,10 +33,9 @@ public class XsdValidator {
      * @throws SAXException
      *             when validation process fails somehow
      */
-    public void validateAgainstXsd(File xmlFile,
-            ValidationResult validationResult) throws IOException, SAXException {
-        // is overriden by the specific child classes
-    }
+    public abstract void validateAgainstXsd(File xmlFile,
+            ValidationResult validationResult) throws IOException, SAXException,
+            ValidatorException;
 
     /**
      *

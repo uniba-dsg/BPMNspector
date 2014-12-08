@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import de.uniba.dsg.bpmnspector.common.Violation;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -25,7 +24,6 @@ import org.xml.sax.SAXException;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
-import org.xml.sax.SAXParseException;
 
 /**
  * Helper Class to Import all referenced BPMN, WSDL and XSD files referenced by
@@ -94,23 +92,20 @@ public class FileImporter {
 			processedFiles.add(baseFile.getAbsolutePath());
 			if (processImports) {
 				return new ProcessFileSet(baseDoc, processImports(baseDoc,
-						baseFile.toPath(), processedFiles, validationResult), processedFiles);
+						baseFile.toPath(), processedFiles, validationResult),
+						processedFiles);
 			} else {
 				return new ProcessFileSet(baseDoc, null, null);
 			}
 
+		} catch (ValidatorException e) {
+			// Thrown if file is not well-formed - error is already logged and
+			// added to the validation result - but further processing is not
+			// possible
+			return null;
 		} catch (SAXException e) {
-			// Occurs if Document is not a well-formed XML document
-			if(e instanceof SAXParseException) {
-				validationResult.getViolations().add(
-						new Violation("XSD-Check", baseFile.getName(),
-								((SAXParseException) e).getLineNumber(), "",
-								e.getMessage()));
-				return null;
-			} else {
 				String errorText = language.getProperty("validator.xsd.sax")+": "+e.getMessage();
 				throw new ValidatorException(errorText, e);
-			}
 		} catch (JDOMException e) {
 			String errorText = language.getProperty("validator.jdom") + "'"
 					+ pathToBaseFile + "'.";

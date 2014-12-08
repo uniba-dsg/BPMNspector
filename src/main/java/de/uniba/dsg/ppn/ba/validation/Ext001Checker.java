@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 
+import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -63,16 +64,16 @@ public class Ext001Checker {
                 checkConstraintsinFile(importedFile, headFile, folder,
                         validationResult);
             }
-        } catch (SAXParseException e) {
-            createAndLogWellFormednesViolation(e, headFile, validationResult);
         } catch (SAXException | IOException e) {
             PrintHelper.printLogstatements(LOGGER, e, headFile.getName());
+        } catch (ValidatorException e) {
+            LOGGER.error("Checking of EXT.001 failed: ", e);
         }
     }
 
     private void checkConstraintsinFile(ImportedFile importedFile,
             File headFile, File folder, ValidationResult validationResult)
-            throws IOException, SAXException {
+            throws IOException, SAXException, ValidatorException {
         File file = importedFile.getFile();
         if (!file.exists()) { // NOPMD
             String xpathLocation = createImportString(file.getName());

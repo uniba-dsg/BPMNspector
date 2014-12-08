@@ -12,6 +12,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -47,19 +48,34 @@ public class WsdlValidator extends XsdValidator {
 
     @Override
     public void validateAgainstXsd(File xmlFile,
-            ValidationResult validationResult) throws IOException, SAXException {
+            ValidationResult validationResult)
+            throws IOException, SAXException, ValidatorException {
         LOGGER.debug("xml xsd validation started: {}", xmlFile.getName());
         List<SAXParseException> xsdErrorList = new ArrayList<>();
         Validator validator = schema.newValidator();
         validator.setErrorHandler(new XsdValidationErrorHandler(xsdErrorList));
-        validator.validate(new StreamSource(xmlFile));
-        for (SAXParseException saxParseException : xsdErrorList) {
+        try {
+            validator.validate(new StreamSource(xmlFile));
+            for (SAXParseException saxParseException : xsdErrorList) {
+                validationResult.getViolations().add(
+                        new Violation("XML-XSD-Check", xmlFile.getName(),
+                                saxParseException.getLineNumber(), "",
+                                saxParseException.getMessage()));
+                validationResult.setValid(false);
+                LOGGER.info("xml xsd violation in {} at {} found",
+                        xmlFile.getName(), saxParseException.getLineNumber());
+            }
+        } catch (SAXParseException e) {
+            // if process is not well-formed exception is not processed via the error handler
             validationResult.getViolations().add(
-                    new Violation("XML-XSD-Check", xmlFile.getName(),
-                            saxParseException.getLineNumber(), "",
-                            saxParseException.getMessage()));
-            LOGGER.info("xml xsd violation in {} at {} found",
-                    xmlFile.getName(), saxParseException.getLineNumber());
+                    new Violation("XSD-Check", xmlFile.getName(),
+                            e.getLineNumber(), "",
+                            e.getMessage()));
+            validationResult.setValid(false);
+            String msg = String.format("File %s is not well-formed at line %d: %s", xmlFile.getName(),
+                    e.getLineNumber(), e.getMessage());
+            LOGGER.info(msg);
+            throw new ValidatorException("Cancel Validation as checked File is not well-formed.");
         }
     }
 }
