@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://bla"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0"
+           targetNamespace="http://bla">
+
+    <xs:element name="aElement"
+                type="tns:aType"></xs:element>
+
+    <xs:complexType name="aType">
+        <xs:sequence>
+            <xs:element name="x" type="xs:int"></xs:elementCORRUPT>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
