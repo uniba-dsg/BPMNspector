@@ -13,6 +13,14 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 
+/**
+ * This class handles the transformation from documents to input streams which
+ * is required to apply the schematron validation
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class DocumentTransformer {
 
     /**
