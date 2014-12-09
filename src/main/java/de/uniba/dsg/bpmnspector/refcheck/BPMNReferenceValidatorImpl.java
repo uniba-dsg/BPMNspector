@@ -3,9 +3,12 @@ package de.uniba.dsg.bpmnspector.refcheck;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Level;
 
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
+import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -17,8 +20,6 @@ import org.jdom2.util.IteratorIterable;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.bpmnspector.refcheck.importer.FileImporter;
-import de.uniba.dsg.bpmnspector.refcheck.importer.ProcessFileSet;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -38,7 +39,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	private Map<String, BPMNElement> bpmnRefElements;
 
 
-	private final FileImporter bpmnImporter;
+	private final ProcessImporter bpmnImporter;
     private final ExistenceChecker existenceChecker;
     private final RefTypeChecker refTypeChecker;
 
@@ -62,7 +63,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
         setLogLevel(Level.OFF);
 		loadReferences();
 
-        bpmnImporter = new FileImporter(language);
+        bpmnImporter = new ProcessImporter();
         existenceChecker = new ExistenceChecker(language);
         refTypeChecker = new RefTypeChecker(language, existenceChecker, bpmnRefElements);
 	}
@@ -70,28 +71,25 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	@Override
 	public ValidationResult validate(String path) throws ValidatorException {
 		ValidationResult result = new ValidationResult();
+		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
+		if (process == null) {
+			result.setValid(false);
+			result.getCheckedFiles().add(path);
+		} else {
+			List<BPMNProcess> processesToCheck = new ArrayList<>();
 
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true, result);
+			process.getAllProcessesRecursively(processesToCheck);
 
-		if(fileSet!=null) {
-			for (String filePath : fileSet.getProcessedFiles()) {
-				ProcessFileSet fileSetImport = bpmnImporter
-						.loadAllFiles(filePath,
-								true, result);
-				if(fileSetImport!=null) {
-					List<Violation> importedFileViolations = startValidation(
-							fileSetImport, REFERENCE);
-					result.setValid(result.isValid() && importedFileViolations
-							.isEmpty());
-					result.getViolations().addAll(importedFileViolations);
-				} else {
-					result.setValid(false);
-				}
+			for(BPMNProcess processToCheck : processesToCheck) {
+				result.getViolations().addAll(startValidation(processToCheck, REFERENCE));
+				result.getCheckedFiles().add(processToCheck.getBaseURI());
 			}
 
-			result.getCheckedFiles().addAll(fileSet.getProcessedFiles());
+			result.setValid(result.getViolations().isEmpty());
 		}
 
+		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		LOGGER.info(resultText);
 		return result;
 	}
 
@@ -99,44 +97,42 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public ValidationResult validateExistenceOnly(String path)
 			throws ValidatorException {
 		ValidationResult result = new ValidationResult();
-		List<Violation> violations = new LinkedList<>();
+		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
+		if (process == null) {
+			result.setValid(false);
+			result.getCheckedFiles().add(path);
+		} else {
+			List<BPMNProcess> processesToCheck = new ArrayList<>();
 
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true,result);
+			process.getAllProcessesRecursively(processesToCheck);
 
-		boolean valid = true;
-		if(fileSet!=null) {
-			for (String filePath : fileSet.getProcessedFiles()) {
-				ProcessFileSet fileSetImport = bpmnImporter
-						.loadAllFiles(filePath,
-								true, result);
-				if(fileSetImport!=null) {
-					List<Violation> importedFileViolations = startValidation(
-							fileSetImport, EXISTENCE);
-					result.setValid(result.isValid() && importedFileViolations.isEmpty());
-					violations.addAll(importedFileViolations);
-				} else {
-					result.setValid(false);
-				}
+			for(BPMNProcess processToCheck : processesToCheck) {
+				result.getViolations().addAll(startValidation(processToCheck, EXISTENCE));
+				result.getCheckedFiles().add(processToCheck.getBaseURI());
 			}
 
-			result.getCheckedFiles().addAll(fileSet.getProcessedFiles());
+			result.setValid(result.getViolations().isEmpty());
 		}
-		return new ValidationResult(valid, fileSet.getProcessedFiles(),
-				violations);
+
+		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		LOGGER.info(resultText);
+		return result;
 	}
 
 	@Override
 	public ValidationResult validateSingleFile(String path)
 			throws ValidatorException {
 		ValidationResult result = new ValidationResult();
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true,result);
-		if (fileSet == null) {
+		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
+		if (process == null) {
 			result.setValid(false);
 		} else {
-			result.getViolations().addAll(startValidation(fileSet, REFERENCE));
+			result.getViolations().addAll(startValidation(process, REFERENCE));
 			result.setValid(result.getViolations().isEmpty());
-			result.getCheckedFiles().add(path);
 		}
+		result.getCheckedFiles().add(path);
+		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		LOGGER.info(resultText);
 		return result;
 	}
 
@@ -144,14 +140,17 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public ValidationResult validateSingleFileExistenceOnly(String path)
 			throws ValidatorException {
 		ValidationResult result = new ValidationResult();
-		ProcessFileSet fileSet = bpmnImporter.loadAllFiles(path, true, result);
-		if (fileSet == null) {
+		BPMNProcess process = bpmnImporter.importProcessFromPath(
+				Paths.get(path), result);
+		if (process == null) {
 			result.setValid(false);
 		} else {
-			result.getViolations().addAll(startValidation(fileSet, EXISTENCE));
+			result.getViolations().addAll(startValidation(process, EXISTENCE));
 			result.setValid(result.getViolations().isEmpty());
-			result.getCheckedFiles().add(path);
 		}
+		result.getCheckedFiles().add(path);
+		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		LOGGER.info(resultText);
 		return result;
 	}
 
@@ -165,7 +164,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
         loadLanguage(languageNumber);
         refTypeChecker.setLanguage(language);
         existenceChecker.setLanguage(language);
-        bpmnImporter.setLanguage(language);
 	}
 
     private void loadLanguage(int languageNumber) throws ValidatorException{
@@ -226,7 +224,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 * validation level. It is the entrance point for the validation. Therefore
 	 * it is used by the public methods of the interface.
 	 *
-	 * @param fileSet
+	 * @param baseProcess
 	 *            the ProcessFileSet of the file, which should be validated
 	 * @param validationLevel
 	 *            the validation level as String: "existence" or "referenceType"
@@ -235,12 +233,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 * @throws ValidatorException
 	 *             if technical problems occurred
 	 */
-	private List<Violation> startValidation(ProcessFileSet fileSet,
+	private List<Violation> startValidation(BPMNProcess baseProcess,
 			String validationLevel) throws ValidatorException {
 
 		List<Violation> violationList = new ArrayList<>();
 
-		Document baseDocument = fileSet.getBpmnBaseFile();
+		Document baseDocument = baseProcess.getProcessAsDoc();
 
 		// Get all Elements to Check from Base BPMN Process
 		Map<String, Element> elements = JDOMUtils.getAllElements(baseDocument);
@@ -261,9 +259,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		// Store all Elements and their IDs in referenced Files into nested
 		// Map:
 		// outerKey: namespace, innerKey: Id
-		Map<String, Map<String, Element>> importedElements = JDOMUtils
-				.getAllElementsGroupedByNamespace(fileSet
-						.getReferencedBpmnFiles());
+		Map<String, Map<String, Element>> importedElements = new HashMap<>();
+		JDOMUtils.getAllElementsGroupedByNamespace(importedElements,
+				baseProcess,
+				new ArrayList<>());
 
 		LOGGER.debug(language.getProperty("validator.logger.elements")
 				+ System.lineSeparator() + elements.toString());
@@ -368,7 +367,4 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		}
 		return violationList;
 	}
-
-
-
 }
