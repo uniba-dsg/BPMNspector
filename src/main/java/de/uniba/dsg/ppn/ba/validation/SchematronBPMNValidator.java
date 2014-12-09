@@ -15,6 +15,7 @@ import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -30,7 +31,6 @@ import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
-import org.xml.sax.SAXParseException;
 
 /**
  * Implementation of BpmnValidator
@@ -74,7 +74,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
     public void setLogLevel(Level logLevel) {
         // FIXME: without phloc libraries
         ((Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
-        .setLevel(logLevel);
+                .setLevel(logLevel);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             SchematronOutputType schematronOutputType = schematronSchema
                     .applySchematronValidationToSVRL(new StreamSource(
                             DocumentTransformer
-                                    .transformToInputStream(headFileDocument)));
+                            .transformToInputStream(headFileDocument)));
             for (int i = 0; i < schematronOutputType
                     .getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
                 if (schematronOutputType
@@ -127,7 +127,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                             validationResult,
                             preProcessResult,
                             (FailedAssert) schematronOutputType
-                                    .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i));
+                            .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i));
                 }
             }
 
@@ -138,12 +138,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
         } catch (SAXParseException e) {
             // Occurs if Document is not well-formed
             validationResult.getViolations().add(
-                    new Violation("XSD-Check", xmlFile.getName(),
-                            e.getLineNumber(), "",
-                            e.getMessage()));
+                    new Violation("XSD-Check", xmlFile.getName(), e
+                            .getLineNumber(), "", e.getMessage()));
             validationResult.getCheckedFiles().add(xmlFile.getName());
-            LOGGER.info("XML not well-formed in {} at line {}", xmlFile.getName(),
-                    e.getLineNumber());
+            LOGGER.info("XML not well-formed in {} at line {}",
+                    xmlFile.getName(), e.getLineNumber());
         } catch (SAXException | IOException e) {
             PrintHelper.printLogstatements(LOGGER, e, xmlFile.getName());
             throw new BpmnValidationException(
@@ -161,6 +160,20 @@ public class SchematronBPMNValidator implements BpmnValidator {
         return validationResult;
     }
 
+    /**
+     * tries to locate errors in the specific files
+     *
+     * @param xmlFile
+     *            the file where the error must be located with the help of the
+     *            {@link XmlLocator}
+     * @param validationResult
+     *            the result of the validation to add new found errors
+     * @param preProcessResult
+     *            the result of the preprocessing step to be able to detect
+     *            file-across errors after the merging in the preprocessing step
+     * @param failedAssert
+     *            the error of the schematron validation
+     */
     private void handleSchematronErrors(File xmlFile,
             ValidationResult validationResult,
             PreProcessResult preProcessResult, FailedAssert failedAssert) {
@@ -250,7 +263,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             } catch (SAXException | IOException e) {
                 PrintHelper
-                .printLogstatements(LOGGER, e, checkedFile.getName());
+                        .printLogstatements(LOGGER, e, checkedFile.getName());
             }
         }
 
