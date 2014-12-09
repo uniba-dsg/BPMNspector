@@ -72,7 +72,7 @@ public class Ext001Checker {
                         validationResult);
             }
         } catch (SAXException | IOException e) {
-            PrintHelper.printLogstatements(LOGGER, e, headFile.getName());
+            PrintHelper.printFileNotFoundLogs(LOGGER, e, headFile.getName());
         } catch (ValidatorException e) {
             LOGGER.error("Checking of EXT.001 failed: ", e);
         }

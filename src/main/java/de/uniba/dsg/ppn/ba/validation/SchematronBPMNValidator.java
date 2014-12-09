@@ -144,7 +144,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             LOGGER.info("XML not well-formed in {} at line {}",
                     xmlFile.getName(), e.getLineNumber());
         } catch (SAXException | IOException e) {
-            PrintHelper.printLogstatements(LOGGER, e, xmlFile.getName());
+            PrintHelper.printFileNotFoundLogs(LOGGER, e, xmlFile.getName());
             throw new BpmnValidationException(
                     "Given file couldn't be read or doesn't exist!");
         } catch (Exception e) { // NOPMD
@@ -263,7 +263,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
             } catch (SAXException | IOException e) {
                 PrintHelper
-                        .printLogstatements(LOGGER, e, checkedFile.getName());
+                        .printFileNotFoundLogs(LOGGER, e, checkedFile.getName());
             }
         }
 
