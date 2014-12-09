@@ -4,6 +4,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ * helper class for all bpmn class-across methods
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class BpmnHelper {
 
     /**
