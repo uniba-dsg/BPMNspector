@@ -30,7 +30,7 @@ import de.uniba.dsg.bpmnspector.common.Violation;
  * @version 1.0
  *
  */
-public class BpmnXsdValidator extends XsdValidator {
+public class BpmnXsdValidator extends AbstractXsdValidator {
 
     private Schema schema;
     private static final Logger LOGGER = LoggerFactory.getLogger(BpmnXsdValidator.class.getSimpleName());
