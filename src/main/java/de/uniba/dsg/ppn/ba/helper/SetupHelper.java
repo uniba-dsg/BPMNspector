@@ -8,8 +8,19 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+/**
+ * This class is a setup helper class for the document builder and xpath
+ * handling
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class SetupHelper {
 
+    /**
+     * sets up the documentbuilder with the required namespace-awareness
+     */
     public static DocumentBuilder setupDocumentBuilder() {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
@@ -23,6 +34,9 @@ public class SetupHelper {
         return documentBuilder;
     }
 
+    /**
+     * sets up the xpath with the custom namespace context of bpmn
+     */
     public static XPath setupXPath() {
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath xpath = xPathFactory.newXPath();
@@ -30,6 +44,9 @@ public class SetupHelper {
         return xpath;
     }
 
+    /**
+     * sets up the xpath expression to search for all ids in the bpmn namespace
+     */
     public static XPathExpression setupXPathExpression() {
         XPath xpath = setupXPath();
         XPathExpression xPathExpression = null;
