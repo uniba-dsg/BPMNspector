@@ -21,6 +21,7 @@ import org.jdom2.util.IteratorIterable;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import org.slf4j.LoggerFactory;
+import sun.rmi.runtime.Log;
 
 /**
  * The implementation of the BPMNReferenceValidator. For more information and an
@@ -71,25 +72,36 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	@Override
 	public ValidationResult validate(String path) throws ValidatorException {
 		ValidationResult result = new ValidationResult();
-		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
-		if (process == null) {
-			result.setValid(false);
-			result.getCheckedFiles().add(path);
-		} else {
-			List<BPMNProcess> processesToCheck = new ArrayList<>();
+		try {
+			BPMNProcess process = bpmnImporter
+					.importProcessFromPath(Paths.get(path), result);
 
-			process.getAllProcessesRecursively(processesToCheck);
+			if (process == null) {
+				result.setValid(false);
+				result.getCheckedFiles().add(path);
+			} else {
+				List<BPMNProcess> processesToCheck = new ArrayList<>();
 
-			for(BPMNProcess processToCheck : processesToCheck) {
-				result.getViolations().addAll(startValidation(processToCheck, REFERENCE));
-				result.getCheckedFiles().add(processToCheck.getBaseURI());
+				process.getAllProcessesRecursively(processesToCheck);
+
+				for (BPMNProcess processToCheck : processesToCheck) {
+					result.getViolations()
+							.addAll(startValidation(processToCheck, REFERENCE));
+					result.getCheckedFiles().add(processToCheck.getBaseURI());
+				}
+
+				result.setValid(result.getViolations().isEmpty());
 			}
 
-			result.setValid(result.getViolations().isEmpty());
+			String resultText = String
+					.format("Reference check of file %s finished; %d violations found.",
+							path, result.getViolations().size());
+			LOGGER.info(resultText);
+		} catch (ValidatorException e) {
+			LOGGER.error("Validation of process {} failed, due to an error: {}", path, e);
+			result.setValid(false);
+			result.getCheckedFiles().add(path);
 		}
-
-		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
-		LOGGER.info(resultText);
 		return result;
 	}
 
@@ -247,6 +259,9 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		// special case if a prefix is used for the target namespace
 		Element rootNode = baseDocument.getRootElement();
 		String targetNamespace = rootNode.getAttributeValue("targetNamespace");
+		if(targetNamespace==null) {
+			targetNamespace = "";
+		}
 		for (Namespace namespace : rootNode.getNamespacesInScope()) {
 			if (targetNamespace.equals(namespace.getURI())) {
 				ownPrefix = namespace.getPrefix();

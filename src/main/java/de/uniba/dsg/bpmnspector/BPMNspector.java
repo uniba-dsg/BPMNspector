@@ -33,7 +33,7 @@ public class BPMNspector {
             List<Path> relevantFiles = FileUtils
                     .getAllBpmnFileFromDirectory(directory);
             for (Path path : relevantFiles) {
-                results.add(inspectFile(path, validationOptions));
+                    results.add(inspectFile(path, validationOptions));
             }
         } catch (IOException ioe) {
             throw new ValidatorException(
@@ -64,7 +64,8 @@ public class BPMNspector {
 
         }
         if (validationOptions.contains(ValidationOption.REF)) {
-            ValidationResult refResult = refValidator.validate(file.toAbsolutePath().toString());
+            ValidationResult refResult = refValidator.validate(
+                    file.toAbsolutePath().toString());
             mergeResults(result, refResult);
         }
         if (validationOptions.contains(ValidationOption.EXT)) {
@@ -72,7 +73,7 @@ public class BPMNspector {
                 ValidationResult extResult = extValidator.validate(file.toAbsolutePath().toFile());
                 mergeResults(result, extResult);
             } catch (BpmnValidationException ex) {
-                throw new ValidatorException("EXT Validation failed.", ex);
+                //throw new ValidatorException("EXT Validation failed.", ex);
             }
         }
 

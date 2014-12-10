@@ -1,6 +1,7 @@
 package de.uniba.dsg.bpmnspector.common.importer;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
@@ -37,21 +38,29 @@ public class ProcessImporter {
     private BPMNProcess importProcessRecursively(Path path, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result)
             throws ValidatorException {
         if(Files.notExists(path) || !Files.isRegularFile(path)) {
-            throw new IllegalArgumentException("Path "+path+"is invalid.");
+            throw new ValidatorException("Import could not be resolved: Path "+path+"is invalid.");
         } else {
             try {
                 bpmnXsdValidator.validateAgainstXsd(path.toFile(), result);
                 Document processAsDoc = builder.build(path.toFile());
-                String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
+                if("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMNNAMESPACE.equals(processAsDoc.getRootElement().getNamespaceURI())) {
+                    String processNamespace = processAsDoc.getRootElement()
+                            .getAttributeValue("targetNamespace");
 
-                BPMNProcess process = new BPMNProcess(processAsDoc, path.toString(), processNamespace ,parent);
-                if(rootProcess==null) {
-                    resolveAndAddImports(process, process, result);
+                    BPMNProcess process = new BPMNProcess(processAsDoc,
+                            path.toString(), processNamespace, parent);
+                    if (rootProcess == null) {
+                        resolveAndAddImports(process, process, result);
+                    } else {
+                        resolveAndAddImports(process, rootProcess, result);
+                    }
+                    return process;
                 } else {
-                    resolveAndAddImports(process, rootProcess, result);
+                    // Invalid BPMN file
+                    return null;
                 }
 
-                return process;
+
 
             } catch (ValidatorException e) {
                 // Thrown if file is not well-formed - error is already logged and
@@ -75,11 +84,11 @@ public class ProcessImporter {
                 Path importPath = Paths.get(process.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
 
                 if(!isFileAlreadyImported(importPath.toString(), rootProcess)) {
-
                     BPMNProcess importedProcess = importProcessRecursively(
                             importPath, process, rootProcess, result);
-
-                    process.getChildren().add(importedProcess);
+                    if(importedProcess!=null) {
+                        process.getChildren().add(importedProcess);
+                    }
                 }
             }
         }

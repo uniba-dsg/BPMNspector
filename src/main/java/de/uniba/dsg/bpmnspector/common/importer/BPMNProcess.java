@@ -4,6 +4,7 @@ import org.jdom2.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BPMNProcess {
 
@@ -69,5 +70,13 @@ public class BPMNProcess {
                 child.getAllProcessesRecursively(processList);
             }
         }
+    }
+
+    public List<BPMNProcess> findProcessByNamespace(String namespace) {
+        List<BPMNProcess> allProcesses = new ArrayList<>();
+        getAllProcessesRecursively(allProcesses);
+        return allProcesses.stream().filter(
+                process -> process.getNamespace().equals(namespace)).collect(
+                Collectors.toList());
     }
 }
