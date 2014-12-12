@@ -52,6 +52,7 @@ pmd {
     toolVersion = '5.2.1'
     ruleSetFiles = files("config/pmd.xml")
     ruleSets = []
+	ignoreFailures = true
 }
 
 findbugs {
