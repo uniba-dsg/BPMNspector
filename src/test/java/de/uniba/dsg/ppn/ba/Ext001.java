@@ -8,6 +8,13 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Test class for testing Constraint EXT.001
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext001 extends TestCase {
 
     @Test

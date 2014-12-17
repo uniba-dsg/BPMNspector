@@ -6,6 +6,13 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Test class for testing Constraint EXT.025
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext025 extends TestCase {
 
     private static final String XPATHSTRING = "//bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] [not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] [not(@sourceRef = //bpmn:eventBasedGateway/@id)][0]";

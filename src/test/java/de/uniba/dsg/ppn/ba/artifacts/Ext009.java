@@ -1,5 +1,12 @@
 package de.uniba.dsg.ppn.ba.artifacts;
 
+/**
+ * Test class for testing Constraint EXT.009
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext009 extends AbstractArtifactTest {
 
     @Override

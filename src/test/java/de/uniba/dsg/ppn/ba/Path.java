@@ -6,6 +6,13 @@ import org.junit.Test;
 
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Test class for testing the right resolvement of pathes
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Path extends TestCase {
 
     @Test

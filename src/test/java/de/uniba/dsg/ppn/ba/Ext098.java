@@ -6,6 +6,13 @@ import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Test class for testing Constraint EXT.098
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 @SuppressWarnings("PMD.TooManyMethods")
 public class Ext098 extends TestCase {
 

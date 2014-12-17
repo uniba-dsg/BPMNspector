@@ -6,6 +6,14 @@ import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Abstract test class for simplifying the testing of the Constraints EXT.006
+ * and EXT.007
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 abstract public class AbstractArtifactSequenceFlowTest extends TestCase {
 
     @Test

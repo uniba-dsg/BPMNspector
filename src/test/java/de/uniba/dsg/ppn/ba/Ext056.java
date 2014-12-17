@@ -5,6 +5,13 @@ import org.junit.Test;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Test class for testing Constraint EXT.056
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext056 extends TestCase {
 
     private final static String ERRORMESSAGETARGET = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";

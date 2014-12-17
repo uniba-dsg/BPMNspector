@@ -5,6 +5,13 @@ import org.junit.Test;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 
+/**
+ * Test class for testing Constraint EXT.036
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext036 extends TestCase {
 
     private static final String ERRORMESSAGESOURCE = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source";
