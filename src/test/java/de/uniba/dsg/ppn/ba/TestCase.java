@@ -13,6 +13,14 @@ import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
+/**
+ * Abstract test class for all tests of the BPMN Validator to simplify testing
+ * and reduce redundancy
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class TestCase {
 
     protected final SchematronBPMNValidator validator;

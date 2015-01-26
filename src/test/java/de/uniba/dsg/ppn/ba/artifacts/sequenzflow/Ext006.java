@@ -2,6 +2,13 @@ package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
 import de.uniba.dsg.bpmnspector.common.Violation;
 
+/**
+ * Test class for testing Constraint EXT.006
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext006 extends AbstractArtifactSequenceFlowTest {
 
     private final static String ERRORMESSAGEONE = "An Artifact MUST NOT be a target for a Sequence Flow";

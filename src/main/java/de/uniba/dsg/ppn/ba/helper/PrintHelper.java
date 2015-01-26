@@ -32,7 +32,7 @@ public class PrintHelper {
         try {
             transformer = transformerFactory.newTransformer();
             transformer
-            .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+                    .setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -77,8 +77,18 @@ public class PrintHelper {
         }
     }
 
-    public static void printLogstatements(Logger logger, Exception exception,
-            String fileName) {
+    /**
+     * prints the error and debug logs for file not found exceptions
+     *
+     * @param logger
+     *            the logger who should log the message
+     * @param exception
+     *            the exception which should be logged
+     * @param fileName
+     *            the name of the file which couldn't be found
+     */
+    public static void printFileNotFoundLogs(Logger logger,
+            Exception exception, String fileName) {
         logger.error(ConstantHelper.FILENOTFOUNDMESSAGE, fileName);
         logger.debug(ConstantHelper.FILENOTFOUNDMESSAGEWITHCAUSE, fileName,
                 exception);

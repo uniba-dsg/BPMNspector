@@ -40,8 +40,7 @@ public class PreProcessor {
     private static final Logger LOGGER;
 
     static {
-        LOGGER = LoggerFactory.getLogger(PreProcessor.class
-                .getSimpleName());
+        LOGGER = LoggerFactory.getLogger(PreProcessor.class.getSimpleName());
     }
 
     {
@@ -85,8 +84,6 @@ public class PreProcessor {
         } else {
             LOGGER.info("Starting to preprocess file.");
 
-
-
             NodeList foundNodesHeadFile = (NodeList) xPathChangeNamespaceIds
                     .evaluate(headFileDocument, XPathConstants.NODESET);
 
@@ -99,8 +96,8 @@ public class PreProcessor {
 
             for (ImportedFile importedFile : importedFiles) {
                 if (importedFile.getFile().exists()) {
-                    addNamespacesAndRenameIds(headFileDocument,
-                            importedFile, namespaceTable, folder);
+                    addNamespacesAndRenameIds(headFileDocument, importedFile,
+                            namespaceTable, folder);
                 }
             }
             LOGGER.info("Preprocessing completed.");
@@ -109,6 +106,19 @@ public class PreProcessor {
         return new PreProcessResult(headFileDocument, namespaceTable);
     }
 
+    /**
+     * helper method to rename all global ids in the bpmn files to be able to
+     * merge them into one file and to detect later the errors in the right
+     * files. the colon is replaced by an underscore because ids in the one
+     * merged file can't contain colons
+     *
+     * @param headFileDocument
+     *            the document which should be validated
+     * @param importedFiles
+     *            all imported files of the headFileDocument
+     * @param idNode
+     *            the id node which should be renamed
+     */
     private void renameGlobalIds(Document headFileDocument,
             List<ImportedFile> importedFiles, Node idNode) {
         String prefix = idNode.getTextContent().substring(0,
@@ -127,6 +137,22 @@ public class PreProcessor {
                 newPrefix + "_"));
     }
 
+    /**
+     *
+     * collects the namespaces of every imported file and starts the renaming
+     * process of the ids and the merging into one file process
+     *
+     * @param headFileDocument
+     *            the document which should be validated
+     * @param file
+     *            the imported file to be analyzed and added
+     * @param namespaceTable
+     *            the table with all namespaces of the imported files
+     * @param folder
+     *            the folder of the headFileDocument
+     * @throws XPathExpressionException
+     *             if the xpath is not valid
+     */
     private void addNamespacesAndRenameIds(Document headFileDocument,
             ImportedFile file, Map<String, String> namespaceTable, File folder)
                     throws XPathExpressionException {
@@ -162,9 +188,13 @@ public class PreProcessor {
      * validation process and violation searching
      *
      * @param xpathExpression
+     *            the expression to be evaluated in the document
      * @param document
+     *            the document to be checked
      * @param namespacePrefix
+     *            the new prefix to be set for the node
      * @throws XPathExpressionException
+     *             if the xpath is not valid
      */
     private void renameIds(XPathExpression xpathExpression, Document document,
             String namespacePrefix) throws XPathExpressionException {
@@ -199,6 +229,10 @@ public class PreProcessor {
         }
     }
 
+    /**
+     * helper method to easily set up the namespace collecting for the renaming
+     * of the ids
+     */
     private XPathExpression setupXPathNamespaceIds() {
         XPathExpression xPathChangeNamespaceIds = null;
         try {
@@ -211,6 +245,10 @@ public class PreProcessor {
         return xPathChangeNamespaceIds;
     }
 
+    /**
+     * helper method to easily set up the id collecting for the renaming of the
+     * ids
+     */
     private XPathExpression setupXPathReplaceIds() {
         XPathExpression xPathReplaceIds = null;
         try {

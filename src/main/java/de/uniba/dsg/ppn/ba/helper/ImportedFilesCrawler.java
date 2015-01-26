@@ -10,6 +10,13 @@ import org.w3c.dom.NodeList;
 
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 
+/**
+ * Collects all imported files from a provided document
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class ImportedFilesCrawler {
 
     /**

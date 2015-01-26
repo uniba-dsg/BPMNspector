@@ -28,7 +28,7 @@ import de.uniba.dsg.bpmnspector.common.Violation;
  * @version 1.0
  *
  */
-public class WsdlValidator extends XsdValidator {
+public class WsdlValidator extends AbstractXsdValidator {
     private Schema schema;
     private static final Logger LOGGER = LoggerFactory.getLogger(
             WsdlValidator.class

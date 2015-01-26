@@ -5,6 +5,7 @@ package de.uniba.dsg.ppn.ba.helper;
  *
  * @author Philipp Neugebauer
  * @version 1.0
+ *
  */
 public class BpmnValidationException extends Exception {
 

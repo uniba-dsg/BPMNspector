@@ -25,6 +25,13 @@ import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.ImportedFile;
 import org.xml.sax.SAXParseException;
 
+/**
+ * This class is resposible for the check of the EXT.002 constraint
+ *
+ * @author Philipp Neugebauer
+ * @version 1.0
+ *
+ */
 public class Ext002Checker {
 
     private final DocumentBuilder documentBuilder;
@@ -76,12 +83,12 @@ public class Ext002Checker {
                                     document1, document2, validationResult);
                         }
                     } catch (IOException | SAXException e) {
-                        PrintHelper.printLogstatements(LOGGER, e,
+                        PrintHelper.printFileNotFoundLogs(LOGGER, e,
                                 file2.getName());
                     }
                 }
             } catch (IOException | SAXException e) {
-                PrintHelper.printLogstatements(LOGGER, e, file1.getName());
+                PrintHelper.printFileNotFoundLogs(LOGGER, e, file1.getName());
             }
         }
     }
@@ -125,7 +132,7 @@ public class Ext002Checker {
             LOGGER.info("XML not well-formed in {} at line {}", file.getName(),
                     e.getLineNumber());
         } catch (IOException | SAXException e) {
-            PrintHelper.printLogstatements(LOGGER, e, file.getName());
+            PrintHelper.printFileNotFoundLogs(LOGGER, e, file.getName());
         }
 
         return importedFileList;
