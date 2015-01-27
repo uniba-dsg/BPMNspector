@@ -61,13 +61,15 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
         try {
             validator.validate(new StreamSource(xmlFile));
             for (SAXParseException saxParseException : xsdErrorList) {
-                validationResult.getViolations().add(
-                        new Violation("XSD-Check", xmlFile.getName(),
-                                saxParseException.getLineNumber(), "",
-                                saxParseException.getMessage()));
-                validationResult.setValid(false);
-                LOGGER.info("xsd violation in {} at {} found", xmlFile.getName(),
-                        saxParseException.getLineNumber());
+                Violation violation = new Violation("XSD-Check", xmlFile.getName(),
+                        saxParseException.getLineNumber(), "",
+                        saxParseException.getMessage());
+                if(!validationResult.getViolations().contains(violation)) {
+                    validationResult.getViolations().add(violation);
+                    validationResult.setValid(false);
+                     LOGGER.info("xsd violation in {} at {} found", xmlFile.getName(),
+                         saxParseException.getLineNumber());
+                }
             }
         } catch (SAXParseException e) {
             // if process is not well-formed exception is not processed via the error handler

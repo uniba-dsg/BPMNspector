@@ -113,4 +113,20 @@ public class Violation {
         }
         return stringBuilder.toString();
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if(object == this) {
+            return true;
+        } else if(object!=null && object instanceof Violation) {
+            Violation other = (Violation) object;
+            if(other.constraint.equals(this.constraint) &&
+                    other.fileName.equals(this.fileName) &&
+                    other.message.equals(this.message) &&
+                    other.line == this.line) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
