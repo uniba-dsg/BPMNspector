@@ -11,12 +11,16 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+import org.jdom2.*;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
@@ -38,6 +42,8 @@ public class PreProcessor {
     private final XPathExpression xPathChangeNamespaceIds;
     private final XPathExpression xPathReplaceIds;
     private static final Logger LOGGER;
+
+    private final XPathFactory xPathFactory = XPathFactory.instance();
 
     static {
         LOGGER = LoggerFactory.getLogger(PreProcessor.class.getSimpleName());
@@ -106,6 +112,37 @@ public class PreProcessor {
         return new PreProcessResult(headFileDocument, namespaceTable);
     }
 
+    public org.jdom2.Document preProcess(BPMNProcess process) {
+        LOGGER.info("Starting to preprocess file.");
+        org.jdom2.Document cloneOfDoc = process.getProcessAsDoc().clone();
+        // get all nodes which potentially refer to other files
+        List<Attribute> refAttributes = setupXPathNamespaceIdsForAttributes().evaluate(
+                cloneOfDoc);
+        List<org.jdom2.Element> refElements = setupXPathNamespaceIdsForElements().evaluate(
+                cloneOfDoc);
+
+        // for each attribute:
+        for(Attribute attribute : refAttributes) {
+            if(attribute.getValue().contains(":")) {
+                renameGlobalIds(process, attribute);
+            }
+        }
+        for(org.jdom2.Element element : refElements) {
+            if(element.getText().contains(":")) {
+                renameGlobalIds(process, element);
+            }
+        }
+
+        // for each import:
+        for(BPMNProcess imported : process.getChildren()){
+            addNamespacesAndRenameIds(cloneOfDoc, imported);
+        }
+
+        LOGGER.info("Preprocessing completed.");
+
+        return cloneOfDoc;
+    }
+
     /**
      * helper method to rename all global ids in the bpmn files to be able to
      * merge them into one file and to detect later the errors in the right
@@ -134,6 +171,61 @@ public class PreProcessor {
         LOGGER.debug("new prefix '{}' for ID {}", newPrefix,
                 idNode.getTextContent());
         idNode.setTextContent(idNode.getTextContent().replace(prefix + ":",
+                newPrefix + "_"));
+    }
+
+    /**
+     * helper method to rename all global ids in the bpmn files to be able to
+     * merge them into one file and to detect later the errors in the right
+     * files. the colon is replaced by an underscore because ids in the one
+     * merged file can't contain colons
+     *
+     * @param process
+     *            the document which should be validated
+     * @param attribute
+     *            the id node which should be renamed
+     */
+    private void renameGlobalIds(BPMNProcess process, Attribute attribute) {
+        String prefix = attribute.getValue().substring(0,
+                attribute.getValue().indexOf(":"));
+        String newPrefix = getNewPrefixByOldPrefix(process, prefix);
+        LOGGER.debug("new prefix '{}' for ID {}", newPrefix,
+                attribute.getValue());
+        attribute.setValue(attribute.getValue().replace(prefix + ":",
+                newPrefix + "_"));
+    }
+
+    private String getNewPrefixByOldPrefix(BPMNProcess process,
+            String oldPrefix) {
+        String namespace = process.getProcessAsDoc().getRootElement().getNamespace(
+                oldPrefix).getURI();
+        String newPrefix = "";
+        for (BPMNProcess imported : process.getChildren()) {
+            if (namespace.equals(imported.getNamespace())) {
+                newPrefix = imported.getGeneratedPrefix();
+            }
+        }
+        return newPrefix;
+    }
+
+    /**
+     * helper method to rename all global ids in the bpmn files to be able to
+     * merge them into one file and to detect later the errors in the right
+     * files. the colon is replaced by an underscore because ids in the one
+     * merged file can't contain colons
+     *
+     * @param process
+     *            the document which should be validated
+     * @param element
+     *            the id node which should be renamed
+     */
+    private void renameGlobalIds(BPMNProcess process, org.jdom2.Element element) {
+        String prefix = element.getText().substring(0,
+                element.getText().indexOf(":"));
+        String newPrefix = getNewPrefixByOldPrefix(process, prefix);
+        LOGGER.debug("new prefix '{}' for ID {}", newPrefix,
+                element.getText());
+        element.setText(element.getText().replace(prefix + ":",
                 newPrefix + "_"));
     }
 
@@ -184,6 +276,31 @@ public class PreProcessor {
     }
 
     /**
+     *
+     * collects the namespaces of every imported process and starts the renaming
+     * process of the ids and the merging into one process
+     *
+     * @param headDocument
+     *            the document which should be validated
+     * @param importedProcess
+     *            the imported process to be analyzed and added
+     */
+    private void addNamespacesAndRenameIds(org.jdom2.Document headDocument,
+            BPMNProcess importedProcess) {
+
+            LOGGER.debug("namespace of importedProcess: {}", importedProcess.getNamespace());
+
+            renameIds(importedProcess);
+
+            LOGGER.debug("Checking imported importedProcess for further imports.");
+            preProcess(importedProcess);
+
+            LOGGER.debug("integration of document will be done now");
+
+            addNodesToDocument(importedProcess, headDocument);
+    }
+
+    /**
      * adds to all nodes new and unique prefixes in the given document for the
      * validation process and violation searching
      *
@@ -205,6 +322,22 @@ public class PreProcessor {
             String newId = namespacePrefix + "_" + idNode.getTextContent();
             idNode.setTextContent(newId);
         }
+    }
+
+    /**
+     * adds to all nodes new and unique prefixes in the given document for the
+     * validation process and violation searching
+     *
+     * @param importedProcess the process in which the ids should be changed
+     */
+    private void renameIds(BPMNProcess importedProcess) {
+
+        List<Attribute> attributes = setupXPathReplaceIdsForAttributes().evaluate(importedProcess.getProcessAsDoc());
+        List<org.jdom2.Element> elements = setupXPathReplaceIdsForElements().evaluate(
+                importedProcess.getProcessAsDoc());
+
+        attributes.forEach(x -> x.setValue(importedProcess.getGeneratedPrefix()+"_"+x.getValue()));
+        elements.forEach(x -> x.setText(importedProcess.getGeneratedPrefix()+"_"+x.getText()));
     }
 
     /**
@@ -230,6 +363,29 @@ public class PreProcessor {
     }
 
     /**
+     * adds the childs of importDefinitionsNode to the definitionsNode of the
+     * given headFileDocument
+     *
+     * @param importedProcess
+     *            the definitionsNode of the document, which should be added to
+     *            the headFileDocument
+     * @param headDocument
+     *            the document, where the nodes should be added
+     *
+     */
+    private void addNodesToDocument(BPMNProcess importedProcess,
+            org.jdom2.Document headDocument) {
+        org.jdom2.Element definitionsHead = headDocument.getRootElement();
+
+        org.jdom2.Element definitionsImported = importedProcess.getProcessAsDoc().getRootElement();
+
+        for(org.jdom2.Element element : definitionsImported.getChildren()) {
+            org.jdom2.Element clone = element.clone();
+            definitionsHead.addContent(clone);
+        }
+    }
+
+    /**
      * helper method to easily set up the namespace collecting for the renaming
      * of the ids
      */
@@ -243,6 +399,28 @@ public class PreProcessor {
         }
 
         return xPathChangeNamespaceIds;
+    }
+
+    /**
+     * helper method to easily set up the namespace collecting for the renaming
+     * of the ids
+     */
+    private org.jdom2.xpath.XPathExpression<Attribute> setupXPathNamespaceIdsForAttributes() {
+        String expStr = "//bpmn:*/@sourceRef | //bpmn:*/@targetRef | "
+                + "//bpmn:*/@calledElement | //bpmn:*/@processRef | "
+                + "//bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef";
+        return xPathFactory.compile(expStr, Filters.attribute(), null,
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+    }
+
+    /**
+     * helper method to easily set up the namespace collecting for the renaming
+     * of the ids
+     */
+    private org.jdom2.xpath.XPathExpression<org.jdom2.Element> setupXPathNamespaceIdsForElements() {
+        String expStr = "//bpmn:*/eventDefinitionRef";
+        return xPathFactory.compile(expStr, Filters.element(), null,
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
     }
 
     /**
@@ -260,4 +438,27 @@ public class PreProcessor {
 
         return xPathReplaceIds;
     }
+
+    /**
+     * helper method to easily set up the id collecting for the renaming of the
+     * ids
+     */
+    private org.jdom2.xpath.XPathExpression<Attribute> setupXPathReplaceIdsForAttributes() {
+        String expStr = "//bpmn:*/@id | //bpmn:*/@sourceRef | //bpmn:*/@targetRef | "
+                + "//bpmn:*/@processRef | //bpmn:*/@dataStoreRef | "
+                + "//bpmn:*/@categoryValueRef";
+
+        return xPathFactory.compile(expStr, Filters.attribute(), null,
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+    }
+
+    private org.jdom2.xpath.XPathExpression<org.jdom2.Element> setupXPathReplaceIdsForElements() {
+        String expStr = "//bpmn:*/eventDefinitionRef | "
+                + "//bpmn:incoming | //bpmn:outgoing | //bpmn:dataInputRefs | "
+                + "//bpmn:dataOutputRefs";
+
+        return xPathFactory.compile(expStr, Filters.element(), null,
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+    }
+
 }

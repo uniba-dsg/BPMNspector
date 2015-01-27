@@ -1,6 +1,7 @@
 package de.uniba.dsg.bpmnspector.common.importer;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
@@ -37,7 +38,10 @@ public class ProcessImporter {
     private BPMNProcess importProcessRecursively(Path path, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result)
             throws ValidatorException {
         if(Files.notExists(path) || !Files.isRegularFile(path)) {
-            throw new ValidatorException("Import could not be resolved: Path "+path+"is invalid.");
+            String msg = "Import could not be resolved: Path "+path+" is invalid.";
+            Violation violation = new Violation("EXT.001",parent.getBaseURI(),-1,"xpath", msg);
+            result.getViolations().add(violation);
+            throw new ValidatorException(msg);
         } else {
             try {
                 bpmnXsdValidator.validateAgainstXsd(path.toFile(), result);
@@ -50,7 +54,7 @@ public class ProcessImporter {
                             path.toString(), processNamespace, parent);
 
                     // remove BPMNDI information
-                    processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace(processAsDoc));
+                    processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
 
                     if (rootProcess == null) {
                         resolveAndAddImports(process, process, result);
@@ -69,6 +73,7 @@ public class ProcessImporter {
                 // Thrown if file is not well-formed - error is already logged and
                 // added to the validation result - but further processing is not
                 // possible
+
                 return null;
             } catch (SAXException | JDOMException | IOException e) {
                 throw new ValidatorException("Creation of BPMNProcess object failed.", e);
@@ -79,7 +84,7 @@ public class ProcessImporter {
     private void resolveAndAddImports(BPMNProcess process, BPMNProcess rootProcess, ValidationResult result)
             throws ValidatorException {
 
-        List<Element> importElements = process.getProcessAsDoc().getRootElement().getChildren("import", getBPMNNamespace(process.getProcessAsDoc()));
+        List<Element> importElements = process.getProcessAsDoc().getRootElement().getChildren("import", getBPMNNamespace());
 
         for (Element elem : importElements) {
             String importType = elem.getAttributeValue("importType");
@@ -97,22 +102,12 @@ public class ProcessImporter {
         }
     }
 
-    private Namespace getBPMNNamespace(Document doc) {
-        for(Namespace nsp : doc.getNamespacesInScope()) {
-            if(nsp.getURI().equals(ConstantHelper.BPMNNAMESPACE)) {
-                return nsp;
-            }
-        }
-        return null;
+    private Namespace getBPMNNamespace() {
+        return Namespace.getNamespace(ConstantHelper.BPMNNAMESPACE);
     }
 
-    private Namespace getBPMNDINamespace(Document doc) {
-        for(Namespace nsp : doc.getNamespacesInScope()) {
-            if(nsp.getURI().equals(ConstantHelper.BPMNDINAMESPACE)) {
-                return nsp;
-            }
-        }
-        return null;
+    private Namespace getBPMNDINamespace() {
+        return Namespace.getNamespace(ConstantHelper.BPMNDINAMESPACE);
     }
 
 

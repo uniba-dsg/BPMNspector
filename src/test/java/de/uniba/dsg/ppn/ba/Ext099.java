@@ -40,7 +40,7 @@ public class Ext099 extends TestCase {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_call_ref_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:*[@id = 'PROCESS_1'][0]", 3);
+                "//bpmn:*[@id = 'PROCESS_1']", 3);
     }
 
     @Test

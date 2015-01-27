@@ -4,6 +4,7 @@ import org.jdom2.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BPMNProcess {
@@ -12,6 +13,7 @@ public class BPMNProcess {
 
     private final String baseURI;
     private final String namespace;
+    private final String generatedPrefix;
 
     private final BPMNProcess parent;
 
@@ -21,10 +23,7 @@ public class BPMNProcess {
     private List<Document> xsds = new ArrayList<>();
 
     public BPMNProcess(Document processAsDoc, String baseURI, String namespace) {
-        this.processAsDoc = processAsDoc;
-        this.baseURI = baseURI;
-        this.namespace = namespace;
-        this.parent = null;
+        this(processAsDoc, baseURI, namespace, null);
     }
 
     public BPMNProcess(Document processAsDoc, String baseURI, String namespace,
@@ -33,6 +32,7 @@ public class BPMNProcess {
         this.baseURI = baseURI;
         this.namespace = namespace;
         this.parent = parent;
+        this.generatedPrefix = createPrefixForProcess();
     }
 
     public List<BPMNProcess> getChildren() {
@@ -49,6 +49,10 @@ public class BPMNProcess {
 
     public String getNamespace() {
         return namespace;
+    }
+
+    public String getGeneratedPrefix() {
+        return generatedPrefix;
     }
 
     public BPMNProcess getParent() {
@@ -78,5 +82,17 @@ public class BPMNProcess {
         return allProcesses.stream().filter(
                 process -> process.getNamespace().equals(namespace)).collect(
                 Collectors.toList());
+    }
+
+    public Optional<BPMNProcess> findProcessByGeneratedPrefix(String prefix) {
+        List<BPMNProcess> allProcesses = new ArrayList<>();
+        getAllProcessesRecursively(allProcesses);
+        return allProcesses.stream().filter(
+                process -> process.getGeneratedPrefix().equals(prefix)).findFirst();
+    }
+
+    private String createPrefixForProcess() {
+
+        return "ns"+(this.namespace+this.baseURI).hashCode();
     }
 }

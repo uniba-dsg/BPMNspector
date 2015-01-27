@@ -2,14 +2,23 @@ package de.uniba.dsg.ppn.ba.validation;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.transform.stream.StreamSource;
+import javax.xml.transform.dom.DOMSource;
 
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
+import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
+import de.uniba.dsg.ppn.ba.helper.*;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.located.LocatedElement;
+import org.jdom2.output.DOMOutputter;
+import org.jdom2.xpath.XPathFactory;
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.LoggerFactory;
@@ -25,10 +34,6 @@ import com.phloc.schematron.pure.SchematronResourcePure;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.helper.PrintHelper;
-import de.uniba.dsg.ppn.ba.helper.SetupHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
 
@@ -48,6 +53,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
     private final DocumentBuilder documentBuilder;
     private final PreProcessor preProcessor;
     private final XmlLocator xmlLocator;
+    private final ProcessImporter bpmnImporter;
     private final Ext001Checker ext001Checker;
     private final Ext002Checker ext002Checker;
     private final static Logger LOGGER;
@@ -61,6 +67,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         documentBuilder = SetupHelper.setupDocumentBuilder();
         preProcessor = new PreProcessor();
         xmlLocator = new XmlLocator();
+        bpmnImporter = new ProcessImporter();
         ext001Checker = new Ext001Checker();
         ext002Checker = new Ext002Checker();
     }
@@ -102,38 +109,60 @@ public class SchematronBPMNValidator implements BpmnValidator {
         ValidationResult validationResult = new ValidationResult();
 
         try {
-            Document headFileDocument = documentBuilder.parse(xmlFile);
             validationResult.getCheckedFiles().add(xmlFile.getAbsolutePath());
-            File parentFolder = xmlFile.getParentFile();
 
-            ext001Checker.checkConstraint001(xmlFile, parentFolder,
-                    validationResult);
-            ext002Checker.checkConstraint002(xmlFile, parentFolder,
-                    validationResult);
+            BPMNProcess process = bpmnImporter
+                    .importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
 
-            PreProcessResult preProcessResult = preProcessor.preProcess(
-                    headFileDocument, parentFolder, new HashMap<>());
+            if(process!=null) {
+                File parentFolder = xmlFile.getParentFile();
 
-            SchematronOutputType schematronOutputType = schematronSchema
-                    .applySchematronValidationToSVRL(new StreamSource(
-                            DocumentTransformer
-                            .transformToInputStream(headFileDocument)));
-            for (int i = 0; i < schematronOutputType
-                    .getActivePatternAndFiredRuleAndFailedAssertCount(); i++) {
-                if (schematronOutputType
-                        .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i) instanceof FailedAssert) {
-                    handleSchematronErrors(
-                            xmlFile,
-                            validationResult,
-                            preProcessResult,
-                            (FailedAssert) schematronOutputType
-                            .getActivePatternAndFiredRuleAndFailedAssertAtIndex(i));
+                ext001Checker.checkConstraint001(xmlFile, parentFolder,
+                        validationResult);
+                ext002Checker.checkConstraint002(xmlFile, parentFolder,
+                        validationResult);
+                // OLD
+                //            PreProcessResult preProcessResult = preProcessor.preProcess(
+                //                    headFileDocument, parentFolder, new HashMap<>());
+                //
+                //            SchematronOutputType schematronOutputType = schematronSchema
+                //                    .applySchematronValidationToSVRL(new StreamSource(
+                //                            DocumentTransformer
+                //                            .transformToInputStream(headFileDocument)));
+
+                // NEW
+                org.jdom2.Document documentToCheck;
+                if (process.getChildren() != null && !process.getChildren()
+                        .isEmpty()) {
+                    documentToCheck = preProcessor.preProcess(process);
+                } else {
+                    documentToCheck = process.getProcessAsDoc();
                 }
-            }
+                DOMOutputter domOutputter = new DOMOutputter();
+                Document w3cDoc = domOutputter
+                        .output(documentToCheck);
+                SchematronOutputType schematronOutputType = schematronSchema
+                        .applySchematronValidationToSVRL(new DOMSource(w3cDoc));
+                // END NEW
+                for (Object obj : schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert()) {
+                    if (obj instanceof FailedAssert) {
+//                        handleSchematronErrors(
+//                                xmlFile,
+//                                validationResult,
+//                                preProcessResult,
+//                                (FailedAssert) schematronOutputType
+//                                        .getActivePatternAndFiredRuleAndFailedAssertAtIndex(
+//                                                i));
+                        handleSchematronErrorsJDOM(process, validationResult, (FailedAssert) obj);
+                    }
+                }
 
-            for (int i = 0; i < validationResult.getCheckedFiles().size(); i++) {
-                File f = new File(validationResult.getCheckedFiles().get(i));
-                validationResult.getCheckedFiles().set(i, f.getName());
+                for (int i = 0;
+                     i < validationResult.getCheckedFiles().size(); i++) {
+                    File f = new File(
+                            validationResult.getCheckedFiles().get(i));
+                    validationResult.getCheckedFiles().set(i, f.getName());
+                }
             }
         } catch (SAXParseException e) {
             // Occurs if Document is not well-formed
@@ -215,6 +244,80 @@ public class SchematronBPMNValidator implements BpmnValidator {
     }
 
     /**
+     * tries to locate errors in the specific files
+     *
+     * @param baseProcess
+     *            the file where the error must be located with the help of the
+     *            {@link XmlLocator}
+     * @param validationResult
+     *            the result of the validation to add new found errors
+     * @param failedAssert
+     *            the error of the schematron validation
+     */
+    private void handleSchematronErrorsJDOM(BPMNProcess baseProcess,
+            ValidationResult validationResult, FailedAssert failedAssert) {
+        String message = failedAssert.getText().trim();
+        String constraint = message.substring(0, message.indexOf('|'));
+        String errorMessage = message.substring(message.indexOf('|') + 1);
+
+        int line = -1;
+        String fileName;
+        String location = "";
+
+        // direct usage of xpath expression failedAssert.getLocation() not possible
+        // when using JDOM - predicates are not supported correctly.
+        // Instead: determine the index of the element to be found and use this
+        // accessor in the list of found elements
+        Pattern p = Pattern.compile("\\[\\d+\\]");
+        Matcher m = p.matcher(failedAssert.getLocation());
+        int xpathIndex = 0;
+        if(m.find()) {
+            xpathIndex = Integer.parseInt(
+                    m.group(0).replace("[", "").replace("]", ""));
+            location = failedAssert.getLocation().replace(m.group(0), "");
+        }
+
+        LOGGER.debug("XPath to evaluate: "+location);
+        XPathFactory fac = XPathFactory.instance();
+        List<Element> elems = fac.compile(location, Filters.element(), null,
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluate(
+                baseProcess.getProcessAsDoc());
+        LOGGER.debug("Number of found elems: "+elems.size());
+        if(elems.size()>=xpathIndex+1) {
+            line = ((LocatedElement) elems.get(xpathIndex)).getLine();
+            fileName = baseProcess.getBaseURI();
+            location = failedAssert.getLocation();
+        } else {
+            try {
+                String xpathId = "";
+                if (failedAssert.getDiagnosticReferenceCount() > 0) {
+                    xpathId = failedAssert.getDiagnosticReference().get(0)
+                            .getText().trim();
+                }
+                LOGGER.debug("Trying to locate in files: "+xpathId);
+                String[] result = searchForViolationFile(xpathId, baseProcess);
+                fileName = result[0];
+                line = Integer.parseInt(result[1]);
+                location = result[2];
+            } catch (BpmnValidationException e) {
+                fileName = e.getMessage();
+                LOGGER.error("Line of affected Element could not be determined.");
+            } catch (StringIndexOutOfBoundsException e) {
+                fileName = "Element couldn't be found!";
+                LOGGER.error("Line of affected Element could not be determined.");
+            }
+        }
+
+        String logText = String.format(
+                "violation of constraint %s found in %s at line %s.",
+                constraint, fileName, line);
+        LOGGER.info(logText);
+        validationResult.getViolations().add(
+                new Violation(constraint, fileName, line, location,
+                        errorMessage));
+    }
+
+    /**
      * searches for the file and line, where the violation occured
      *
      * @param xpathExpression
@@ -265,6 +368,56 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 PrintHelper
                         .printFileNotFoundLogs(LOGGER, e, checkedFile.getName());
             }
+        }
+
+        if ("-1".equals(line)) {
+            throw new BpmnValidationException("BPMN Element couldn't be found!");
+        }
+
+        return new String[] { fileName, line, xpathObjectId };
+    }
+
+    /**
+     * searches for the file and line, where the violation occured
+     *
+     * @param xpathExpression
+     *            the expression, through which the file and line should be
+     *            identified
+     * @param baseProcess
+     *            baseProcess used for validation
+     * @return string array with filename, line and xpath expression to find the
+     *         element
+     * @throws BpmnValidationException
+     *             if no element can be found
+     */
+    // TODO: extract in own object?
+    private String[] searchForViolationFile(String xpathExpression,
+            BPMNProcess baseProcess) throws BpmnValidationException {
+        String fileName = "";
+        String line = "-1";
+        String xpathObjectId = "";
+
+        String namespacePrefix = xpathExpression.substring(0,
+                xpathExpression.indexOf('_'));
+
+        Optional<BPMNProcess> optional = baseProcess.findProcessByGeneratedPrefix(namespacePrefix);
+        if(optional.isPresent()) {
+            fileName = optional.get().getBaseURI();
+
+            // use ID with generated prefix for lookup
+            xpathObjectId = BpmnHelper.createIdBpmnExpression(xpathExpression);
+            LOGGER.debug("Expression to evaluate: "+xpathObjectId);
+            XPathFactory fac = XPathFactory.instance();
+            List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,
+                    Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluate(optional.get().getProcessAsDoc());
+
+            if(elems.size()==1) {
+                line = String.valueOf(((LocatedElement) elems.get(0)).getLine());
+                //use ID without prefix  (=original ID) as Violation xPath
+                xpathObjectId = BpmnHelper.createIdBpmnExpression(xpathExpression.substring(xpathExpression.indexOf('_') + 1));
+            }
+        } else {
+            // File not found
         }
 
         if ("-1".equals(line)) {

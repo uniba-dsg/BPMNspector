@@ -62,7 +62,8 @@ public class TestCase {
     protected void assertViolation(Violation v, String message,
             String fileName, String xpath, int line) {
         assertViolation(v, message, xpath, line);
-        assertEquals(fileName, v.getFileName());
+        assertTrue(v.getFileName().endsWith(fileName));
+//        assertEquals(fileName, v.getFileName());
     }
 
     protected void assertViolation(Violation v, String message, String xpath,

@@ -17,7 +17,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class PreProcessing extends TestCase {
 
     private final static String ERRORMESSAGE = "Referenced process must have at least one None Start Event";
-    private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
+    private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1']";
 
     @Test
     public void testConstraintImportedProcessFail()
@@ -55,7 +55,7 @@ public class PreProcessing extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "An end event must be present when a start event is used in the same process level",
-                "//bpmn:*[@id = '_3'][0]", 4);
+                "//bpmn:*[@id = '_3']", 4);
     }
 
     @Override

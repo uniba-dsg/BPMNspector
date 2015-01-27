@@ -1,6 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -42,8 +43,8 @@ public class Ext001 extends TestCase {
     }
 
     private void assertViolation(Violation v) {
-        assertEquals("The imported file does not exist", v.getMessage());
-        assertEquals("nofile.bpmn", v.getFileName());
+        assertTrue(v.getMessage().contains("Import could not be resolved: "));
+        assertTrue(v.getMessage().contains("nofile.bpmn"));
         assertEquals(3, v.getLine());
         assertEquals("EXT.001", v.getConstraint());
     }
