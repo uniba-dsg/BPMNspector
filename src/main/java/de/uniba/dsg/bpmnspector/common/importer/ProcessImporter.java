@@ -1,7 +1,6 @@
 package de.uniba.dsg.bpmnspector.common.importer;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
@@ -49,6 +48,10 @@ public class ProcessImporter {
 
                     BPMNProcess process = new BPMNProcess(processAsDoc,
                             path.toString(), processNamespace, parent);
+
+                    // remove BPMNDI information
+                    processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace(processAsDoc));
+
                     if (rootProcess == null) {
                         resolveAndAddImports(process, process, result);
                     } else {
@@ -102,6 +105,16 @@ public class ProcessImporter {
         }
         return null;
     }
+
+    private Namespace getBPMNDINamespace(Document doc) {
+        for(Namespace nsp : doc.getNamespacesInScope()) {
+            if(nsp.getURI().equals(ConstantHelper.BPMNDINAMESPACE)) {
+                return nsp;
+            }
+        }
+        return null;
+    }
+
 
     private boolean isFileAlreadyImported(String baseURI, BPMNProcess process) {
         if(process.getBaseURI().equals(baseURI)) {
