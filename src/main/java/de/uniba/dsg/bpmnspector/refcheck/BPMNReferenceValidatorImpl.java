@@ -50,6 +50,8 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	public static final String EXISTENCE = "existence";
 	public static final String REFERENCE = "referenceType";
 
+	private static final String RESULT_TEXT_TEMPLATE = "Reference check of file %s finished; %d violations found.";
+
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(BPMNReferenceValidator.class.getSimpleName());
 
@@ -92,7 +94,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			}
 
 			String resultText = String
-					.format("Reference check of file %s finished; %d violations found.",
+					.format(RESULT_TEXT_TEMPLATE,
 							path, result.getViolations().size());
 			LOGGER.info(resultText);
 		} catch (ValidatorException e) {
@@ -123,7 +125,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			}
 
 			String resultText = String
-					.format("Reference check of file %s finished; %d violations found.",
+					.format(RESULT_TEXT_TEMPLATE,
 							process.getBaseURI(), validationResult.getViolations().size());
 			LOGGER.info(resultText);
 		} catch (ValidatorException e) {
@@ -153,7 +155,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			result.setValid(result.getViolations().isEmpty());
 		}
 
-		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
 		LOGGER.info(resultText);
 		return result;
 	}
@@ -170,7 +172,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			result.setValid(result.getViolations().isEmpty());
 		}
 		result.getCheckedFiles().add(path);
-		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
 		LOGGER.info(resultText);
 		return result;
 	}
@@ -187,7 +189,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			result.getViolations().addAll(startValidation(process, EXISTENCE));
 			result.setValid(result.getViolations().isEmpty());
 		}
-		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
+		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
 		LOGGER.info(resultText);
 		return result;
 	}

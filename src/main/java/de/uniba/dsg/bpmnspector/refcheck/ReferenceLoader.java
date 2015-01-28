@@ -31,7 +31,7 @@ import java.util.*;
  */
 public class ReferenceLoader {
 
-	private final List<SAXParseException> XSDErrorList;
+	private final List<SAXParseException> xsdErrorList;
 	private final Properties language;
 
 	/**
@@ -42,7 +42,7 @@ public class ReferenceLoader {
 	 */
 	public ReferenceLoader(Properties language) {
 		this.language = language;
-		XSDErrorList = new ArrayList<>();
+		xsdErrorList = new ArrayList<>();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class ReferenceLoader {
 	 * 
 	 * @param referencesPath
 	 *            path to the XML file with the references
-	 * @param XSDPath
+	 * @param xsdPath
 	 *            path to the XSD file for the references
 	 * @return a hash map with the element names as keys and as value the
 	 *         BPMNElements which contain the references
@@ -60,10 +60,10 @@ public class ReferenceLoader {
 	 *             the 'references.xml' file against its XSD
 	 */
 	public Map<String, BPMNElement> load(String referencesPath,
-			String XSDPath) throws ValidatorException {
+			String xsdPath) throws ValidatorException {
 		try (InputStream refPathStream = getClass().getResourceAsStream(referencesPath)) {
 
-			validateReferencesFile(referencesPath, XSDPath);
+			validateReferencesFile(referencesPath, xsdPath);
 
 			Document document = new SAXBuilder().build(refPathStream);
 			Element root = document.getRootElement();
@@ -151,10 +151,10 @@ public class ReferenceLoader {
 		return bpmnElements;
 	}
 
-	private void validateReferencesFile(String referencesPath, String XSDPath)
+	private void validateReferencesFile(String referencesPath, String xsdPath)
 			throws ValidatorException, IOException {
 		try (InputStream refPathStream = getClass().getResourceAsStream(referencesPath);
-				InputStream xsdPathStream = getClass().getResourceAsStream(XSDPath)) {
+				InputStream xsdPathStream = getClass().getResourceAsStream(xsdPath)) {
 			SchemaFactory schemaFactory = SchemaFactory
 					.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			Schema schema = schemaFactory
@@ -162,11 +162,11 @@ public class ReferenceLoader {
 			Validator validator = schema.newValidator();
 			validator.setErrorHandler(new XSDValidationLoggingErrorHandler());
 			validator.validate(new StreamSource(refPathStream));
-			if (!XSDErrorList.isEmpty()) {
+			if (!xsdErrorList.isEmpty()) {
 				StringBuilder xsdErrorText = new StringBuilder(200)
 						.append(language.getProperty("loader.xsd.general"))
 						.append(System.lineSeparator());
-				for (SAXParseException saxParseException : XSDErrorList) {
+				for (SAXParseException saxParseException : xsdErrorList) {
 					xsdErrorText.append(language
 							.getProperty("loader.xsd.error.part1"))
 							.append(saxParseException.getLineNumber())
@@ -198,17 +198,17 @@ public class ReferenceLoader {
 
 		@Override
 		public void error(SAXParseException exception) throws SAXException {
-			XSDErrorList.add(exception);
+			xsdErrorList.add(exception);
 		}
 
 		@Override
 		public void fatalError(SAXParseException exception) throws SAXException {
-			XSDErrorList.add(exception);
+			xsdErrorList.add(exception);
 		}
 
 		@Override
 		public void warning(SAXParseException exception) throws SAXException {
-			XSDErrorList.add(exception);
+			xsdErrorList.add(exception);
 		}
 
 	}

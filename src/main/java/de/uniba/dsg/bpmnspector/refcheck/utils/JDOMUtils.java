@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class JDOMUtils {
 
@@ -36,9 +38,9 @@ public class JDOMUtils {
             Attribute id = element.getAttribute("id");
             // put the element if it has an id
             if (id != null) {
-                String id_value = id.getValue();
-                if (id_value != null && !id_value.equals("")) {
-                    elements.put(id_value, element);
+                String idValue = id.getValue();
+                if (idValue != null && !idValue.equals("")) {
+                    elements.put(idValue, element);
                 }
             }
         }

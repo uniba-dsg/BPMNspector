@@ -118,11 +118,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
 
                 org.jdom2.Document documentToCheck;
-                if (process.getChildren() != null && !process.getChildren()
+                if (process.getChildren() == null || process.getChildren()
                         .isEmpty()) {
-                    documentToCheck = preProcessor.preProcess(process);
-                } else {
                     documentToCheck = process.getProcessAsDoc();
+                } else {
+                    documentToCheck = preProcessor.preProcess(process);
                 }
                 DOMOutputter domOutputter = new DOMOutputter();
                 Document w3cDoc = domOutputter

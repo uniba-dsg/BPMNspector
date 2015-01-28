@@ -184,7 +184,7 @@ public class PreProcessor {
                 + "//bpmn:*/@calledElement | //bpmn:*/@processRef | "
                 + "//bpmn:*/@dataStoreRef | //bpmn:*/@categoryValueRef";
         return xPathFactory.compile(expStr, Filters.attribute(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+                getBpmnNamespace());
     }
 
     /**
@@ -194,7 +194,7 @@ public class PreProcessor {
     private XPathExpression<Element> setupXPathNamespaceIdsForElements() {
         String expStr = "//bpmn:*/eventDefinitionRef";
         return xPathFactory.compile(expStr, Filters.element(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+                getBpmnNamespace());
     }
     
 
@@ -208,7 +208,7 @@ public class PreProcessor {
                 + "//bpmn:*/@categoryValueRef";
 
         return xPathFactory.compile(expStr, Filters.attribute(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+                getBpmnNamespace());
     }
 
     private XPathExpression<Element> setupXPathReplaceIdsForElements() {
@@ -217,7 +217,11 @@ public class PreProcessor {
                 + "//bpmn:dataOutputRefs";
 
         return xPathFactory.compile(expStr, Filters.element(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+                getBpmnNamespace());
+    }
+
+    private Namespace getBpmnNamespace() {
+        return Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE);
     }
 
 }

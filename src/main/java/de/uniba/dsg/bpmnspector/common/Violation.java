@@ -1,10 +1,10 @@
 package de.uniba.dsg.bpmnspector.common;
 
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-
-import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 
 /**
  * Basic class representing a single Violation of a BPMN constraint.
@@ -118,7 +118,7 @@ public class Violation {
     public boolean equals(Object object) {
         if(object == this) {
             return true;
-        } else if(object!=null && object instanceof Violation) {
+        } else if(object instanceof Violation) {
             Violation other = (Violation) object;
             if(other.constraint.equals(this.constraint) &&
                     other.fileName.equals(this.fileName) &&
@@ -128,5 +128,10 @@ public class Violation {
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return constraint.hashCode()+fileName.hashCode()+message.hashCode()+line;
     }
 }

@@ -17,10 +17,10 @@ public class BPMNProcess {
 
     private final BPMNProcess parent;
 
-    private List<BPMNProcess> children = new ArrayList<>();
+    private final List<BPMNProcess> children = new ArrayList<>();
 
-    private List<Document> wsdls = new ArrayList<>();
-    private List<Document> xsds = new ArrayList<>();
+    private final List<Document> wsdls = new ArrayList<>();
+    private final List<Document> xsds = new ArrayList<>();
 
     public BPMNProcess(Document processAsDoc, String baseURI, String namespace) {
         this(processAsDoc, baseURI, namespace, null);
