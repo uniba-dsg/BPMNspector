@@ -1,9 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.100
@@ -15,7 +14,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Ext100 extends TestCase {
 
     @Test
-    public void testConstraintEventFail() throws BpmnValidationException {
+    public void testConstraintEventFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_event.bpmn"), 1);
         assertViolation(
@@ -26,7 +25,7 @@ public class Ext100 extends TestCase {
 
     @Test
     public void testConstraintTransactionEventFail()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_event_transaction.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
@@ -34,7 +33,7 @@ public class Ext100 extends TestCase {
     }
 
     @Test
-    public void testConstraintEventRefFail() throws BpmnValidationException {
+    public void testConstraintEventRefFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_event_ref.bpmn"), 1);
         assertViolation(
@@ -44,13 +43,13 @@ public class Ext100 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
     public void testConstraintEventSubProcessSuccess()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("success_event_sub.bpmn"));
     }
 

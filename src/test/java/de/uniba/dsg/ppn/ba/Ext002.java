@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.002
@@ -19,7 +18,7 @@ public class Ext002 extends TestCase {
     private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
 
     @Test
-    public void testConstraintImport1Fail() throws BpmnValidationException {
+    public void testConstraintImport1Fail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_import.bpmn"), 8);
         assertViolation(result.getViolations().get(0), "fail_import.bpmn", 4);
@@ -27,7 +26,7 @@ public class Ext002 extends TestCase {
     }
 
     @Test
-    public void testConstraintImport2Fail() throws BpmnValidationException {
+    public void testConstraintImport2Fail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_import2.bpmn"), 8);
         assertViolation(result.getViolations().get(0), "import.bpmn", 3);
@@ -35,7 +34,7 @@ public class Ext002 extends TestCase {
     }
 
     @Test
-    public void testConstraintImport3Fail() throws BpmnValidationException {
+    public void testConstraintImport3Fail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_import3.bpmn"), 16);
         assertViolation(result.getViolations().get(0), "fail_import3.bpmn", 4);
@@ -43,7 +42,7 @@ public class Ext002 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("success_import.bpmn"));
     }
 

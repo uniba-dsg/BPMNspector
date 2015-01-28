@@ -6,7 +6,6 @@ import de.uniba.dsg.bpmnspector.common.util.FileUtils;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 import org.xml.sax.SAXException;
 
@@ -72,7 +71,7 @@ public class BPMNspector {
             try {
                 ValidationResult extResult = extValidator.validate(file.toAbsolutePath().toFile());
                 mergeResults(result, extResult);
-            } catch (BpmnValidationException ex) {
+            } catch (ValidatorException ex) {
                 //throw new ValidatorException("EXT Validation failed.", ex);
             }
         }

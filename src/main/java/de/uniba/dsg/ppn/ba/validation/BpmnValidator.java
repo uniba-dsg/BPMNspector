@@ -1,11 +1,11 @@
 package de.uniba.dsg.ppn.ba.validation;
 
-import java.io.File;
-import java.util.List;
-
 import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * Interface for the implementation of the validator. Allows the usage of the
@@ -39,10 +39,10 @@ public interface BpmnValidator {
      * @param xmlFile
      *            the xml file to validate
      * @return ValidationResult including all checked files and found violations
-     * @throws BpmnValidationException
+     * @throws de.uniba.dsg.bpmnspector.common.ValidatorException
      *             if something fails during validation process
      */
-    ValidationResult validate(File xmlFile) throws BpmnValidationException;
+    ValidationResult validate(File xmlFile) throws ValidatorException;
 
     /**
      * checks the given xmlFiles for bpmn constraint violations
@@ -51,10 +51,10 @@ public interface BpmnValidator {
      *            the list of xml files to validate
      * @return list of {@link de.uniba.dsg.bpmnspector.common.ValidationResult} including all
      *         checked files and found violations for each file
-     * @throws BpmnValidationException
+     * @throws de.uniba.dsg.bpmnspector.common.ValidatorException
      *             if something fails during validation process
      */
     List<ValidationResult> validateFiles(List<File> xmlFiles)
-            throws BpmnValidationException;
+            throws ValidatorException;
 
 }

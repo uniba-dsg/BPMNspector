@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import java.io.File;
-
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import org.junit.Test;
 
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import java.io.File;
 
 /**
  * Test class for testing the right resolvement of pathes
@@ -16,7 +15,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Path extends TestCase {
 
     @Test
-    public void testConstraintSuccess1() throws BpmnValidationException {
+    public void testConstraintSuccess1() throws ValidatorException {
         File f = new File(getTestFilePath() + File.separator + "path"
                 + File.separator + "folder" + File.separator
                 + "success_import.bpmn");
@@ -24,7 +23,7 @@ public class Path extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess2() throws BpmnValidationException {
+    public void testConstraintSuccess2() throws ValidatorException {
         verifyValidResult(createFile("success_import.bpmn"));
     }
 

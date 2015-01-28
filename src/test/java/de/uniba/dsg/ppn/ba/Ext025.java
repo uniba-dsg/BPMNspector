@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.025
@@ -18,32 +17,32 @@ public class Ext025 extends TestCase {
     private static final String XPATHSTRING = "//bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] [not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] [not(@sourceRef = //bpmn:eventBasedGateway/@id)][0]";
 
     @Test
-    public void testConstraintNoIncomingFail() throws BpmnValidationException {
+    public void testConstraintNoIncomingFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(createFile("fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintNoIncomingFail2() throws BpmnValidationException {
+    public void testConstraintNoIncomingFail2() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_2.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
-    public void testConstraintSuccess2() throws BpmnValidationException {
+    public void testConstraintSuccess2() throws ValidatorException {
         verifyValidResult(createFile("success_2.bpmn"));
     }
 
     @Test
     public void testConstraintSuccessNoCondition()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("success_no_condition.bpmn"));
     }
 

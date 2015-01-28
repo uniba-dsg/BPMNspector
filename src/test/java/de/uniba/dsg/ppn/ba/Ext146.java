@@ -1,13 +1,12 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import org.junit.Test;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for testing Constraint EXT.146
@@ -22,35 +21,35 @@ public class Ext146 extends TestCase {
     private final static String XPATHSTRING = "//bpmn:endEvent[0]";
 
     @Test
-    public void testConstraintLinkFail() throws BpmnValidationException {
+    public void testConstraintLinkFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_link.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
-    public void testConstraintTimerFail() throws BpmnValidationException {
+    public void testConstraintTimerFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_timer.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
-    public void testConstraintTimerRefFail() throws BpmnValidationException {
+    public void testConstraintTimerRefFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_timer_ref.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 8);
     }
 
     @Test
-    public void testConstraintMultipleFail() throws BpmnValidationException {
+    public void testConstraintMultipleFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_multiple.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
-    public void testConstraintConditionalFail() throws BpmnValidationException {
+    public void testConstraintConditionalFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_conditional.bpmn"), 2);
         Violation v = result.getViolations().get(0);
@@ -62,12 +61,12 @@ public class Ext146 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
-    public void testConstraintMultipleSuccess() throws BpmnValidationException {
+    public void testConstraintMultipleSuccess() throws ValidatorException {
         verifyValidResult(createFile("success_multiple.bpmn"));
     }
 

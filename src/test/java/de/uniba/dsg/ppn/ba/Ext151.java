@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.151
@@ -20,7 +19,7 @@ public class Ext151 extends TestCase {
 
     @Test
     public void testConstraintNormalSequenceFlowFail1()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_normal_sequence_flow_missing_1.bpmn"), 2);
         assertFirstViolation(
@@ -35,7 +34,7 @@ public class Ext151 extends TestCase {
 
     @Test
     public void testConstraintNormalSequenceFlowFail2()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_normal_sequence_flow_missing_2.bpmn"), 2);
         assertFirstViolation(
@@ -50,7 +49,7 @@ public class Ext151 extends TestCase {
 
     @Test
     public void testConstraintSequenceFlowInSubProcessFail1()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_sequence_flow_in_sub_process_missing_1.bpmn"),
                 2);
@@ -64,7 +63,7 @@ public class Ext151 extends TestCase {
 
     @Test
     public void testConstraintSequenceFlowInSubProcessFail2()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_sequence_flow_in_sub_process_missing_2.bpmn"),
                 4);
@@ -85,17 +84,17 @@ public class Ext151 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
-    public void testConstraintSuccess2() throws BpmnValidationException {
+    public void testConstraintSuccess2() throws ValidatorException {
         verifyValidResult(createFile("success_2.bpmn"));
     }
 
     @Test
-    public void testConstraintLinkEventSuccess() throws BpmnValidationException {
+    public void testConstraintLinkEventSuccess() throws ValidatorException {
         verifyValidResult(createFile("success_linkevent.bpmn"));
     }
 

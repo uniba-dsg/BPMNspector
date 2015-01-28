@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.106
@@ -16,14 +15,14 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Ext106 extends TestCase {
 
     @Test
-    public void testConstraintEventFail() throws BpmnValidationException {
+    public void testConstraintEventFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_cancel_end_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 9);
     }
 
     @Test
-    public void testConstraintEventRefFail() throws BpmnValidationException {
+    public void testConstraintEventRefFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_sub_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 24);
@@ -31,7 +30,7 @@ public class Ext106 extends TestCase {
 
     @Test
     public void testConstraintCancelBoundaryEventFail()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_cancel_boundary_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 18);
@@ -39,14 +38,14 @@ public class Ext106 extends TestCase {
 
     @Test
     public void testConstraintCancelEventSuccess()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("success_cancel_event.bpmn"));
 
     }
 
     @Test
     public void testConstraintCancelBoundaryEventSuccess()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("success_cancel_boundary_event.bpmn"));
     }
 

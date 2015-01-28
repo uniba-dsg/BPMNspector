@@ -1,9 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.108
@@ -15,7 +14,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Ext108 extends TestCase {
 
     @Test
-    public void testConstraintFail() throws BpmnValidationException {
+    public void testConstraintFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
                 2);
         assertViolation(

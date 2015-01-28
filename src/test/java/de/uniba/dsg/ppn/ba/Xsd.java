@@ -1,13 +1,12 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import org.junit.Test;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for testing the XSD validation
@@ -19,7 +18,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Xsd extends TestCase {
 
     @Test
-    public void testXsdFail() throws BpmnValidationException {
+    public void testXsdFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("xsdfail.bpmn"), 1);
         Violation v = result.getViolations().get(0);

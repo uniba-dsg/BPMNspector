@@ -1,9 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.021
@@ -16,7 +15,7 @@ public class Ext021 extends TestCase {
 
     @Test
     public void testConstraintEventSubProcessFail()
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_event_sub_process.bpmn"), 1);
         assertViolation(
@@ -26,18 +25,18 @@ public class Ext021 extends TestCase {
     }
 
     @Test
-    public void testConstraintEventsSuccess() throws BpmnValidationException {
+    public void testConstraintEventsSuccess() throws ValidatorException {
         verifyValidResult(createFile("success_events.bpmn"));
 
     }
 
     @Test
-    public void testConstraintGatewaysSuccess() throws BpmnValidationException {
+    public void testConstraintGatewaysSuccess() throws ValidatorException {
         verifyValidResult(createFile("success_gateways.bpmn"));
     }
 
     @Test
-    public void testConstraintTasksSuccess() throws BpmnValidationException {
+    public void testConstraintTasksSuccess() throws ValidatorException {
         verifyValidResult(createFile("success_tasks.bpmn"));
     }
 

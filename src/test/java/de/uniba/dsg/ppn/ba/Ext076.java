@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.076
@@ -16,28 +15,28 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Ext076 extends TestCase {
 
     @Test
-    public void testConstraintFail1() throws BpmnValidationException {
+    public void testConstraintFail1() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_1.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintFail2() throws BpmnValidationException {
+    public void testConstraintFail2() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_2.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintFail3() throws BpmnValidationException {
+    public void testConstraintFail3() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_3.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("Success.bpmn"));
     }
 

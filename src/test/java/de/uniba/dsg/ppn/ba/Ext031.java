@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.031
@@ -19,14 +18,14 @@ public class Ext031 extends TestCase {
     private final static String XPATHSTRING = "//bpmn:messageFlow[0]";
 
     @Test
-    public void testConstraintCircleFail() throws BpmnValidationException {
+    public void testConstraintCircleFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_circle.bpmn"), 1);
         assertFirstViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintFromPoolFail() throws BpmnValidationException {
+    public void testConstraintFromPoolFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_message_flow_from_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
@@ -34,7 +33,7 @@ public class Ext031 extends TestCase {
     }
 
     @Test
-    public void testConstraintToPoolFail() throws BpmnValidationException {
+    public void testConstraintToPoolFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_message_flow_to_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
@@ -42,7 +41,7 @@ public class Ext031 extends TestCase {
     }
 
     @Test
-    public void testConstraintSamePoolFail() throws BpmnValidationException {
+    public void testConstraintSamePoolFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_message_flow_in_same_pool.bpmn"), 3);
         assertFirstViolation(result.getViolations().get(0));
@@ -51,7 +50,7 @@ public class Ext031 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws BpmnValidationException {
+    public void testConstraintSuccess() throws ValidatorException {
         verifyValidResult(createFile("Success.bpmn"));
     }
 

@@ -1,19 +1,17 @@
 package de.uniba.dsg.ppn.ba;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.xml.bind.JAXBException;
-
-import org.slf4j.LoggerFactory;
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 import de.uniba.dsg.ppn.ba.xml.XmlWriter;
+import org.slf4j.LoggerFactory;
+
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
@@ -56,7 +54,7 @@ public class Main {
                             new File(file.getParentFile() + File.separator
                                     + "validation_result_" + file.getName()
                                     + ".xml"));
-                } catch (BpmnValidationException e) {
+                } catch (ValidatorException e) {
                     LOGGER.error(e.getMessage());
                 } catch (JAXBException e) {
                     LOGGER.error("result of validation couldn't be written in xml!");

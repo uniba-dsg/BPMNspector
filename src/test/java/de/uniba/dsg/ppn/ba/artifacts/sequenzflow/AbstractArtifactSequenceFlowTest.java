@@ -1,10 +1,9 @@
 package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
-import org.junit.Test;
-
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import org.junit.Test;
 
 /**
  * Abstract test class for simplifying the testing of the Constraints EXT.006
@@ -17,24 +16,24 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 abstract public class AbstractArtifactSequenceFlowTest extends TestCase {
 
     @Test
-    public void testConstraintAssociationFail() throws BpmnValidationException {
+    public void testConstraintAssociationFail() throws ValidatorException {
         assertTests("Fail_association.bpmn", 11);
 
     }
 
     @Test
-    public void testConstraintGroupFail() throws BpmnValidationException {
+    public void testConstraintGroupFail() throws ValidatorException {
         assertTests("Fail_group.bpmn", 8);
     }
 
     @Test
     public void testConstraintTextAnnotationFail()
-            throws BpmnValidationException {
+            throws ValidatorException {
         assertTests("Fail_text_annotation.bpmn", 8);
     }
 
     private void assertTests(String fileName, int line)
-            throws BpmnValidationException {
+            throws ValidatorException {
         de.uniba.dsg.bpmnspector.common.ValidationResult result = verifyInValidResult(
                 createFile(fileName), 3);
         assertFirstViolation(result.getViolations().get(0), fileName);

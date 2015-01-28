@@ -1,13 +1,12 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import org.junit.Test;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for testing the WSDL Validation
@@ -19,7 +18,7 @@ import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 public class Wsdl extends TestCase {
 
     @Test
-    public void testConstraintImportedWsdlFail() throws BpmnValidationException {
+    public void testConstraintImportedWsdlFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("wsdl-fail.bpmn"), 4);
         Violation v = result.getViolations().get(0);
@@ -44,7 +43,7 @@ public class Wsdl extends TestCase {
 
     @Test
     public void testConstraintImportedWsdlSuccess()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("wsdl-success.bpmn"));
     }
 

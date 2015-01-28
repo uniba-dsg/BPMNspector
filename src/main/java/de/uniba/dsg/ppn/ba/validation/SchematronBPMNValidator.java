@@ -5,11 +5,11 @@ import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
@@ -80,7 +80,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     @Override
     public List<ValidationResult> validateFiles(List<File> xmlFiles)
-            throws BpmnValidationException {
+            throws ValidatorException {
         List<ValidationResult> validationResults = new ArrayList<>();
         for (File xmlFile : xmlFiles) {
             validationResults.add(validate(xmlFile));
@@ -90,12 +90,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     @Override
     public ValidationResult validate(File xmlFile)
-            throws BpmnValidationException {
+            throws ValidatorException {
         final ISchematronResource schematronSchema = SchematronResourcePure
                 .fromClassPath("validation.sch");
         if (!schematronSchema.isValidSchematron()) {
             LOGGER.debug("schematron file is invalid");
-            throw new BpmnValidationException("Invalid Schematron file!");
+            throw new ValidatorException("Invalid Schematron file!");
         }
 
         LOGGER.info("Validating {}", xmlFile.getName());
@@ -144,11 +144,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
                     xmlFile.getName(), e.getLineNumber());
         } catch (SAXException | IOException e) {
             PrintHelper.printFileNotFoundLogs(LOGGER, e, xmlFile.getName());
-            throw new BpmnValidationException(
+            throw new ValidatorException(
                     "Given file couldn't be read or doesn't exist!");
         } catch (Exception e) { // NOPMD
             LOGGER.debug("exception at schematron validation. Cause: {}", e);
-            throw new BpmnValidationException(
+            throw new ValidatorException(
                     "Something went wrong during schematron validation!");
         }
 
@@ -215,7 +215,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 fileName = result[0];
                 line = Integer.parseInt(result[1]);
                 location = result[2];
-            } catch (BpmnValidationException e) {
+            } catch (ValidatorException e) {
                 fileName = e.getMessage();
                 LOGGER.error("Line of affected Element could not be determined.");
             } catch (StringIndexOutOfBoundsException e) {
@@ -243,12 +243,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
      *            baseProcess used for validation
      * @return string array with filename, line and xpath expression to find the
      *         element
-     * @throws BpmnValidationException
+     * @throws de.uniba.dsg.bpmnspector.common.ValidatorException
      *             if no element can be found
      */
     // TODO: extract in own object?
     private String[] searchForViolationFile(String xpathExpression,
-            BPMNProcess baseProcess) throws BpmnValidationException {
+            BPMNProcess baseProcess) throws ValidatorException {
         String fileName = "";
         String line = "-1";
         String xpathObjectId = "";
@@ -277,7 +277,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         }
 
         if ("-1".equals(line)) {
-            throw new BpmnValidationException("BPMN Element couldn't be found!");
+            throw new ValidatorException("BPMN Element couldn't be found!");
         }
 
         return new String[] { fileName, line, xpathObjectId };

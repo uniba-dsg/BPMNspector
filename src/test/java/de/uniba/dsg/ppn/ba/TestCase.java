@@ -1,17 +1,15 @@
 package de.uniba.dsg.ppn.ba;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import ch.qos.logback.classic.Level;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.Violation;
+import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 import java.io.File;
 import java.nio.file.Paths;
 
-import ch.qos.logback.classic.Level;
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
+import static org.junit.Assert.*;
 
 /**
  * Abstract test class for all tests of the BPMN Validator to simplify testing
@@ -41,18 +39,18 @@ public class TestCase {
         return new File(path);
     }
 
-    protected ValidationResult validate(File f) throws BpmnValidationException {
+    protected ValidationResult validate(File f) throws ValidatorException {
         return validator.validate(f);
     }
 
-    protected void verifyValidResult(File f) throws BpmnValidationException {
+    protected void verifyValidResult(File f) throws ValidatorException {
         ValidationResult result = validate(f);
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
 
     protected ValidationResult verifyInValidResult(File f, int violationsCount)
-            throws BpmnValidationException {
+            throws ValidatorException {
         ValidationResult result = validate(f);
         assertFalse(result.isValid());
         assertEquals(violationsCount, result.getViolations().size());

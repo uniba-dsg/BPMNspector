@@ -1,9 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import org.junit.Test;
-
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.BpmnValidationException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import org.junit.Test;
 
 /**
  * Test class for testing Constraint EXT.135
@@ -17,7 +16,7 @@ public class Ext135 extends TestCase {
     private final static String ERRORMESSAGE = "A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows";
 
     @Test
-    public void testConstraintFail() throws BpmnValidationException {
+    public void testConstraintFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(createFile("fail.bpmn"),
                 2);
         assertViolation(result.getViolations().get(0),
@@ -27,7 +26,7 @@ public class Ext135 extends TestCase {
     }
 
     @Test
-    public void testConstraintSubFail() throws BpmnValidationException {
+    public void testConstraintSubFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
@@ -35,7 +34,7 @@ public class Ext135 extends TestCase {
     }
 
     @Test
-    public void testConstraintEXSubFail() throws BpmnValidationException {
+    public void testConstraintEXSubFail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_ex_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
@@ -44,13 +43,13 @@ public class Ext135 extends TestCase {
 
     @Test
     public void testConstraintBothMultipleSuccess()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("success_multiple_in_and_out.bpmn"));
     }
 
     @Test
     public void testConstraintOutMultipleSuccess()
-            throws BpmnValidationException {
+            throws ValidatorException {
         verifyValidResult(createFile("success_multiple_out.bpmn"));
     }
 
