@@ -3,6 +3,7 @@ package de.uniba.dsg.bpmnspector.common.importer;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
+import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
 import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import org.jdom2.Document;
@@ -10,9 +11,14 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.located.LocatedElement;
 import org.jdom2.located.LocatedJDOMFactory;
+import org.jdom2.xpath.XPathHelper;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
+import javax.xml.XMLConstants;
+import javax.xml.validation.SchemaFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,11 +29,13 @@ public class ProcessImporter {
 
     private final SAXBuilder builder;
     private final BpmnXsdValidator bpmnXsdValidator;
+    private final WsdlValidator wsdlValidator;
 
     public ProcessImporter() {
         builder = new SAXBuilder();
         builder.setJDOMFactory(new LocatedJDOMFactory());
         bpmnXsdValidator = new BpmnXsdValidator();
+        wsdlValidator = new WsdlValidator();
     }
 
     public BPMNProcess importProcessFromPath(Path path, ValidationResult result)
@@ -39,7 +47,7 @@ public class ProcessImporter {
             throws ValidatorException {
         if(Files.notExists(path) || !Files.isRegularFile(path)) {
             String msg = "Import could not be resolved: Path "+path+" is invalid.";
-            Violation violation = new Violation("EXT.001",parent.getBaseURI(),-1,"xpath", msg);
+            Violation violation = createViolation(parent, path, msg);
             result.getViolations().add(violation);
             throw new ValidatorException(msg);
         } else {
@@ -88,15 +96,36 @@ public class ProcessImporter {
 
         for (Element elem : importElements) {
             String importType = elem.getAttributeValue("importType");
+            Path importPath = Paths.get(process.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
             if (ConstantHelper.BPMNNAMESPACE.equals(importType)) {
-                Path importPath = Paths.get(process.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
-
                 if(!isFileAlreadyImported(importPath.toString(), rootProcess)) {
                     BPMNProcess importedProcess = importProcessRecursively(
                             importPath, process, rootProcess, result);
                     if(importedProcess!=null) {
                         process.getChildren().add(importedProcess);
                     }
+                }
+            } else if(ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
+                try {
+                    wsdlValidator.validateAgainstXsd(importPath.toFile(), result);
+                    process.getWsdls().add(builder.build(importPath.toFile()));
+                } catch (SAXParseException e) {
+                    String msg = "File "+importPath+" is not a valid WSDL file.";
+                    Violation violation = createViolation(process, importPath, msg);
+                    result.getViolations().add(violation);
+                } catch (IOException | SAXException | JDOMException e) {
+                    throw new ValidatorException("WSDL validation of file "+importPath+" failed.", e);
+                }
+            } else if(ConstantHelper.XSDNAMESPACE.equals(importType)) {
+                SchemaFactory schemaFactory = SchemaFactory
+                        .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                try {
+                    schemaFactory
+                            .newSchema(importPath.toFile());
+                } catch (SAXException e) {
+                    String msg = "File "+importPath+" is not a valid XSD file.";
+                    Violation violation = createViolation(process, importPath, msg);
+                    result.getViolations().add(violation);
                 }
             }
         }
@@ -110,6 +139,22 @@ public class ProcessImporter {
         return Namespace.getNamespace(ConstantHelper.BPMNDINAMESPACE);
     }
 
+    private Violation createViolation(BPMNProcess parent, Path path, String msg) {
+        int line = -1;
+        String xpath = "";
+
+        List<Element> imports = parent.getProcessAsDoc().getRootElement().getChildren("import",
+                getBPMNNamespace());
+        for(Element elem : imports) {
+            Path importPath = Paths.get(parent.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
+            if(importPath.equals(path)) {
+                line = ((LocatedElement) elem).getLine();
+                xpath = XPathHelper.getAbsolutePath(elem);
+            }
+        }
+
+        return new Violation("EXT.001", parent.getBaseURI(), line, xpath, msg);
+    }
 
     private boolean isFileAlreadyImported(String baseURI, BPMNProcess process) {
         if(process.getBaseURI().equals(baseURI)) {

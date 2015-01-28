@@ -1,18 +1,16 @@
 package de.uniba.dsg.ppn.ba.validation;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.transform.dom.DOMSource;
-
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import com.phloc.schematron.ISchematronResource;
+import com.phloc.schematron.pure.SchematronResourcePure;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.ppn.ba.helper.*;
+import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
+import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
@@ -26,16 +24,17 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
-
-import com.phloc.schematron.ISchematronResource;
-import com.phloc.schematron.pure.SchematronResourcePure;
-
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.ppn.ba.preprocessing.PreProcessResult;
-import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.dom.DOMSource;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Implementation of BpmnValidator
@@ -117,8 +116,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
             if(process!=null) {
                 File parentFolder = xmlFile.getParentFile();
 
-                ext001Checker.checkConstraint001(xmlFile, parentFolder,
-                        validationResult);
+//                ext001Checker.checkConstraint001(xmlFile, parentFolder,
+//                        validationResult);
                 ext002Checker.checkConstraint002(xmlFile, parentFolder,
                         validationResult);
                 // OLD
