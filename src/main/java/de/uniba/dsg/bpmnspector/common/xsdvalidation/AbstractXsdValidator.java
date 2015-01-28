@@ -1,15 +1,13 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import org.xml.sax.SAXException;
+
+import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import javax.xml.transform.stream.StreamSource;
-
-import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
-import org.xml.sax.SAXException;
-
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
 
 /**
  * Super class for all validators to avoid code redundance

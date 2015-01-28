@@ -1,10 +1,10 @@
 package de.uniba.dsg.bpmnspector.common.importer;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
-import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import org.jdom2.Document;
 import org.jdom2.Element;

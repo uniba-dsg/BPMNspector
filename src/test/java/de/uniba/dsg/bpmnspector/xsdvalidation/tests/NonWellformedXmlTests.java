@@ -3,7 +3,7 @@ package de.uniba.dsg.bpmnspector.xsdvalidation.tests;
 import de.uniba.dsg.bpmnspector.BPMNspector;
 import de.uniba.dsg.bpmnspector.ValidationOption;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

@@ -1,19 +1,15 @@
 package de.uniba.dsg.bpmnspector.refcheck.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.Violation;
+import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
+import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
 import de.uniba.dsg.bpmnspector.refcheck.RefTypeChecker;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
-import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
-import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
-import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
+import static org.junit.Assert.*;
 
 /**
  * This test class tests the validator with the predefined BPMN files. The

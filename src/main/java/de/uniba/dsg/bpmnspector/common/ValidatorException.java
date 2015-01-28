@@ -1,4 +1,4 @@
-package de.uniba.dsg.bpmnspector.refcheck;
+package de.uniba.dsg.bpmnspector.common;
 
 /**
  * This exception encapsulates technology specific exceptions and is thrown by general errors.

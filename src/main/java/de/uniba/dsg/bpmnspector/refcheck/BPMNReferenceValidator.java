@@ -1,7 +1,9 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import java.util.logging.Level;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
+
+import java.util.logging.Level;
 
 /**
  * This interface specifies the functionality provided by the application layer.

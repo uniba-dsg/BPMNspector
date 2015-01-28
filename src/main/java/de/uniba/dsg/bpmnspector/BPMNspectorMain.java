@@ -4,7 +4,7 @@ package de.uniba.dsg.bpmnspector;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.refcheck.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.ppn.ba.xml.XmlWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
