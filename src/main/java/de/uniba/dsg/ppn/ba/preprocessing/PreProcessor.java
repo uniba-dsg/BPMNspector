@@ -1,31 +1,31 @@
 package de.uniba.dsg.ppn.ba.preprocessing;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
+import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
+import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
+import de.uniba.dsg.ppn.ba.helper.SetupHelper;
+import org.jdom2.Attribute;
+import org.jdom2.Namespace;
+import org.jdom2.filter.Filters;
+import org.jdom2.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
-
-import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
-import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
-import org.jdom2.*;
-import org.jdom2.filter.Filters;
-import org.jdom2.xpath.XPathFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
-import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
-import de.uniba.dsg.ppn.ba.helper.ImportedFilesCrawler;
-import de.uniba.dsg.ppn.ba.helper.SetupHelper;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Does the preprocessing step for creating only one document contenting
@@ -113,7 +113,8 @@ public class PreProcessor {
     }
 
     public org.jdom2.Document preProcess(BPMNProcess process) {
-        LOGGER.info("Starting to preprocess file.");
+        LOGGER.info("Starting to preprocess file: "+process.getBaseURI());
+        LOGGER.debug("Found children: "+process.getChildren().size());
         org.jdom2.Document cloneOfDoc = process.getProcessAsDoc().clone();
         // get all nodes which potentially refer to other files
         List<Attribute> refAttributes = setupXPathNamespaceIdsForAttributes().evaluate(
@@ -138,7 +139,7 @@ public class PreProcessor {
             addNamespacesAndRenameIds(cloneOfDoc, imported);
         }
 
-        LOGGER.info("Preprocessing completed.");
+        LOGGER.info("Preprocessing of file {} completed.", process.getBaseURI());
 
         return cloneOfDoc;
     }
@@ -293,11 +294,11 @@ public class PreProcessor {
             renameIds(importedProcess);
 
             LOGGER.debug("Checking imported importedProcess for further imports.");
-            preProcess(importedProcess);
+            org.jdom2.Document result = preProcess(importedProcess);
 
             LOGGER.debug("integration of document will be done now");
 
-            addNodesToDocument(importedProcess, headDocument);
+            addNodesToDocument(result, headDocument);
     }
 
     /**
@@ -373,11 +374,11 @@ public class PreProcessor {
      *            the document, where the nodes should be added
      *
      */
-    private void addNodesToDocument(BPMNProcess importedProcess,
+    private void addNodesToDocument(org.jdom2.Document importedProcess,
             org.jdom2.Document headDocument) {
         org.jdom2.Element definitionsHead = headDocument.getRootElement();
 
-        org.jdom2.Element definitionsImported = importedProcess.getProcessAsDoc().getRootElement();
+        org.jdom2.Element definitionsImported = importedProcess.getRootElement();
 
         for(org.jdom2.Element element : definitionsImported.getChildren()) {
             org.jdom2.Element clone = element.clone();
