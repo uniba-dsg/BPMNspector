@@ -15,30 +15,30 @@ import org.junit.Test;
 public class Ext002 extends TestCase {
 
     private final static String ERRORMESSAGE = "Files have id duplicates";
-    private final static String XPATHSTRING = "//bpmn:*[@id = 'PROCESS_1'][0]";
+    private final static String XPATHSTRING = "/*[local-name() = 'definitions' and namespace-uri() = 'http://www.omg.org/spec/BPMN/20100524/MODEL']/@id";
 
     @Test
     public void testConstraintImport1Fail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
-                createFile("fail_import.bpmn"), 8);
-        assertViolation(result.getViolations().get(0), "fail_import.bpmn", 4);
-        assertViolation(result.getViolations().get(1), "import.bpmn", 3);
+                createFile("fail_import.bpmn"), 10);
+        assertViolation(result.getViolations().get(0), "fail_import.bpmn", 2);
+        assertViolation(result.getViolations().get(1), "import.bpmn", 2);
     }
 
     @Test
     public void testConstraintImport2Fail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
-                createFile("fail_import2.bpmn"), 8);
-        assertViolation(result.getViolations().get(0), "import.bpmn", 3);
-        assertViolation(result.getViolations().get(1), "import2.bpmn", 3);
+                createFile("fail_import2.bpmn"), 10);
+        assertViolation(result.getViolations().get(0), "import.bpmn", 2);
+        assertViolation(result.getViolations().get(1), "import2.bpmn", 2);
     }
 
     @Test
     public void testConstraintImport3Fail() throws ValidatorException {
         ValidationResult result = verifyInValidResult(
-                createFile("fail_import3.bpmn"), 16);
-        assertViolation(result.getViolations().get(0), "fail_import3.bpmn", 4);
-        assertViolation(result.getViolations().get(1), "fail_import2.bpmn", 5);
+                createFile("fail_import3.bpmn"), 20);
+        assertViolation(result.getViolations().get(0), "fail_import3.bpmn", 2);
+        assertViolation(result.getViolations().get(1), "fail_import2.bpmn", 2);
     }
 
     @Test

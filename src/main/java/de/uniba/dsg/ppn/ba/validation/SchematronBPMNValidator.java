@@ -9,7 +9,6 @@ import de.uniba.dsg.bpmnspector.common.ValidatorException;
 import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
-import de.uniba.dsg.ppn.ba.helper.BpmnHelper;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
@@ -109,10 +108,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
                     .importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
 
             if(process!=null) {
-                File parentFolder = xmlFile.getParentFile();
-
-                ext002Checker.checkConstraint002(xmlFile, parentFolder,
-                        validationResult);
+                // EXT.002 checks whether there are ID duplicates - as ID
+                // duplicates in a single file are already detected during XSD
+                // validation this is only relevant if other processes are imported
+                if(!process.getChildren().isEmpty()) {
+                    ext002Checker.checkConstraint002(process, validationResult);
+                }
 
                 org.jdom2.Document documentToCheck;
                 if (process.getChildren() != null && !process.getChildren()
@@ -163,8 +164,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
      * tries to locate errors in the specific files
      *
      * @param baseProcess
-     *            the file where the error must be located with the help of the
-     *            {@link XmlLocator}
+     *            the file where the error must be located
      * @param validationResult
      *            the result of the validation to add new found errors
      * @param failedAssert
@@ -261,7 +261,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             fileName = optional.get().getBaseURI();
 
             // use ID with generated prefix for lookup
-            xpathObjectId = BpmnHelper.createIdBpmnExpression(xpathExpression);
+            xpathObjectId = createIdBpmnExpression(xpathExpression);
             LOGGER.debug("Expression to evaluate: "+xpathObjectId);
             XPathFactory fac = XPathFactory.instance();
             List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,
@@ -270,7 +270,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
             if(elems.size()==1) {
                 line = String.valueOf(((LocatedElement) elems.get(0)).getLine());
                 //use ID without prefix  (=original ID) as Violation xPath
-                xpathObjectId = BpmnHelper.createIdBpmnExpression(xpathExpression.substring(xpathExpression.indexOf('_') + 1));
+                xpathObjectId = createIdBpmnExpression(xpathExpression.substring(xpathExpression.indexOf('_') + 1));
             }
         } else {
             // File not found
@@ -281,5 +281,16 @@ public class SchematronBPMNValidator implements BpmnValidator {
         }
 
         return new String[] { fileName, line, xpathObjectId };
+    }
+
+    /**
+     * creates a xpath expression for finding the id
+     *
+     * @param id
+     *            the id, to which the expression should refer
+     * @return the xpath expression, which refers the given id
+     */
+    private static String createIdBpmnExpression(String id) {
+        return String.format("//bpmn:*[@id = '%s']", id);
     }
 }
