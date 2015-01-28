@@ -133,13 +133,6 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                 (FailedAssert) obj);
                     }
                 }
-
-                for (int i = 0;
-                     i < validationResult.getCheckedFiles().size(); i++) {
-                    File f = new File(
-                            validationResult.getCheckedFiles().get(i));
-                    validationResult.getCheckedFiles().set(i, f.getName());
-                }
             }
         } catch (SAXParseException e) {
             // Occurs if Document is not well-formed
