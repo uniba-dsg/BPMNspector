@@ -4,8 +4,8 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.util.XmlWriter;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
-import de.uniba.dsg.ppn.ba.xml.XmlWriter;
 import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;

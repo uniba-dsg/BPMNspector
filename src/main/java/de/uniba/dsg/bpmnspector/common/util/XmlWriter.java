@@ -1,15 +1,13 @@
-package de.uniba.dsg.ppn.ba.xml;
+package de.uniba.dsg.bpmnspector.common.util;
 
-import java.io.File;
+import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
+import java.io.File;
 
 /**
  * This class is used for writing xml files via jaxb

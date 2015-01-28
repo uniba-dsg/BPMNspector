@@ -10,7 +10,6 @@ import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
-import de.uniba.dsg.ppn.ba.helper.PrintHelper;
 import de.uniba.dsg.ppn.ba.preprocessing.PreProcessor;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -22,12 +21,9 @@ import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import javax.xml.transform.dom.DOMSource;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +86,20 @@ public class SchematronBPMNValidator implements BpmnValidator {
     @Override
     public ValidationResult validate(File xmlFile)
             throws ValidatorException {
+
+        ValidationResult validationResult = new ValidationResult();
+        // Trying to import process
+        BPMNProcess process = bpmnImporter
+                .importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
+        if(process != null) {
+            validate(process, validationResult);
+        }
+        return validationResult;
+
+    }
+
+    public ValidationResult validate(BPMNProcess process, ValidationResult validationResult)
+            throws ValidatorException {
         final ISchematronResource schematronSchema = SchematronResourcePure
                 .fromClassPath("validation.sch");
         if (!schematronSchema.isValidSchematron()) {
@@ -97,17 +107,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
             throw new ValidatorException("Invalid Schematron file!");
         }
 
-        LOGGER.info("Validating {}", xmlFile.getName());
-
-        ValidationResult validationResult = new ValidationResult();
+        LOGGER.info("Validating {}", process.getBaseURI());
 
         try {
-            validationResult.getCheckedFiles().add(xmlFile.getAbsolutePath());
-
-            BPMNProcess process = bpmnImporter
-                    .importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
-
-            if(process!=null) {
                 // EXT.002 checks whether there are ID duplicates - as ID
                 // duplicates in a single file are already detected during XSD
                 // validation this is only relevant if other processes are imported
@@ -134,21 +136,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
                                 (FailedAssert) obj);
                     }
                 }
-            }
-        } catch (SAXParseException e) {
-            // Occurs if Document is not well-formed
-            validationResult.getViolations().add(
-                    new Violation("XSD-Check", xmlFile.getName(), e
-                            .getLineNumber(), "", e.getMessage()));
-            validationResult.getCheckedFiles().add(xmlFile.getName());
-            LOGGER.info("XML not well-formed in {} at line {}",
-                    xmlFile.getName(), e.getLineNumber());
-        } catch (SAXException | IOException e) {
-            PrintHelper.printFileNotFoundLogs(LOGGER, e, xmlFile.getName());
-            throw new ValidatorException(
-                    "Given file couldn't be read or doesn't exist!");
         } catch (Exception e) { // NOPMD
-            LOGGER.debug("exception at schematron validation. Cause: {}", e);
+            LOGGER.debug("exception during schematron validation. Cause: {}", e);
             throw new ValidatorException(
                     "Something went wrong during schematron validation!");
         }
@@ -159,6 +148,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
         return validationResult;
     }
+
 
     /**
      * tries to locate errors in the specific files
@@ -270,7 +260,8 @@ public class SchematronBPMNValidator implements BpmnValidator {
             if(elems.size()==1) {
                 line = String.valueOf(((LocatedElement) elems.get(0)).getLine());
                 //use ID without prefix  (=original ID) as Violation xPath
-                xpathObjectId = createIdBpmnExpression(xpathExpression.substring(xpathExpression.indexOf('_') + 1));
+                xpathObjectId = createIdBpmnExpression(xpathExpression
+                        .substring(xpathExpression.indexOf('_') + 1));
             }
         } else {
             // File not found

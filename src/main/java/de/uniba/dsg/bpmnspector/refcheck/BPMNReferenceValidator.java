@@ -2,6 +2,7 @@ package de.uniba.dsg.bpmnspector.refcheck;
 
 import de.uniba.dsg.bpmnspector.common.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 
 import java.util.logging.Level;
 
@@ -22,6 +23,7 @@ import java.util.logging.Level;
  * </code>
  * 
  * @author Andreas Vorndran
+ * @author Matthias Geiger
  * @version 1.0
  * @see BPMNReferenceValidatorImpl
  * @see ValidationResult
@@ -42,6 +44,19 @@ public interface BPMNReferenceValidator {
 	 *             if technical problems occurred
 	 */
 	ValidationResult validate(String path) throws ValidatorException;
+
+	/**
+	 * This method validates a set of BPMN processes given in the parameter
+	 * process regarding reference coo
+	 *
+	 * @param process
+	 * 			the base process which should be checked
+	 * @param validationResult
+	 * 			the ValidationResult to be used
+	 * @throws ValidatorException
+	 * 				if technical problems occurred
+	 */
+	void validate(BPMNProcess process, ValidationResult validationResult) throws ValidatorException;
 
 	/**
 	 * This method validates a BPMN file with the given path and all imported

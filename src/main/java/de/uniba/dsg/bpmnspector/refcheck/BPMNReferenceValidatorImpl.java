@@ -27,6 +27,7 @@ import java.util.logging.Level;
  * example: {@link BPMNReferenceValidator}.
  *
  * @author Andreas Vorndran
+ * @author Matthias Geiger
  * @version 1.0
  * @see BPMNReferenceValidator
  * @see ValidationResult
@@ -77,7 +78,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 			if (process == null) {
 				result.setValid(false);
-				result.getCheckedFiles().add(path);
 			} else {
 				List<BPMNProcess> processesToCheck = new ArrayList<>();
 
@@ -86,7 +86,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				for (BPMNProcess processToCheck : processesToCheck) {
 					result.getViolations()
 							.addAll(startValidation(processToCheck, REFERENCE));
-					result.getCheckedFiles().add(processToCheck.getBaseURI());
 				}
 
 				result.setValid(result.getViolations().isEmpty());
@@ -97,11 +96,41 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 							path, result.getViolations().size());
 			LOGGER.info(resultText);
 		} catch (ValidatorException e) {
-			LOGGER.error("Validation of process {} failed, due to an error: {}", path, e);
+			LOGGER.error("Validation of process {} failed, due to an error: {}",
+					path, e);
 			result.setValid(false);
-			result.getCheckedFiles().add(path);
 		}
 		return result;
+	}
+
+	@Override
+	public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidatorException {
+		try {
+			if (process == null) {
+				validationResult.setValid(false);
+			} else {
+				List<BPMNProcess> processesToCheck = new ArrayList<>();
+
+				process.getAllProcessesRecursively(processesToCheck);
+
+				for (BPMNProcess processToCheck : processesToCheck) {
+					validationResult.getViolations()
+							.addAll(startValidation(processToCheck, REFERENCE));
+				}
+
+				validationResult.setValid(
+						validationResult.getViolations().isEmpty());
+			}
+
+			String resultText = String
+					.format("Reference check of file %s finished; %d violations found.",
+							process.getBaseURI(), validationResult.getViolations().size());
+			LOGGER.info(resultText);
+		} catch (ValidatorException e) {
+			LOGGER.error("Validation of process {} failed, due to an error: {}",
+					process.getBaseURI(), e);
+			validationResult.setValid(false);
+		}
 	}
 
 	@Override
@@ -111,15 +140,14 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
 		if (process == null) {
 			result.setValid(false);
-			result.getCheckedFiles().add(path);
 		} else {
 			List<BPMNProcess> processesToCheck = new ArrayList<>();
 
 			process.getAllProcessesRecursively(processesToCheck);
 
 			for(BPMNProcess processToCheck : processesToCheck) {
-				result.getViolations().addAll(startValidation(processToCheck, EXISTENCE));
-				result.getCheckedFiles().add(processToCheck.getBaseURI());
+				result.getViolations().addAll(
+						startValidation(processToCheck, EXISTENCE));
 			}
 
 			result.setValid(result.getViolations().isEmpty());
@@ -159,7 +187,6 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			result.getViolations().addAll(startValidation(process, EXISTENCE));
 			result.setValid(result.getViolations().isEmpty());
 		}
-		result.getCheckedFiles().add(path);
 		String resultText = String.format("Reference check of file %s finished; %d violations found.", path, result.getViolations().size());
 		LOGGER.info(resultText);
 		return result;

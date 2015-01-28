@@ -25,6 +25,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ *
+ * @author Matthias Geiger
+ * @version 1.0
+ */
 public class ProcessImporter {
 
     private final SAXBuilder builder;
@@ -45,10 +50,13 @@ public class ProcessImporter {
 
     private BPMNProcess importProcessRecursively(Path path, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result)
             throws ValidatorException {
+        result.getCheckedFiles().add(path.toString());
         if(Files.notExists(path) || !Files.isRegularFile(path)) {
             String msg = "Import could not be resolved: Path "+path+" is invalid.";
             Violation violation = createViolation(parent, path, msg);
             result.getViolations().add(violation);
+            result.setValid(false);
+
             throw new ValidatorException(msg);
         } else {
             try {
@@ -113,6 +121,7 @@ public class ProcessImporter {
                     String msg = "File "+importPath+" is not a valid WSDL file.";
                     Violation violation = createViolation(process, importPath, msg);
                     result.getViolations().add(violation);
+                    result.setValid(false);
                 } catch (IOException | SAXException | JDOMException e) {
                     throw new ValidatorException("WSDL validation of file "+importPath+" failed.", e);
                 }
@@ -126,6 +135,7 @@ public class ProcessImporter {
                     String msg = "File "+importPath+" is not a valid XSD file.";
                     Violation violation = createViolation(process, importPath, msg);
                     result.getViolations().add(violation);
+                    result.setValid(false);
                 }
             }
         }
