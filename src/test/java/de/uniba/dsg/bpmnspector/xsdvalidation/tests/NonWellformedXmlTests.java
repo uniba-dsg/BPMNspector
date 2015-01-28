@@ -12,9 +12,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class NonWellformedXmlTests {
 
@@ -83,8 +81,8 @@ public class NonWellformedXmlTests {
     public void nonWellformedXsdFileImportedTest() throws ValidatorException {
         Path file = Paths
                 .get("src/test/resources/non-wellformed/import_xsd_non_wellformed.bpmn");
-        String affectedFile = "simple_corrupt.xsd";
-        int affectedLine = 11;
+        String affectedFile = "import_xsd_non_wellformed.bpmn";
+        int affectedLine = 3;
 
         ValidationResult result = nspector.inspectFile(file, EXT_ONLY);
         assertAffectedFileAndLine(result, affectedFile, affectedLine);
@@ -96,7 +94,7 @@ public class NonWellformedXmlTests {
             int affectedLine) {
         assertFalse(result.isValid());
         assertEquals(affectedLine, result.getViolations().get(0).getLine());
-        assertEquals(affectedFile, result.getViolations().get(0).getFileName());
+        assertTrue(result.getViolations().get(0).getFileName().contains(affectedFile));
     }
 
 }
