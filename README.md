@@ -144,8 +144,8 @@ There are different helper classes to debug and simplify developing:
 import java.io.File;
 
 import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.ppn.ba.helper.PrintHelper;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
+import de.uniba.dsg.bpmnspector.schematron.helper.PrintHelper;
+import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
 
 public class TestMain {
 

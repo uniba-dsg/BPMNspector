@@ -3,7 +3,7 @@ package de.uniba.dsg.bpmnspector.common.importer;
 import api.*;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
-import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
+import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;

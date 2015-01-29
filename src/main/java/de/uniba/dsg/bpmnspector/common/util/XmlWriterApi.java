@@ -28,7 +28,7 @@ public class XmlWriterApi {
             .getSimpleName());
 
     private final JDOMFactory factory = new DefaultJDOMFactory();
-    private final Namespace nsp = Namespace.getNamespace("http://www.uniba.de/pi/bpmn-cons/validation");
+    private final Namespace nsp = Namespace.getNamespace(ConstantHelper.PINAMESPACE);
 
     /**
      * writes the result to the given file

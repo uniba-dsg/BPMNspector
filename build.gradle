@@ -70,7 +70,7 @@ jacoco {
     toolVersion = "0.7.1.201405082137"
 }
 
-jar.archiveName = "bpmnvalidator.jar"
+jar.archiveName = "BPMNspector.jar"
 
 jar {
         from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }

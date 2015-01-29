@@ -9,7 +9,7 @@ import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.FileUtils;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
-import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
+import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
 
 import java.io.IOException;
 import java.nio.file.Path;
