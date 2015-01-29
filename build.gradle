@@ -6,7 +6,7 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 apply plugin: 'jacoco'
 
-mainClassName = "de.uniba.dsg.ppn.ba.Main"
+mainClassName = "de.uniba.dsg.bpmnspector.BPMNspectorMain"
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2'

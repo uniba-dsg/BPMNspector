@@ -3,6 +3,7 @@ package de.uniba.dsg.bpmnspector;
 import api.UnsortedValidationResult;
 import api.ValidationException;
 import api.ValidationResult;
+import api.Validator;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.FileUtils;
@@ -20,7 +21,7 @@ import java.util.List;
  * @author Matthias Geiger
  * @version 1.0
  */
-public class BPMNspector {
+public class BPMNspector implements Validator {
 
     private final SchematronBPMNValidator extValidator;
     private final BPMNReferenceValidator refValidator;
@@ -68,5 +69,12 @@ public class BPMNspector {
         }
 
         return result;
+    }
+
+    public ValidationResult validate(Path path) throws ValidationException {
+        List<ValidationOption> options = new ArrayList<>();
+        options.add(ValidationOption.EXT);
+        options.add(ValidationOption.REF);
+        return inspectFile(path, options);
     }
 }

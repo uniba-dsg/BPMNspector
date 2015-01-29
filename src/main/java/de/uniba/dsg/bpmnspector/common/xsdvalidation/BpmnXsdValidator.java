@@ -61,7 +61,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
             for (SAXParseException saxParseException : xsdErrorList) {
                 Location location = new Location(xmlFile.toPath(),
                         new LocationCoordinate(saxParseException.getLineNumber(),
-                                saxParseException.getColumnNumber()), null);
+                                saxParseException.getColumnNumber()));
                 Violation violation = new Violation(location, saxParseException.getMessage(), "XSD-Check");
                 if(!validationResult.getViolations().contains(violation)) {
                     validationResult.addViolation(violation);
@@ -73,7 +73,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
             // if process is not well-formed exception is not processed via the error handler
             Location location = new Location(xmlFile.toPath(),
                     new LocationCoordinate(e.getLineNumber(),
-                            e.getColumnNumber()), null);
+                            e.getColumnNumber()));
             Violation violation = new Violation(location, e.getMessage(), "XSD-Check");
             validationResult.addViolation(violation);
             String msg = String.format("File %s is not well-formed at line %d: %s", xmlFile.getName(),

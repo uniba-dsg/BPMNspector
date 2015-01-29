@@ -340,7 +340,7 @@ public class RefTypeChecker {
 
         Location location = new Location(
                 Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
-                new LocationCoordinate(line, column), null);
+                new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_TYPE);
         validationResult.addViolation(violation);
     }

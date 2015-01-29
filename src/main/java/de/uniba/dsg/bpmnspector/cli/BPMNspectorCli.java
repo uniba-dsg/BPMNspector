@@ -67,15 +67,19 @@ public class BPMNspectorCli {
                 printUsageInformation();
                 System.exit(0);
             } else {
-                if(cl.getArgs().length==1) { //NOPMD
+                if(cl.getArgs().length==0) { //NOPMD
+                    LOGGER.error("Invalid usage: No arguments detected. It is only possible to check one file or directory at the same time.");
+                    printUsageInformation();
+                    System.exit(0);
+                } else if(cl.getArgs().length==1) {//NOPMD
                     return new CliParameter(cl.getArgs()[0],
                             validateAndCreateValidationOptions(
                                     cl.getOptionValue(CHECKS, CHECK_ALL)),
                             cl.hasOption(DEBUG));
                 } else {
-                    LOGGER.error("Invalid usage: Too much arguments detected. It is only possible to check on file or directory at one time.");
+                    LOGGER.error("Invalid usage: Too much arguments detected. It is only possible to check one file or directory at the same time.");
                     printUsageInformation();
-                    System.exit(-1);
+                    System.exit(0);
                 }
             }
         } catch (ParseException e) {

@@ -136,7 +136,7 @@ public class ExistenceChecker {
                         ViolationMessageCreator.DEFAULT_MSG,
                         XPathHelper.getAbsolutePath(currentElement), language);
         Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")),
-                new LocationCoordinate(line, column), null);
+                new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);
         validationResult.addViolation(violation);
     }

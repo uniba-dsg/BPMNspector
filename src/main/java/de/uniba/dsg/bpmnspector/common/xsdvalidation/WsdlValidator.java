@@ -56,7 +56,7 @@ public class WsdlValidator extends AbstractXsdValidator {
             for (SAXParseException saxParseException : xsdErrorList) {
                 Location location = new Location(xmlFile.toPath(),
                         new LocationCoordinate(saxParseException.getLineNumber(),
-                                saxParseException.getColumnNumber()), null);
+                                saxParseException.getColumnNumber()));
                 Violation violation = new Violation(location, saxParseException.getMessage(), "WSDL-XSD-Check");
                 validationResult.addViolation(violation);
                 LOGGER.info("WSDL xsd violation in {} at {} found",
@@ -66,7 +66,7 @@ public class WsdlValidator extends AbstractXsdValidator {
             // if process is not well-formed exception is not processed via the error handler
             Location location = new Location(xmlFile.toPath(),
                     new LocationCoordinate(e.getLineNumber(),
-                            e.getColumnNumber()), null);
+                            e.getColumnNumber()));
             Violation violation = new Violation(location, e.getMessage(), "XSD-Check");
             validationResult.addViolation(violation);
             String msg = String.format("File %s is not well-formed at line %d: %s", xmlFile.getName(),

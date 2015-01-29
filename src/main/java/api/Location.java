@@ -10,17 +10,17 @@ public final class Location implements Comparable<Location> {
 	private final Optional<String> xpath;
 
 	private final Path fileName;
-/*
+
 	public Location(Path fileName, LocationCoordinate location) {
 		this.fileName = Objects.requireNonNull(fileName);
 		this.location = Optional.of(location);
 		this.xpath = Optional.empty();
-	}*/
+	}
 
 	public Location(Path fileName, LocationCoordinate location, String xpath) {
 		this.fileName = Objects.requireNonNull(fileName);
-		this.location = Optional.ofNullable(location);
-		this.xpath = Optional.ofNullable(xpath);
+		this.location = Optional.of(location);
+		this.xpath = Optional.of(xpath);
 	}
 
 	public LocationCoordinate getLocation() {
