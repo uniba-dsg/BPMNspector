@@ -1,116 +1,73 @@
-# What is it? || Description
+# BPMNspector <img align="right" src="src/main/resources/logo-h100.png" height="100" width="217"/>
 
-This tool validates BPMN models against the offically provided XSDs of the OMG and 
-a subset of the descriptive extended constraints from [Geiger (2013)](http://www.uni-bamberg.de/fileadmin/uni/fakultaeten/wiai_lehrstuehle/praktische_informatik/Dateien/Publikationen/techrep-bpmn-serialization-constraints.pdf).
+**Statical analysis for BPMN 2.0 process models**
 
-Additionally, the tool checks the schema validity of all in a BPMN file imported WSDL and XML files.
-Namely, the following constraints of Geiger identified by their ids can be checked through this tool:
+## What is it? || Description
 
-1, 2, 6-9, 21-23, 25, 26, 28, 31, 36, 56, 76, 79, 84, 88, 95-109, 135, 146, 150, 151, 152 
+Creating valid, standard compliant BPMN 2.0 process models is not trivial. Even when state-of-art modeling tools are used, model often violate some of the constraints stated in the standard document.
 
-# Requirements and Installation
+BPMNspector checks single files - or complete directories - of BPMN files and reports violations of BPMN 2.0 constraints.
 
-First, at least Java 7 is required to use the program.
+**BPMNspector currently supports:**
+- **Schema validation:** Ensures correctness regarding the official OMG XSD files
+- **Reference Checking:** Ensures that all used references exist and that only valid types are used
+- **Check of Advanced Constraints:** 40 (of 52) constraints defined for the "descriptive conformance sub class" are checked
+- **Support of imports:** (resolvable) imports of processes, WSDL and XSD files are also checked
 
-Next, `JAVA_HOME` must be set, included into your `PATH` and point to your JAVA installation for the console usage.
+This software is licensed under the LGPL Version 3 Open Source License.
 
-Lastly, this tool supports Gradle usage.
+## What do I need? || Requirements 
+As BPMNspector uses gradlew only a Java 8 installation is needed - download  and configuration of needed libraries is performed on the fly.
+
+ - JDK 1.8.0 (or higher)
+    - JAVA_HOME should point to the jdk directory
+    - PATH should include JAVA_HOME/bin
+
   
-# Validation
+## How do I use BPMNspector? || Usage
 
-You can use the validator in two ways, either stand-alone or as API.
+To use BPMNspector simply run the start script:
 
-## Via Console
-
-The stand-alone validator must be used via console. It prints debug loggings
-if `--debug` is added to the JAR invoking. Additionally, the validator needs a number of files, which
-should be validated. Their paths have to be added as parameters to the JAR call and
-must be separated by a whitespace, so that the validation works correctly. The results
-of every file validation is saved as `validation_result_name_of_the_validated_file.xml` in the
-folder of the validated file.
-
-An example of the console call is the following: `java -jar bpmnvalidator.jar my_bpmn_file.bpmn`
-The path to the file(s) can be either relative to the path of the `bpmnvalidator.jar` or absolute.
-
-## Via JAR
-
-Alternatively, you can include the validator into your project and use it as API. The JAR can be easily created by `gradle build` or `gradle jar` and is then located in `\build\libs`. Next, you have
-to get a reference to the validator instance through `BpmnValidatorFactory.getValidatorInstance()`
-and then you can call on this object the methods shown below:
-
-``` java
-/**
- * Interface for the implementation of the validator. Allows the usage of the
- * validator in other projects. The loglevel is set default to info. If you need
- * another log level, change the log level before the validation process.
- *
- * @author Philipp Neugebauer
- * @version 1.0
- *
- */
-public interface BpmnValidator {
-
-	/**
-	 * returns the set loglevel of all loggers
-	 *
-	 * @return the set log level {@link ch.qos.logback.classic.Level}
-	 */
-	Level getLogLevel();
-
-	/**
-	 * Sets the loglevel of all loggers of the bpmn validator to the given level
-	 *
-	 * @param logLevel
-	 *            possible levels: {@link ch.qos.logback.classic.Level}
-	 */
-	void setLogLevel(Level logLevel);
-
-	/**
-	 * checks the given xmlFile for bpmn constraint violations
-	 *
-	 * @param xmlFile
-	 *            the xml file to validate
-	 * @return ValidationResult including all checked files and found violations
-	 * @throws BpmnValidationException
-	 *             if something fails during validation process
-	 */
-	ValidationResult validate(File xmlFile) throws BpmnValidationException;
-
-	/**
-	 * checks the given xmlFiles for bpmn constraint violations
-	 *
-	 * @param xmlFiles
-	 *            the list of xml files to validate
-	 * @return list of {@link de.uniba.dsg.bpmn.ValidationResult} including all
-	 *         checked files and found violations for each file
-	 * @throws BpmnValidationException
-	 *             if something fails during validation process
-	 */
-	List<ValidationResult> validateFiles(List<File> xmlFiles)
-			throws BpmnValidationException;
-
-}
+```
+$ BPMNspector fileToValidate.bpmn
 ```
 
-Therefore, code including this tool will look like the following:
-
-``` java
-BpmnValidator v = BpmnValidatorFactory.getValidatorInstance();
-v.setLogLevel(Level.INFO);
-try {
-	v.validate(new File("FilePath"));
-	//or
-	v.validateFiles(new ArrayList<File>());
-} catch (BpmnValidationException e) {
-	// handle
-}
+Available options are listed by calling:
+```
+$ BPMNspector -h
 ```
 
-# Documentation
+or here:
 
-The documentation of the tool can be easily created by executing `gradle javadoc` and is then located in `\build\docs\javadoc`.
+```
+usage: BPMNspector <file or directory> [-c <[opt1[,opt2]...>] [-d] [-h]
+Options:
+ -c,--checks <[opt1[,opt2]...>   defines which checks should be performed.
+                                 Allowed values:
+                                 EXT - checks conformance to EXT rules
+                                 ALL - performs all checks (default)
+                                 REF - checks the correctness of
+                                 references
+                                 XSD - performs an XML schema validation
+ -d,--debug                      run BPMNspector in debug mode
+ -h,--help                       prints this usage information
 
-# Structure of Software/Repository
+Examples:
+                BPMNspector myfile.bpmn
+                BPMNspector c:\absolute\path\to\folder -c REF -d
+```
+
+## How can I use BPMNspector as a developer? || Development
+
+Run...
+```
+$ gradlew idea
+# or
+$ gradlew eclipse
+```
+... to create project files for your favorite IDE.
+
+### Structure of Software/Repository
 
 The repository is structured in the following way:
 
@@ -119,51 +76,32 @@ The repository is structured in the following way:
 	|- src
 	|-- main
 	|--- java: contains all java classes
-	|---- de.uniba.dsg.ppn.ba: contains the main class for API usage
-	|----- api: contains the factory class
-	|----- preprocessing: contains the classes performing the preprocessing step
-	|----- validation: contains the classes performing the validation steps
-	|--- resources: contains all schema validation files
+    |---- api: contains the API files needed for integration in other tools
+	|---- de.uniba.dsg.bpmnspector: implementation of BPMNspector
+	|--- resources: contains all needed resources such as schema validation files
 	|-- test
 	|--- java: contains all test classes named by their test case
 	|--- resources: contains all test files sorted in folders by their test case
 
-# Licensing
-
-# Authors
-
-# Developing Helpers
-
-There are different helper classes to debug and simplify developing:
-
-`PrintHelper.java`: prints the results in a nice way
-
-`TestMain.java`: allows the simplified testing and presentation of validation results
-
-``` java
-import java.io.File;
-
-import de.uniba.dsg.bpmn.ValidationResult;
-import de.uniba.dsg.bpmnspector.schematron.helper.PrintHelper;
-import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
-
-public class TestMain {
-
-	public static void main(String[] args) throws Exception {
-		File f = new File(TestHelper.getTestFilePath() + "002" + File.separator + 
-			"success_import.bpmn");
-		SchematronBPMNValidator validator = new SchematronBPMNValidator();
-		ValidationResult result = validator.validate(f);
-		System.out.println("Is File " + f.getName() + " valid? "+ result.isValid());
-
-		if (!result.isValid()) {
-			PrintHelper.printViolations(result.getViolations());
-		}
-
-	}
-}
+### Technical Documentation / Javadoc
+Run...
 ```
+$ gradlew javadoc
+```
+... to generate the Javadoc documentation.
 
+## Licensing
+LGPL Version 3: http://www.gnu.org/licenses/lgpl-3.0.html
 
-# Contribute
+## Authors
+[Matthias Geiger](http://www.uni-bamberg.de/en/pi/team/geiger-matthias/), Philipp Neugebauer and Andreas Vorndran
 
+BPMNspector is partly based on the practical part of two Bachelor theses:
+- Andreas has developed the reference checking mechanism ```de.uniba.dsg.bpmnspector.refcheck``` - this part has already been published [here](https://github.com/uniba-dsg/BPMN-Reference-Validator)
+- Philipp created the Schematron validation part of BPMNspector ```de.uniba.dsg.bpmnspector.schematron```
+
+## Found a bug?
+Report your issue here at GitHub!
+
+## Contribute?
+Just Fork and send a Pull request.
