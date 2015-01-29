@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationResult;
+import api.ValidationException;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
@@ -13,6 +13,7 @@ import java.io.IOException;
  * Super class for all validators to avoid code redundance
  *
  * @author Philipp Neugebauer
+ * @author Matthias Geiger
  * @version 1.0
  *
  */
@@ -30,10 +31,11 @@ public abstract class AbstractXsdValidator {
      *             when xmlFile can't be read
      * @throws SAXException
      *             when validation process fails somehow
+     * @throws ValidationException
      */
     public abstract void validateAgainstXsd(File xmlFile,
             ValidationResult validationResult) throws IOException, SAXException,
-            ValidatorException;
+            ValidationException;
 
     /**
      *

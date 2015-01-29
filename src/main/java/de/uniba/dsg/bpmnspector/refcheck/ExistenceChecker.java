@@ -1,12 +1,15 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.Location;
+import api.LocationCoordinate;
+import api.Violation;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import de.uniba.dsg.bpmnspector.refcheck.utils.ViolationMessageCreator;
 import org.jdom2.Element;
 import org.jdom2.xpath.XPathHelper;
 
-import java.util.List;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Properties;
 
@@ -37,13 +40,15 @@ public class ExistenceChecker {
      *
      * @param elements
      *            the elements of the root file (= <code>bpmnFile</code>)
-     * @param violationList
-     *            the violation list for adding found violations
+     * @param validationResult
+     *            the validation result for adding found violations
      * @param currentElement
      *            the current element
      * @param line
      *            the line of the reference in the root file for the violation
      *            message
+     * @param column
+     *            the column of the reference
      * @param checkingReference
      *            the reference to validate against
      * @param referencedId
@@ -51,7 +56,7 @@ public class ExistenceChecker {
      */
     public void validateExistence(Map<String, Element> elements,
             Map<String, Map<String, Element>> importedElements,
-            List<Violation> violationList, Element currentElement, int line,
+            ValidationResult validationResult, Element currentElement, int line, int column,
             Reference checkingReference, String referencedId, String ownPrefix) {
         boolean foundViolation = false;
         if (checkingReference.isQname()) {
@@ -104,7 +109,7 @@ public class ExistenceChecker {
         }
 
         if (foundViolation) {
-            createAndAddExistenceViolation(violationList, line, currentElement,
+            createAndAddExistenceViolation(validationResult, line, column, currentElement,
                     checkingReference);
         }
     }
@@ -112,25 +117,27 @@ public class ExistenceChecker {
     /**
      * Adds a found existence violation to the list.
      *
-     * @param violationList
-     *            the violation list for adding the found violation
+     * @param validationResult
+     *            the validation result for adding the found violation
      * @param line
      *            the line of the reference in the root file
+     * @param column
+     *            the column of the reference in the root file
      * @param currentElement
      *            the element causing the violation
      * @param checkingReference
      *            the violated reference
      */
-    public void createAndAddExistenceViolation(List<Violation> violationList,
-            int line, Element currentElement, Reference checkingReference) {
+    public void createAndAddExistenceViolation(ValidationResult validationResult,
+            int line, int column, Element currentElement, Reference checkingReference) {
         String message = ViolationMessageCreator
                 .createExistenceViolationMessage(currentElement.getName(),
                         checkingReference.getName(), line,
                         ViolationMessageCreator.DEFAULT_MSG,
                         XPathHelper.getAbsolutePath(currentElement), language);
-        Violation violation = new Violation(CONSTRAINT_REF_EXISTENCE,
-                JDOMUtils.getUriFromElement(currentElement), line,
-                XPathHelper.getAbsolutePath(currentElement), message);
-        violationList.add(violation);
+        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")),
+                new LocationCoordinate(line, column), null);
+        Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);
+        validationResult.addViolation(violation);
     }
 }

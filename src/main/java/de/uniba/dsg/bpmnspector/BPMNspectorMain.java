@@ -3,13 +3,12 @@ package de.uniba.dsg.bpmnspector;
 
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.util.XmlWriter;
+import api.ValidationResult;
+import api.ValidationException;
+import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,14 +47,14 @@ public class BPMNspectorMain {
                         createXmlReport(result);
                     }
 
-                } catch (ValidatorException e) {
+                } catch (ValidationException e) {
                     LOGGER.error("Inspection failed.", e);
                 }
             } else {
                 LOGGER.error("File or directory does not exist.");
                 System.exit(-1);
             }
-        } catch (ValidatorException e) {
+        } catch (ValidationException e) {
             LOGGER.error("Initialization of BPMNspector failed.", e);
         }
     }
@@ -68,8 +67,7 @@ public class BPMNspectorMain {
 
     private static void createXmlReport(ValidationResult result) {
         try {
-            String firstFile = result.getCheckedFiles().get(0);
-            String fileName = Paths.get(firstFile).getFileName().toString();
+            String fileName = result.getFoundFiles().get(0).getFileName().toString();
             Path reportPath = Paths.get("reports");
 
             if(!Files.exists(reportPath)) {
@@ -78,9 +76,14 @@ public class BPMNspectorMain {
 
             Path reportFile = reportPath.resolve(fileName + "_validation_result.xml");
 
-            XmlWriter xmlWriter = new XmlWriter();
-            xmlWriter.writeResult(result,reportFile.toFile());
-        } catch (JAXBException | IOException e) {
+            for(int i=1; Files.exists(reportFile); i++) {
+                reportFile = reportPath.resolve(fileName+"("+i+")_validation_result.xml");
+            }
+
+            XmlWriterApi xmlWriter = new XmlWriterApi();
+            xmlWriter.writeResult(result, reportFile);
+        //} catch (JAXBException | IOException e) {
+        } catch ( IOException e) {
             LOGGER.error("result of validation couldn't be written in xml!", e);
         }
     }

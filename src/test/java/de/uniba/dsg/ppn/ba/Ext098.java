@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 /**
@@ -19,7 +19,7 @@ public class Ext098 extends TestCase {
     private final static String XPATHSTRING = "//bpmn:startEvent[parent::bpmn:process][0]";
 
     @Test
-    public void testConstraintCancelFail() throws ValidatorException {
+    public void testConstraintCancelFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_cancel.bpmn"), 2);
         assertViolation(result.getViolations().get(0), 4);
@@ -30,21 +30,21 @@ public class Ext098 extends TestCase {
     }
 
     @Test
-    public void testConstraintCompensateFail() throws ValidatorException {
+    public void testConstraintCompensateFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_compensate.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
     }
 
     @Test
-    public void testConstraintErrorFail() throws ValidatorException {
+    public void testConstraintErrorFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_error.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
     }
 
     @Test
-    public void testConstraintEscalationFail() throws ValidatorException {
+    public void testConstraintEscalationFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_escalation.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
@@ -52,28 +52,28 @@ public class Ext098 extends TestCase {
 
     @Test
     public void testConstraintEscalationRefFail()
-            throws ValidatorException {
+            throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_escalation_ref.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 5);
     }
 
     @Test
-    public void testConstraintLinkFail() throws ValidatorException {
+    public void testConstraintLinkFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_link.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
     }
 
     @Test
-    public void testConstraintMultipleFail() throws ValidatorException {
+    public void testConstraintMultipleFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_multiple.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
     }
 
     @Test
-    public void testConstraintTerminateFail() throws ValidatorException {
+    public void testConstraintTerminateFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_terminate.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
@@ -81,32 +81,32 @@ public class Ext098 extends TestCase {
 
     @Test
     public void testConstraintConditionalSuccess()
-            throws ValidatorException {
+            throws ValidationException {
         verifyValidResult(createFile("success_conditional.bpmn"));
     }
 
     @Test
-    public void testConstraintMessageSuccess() throws ValidatorException {
+    public void testConstraintMessageSuccess() throws ValidationException {
         verifyValidResult(createFile("success_message.bpmn"));
     }
 
     @Test
-    public void testConstraintMultipleSuccess() throws ValidatorException {
+    public void testConstraintMultipleSuccess() throws ValidationException {
         verifyValidResult(createFile("success_multiple.bpmn"));
     }
 
     @Test
-    public void testConstraintNoneSuccess() throws ValidatorException {
+    public void testConstraintNoneSuccess() throws ValidationException {
         verifyValidResult(createFile("success_none.bpmn"));
     }
 
     @Test
-    public void testConstraintSignalSuccess() throws ValidatorException {
+    public void testConstraintSignalSuccess() throws ValidationException {
         verifyValidResult(createFile("success_signal.bpmn"));
     }
 
     @Test
-    public void testConstraintTimerSuccess() throws ValidatorException {
+    public void testConstraintTimerSuccess() throws ValidationException {
         verifyValidResult(createFile("success_timer.bpmn"));
     }
 

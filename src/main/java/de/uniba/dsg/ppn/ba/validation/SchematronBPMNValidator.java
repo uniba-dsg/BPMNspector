@@ -1,12 +1,10 @@
 package de.uniba.dsg.ppn.ba.validation;
 
+import api.*;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
@@ -75,7 +73,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     @Override
     public List<ValidationResult> validateFiles(List<File> xmlFiles)
-            throws ValidatorException {
+            throws ValidationException {
         List<ValidationResult> validationResults = new ArrayList<>();
         for (File xmlFile : xmlFiles) {
             validationResults.add(validate(xmlFile));
@@ -85,9 +83,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
     @Override
     public ValidationResult validate(File xmlFile)
-            throws ValidatorException {
+            throws ValidationException {
 
-        ValidationResult validationResult = new ValidationResult();
+        ValidationResult validationResult = new UnsortedValidationResult();
         // Trying to import process
         BPMNProcess process = bpmnImporter
                 .importProcessFromPath(Paths.get(xmlFile.getPath()), validationResult);
@@ -99,12 +97,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
     }
 
     public ValidationResult validate(BPMNProcess process, ValidationResult validationResult)
-            throws ValidatorException {
+            throws ValidationException {
         final ISchematronResource schematronSchema = SchematronResourcePure
                 .fromClassPath("validation.sch");
         if (!schematronSchema.isValidSchematron()) {
             LOGGER.debug("schematron file is invalid");
-            throw new ValidatorException("Invalid Schematron file!");
+            throw new ValidationException("Invalid Schematron file!");
         }
 
         LOGGER.info("Validating {}", process.getBaseURI());
@@ -138,11 +136,10 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 }
         } catch (Exception e) { // NOPMD
             LOGGER.debug("exception during schematron validation. Cause: {}", e);
-            throw new ValidatorException(
+            throw new ValidationException(
                     "Something went wrong during schematron validation!");
         }
 
-        validationResult.setValid(validationResult.getViolations().isEmpty());
         LOGGER.info("Validating process successfully done, file is valid: {}",
                 validationResult.isValid());
 
@@ -167,6 +164,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         String errorMessage = message.substring(message.indexOf('|') + 1);
 
         int line = -1;
+        int column = -1;
         String fileName;
         String location = "";
 
@@ -191,6 +189,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
         LOGGER.debug("Number of found elems: "+elems.size());
         if(elems.size()>=xpathIndex+1) {
             line = ((LocatedElement) elems.get(xpathIndex)).getLine();
+            column = ((LocatedElement) elems.get(xpathIndex)).getColumn();
             fileName = baseProcess.getBaseURI();
             location = failedAssert.getLocation();
         } else {
@@ -204,8 +203,9 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 String[] result = searchForViolationFile(xpathId, baseProcess);
                 fileName = result[0];
                 line = Integer.parseInt(result[1]);
-                location = result[2];
-            } catch (ValidatorException e) {
+                column = Integer.parseInt(result[2]);
+                location = result[3];
+            } catch (ValidationException e) {
                 fileName = e.getMessage();
                 LOGGER.error("Line of affected Element could not be determined.");
             } catch (StringIndexOutOfBoundsException e) {
@@ -218,9 +218,12 @@ public class SchematronBPMNValidator implements BpmnValidator {
                 "violation of constraint %s found in %s at line %s.",
                 constraint, fileName, line);
         LOGGER.info(logText);
-        validationResult.getViolations().add(
-                new Violation(constraint, fileName, line, location,
-                        errorMessage));
+
+        Location violationLocation = new Location(
+                Paths.get(fileName),
+                new LocationCoordinate(line, column), location);
+        Violation violation = new Violation(violationLocation, errorMessage, constraint);
+        validationResult.addViolation(violation);
     }
 
     /**
@@ -233,14 +236,15 @@ public class SchematronBPMNValidator implements BpmnValidator {
      *            baseProcess used for validation
      * @return string array with filename, line and xpath expression to find the
      *         element
-     * @throws de.uniba.dsg.bpmnspector.common.ValidatorException
+     * @throws ValidationException
      *             if no element can be found
      */
     // TODO: extract in own object?
     private String[] searchForViolationFile(String xpathExpression,
-            BPMNProcess baseProcess) throws ValidatorException {
+            BPMNProcess baseProcess) throws ValidationException {
         String fileName = "";
         String line = "-1";
+        String column = "-1";
         String xpathObjectId = "";
 
         String namespacePrefix = xpathExpression.substring(0,
@@ -259,6 +263,7 @@ public class SchematronBPMNValidator implements BpmnValidator {
 
             if(elems.size()==1) {
                 line = String.valueOf(((LocatedElement) elems.get(0)).getLine());
+                column = String.valueOf(((LocatedElement) elems.get(0)).getColumn());
                 //use ID without prefix  (=original ID) as Violation xPath
                 xpathObjectId = createIdBpmnExpression(xpathExpression
                         .substring(xpathExpression.indexOf('_') + 1));
@@ -267,11 +272,11 @@ public class SchematronBPMNValidator implements BpmnValidator {
             // File not found
         }
 
-        if ("-1".equals(line)) {
-            throw new ValidatorException("BPMN Element couldn't be found!");
+        if ("-1".equals(line) || "-1".equals(column)) {
+            throw new ValidationException("BPMN Element couldn't be found!");
         }
 
-        return new String[] { fileName, line, xpathObjectId };
+        return new String[] { fileName, line, column, xpathObjectId };
     }
 
     /**

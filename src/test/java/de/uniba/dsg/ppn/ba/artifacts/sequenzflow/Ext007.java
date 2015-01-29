@@ -1,6 +1,6 @@
 package de.uniba.dsg.ppn.ba.artifacts.sequenzflow;
 
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.Violation;
 
 /**
  * Test class for testing Constraint EXT.007

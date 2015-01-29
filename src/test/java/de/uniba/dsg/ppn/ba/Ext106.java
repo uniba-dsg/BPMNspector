@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 /**
@@ -15,14 +15,14 @@ import org.junit.Test;
 public class Ext106 extends TestCase {
 
     @Test
-    public void testConstraintEventFail() throws ValidatorException {
+    public void testConstraintEventFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_cancel_end_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 9);
     }
 
     @Test
-    public void testConstraintEventRefFail() throws ValidatorException {
+    public void testConstraintEventRefFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_sub_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 24);
@@ -30,7 +30,7 @@ public class Ext106 extends TestCase {
 
     @Test
     public void testConstraintCancelBoundaryEventFail()
-            throws ValidatorException {
+            throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_cancel_boundary_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 18);
@@ -38,14 +38,14 @@ public class Ext106 extends TestCase {
 
     @Test
     public void testConstraintCancelEventSuccess()
-            throws ValidatorException {
+            throws ValidationException {
         verifyValidResult(createFile("success_cancel_event.bpmn"));
 
     }
 
     @Test
     public void testConstraintCancelBoundaryEventSuccess()
-            throws ValidatorException {
+            throws ValidationException {
         verifyValidResult(createFile("success_cancel_boundary_event.bpmn"));
     }
 

@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class Wsdl extends TestCase {
 
     @Test
-    public void testConstraintImportedWsdlFail() throws ValidatorException {
+    public void testConstraintImportedWsdlFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("wsdl-fail.bpmn"), 4);
         Violation v = result.getViolations().get(0);
@@ -43,14 +43,14 @@ public class Wsdl extends TestCase {
 
     @Test
     public void testConstraintImportedWsdlSuccess()
-            throws ValidatorException {
+            throws ValidationException {
         verifyValidResult(createFile("wsdl-success.bpmn"));
     }
 
     private void assertViolation(Violation v, int line) {
-        assertEquals("", v.getxPath());
-        assertEquals("wsdl2primer-fail.wsdl", v.getFileName());
-        assertEquals(line, v.getLine());
+        assertEquals("undef", v.getLocation().getXpath().orElse("undef"));
+        assertEquals("wsdl2primer-fail.wsdl", v.getLocation().getFileName().getFileName().toString());
+        assertEquals(line, v.getLocation().getLocation().getRow());
     }
 
     @Override

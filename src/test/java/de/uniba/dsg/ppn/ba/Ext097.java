@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 /**
@@ -15,26 +15,26 @@ import org.junit.Test;
 public class Ext097 extends TestCase {
 
     @Test
-    public void testConstraintFail() throws ValidatorException {
+    public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_end_without_sub-events.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 8);
     }
 
     @Test
-    public void testConstraintSubFail() throws ValidatorException {
+    public void testConstraintSubFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_with_sub-endevent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 10);
     }
 
     @Test
-    public void testConstraintSubSuccess() throws ValidatorException {
+    public void testConstraintSubSuccess() throws ValidationException {
         verifyValidResult(createFile("success_with_sub-events.bpmn"));
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("success_without_sub-events.bpmn"));
 
     }

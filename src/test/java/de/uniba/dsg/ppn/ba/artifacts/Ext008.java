@@ -1,5 +1,7 @@
 package de.uniba.dsg.ppn.ba.artifacts;
 
+import api.Violation;
+
 /**
  * Test class for testing Constraint EXT.008
  *
@@ -10,7 +12,7 @@ package de.uniba.dsg.ppn.ba.artifacts;
 public class Ext008 extends AbstractArtifactTest {
 
     @Override
-    protected void assertViolation(de.uniba.dsg.bpmnspector.common.Violation v) {
+    protected void assertViolation(Violation v) {
         assertViolation(v, "//bpmn:messageFlow[@targetRef][0]", 7);
     }
 

@@ -1,8 +1,8 @@
 package de.uniba.dsg.bpmnspector.refcheck.tests;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
 import de.uniba.dsg.bpmnspector.refcheck.RefTypeChecker;
@@ -25,7 +25,7 @@ public class TestBPMNFiles {
 	private static BPMNReferenceValidator application;
 
 	@BeforeClass
-	public static void setupBeforeClass() throws ValidatorException {
+	public static void setupBeforeClass() throws ValidationException {
 		application = new BPMNReferenceValidatorImpl();
 	}
 
@@ -34,14 +34,14 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T1.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 */
 	@Test
-	public void testValidateWithT1() throws ValidatorException {
+	public void testValidateWithT1() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-1-gruppe-c.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 				
@@ -54,15 +54,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T2.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT2() throws ValidatorException {
+	public void testValidateWithT2() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-2-gruppe-d.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -75,14 +75,14 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T3.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 */
 	@Test
-	public void testValidateWithT3() throws ValidatorException {
+	public void testValidateWithT3() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-3-gruppe-e.bpmn");
 
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 2);
 		
@@ -96,15 +96,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T4.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT4() throws ValidatorException {
+	public void testValidateWithT4() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-4-gruppe-f.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 2);
 		
@@ -117,15 +117,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T5.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT5() throws ValidatorException {
+	public void testValidateWithT5() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-5-gruppe-g.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -137,15 +137,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T6.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT6() throws ValidatorException {
+	public void testValidateWithT6() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-6-gruppe-h.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -157,15 +157,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T7.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT7() throws ValidatorException {
+	public void testValidateWithT7() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-7-gruppe-i1.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 2);
 		
@@ -178,15 +178,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T8.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT8() throws ValidatorException {
+	public void testValidateWithT8() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-8-gruppe-l.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -198,15 +198,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T9.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT9() throws ValidatorException {
+	public void testValidateWithT9() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-9-gruppe-m.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -218,15 +218,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T10.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT10() throws ValidatorException {
+	public void testValidateWithT10() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-10-gruppe-n.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -238,15 +238,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T11.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT11() throws ValidatorException {
+	public void testValidateWithT11() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-11-gruppe-o.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 2);
 		
@@ -259,15 +259,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T12.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT12() throws ValidatorException {
+	public void testValidateWithT12() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-12-gruppe-p.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -279,15 +279,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T13.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT13() throws ValidatorException {
+	public void testValidateWithT13() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-13-gruppe-q.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -299,15 +299,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T14.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT14() throws ValidatorException {
+	public void testValidateWithT14() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-14-gruppe-r.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 2);
 		
@@ -320,15 +320,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T15.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT15() throws ValidatorException {
+	public void testValidateWithT15() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-15-gruppe-s.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -340,15 +340,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T16.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT16() throws ValidatorException {
+	public void testValidateWithT16() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-16-gruppe-t.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -360,15 +360,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T17.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT17() throws ValidatorException {
+	public void testValidateWithT17() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-17-gruppe-u.bpmn");
 		
-		assertEquals(1, result.getCheckedFiles().size());
+		assertEquals(1, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -380,15 +380,15 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T18.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT18() throws ValidatorException {
+	public void testValidateWithT18() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-18-referenz-6-teil-2.bpmn");
 		
-		assertEquals(2, result.getCheckedFiles().size());
+		assertEquals(2, result.getFoundFiles().size());
 		
 		assertViolationCount(result, 1);
 		
@@ -400,14 +400,14 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T18 using a reference to a Subfolder.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT18Subfolder() throws ValidatorException {
+	public void testValidateWithT18Subfolder() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-18-referenz-6-teil-2-subfolder.bpmn");
-		assertEquals(2, result.getCheckedFiles().size());
+		assertEquals(2, result.getFoundFiles().size());
 				
 		assertViolationCount(result, 1);
 		
@@ -420,14 +420,14 @@ public class TestBPMNFiles {
 //	 * {@link de.uniba.wiai.lspi.ws1213.ba.application.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 //	 * with T18 using a reference with an absolute path.
 //	 * 
-//	 * @throws ValidatorException
+//	 * @throws ValidationException
 //	 * 
 //	 */
 //	@Test
-//	public void testValidateWithT18Absolute() throws ValidatorException {
+//	public void testValidateWithT18Absolute() throws ValidationException {
 //		ValidationResult result = application
 //				.validate("src/test/resources/test-18-referenz-6-teil-2-absolute.bpmn");
-//		assertEquals(2, result.getCheckedFiles().size());
+//		assertEquals(2, result.getFoundFiles().size());
 //		assertFalse(result1.isValid());
 //		List<Violation> errors = result1.getViolations();
 //		assertEquals(1, errors.size());
@@ -443,14 +443,14 @@ public class TestBPMNFiles {
 	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
 	 * with T19.
 	 * 
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 
 	 */
 	@Test
-	public void testValidateWithT19() throws ValidatorException {
+	public void testValidateWithT19() throws ValidationException {
 		ValidationResult result = application
 				.validate("src/test/resources/test-19-referenz-6-korrekt.bpmn");
-		assertEquals(2, result.getCheckedFiles().size());
+		assertEquals(2, result.getFoundFiles().size());
 		assertTrue(result.isValid());
 	}
 	
@@ -460,8 +460,8 @@ public class TestBPMNFiles {
 			fail("found violation has the wrong type. Expected: "+RefTypeChecker.CONSTRAINT_REF_TYPE+" Found: "+foundError.getConstraint());
 		}
 		
-		if(foundError.getLine()<=0 || foundError.getLine()!=expectedLine) {
-			fail("Violation is at an unexpected line. Expected: "+expectedLine+" Found: "+foundError.getLine());
+		if(foundError.getLocation().getLocation().getRow()<=0 || foundError.getLocation().getLocation().getRow()!=expectedLine) {
+			fail("Violation is at an unexpected line. Expected: "+expectedLine+" Found: "+foundError.getLocation().getLocation().getRow());
 		}
 		
 		if(foundError.getMessage()==null || !foundError.getMessage().contains("incorrect type "+typeToBeFound)) {

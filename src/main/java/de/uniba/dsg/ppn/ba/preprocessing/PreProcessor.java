@@ -124,11 +124,15 @@ public class PreProcessor {
 
     private String getNewPrefixByOldPrefix(BPMNProcess process,
             String oldPrefix) {
-        String namespace = process.getProcessAsDoc().getRootElement().getNamespace(
-                oldPrefix).getURI();
+        Namespace namespace = process.getProcessAsDoc().getRootElement().getNamespace(
+                oldPrefix);
+        String nspURI = "";
+        if(namespace!=null) {
+            nspURI = namespace.getURI();
+        }
         String newPrefix = "";
         for (BPMNProcess imported : process.getChildren()) {
-            if (namespace.equals(imported.getNamespace())) {
+            if (nspURI.equals(imported.getNamespace())) {
                 newPrefix = imported.getGeneratedPrefix();
             }
         }

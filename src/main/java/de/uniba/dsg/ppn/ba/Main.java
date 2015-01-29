@@ -2,13 +2,12 @@ package de.uniba.dsg.ppn.ba;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationResult;
+import api.ValidationException;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriter;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,14 +49,14 @@ public class Main {
                         file = file.getAbsoluteFile();
                     }
                     ValidationResult result = validator.validate(file);
-                    xmlWriter.writeResult(result,
-                            new File(file.getParentFile() + File.separator
-                                    + "validation_result_" + file.getName()
-                                    + ".xml"));
-                } catch (ValidatorException e) {
+                    //xmlWriter.writeResult(result,
+                    //        new File(file.getParentFile() + File.separator
+                    //                + "validation_result_" + file.getName()
+                    //                + ".xml"));
+                } catch (ValidationException e) {
                     LOGGER.error(e.getMessage());
-                } catch (JAXBException e) {
-                    LOGGER.error("result of validation couldn't be written in xml!");
+                //} catch (JAXBException e) {
+                //    LOGGER.error("result of validation couldn't be written in xml!");
                 }
             }
         }

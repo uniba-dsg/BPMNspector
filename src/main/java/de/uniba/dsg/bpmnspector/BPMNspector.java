@@ -1,7 +1,8 @@
 package de.uniba.dsg.bpmnspector;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.UnsortedValidationResult;
+import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.FileUtils;
@@ -25,13 +26,13 @@ public class BPMNspector {
     private final BPMNReferenceValidator refValidator;
     private final ProcessImporter bpmnImporter;
 
-    public BPMNspector() throws ValidatorException {
+    public BPMNspector() throws ValidationException {
         extValidator = new SchematronBPMNValidator();
         refValidator = new BPMNReferenceValidatorImpl();
         bpmnImporter = new ProcessImporter();
     }
 
-    public List<ValidationResult> inspectDirectory(Path directory, List<ValidationOption> validationOptions) throws ValidatorException {
+    public List<ValidationResult> inspectDirectory(Path directory, List<ValidationOption> validationOptions) throws ValidationException {
         List<ValidationResult> results = new ArrayList<>();
         try {
             List<Path> relevantFiles = FileUtils
@@ -40,7 +41,7 @@ public class BPMNspector {
                     results.add(inspectFile(path, validationOptions));
             }
         } catch (IOException ioe) {
-            throw new ValidatorException(
+            throw new ValidationException(
                     "Validation failed due to an IOException.", ioe);
         }
 
@@ -48,9 +49,9 @@ public class BPMNspector {
     }
 
     public ValidationResult inspectFile(Path file, List<ValidationOption> validationOptions) throws
-            ValidatorException {
+            ValidationException {
 
-        ValidationResult result = new ValidationResult();
+        ValidationResult result = new UnsortedValidationResult();
 
         // Trying to generate BPMNProcess structure - XSD validation is always
         // performed is included here

@@ -1,8 +1,6 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.*;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
@@ -31,7 +29,7 @@ import java.util.logging.Level;
  * @version 1.0
  * @see BPMNReferenceValidator
  * @see ValidationResult
- * @see ValidatorException
+ * @see ValidationException
  *
  */
 public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
@@ -58,10 +56,10 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	/**
 	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
 	 *
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if problems with the language files exist
 	 */
-	public BPMNReferenceValidatorImpl() throws ValidatorException {
+	public BPMNReferenceValidatorImpl() throws ValidationException {
         loadLanguage(ENGLISH);
         setLogLevel(Level.OFF);
 		loadReferences();
@@ -72,87 +70,71 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	}
 
 	@Override
-	public ValidationResult validate(String path) throws ValidatorException {
-		ValidationResult result = new ValidationResult();
+	public ValidationResult validate(String path) throws ValidationException {
+		ValidationResult result = new UnsortedValidationResult();
 		try {
 			BPMNProcess process = bpmnImporter
 					.importProcessFromPath(Paths.get(path), result);
 
-			if (process == null) {
-				result.setValid(false);
-			} else {
+			if (process != null) {
 				List<BPMNProcess> processesToCheck = new ArrayList<>();
 
 				process.getAllProcessesRecursively(processesToCheck);
 
 				for (BPMNProcess processToCheck : processesToCheck) {
-					result.getViolations()
-							.addAll(startValidation(processToCheck, REFERENCE));
+					startValidation(processToCheck, REFERENCE, result);
 				}
 
-				result.setValid(result.getViolations().isEmpty());
 			}
 
 			String resultText = String
 					.format(RESULT_TEXT_TEMPLATE,
 							path, result.getViolations().size());
 			LOGGER.info(resultText);
-		} catch (ValidatorException e) {
+		} catch (ValidationException e) {
 			LOGGER.error("Validation of process {} failed, due to an error: {}",
 					path, e);
-			result.setValid(false);
 		}
 		return result;
 	}
 
 	@Override
-	public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidatorException {
+	public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
 		try {
-			if (process == null) {
-				validationResult.setValid(false);
-			} else {
+			if (process != null) {
 				List<BPMNProcess> processesToCheck = new ArrayList<>();
 
 				process.getAllProcessesRecursively(processesToCheck);
 
 				for (BPMNProcess processToCheck : processesToCheck) {
-					validationResult.getViolations()
-							.addAll(startValidation(processToCheck, REFERENCE));
+					startValidation(processToCheck, REFERENCE, validationResult);
 				}
-
-				validationResult.setValid(
-						validationResult.getViolations().isEmpty());
 			}
 
 			String resultText = String
 					.format(RESULT_TEXT_TEMPLATE,
 							process.getBaseURI(), validationResult.getViolations().size());
 			LOGGER.info(resultText);
-		} catch (ValidatorException e) {
+		} catch (ValidationException e) {
 			LOGGER.error("Validation of process {} failed, due to an error: {}",
 					process.getBaseURI(), e);
-			validationResult.setValid(false);
 		}
 	}
 
 	@Override
 	public ValidationResult validateExistenceOnly(String path)
-			throws ValidatorException {
-		ValidationResult result = new ValidationResult();
+			throws ValidationException {
+		ValidationResult result = new UnsortedValidationResult();
 		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
-		if (process == null) {
-			result.setValid(false);
-		} else {
+		if (process != null) {
 			List<BPMNProcess> processesToCheck = new ArrayList<>();
 
 			process.getAllProcessesRecursively(processesToCheck);
 
 			for(BPMNProcess processToCheck : processesToCheck) {
-				result.getViolations().addAll(
-						startValidation(processToCheck, EXISTENCE));
+				startValidation(processToCheck, EXISTENCE, result);
 			}
 
-			result.setValid(result.getViolations().isEmpty());
 		}
 
 		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
@@ -162,16 +144,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 	@Override
 	public ValidationResult validateSingleFile(String path)
-			throws ValidatorException {
-		ValidationResult result = new ValidationResult();
+			throws ValidationException {
+		ValidationResult result = new UnsortedValidationResult();
 		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
-		if (process == null) {
-			result.setValid(false);
-		} else {
-			result.getViolations().addAll(startValidation(process, REFERENCE));
-			result.setValid(result.getViolations().isEmpty());
+		if (process != null) {
+			startValidation(process, REFERENCE, result);
 		}
-		result.getCheckedFiles().add(path);
 		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
 		LOGGER.info(resultText);
 		return result;
@@ -179,15 +157,12 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 
 	@Override
 	public ValidationResult validateSingleFileExistenceOnly(String path)
-			throws ValidatorException {
-		ValidationResult result = new ValidationResult();
+			throws ValidationException {
+		ValidationResult result = new UnsortedValidationResult();
 		BPMNProcess process = bpmnImporter.importProcessFromPath(
 				Paths.get(path), result);
-		if (process == null) {
-			result.setValid(false);
-		} else {
-			result.getViolations().addAll(startValidation(process, EXISTENCE));
-			result.setValid(result.getViolations().isEmpty());
+		if (process != null) {
+			startValidation(process, EXISTENCE, result);
 		}
 		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
 		LOGGER.info(resultText);
@@ -200,22 +175,22 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	}
 
 	@Override
-	public void setLanguage(int languageNumber) throws ValidatorException {
+	public void setLanguage(int languageNumber) throws ValidationException {
         loadLanguage(languageNumber);
         refTypeChecker.setLanguage(language);
         existenceChecker.setLanguage(language);
 	}
 
-    private void loadLanguage(int languageNumber) throws ValidatorException{
+    private void loadLanguage(int languageNumber) throws ValidationException{
         if (languageNumber == ENGLISH) {
             language = new Properties();
             try(InputStream stream = getClass().getResourceAsStream("/en.lang")) {
                 language.load(stream);
             } catch (FileNotFoundException e) {
-                throw new ValidatorException(
+                throw new ValidationException(
                         "Could not find the language file 'lang/en.lang'.", e);
             } catch (IOException e) {
-                throw new ValidatorException(
+                throw new ValidationException(
                         "IO problems with the language file 'lang/en.lang'.", e);
             }
         } else if (languageNumber == GERMAN) {
@@ -223,16 +198,16 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
             try(InputStream stream = getClass().getResourceAsStream("/ger.lang")) {
                 language.load(stream);
             } catch (FileNotFoundException e) {
-                throw new ValidatorException(
+                throw new ValidationException(
                         "Die Sprachdatei 'lang/ger.lang' kann nicht gefunden werden.",
                         e);
             } catch (IOException e) {
-                throw new ValidatorException(
+                throw new ValidationException(
                         "Es sind I/O-Probleme bei der Sprachdatei 'lang/ger.lang' aufgetreten.",
                         e);
             }
         } else {
-            throw new ValidatorException(
+            throw new ValidationException(
                     "The desired language is not available. Please choose ENGLISH or GERMAN.");
         }
     }
@@ -241,11 +216,11 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 * This method loads the BPMN elements with the checkable references for the
 	 * validation.
 	 *
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if technical problems with the files "references.xml" and
 	 *             "references.xsd" occurred
 	 */
-	private void loadReferences() throws ValidatorException {
+	private void loadReferences() throws ValidationException {
 		ReferenceLoader referenceLoader = new ReferenceLoader(language);
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
@@ -268,15 +243,11 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 *            the ProcessFileSet of the file, which should be validated
 	 * @param validationLevel
 	 *            the validation level as String: "existence" or "referenceType"
-	 * @return a list of violations, which can be empty if no violations were
-	 *         found
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if technical problems occurred
 	 */
-	private List<Violation> startValidation(BPMNProcess baseProcess,
-			String validationLevel) throws ValidatorException {
-
-		List<Violation> violationList = new ArrayList<>();
+	private void startValidation(BPMNProcess baseProcess,
+			String validationLevel, ValidationResult validationResult) throws ValidationException {
 
 		Document baseDocument = baseProcess.getProcessAsDoc();
 
@@ -351,17 +322,20 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 						// try to get the reference ID
 						String referencedId = null;
 						int line = -1;
+						int column = -1;
 						if (checkingReference.isAttribute()) {
 							referencedId = currentElement
 									.getAttributeValue(checkingReference
 											.getName());
 							line = ((LocatedElement) currentElement).getLine();
+							column = ((LocatedElement) currentElement).getColumn();
 						} else {
 							for (Element child : currentElement.getChildren()) {
 								if (child.getName().equals(
 										checkingReference.getName())) {
 									referencedId = child.getText();
 									line = ((LocatedElement) child).getLine();
+									column = ((LocatedElement) child).getColumn();
 									break;
 								}
 							}
@@ -372,13 +346,13 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 							if (EXISTENCE.equals(validationLevel)) {
                                 existenceChecker.validateExistence(elements,
                                         importedElements,
-                                        violationList, currentElement, line,
-                                        checkingReference, referencedId,
+                                        validationResult, currentElement, line,
+                                        column, checkingReference, referencedId,
                                         ownPrefix);
 							} else if (REFERENCE.equals(validationLevel)) {
 								refTypeChecker.validateReferenceType(elements,
-                                        importedElements, violationList,
-                                        currentElement, line,
+                                        importedElements, validationResult,
+                                        currentElement, line, column,
                                         checkingReference, referencedId,
                                         ownPrefix);
 							} else {
@@ -390,7 +364,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 												.getProperty(
                                                         "validator.illegalargument.validatinglevel.part2"));
 								LOGGER.error(logText.toString());
-								throw new ValidatorException(logText.toString());
+								throw new ValidationException(logText.toString());
 							}
 						}
 					}
@@ -398,16 +372,15 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 			}
 		}
 		// log violations
-		if (!violationList.isEmpty()) {
+		if (!validationResult.isValid()) {
 			StringBuilder violationListLogText = new StringBuilder(
 					language.getProperty("validator.logger.violationlist"))
 					.append(System.lineSeparator());
-			for (Violation violation : violationList) {
+			for (Violation violation : validationResult.getViolations()) {
 				violationListLogText.append(violation.getMessage()).append(
 						System.lineSeparator());
 			}
 			LOGGER.info(violationListLogText.toString());
 		}
-		return violationList;
 	}
 }

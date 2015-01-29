@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,21 +18,21 @@ import static org.junit.Assert.assertTrue;
 public class Ext001 extends TestCase {
 
     @Test
-    public void testConstraintFail() throws ValidatorException {
+    public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintFail2() throws ValidatorException {
+    public void testConstraintFail2() throws ValidationException {
         ValidationResult result = verifyInValidResult(createFile("Fail2.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("Success.bpmn"));
     }
 
@@ -44,7 +44,7 @@ public class Ext001 extends TestCase {
     private void assertViolation(Violation v) {
         assertTrue(v.getMessage().contains("Import could not be resolved: "));
         assertTrue(v.getMessage().contains("nofile.bpmn"));
-        assertEquals(3, v.getLine());
+        assertEquals(3, v.getLocation().getLocation().getRow());
         assertEquals("EXT.001", v.getConstraint());
     }
 }

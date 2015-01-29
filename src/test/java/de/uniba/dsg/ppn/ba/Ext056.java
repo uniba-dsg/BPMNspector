@@ -1,7 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationResult;
+import api.ValidationException;
 import org.junit.Test;
 
 /**
@@ -21,31 +21,31 @@ public class Ext056 extends TestCase {
 
     @Test
     public void testConstraintCallChoreographyFail()
-            throws ValidatorException {
+            throws ValidationException {
         assertTests("fail_call_choreography.bpmn", "//bpmn:subProcess[0]");
     }
 
     @Test
     public void testConstraintChoreographyTaskFail()
-            throws ValidatorException {
+            throws ValidationException {
         assertTests("fail_choreography_task.bpmn", "//bpmn:subProcess[0]");
     }
 
     @Test
     public void testConstraintChoreographyTaskTransactionFail()
-            throws ValidatorException {
+            throws ValidationException {
         assertTests("fail_choreography_task_transaction.bpmn",
                 "//bpmn:transaction[0]");
     }
 
     @Test
     public void testConstraintSubChoreographyFail()
-            throws ValidatorException {
+            throws ValidationException {
         assertTests("fail_sub_choreography.bpmn", "//bpmn:subProcess[0]");
     }
 
     private void assertTests(String fileName, String xpath)
-            throws ValidatorException {
+            throws ValidationException {
         ValidationResult result = verifyInValidResult(createFile(fileName), 3);
         assertViolation(result.getViolations().get(0), ERRORMESSAGESOURCE,
                 XPATHSTRINGSOURCE, 11);

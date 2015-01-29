@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -21,52 +21,52 @@ public class Ext146 extends TestCase {
     private final static String XPATHSTRING = "//bpmn:endEvent[0]";
 
     @Test
-    public void testConstraintLinkFail() throws ValidatorException {
+    public void testConstraintLinkFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_link.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
-    public void testConstraintTimerFail() throws ValidatorException {
+    public void testConstraintTimerFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_timer.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
-    public void testConstraintTimerRefFail() throws ValidatorException {
+    public void testConstraintTimerRefFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_timer_ref.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 8);
     }
 
     @Test
-    public void testConstraintMultipleFail() throws ValidatorException {
+    public void testConstraintMultipleFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_multiple.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
-    public void testConstraintConditionalFail() throws ValidatorException {
+    public void testConstraintConditionalFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_conditional.bpmn"), 2);
         Violation v = result.getViolations().get(0);
         assertTrue(v.getMessage().contains("cvc-complex-type.2.4.b"));
         assertTrue(v.getMessage().contains("conditionalEventDefinition"));
         assertEquals("XSD-Check", v.getConstraint());
-        assertEquals(9, v.getLine());
+        assertEquals(9, v.getLocation().getLocation().getRow());
         assertViolation(result.getViolations().get(1), 7);
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
-    public void testConstraintMultipleSuccess() throws ValidatorException {
+    public void testConstraintMultipleSuccess() throws ValidationException {
         verifyValidResult(createFile("success_multiple.bpmn"));
     }
 

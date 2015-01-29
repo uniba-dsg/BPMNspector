@@ -1,6 +1,6 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationException;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -55,12 +55,12 @@ public class ReferenceLoader {
 	 *            path to the XSD file for the references
 	 * @return a hash map with the element names as keys and as value the
 	 *         BPMNElements which contain the references
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if problems occurred while loading, traversing or checking
 	 *             the 'references.xml' file against its XSD
 	 */
 	public Map<String, BPMNElement> load(String referencesPath,
-			String xsdPath) throws ValidatorException {
+			String xsdPath) throws ValidationException {
 		try (InputStream refPathStream = getClass().getResourceAsStream(referencesPath)) {
 
 			validateReferencesFile(referencesPath, xsdPath);
@@ -71,9 +71,9 @@ public class ReferenceLoader {
 			return createReferences(root);
 
 		} catch (JDOMException e) {
-			throw new ValidatorException(language.getProperty("loader.jdom"), e);
+			throw new ValidationException(language.getProperty("loader.jdom"), e);
 		} catch (IOException e) {
-			throw new ValidatorException(language.getProperty("loader.io"), e);
+			throw new ValidationException(language.getProperty("loader.io"), e);
 		}
 
 
@@ -152,7 +152,7 @@ public class ReferenceLoader {
 	}
 
 	private void validateReferencesFile(String referencesPath, String xsdPath)
-			throws ValidatorException, IOException {
+			throws ValidationException, IOException {
 		try (InputStream refPathStream = getClass().getResourceAsStream(referencesPath);
 				InputStream xsdPathStream = getClass().getResourceAsStream(xsdPath)) {
 			SchemaFactory schemaFactory = SchemaFactory
@@ -176,10 +176,10 @@ public class ReferenceLoader {
 							.append(saxParseException.getMessage())
 							.append(System.lineSeparator());
 				}
-				throw new ValidatorException(xsdErrorText.toString());
+				throw new ValidationException(xsdErrorText.toString());
 			}
 		} catch (SAXException e) {
-			throw new ValidatorException(language.getProperty("loader.sax"), e);
+			throw new ValidationException(language.getProperty("loader.sax"), e);
 		}
 
 	}

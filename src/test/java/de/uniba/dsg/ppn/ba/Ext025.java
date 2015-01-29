@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 /**
@@ -17,32 +17,32 @@ public class Ext025 extends TestCase {
     private static final String XPATHSTRING = "//bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] [not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] [not(@sourceRef = //bpmn:eventBasedGateway/@id)][0]";
 
     @Test
-    public void testConstraintNoIncomingFail() throws ValidatorException {
+    public void testConstraintNoIncomingFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(createFile("fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintNoIncomingFail2() throws ValidatorException {
+    public void testConstraintNoIncomingFail2() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_2.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
-    public void testConstraintSuccess2() throws ValidatorException {
+    public void testConstraintSuccess2() throws ValidationException {
         verifyValidResult(createFile("success_2.bpmn"));
     }
 
     @Test
     public void testConstraintSuccessNoCondition()
-            throws ValidatorException {
+            throws ValidationException {
         verifyValidResult(createFile("success_no_condition.bpmn"));
     }
 

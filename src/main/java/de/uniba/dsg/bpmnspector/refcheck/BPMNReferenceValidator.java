@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationResult;
+import api.ValidationException;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 
 import java.util.logging.Level;
@@ -27,7 +27,7 @@ import java.util.logging.Level;
  * @version 1.0
  * @see BPMNReferenceValidatorImpl
  * @see ValidationResult
- * @see ValidatorException
+ * @see ValidationException
  * 
  */
 public interface BPMNReferenceValidator {
@@ -40,10 +40,10 @@ public interface BPMNReferenceValidator {
 	 *            the path to the file
 	 * @return a list of validation results with the potential violations for
 	 *         each checked file
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if technical problems occurred
 	 */
-	ValidationResult validate(String path) throws ValidatorException;
+	ValidationResult validate(String path) throws ValidationException;
 
 	/**
 	 * This method validates a set of BPMN processes given in the parameter
@@ -53,10 +53,10 @@ public interface BPMNReferenceValidator {
 	 * 			the base process which should be checked
 	 * @param validationResult
 	 * 			the ValidationResult to be used
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 * 				if technical problems occurred
 	 */
-	void validate(BPMNProcess process, ValidationResult validationResult) throws ValidatorException;
+	void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException;
 
 	/**
 	 * This method validates a BPMN file with the given path and all imported
@@ -66,11 +66,11 @@ public interface BPMNReferenceValidator {
 	 *            the path to the file
 	 * @return a list of validation results with the potential violations for
 	 *         each checked file
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if technical problems occurred
 	 */
 	ValidationResult validateExistenceOnly(String path)
-			throws ValidatorException;
+			throws ValidationException;
 
 	/**
 	 * This method validates only the BPMN file with the given path for
@@ -79,10 +79,10 @@ public interface BPMNReferenceValidator {
 	 * @param path
 	 *            the path to the file
 	 * @return the validation result with the potential violations
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if technical problems occurred
 	 */
-	ValidationResult validateSingleFile(String path) throws ValidatorException;
+	ValidationResult validateSingleFile(String path) throws ValidationException;
 
 	/**
 	 * This method validates only the BPMN file with the given path for
@@ -91,11 +91,11 @@ public interface BPMNReferenceValidator {
 	 * @param path
 	 *            the path to the file
 	 * @return the validation result with the potential violations
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if technical problems occurred
 	 */
 	ValidationResult validateSingleFileExistenceOnly(String path)
-			throws ValidatorException;
+			throws ValidationException;
 
 	/**
 	 * This method sets the log level of the logger to the given one.
@@ -111,8 +111,8 @@ public interface BPMNReferenceValidator {
 	 * 
 	 * @param language
 	 *            the number of the language (ENGLISH = 0 and GERMAN = 1)
-	 * @throws ValidatorException
+	 * @throws ValidationException
 	 *             if problems occurred while loading the language file
 	 */
-	void setLanguage(int language) throws ValidatorException;
+	void setLanguage(int language) throws ValidationException;
 }

@@ -1,16 +1,16 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.Location;
+import api.LocationCoordinate;
+import api.ValidationResult;
+import api.Violation;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import de.uniba.dsg.bpmnspector.refcheck.utils.ViolationMessageCreator;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.xpath.XPathHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class RefTypeChecker {
 
@@ -44,22 +44,26 @@ public class RefTypeChecker {
      *
      * @param elements
      *            the elements of the root file (= <code>bpmnFile</code>)
-     * @param violationList
-     *            the violation list for adding found violations
+     * @param importedElements
+     * @param validationResult
+     *            the validation result for adding found violations
      * @param currentElement
      *            the current element to validate
      * @param line
      *            the line of the reference in the root file for the violation
      *            message
+     * @param column
+     *            the column of the reference
      * @param checkingReference
      *            the reference to validate against
      * @param referencedId
      *            the referenced ID
+     * @param ownPrefix
      */
     public void validateReferenceType(Map<String, Element> elements,
             Map<String, Map<String, Element>> importedElements,
-            List<Violation> violationList, Element currentElement, int line,
-            Reference checkingReference, String referencedId, String ownPrefix) {
+            ValidationResult validationResult, Element currentElement, int line,
+            int column, Reference checkingReference, String referencedId, String ownPrefix) {
         if (checkingReference.isQname()) {
 
             // Check whether the QName is prefixed
@@ -93,7 +97,7 @@ public class RefTypeChecker {
                     // or another file
                     if (elements.containsKey(importedId)) { // elem is in root
                         // file
-                        checkTypeAndAddViolation(violationList, line,
+                        checkTypeAndAddViolation(validationResult, line, column,
                                 currentElement, checkingReference,
                                 elements.get(importedId));
                     } else if (relevantImportedElements != null
@@ -104,24 +108,24 @@ public class RefTypeChecker {
                         // the
                         // imported
                         // file
-                        checkTypeAndAddViolation(violationList, line,
+                        checkTypeAndAddViolation(validationResult, line, column,
                                 currentElement, checkingReference,
                                 relevantImportedElements.get(importedId));
                     } else {
                         existenceChecker.createAndAddExistenceViolation(
-                                violationList, line,
+                                validationResult, line, column,
                                 currentElement, checkingReference);
                     }
 
                 } else if (relevantImportedElements != null) { // NOPMD
                     // namespace is used by an imported file
                     if (relevantImportedElements.containsKey(importedId)) {
-                        checkTypeAndAddViolation(violationList, line,
+                        checkTypeAndAddViolation(validationResult, line, column,
                                 currentElement, checkingReference,
                                 relevantImportedElements.get(importedId));
                     } else {
                         existenceChecker.createAndAddExistenceViolation(
-                                violationList, line,
+                                validationResult, line, column,
                                 currentElement, checkingReference);
                     }
                 } else {
@@ -131,30 +135,30 @@ public class RefTypeChecker {
                     // import does not exist or is no BPMN file (as it has to
                     // be)
                     existenceChecker.createAndAddExistenceViolation(
-                            violationList, line,
+                            validationResult, line, column,
                             currentElement, checkingReference);
                 }
 
             } else { // no QName prefix - the elem has to be in the root file
                 if (elements.containsKey(referencedId)) {
-                    checkTypeAndAddViolation(violationList, line,
+                    checkTypeAndAddViolation(validationResult, line, column,
                             currentElement, checkingReference,
                             elements.get(referencedId));
                 } else {
                     existenceChecker.createAndAddExistenceViolation(
-                            violationList, line,
+                            validationResult, line, column,
                             currentElement, checkingReference);
                 }
             }
 
         } else { // reference uses IDREF - ref has to exist in root file
             if (elements.containsKey(referencedId)) {
-                checkTypeAndAddViolation(violationList, line, currentElement,
+                checkTypeAndAddViolation(validationResult, line, column,
+                        currentElement,
                         checkingReference, elements.get(referencedId));
             } else {
-                existenceChecker.createAndAddExistenceViolation(violationList,
-                        line,
-                        currentElement, checkingReference);
+                existenceChecker.createAndAddExistenceViolation(validationResult,
+                        line, column, currentElement, checkingReference);
             }
         }
     }
@@ -165,11 +169,13 @@ public class RefTypeChecker {
      * This method validates the type of the referenced element against the
      * checking reference and adds a violation if found.
      *
-     * @param violationList
+     * @param validationResult
      *            the violation list for adding found violations
      * @param line
      *            the line of the reference in the root file for the violation
      *            message
+     * @param column
+     *            the column of the reference
      * @param currentElement
      *            the current element to validate
      * @param checkingReference
@@ -177,9 +183,9 @@ public class RefTypeChecker {
      * @param referencedElement
      *            the referenced element to validate
      */
-    private void checkTypeAndAddViolation(List<Violation> violationList,
-            int line, Element currentElement, Reference checkingReference,
-            Element referencedElement) {
+    private void checkTypeAndAddViolation(ValidationResult validationResult,
+            int line, int column, Element currentElement,
+            Reference checkingReference, Element referencedElement) {
         boolean validType = false;
         List<String> referencedTypes = checkingReference.getTypes();
         // do not check references which are only for existence validation
@@ -217,7 +223,7 @@ public class RefTypeChecker {
                     || checkingReference.isSpecial() && !performSpecialChecks(
                     currentElement, checkingReference,
                     referencedElement)) {
-                createAndAddReferenceTypeViolation(violationList, line,
+                createAndAddReferenceTypeViolation(validationResult, line, column,
                         currentElement, checkingReference, referencedElement,
                         types);
             }
@@ -308,10 +314,12 @@ public class RefTypeChecker {
      * Creates and adds a found reference type violation to the list of
      * violations.
      *
-     * @param violationList
-     *            the violation list for adding the found violation
+     * @param validationResult
+     *            the validationResult for adding the found violation
      * @param line
      *            the line of the reference in the root file
+     * @param column
+     *            the column of the reference
      * @param currentElement
      *            the element causing the violation
      * @param checkingReference
@@ -322,18 +330,18 @@ public class RefTypeChecker {
      *            a list of allowed reference types
      */
     private void createAndAddReferenceTypeViolation(
-            List<Violation> violationList, int line, Element currentElement,
-            Reference checkingReference, Element referencedElement,
-            List<String> types) {
+            ValidationResult validationResult, int line, int column,
+            Element currentElement, Reference checkingReference,
+            Element referencedElement, List<String> types) {
 
         String message = ViolationMessageCreator.createTypeViolationMessage(
                 currentElement.getName(), line, checkingReference.getName(),
                 referencedElement.getName(), types.toString(), language);
 
-        Violation violation = new Violation(CONSTRAINT_REF_TYPE,
-                JDOMUtils.getUriFromElement(currentElement), line,
-                XPathHelper.getAbsolutePath(currentElement), message);
-
-        violationList.add(violation);
+        Location location = new Location(
+                Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
+                new LocationCoordinate(line, column), null);
+        Violation violation = new Violation(location, message, CONSTRAINT_REF_TYPE);
+        validationResult.addViolation(violation);
     }
 }

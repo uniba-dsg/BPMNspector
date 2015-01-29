@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import org.junit.Test;
 
 /**
@@ -18,14 +18,14 @@ public class Ext031 extends TestCase {
     private final static String XPATHSTRING = "//bpmn:messageFlow[0]";
 
     @Test
-    public void testConstraintCircleFail() throws ValidatorException {
+    public void testConstraintCircleFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_circle.bpmn"), 1);
         assertFirstViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintFromPoolFail() throws ValidatorException {
+    public void testConstraintFromPoolFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_message_flow_from_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
@@ -33,7 +33,7 @@ public class Ext031 extends TestCase {
     }
 
     @Test
-    public void testConstraintToPoolFail() throws ValidatorException {
+    public void testConstraintToPoolFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_message_flow_to_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
@@ -41,7 +41,7 @@ public class Ext031 extends TestCase {
     }
 
     @Test
-    public void testConstraintSamePoolFail() throws ValidatorException {
+    public void testConstraintSamePoolFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_message_flow_in_same_pool.bpmn"), 3);
         assertFirstViolation(result.getViolations().get(0));
@@ -50,7 +50,7 @@ public class Ext031 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("Success.bpmn"));
     }
 

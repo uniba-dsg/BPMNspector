@@ -1,6 +1,6 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationException;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,7 +15,7 @@ import java.io.File;
 public class Path extends TestCase {
 
     @Test
-    public void testConstraintSuccess1() throws ValidatorException {
+    public void testConstraintSuccess1() throws ValidationException {
         File f = new File(getTestFilePath() + File.separator + "path"
                 + File.separator + "folder" + File.separator
                 + "success_import.bpmn");
@@ -23,7 +23,7 @@ public class Path extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess2() throws ValidatorException {
+    public void testConstraintSuccess2() throws ValidationException {
         verifyValidResult(createFile("success_import.bpmn"));
     }
 

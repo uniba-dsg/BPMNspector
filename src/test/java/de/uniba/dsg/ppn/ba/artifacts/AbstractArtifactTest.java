@@ -1,8 +1,8 @@
 package de.uniba.dsg.ppn.ba.artifacts;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import de.uniba.dsg.ppn.ba.TestCase;
 import org.junit.Test;
 
@@ -17,14 +17,14 @@ import org.junit.Test;
 abstract public class AbstractArtifactTest extends TestCase {
 
     @Test
-    public void testConstraintAssociationFail() throws ValidatorException {
+    public void testConstraintAssociationFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_association.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
-    public void testConstraintGroupFail() throws ValidatorException {
+    public void testConstraintGroupFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_group.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
@@ -32,7 +32,7 @@ abstract public class AbstractArtifactTest extends TestCase {
 
     @Test
     public void testConstraintTextAnnotationFail()
-            throws ValidatorException {
+            throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("Fail_text_annotation.bpmn"), 1);
         assertViolation(result.getViolations().get(0));

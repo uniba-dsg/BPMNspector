@@ -1,7 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationResult;
+import api.ValidationException;
 import org.junit.Test;
 
 /**
@@ -14,7 +14,7 @@ import org.junit.Test;
 public class Ext099 extends TestCase {
 
     @Test
-    public void testConstraintEventFail() throws ValidatorException {
+    public void testConstraintEventFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_event.bpmn"), 1);
         assertViolation(
@@ -24,7 +24,7 @@ public class Ext099 extends TestCase {
     }
 
     @Test
-    public void testConstraintEventRefFail() throws ValidatorException {
+    public void testConstraintEventRefFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_eventref.bpmn"), 1);
         assertViolation(
@@ -35,7 +35,7 @@ public class Ext099 extends TestCase {
 
     @Test
     public void testConstraintImportedProcessFail()
-            throws ValidatorException {
+            throws ValidationException {
         ValidationResult result = verifyInValidResult(
                 createFile("fail_call_ref_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
@@ -43,12 +43,12 @@ public class Ext099 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("success.bpmn"));
     }
 
     @Test
-    public void testConstraintGlobalSuccess() throws ValidatorException {
+    public void testConstraintGlobalSuccess() throws ValidationException {
         verifyValidResult(createFile("success_global.bpmn"));
     }
 

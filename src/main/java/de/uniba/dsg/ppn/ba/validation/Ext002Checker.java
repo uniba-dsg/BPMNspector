@@ -1,7 +1,9 @@
 package de.uniba.dsg.ppn.ba.validation;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.Location;
+import api.LocationCoordinate;
+import api.ValidationResult;
+import api.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
 import org.jdom2.Attribute;
@@ -13,6 +15,7 @@ import org.jdom2.xpath.XPathHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,24 +71,28 @@ public class Ext002Checker {
 
     private void createViolation(Attribute firstAttrib, Attribute secondAttrib,
             ValidationResult validationResult) {
-        String file1Name = firstAttrib.getDocument().getBaseURI();
+        String file1Name = firstAttrib.getDocument().getBaseURI().replace("file:/", "");
         int file1Line = ((LocatedElement) firstAttrib.getParent()).getLine();
+        int file1Column = ((LocatedElement) secondAttrib.getParent()).getColumn();
         String file1XPath = XPathHelper.getAbsolutePath(firstAttrib);
 
-        String file2Name = secondAttrib.getDocument().getBaseURI();
+        String file2Name = secondAttrib.getDocument().getBaseURI().replace("file:/", "");
         int file2Line = ((LocatedElement) secondAttrib.getParent()).getLine();
+        int file2Column = ((LocatedElement) secondAttrib.getParent()).getColumn();
         String file2XPath = XPathHelper.getAbsolutePath(secondAttrib);
 
-        validationResult.getViolations().add(
-                new Violation(CONSTRAINTNUMBER, file1Name,
-                        file1Line,
-                        file1XPath,
-                        "Files have id duplicates"));
-        validationResult.getViolations().add(
-                new Violation(CONSTRAINTNUMBER, file2Name,
-                        file2Line,
-                        file2XPath,
-                        "Files have id duplicates"));
+        Location location = new Location(
+                Paths.get(file1Name),
+                new LocationCoordinate(file1Line, file1Column), file1XPath);
+        Violation violation = new Violation(location, "Files have id duplicates", CONSTRAINTNUMBER);
+        validationResult.addViolation(violation);
+
+        Location location2 = new Location(
+                Paths.get(file2Name),
+                new LocationCoordinate(file2Line, file2Column), file2XPath);
+        Violation violation2 = new Violation(location2, "Files have id duplicates", CONSTRAINTNUMBER);
+        validationResult.addViolation(violation2);
+
         LOGGER.info("violation of constraint {} found.",
                 CONSTRAINTNUMBER);
     }

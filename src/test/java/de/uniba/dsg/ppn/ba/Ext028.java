@@ -1,7 +1,7 @@
 package de.uniba.dsg.ppn.ba;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
+import api.ValidationResult;
+import api.ValidationException;
 import org.junit.Test;
 
 /**
@@ -14,7 +14,7 @@ import org.junit.Test;
 public class Ext028 extends TestCase {
 
     @Test
-    public void testConstraintFail() throws ValidatorException {
+    public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0),
@@ -23,7 +23,7 @@ public class Ext028 extends TestCase {
     }
 
     @Test
-    public void testConstraintSuccess() throws ValidatorException {
+    public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("Success.bpmn"));
     }
 

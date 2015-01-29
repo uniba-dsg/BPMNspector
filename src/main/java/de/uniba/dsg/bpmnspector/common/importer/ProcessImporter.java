@@ -1,8 +1,6 @@
 package de.uniba.dsg.bpmnspector.common.importer;
 
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.*;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
 import de.uniba.dsg.ppn.ba.helper.ConstantHelper;
@@ -44,20 +42,19 @@ public class ProcessImporter {
     }
 
     public BPMNProcess importProcessFromPath(Path path, ValidationResult result)
-            throws ValidatorException {
+            throws ValidationException {
         return importProcessRecursively(path, null, null, result);
     }
 
     private BPMNProcess importProcessRecursively(Path path, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result)
-            throws ValidatorException {
-        result.getCheckedFiles().add(path.toString());
+            throws ValidationException {
+        result.addFile(path);
         if(Files.notExists(path) || !Files.isRegularFile(path)) {
             String msg = "Import could not be resolved: Path "+path+" is invalid.";
             Violation violation = createViolation(parent, path, msg);
-            result.getViolations().add(violation);
-            result.setValid(false);
+            result.addViolation(violation);
 
-            throw new ValidatorException(msg);
+            throw new ValidationException(msg);
         } else {
             try {
                 bpmnXsdValidator.validateAgainstXsd(path.toFile(), result);
@@ -85,20 +82,20 @@ public class ProcessImporter {
 
 
 
-            } catch (ValidatorException e) {
+            } catch (ValidationException e) {
                 // Thrown if file is not well-formed - error is already logged and
                 // added to the validation result - but further processing is not
                 // possible
 
                 return null;
             } catch (SAXException | JDOMException | IOException e) {
-                throw new ValidatorException("Creation of BPMNProcess object failed.", e);
+                throw new ValidationException("Creation of BPMNProcess object failed.", e);
             }
         }
     }
 
     private void resolveAndAddImports(BPMNProcess process, BPMNProcess rootProcess, ValidationResult result)
-            throws ValidatorException {
+            throws ValidationException {
 
         List<Element> importElements = process.getProcessAsDoc().getRootElement().getChildren("import", getBPMNNamespace());
 
@@ -114,6 +111,7 @@ public class ProcessImporter {
                     }
                 }
             } else if(ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
+                result.addFile(importPath);
                 try {
                     wsdlValidator.validateAgainstXsd(importPath.toFile(), result);
                     process.getWsdls().add(builder.build(importPath.toFile()));
@@ -121,11 +119,11 @@ public class ProcessImporter {
                     String msg = "File "+importPath+" is not a valid WSDL file.";
                     Violation violation = createViolation(process, importPath, msg);
                     result.getViolations().add(violation);
-                    result.setValid(false);
                 } catch (IOException | SAXException | JDOMException e) {
-                    throw new ValidatorException("WSDL validation of file "+importPath+" failed.", e);
+                    throw new ValidationException("WSDL validation of file "+importPath+" failed.", e);
                 }
             } else if(ConstantHelper.XSDNAMESPACE.equals(importType)) {
+                result.addFile(importPath);
                 SchemaFactory schemaFactory = SchemaFactory
                         .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
                 try {
@@ -134,8 +132,7 @@ public class ProcessImporter {
                 } catch (SAXException e) {
                     String msg = "File "+importPath+" is not a valid XSD file.";
                     Violation violation = createViolation(process, importPath, msg);
-                    result.getViolations().add(violation);
-                    result.setValid(false);
+                    result.addViolation(violation);
                 }
             }
         }
@@ -151,6 +148,7 @@ public class ProcessImporter {
 
     private Violation createViolation(BPMNProcess parent, Path path, String msg) {
         int line = -1;
+        int column = -1;
         String xpath = "";
 
         List<Element> imports = parent.getProcessAsDoc().getRootElement().getChildren("import",
@@ -159,11 +157,12 @@ public class ProcessImporter {
             Path importPath = Paths.get(parent.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
             if(importPath.equals(path)) {
                 line = ((LocatedElement) elem).getLine();
+                column = ((LocatedElement) elem).getColumn();
                 xpath = XPathHelper.getAbsolutePath(elem);
             }
         }
-
-        return new Violation("EXT.001", parent.getBaseURI(), line, xpath, msg);
+        Location location = new Location(path, new LocationCoordinate(line, column), xpath);
+        return new Violation(location, msg, "EXT.001");
     }
 
     private boolean isFileAlreadyImported(String baseURI, BPMNProcess process) {

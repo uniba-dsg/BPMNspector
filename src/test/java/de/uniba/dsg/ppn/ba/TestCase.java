@@ -1,9 +1,9 @@
 package de.uniba.dsg.ppn.ba;
 
 import ch.qos.logback.classic.Level;
-import de.uniba.dsg.bpmnspector.common.ValidationResult;
-import de.uniba.dsg.bpmnspector.common.ValidatorException;
-import de.uniba.dsg.bpmnspector.common.Violation;
+import api.ValidationResult;
+import api.ValidationException;
+import api.Violation;
 import de.uniba.dsg.ppn.ba.validation.SchematronBPMNValidator;
 
 import java.io.File;
@@ -39,18 +39,18 @@ public class TestCase {
         return new File(path);
     }
 
-    protected ValidationResult validate(File f) throws ValidatorException {
+    protected ValidationResult validate(File f) throws ValidationException {
         return validator.validate(f);
     }
 
-    protected void verifyValidResult(File f) throws ValidatorException {
+    protected void verifyValidResult(File f) throws ValidationException {
         ValidationResult result = validate(f);
         assertTrue(result.isValid());
         assertTrue(result.getViolations().isEmpty());
     }
 
     protected ValidationResult verifyInValidResult(File f, int violationsCount)
-            throws ValidatorException {
+            throws ValidationException {
         ValidationResult result = validate(f);
         assertFalse(result.isValid());
         assertEquals(violationsCount, result.getViolations().size());
@@ -60,15 +60,15 @@ public class TestCase {
     protected void assertViolation(Violation v, String message,
             String fileName, String xpath, int line) {
         assertViolation(v, message, xpath, line);
-        assertTrue(v.getFileName().endsWith(fileName));
+        assertTrue(v.getLocation().getFileName().getFileName().toString().equals(fileName));
 //        assertEquals(fileName, v.getFileName());
     }
 
     protected void assertViolation(Violation v, String message, String xpath,
             int line) {
         assertEquals(message, v.getMessage());
-        assertEquals(xpath, v.getxPath());
-        assertEquals(line, v.getLine());
+        assertEquals(xpath, v.getLocation().getXpath().orElse(""));
+        assertEquals(line, v.getLocation().getLocation().getRow());
     }
 
     protected void assertViolation(Violation v, String xpath, int line) {
