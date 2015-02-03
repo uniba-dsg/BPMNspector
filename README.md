@@ -16,6 +16,8 @@ BPMNspector checks single files - or complete directories - of BPMN files and re
 
 This software is licensed under the LGPL Version 3 Open Source License.
 
+For further information visit http://www.uni-bamberg.de/pi/bpmn-constraints.
+
 ## What do I need? || Requirements 
 As BPMNspector uses gradlew only a Java 8 installation is needed - download  and configuration of needed libraries is performed on the fly.
 
@@ -102,7 +104,7 @@ $ gradlew javadoc
 LGPL Version 3: http://www.gnu.org/licenses/lgpl-3.0.html
 
 ## Authors
-[Matthias Geiger](http://www.uni-bamberg.de/en/pi/team/geiger-matthias/), Philipp Neugebauer and Andreas Vorndran
+[Matthias Geiger](http://www.uni-bamberg.de/en/pi/team/geiger-matthias/), [Philipp Neugebauer](https://github.com/philippneugebauer) and [Andreas Vorndran](https://github.com/andy-x)
 
 BPMNspector is partly based on the practical part of two Bachelor theses:
 - Andreas has developed the reference checking mechanism ```de.uniba.dsg.bpmnspector.refcheck``` - this part has already been published [here](https://github.com/uniba-dsg/BPMN-Reference-Validator)
