@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>BPMNspector - Validation Result for file $validationResult.getFoundFiles().get(0).getFileName().toString()</title>
+    <link href="res/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="page-header col-md-9"><h1>BPMNspector <small>Validation Result for file $validationResult.getFoundFiles().get(0).getFileName().toString()</small></h1></div>
+        <div class="col-md-3" style="padding-top: 20px"><img src="res/logo-h100.png" height="100"></div>
+    </div>
+    <div class="row">
+    #if (! $validationResult.isValid() )
+        <div class="alert alert-danger" role="alert"><strong>Rule violations have been detected.</strong> See details below.</div>
+        #if( !$validationResult.getWarnings().isEmpty())
+            <div class="alert alert-warning" role="alert"><strong>Some warnings have been found.</strong> Additionally some warnings were detected.</div>
+        #end
+    #elseif ( !$validationResult.getWarnings().isEmpty())
+        <div class="alert alert-warning" role="alert"><strong>Some warnings have been found.</strong> All Files are generally valid but there are some warnings.</div>
+    #else
+        <div class="alert alert-success" role="alert"><strong>All files are valid!</strong></div>
+    #end
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Checked files</h4></div>
+
+        <ul class="list-group">
+            #foreach ($path in $validationResult.getFoundFiles())
+            <li class="list-group-item"><code>$path.toString()</code>
+                #if ($validationResult.getFilesWithViolations().contains($path))
+                    <span class="label label-danger">violations found</span>
+                    #if ($filesWithWarnings.contains($path))
+                    <span class="label label-warning">warnings found</span>
+                    #end
+                #else
+                    #if ($filesWithWarnings.contains($path))
+                    <span class="label label-warning">warnings found</span>
+                    #else
+                    <span class="label label-success">valid</span>
+                    #end
+                #end
+
+            </li>
+            #end
+        </ul>
+    </div>
+
+#if (! $validationResult.isValid() )
+    <div class="panel panel-danger">
+        <div class="panel-heading"><h4>Found Violations</h4></div>
+    <table class="table table-striped">
+        <thead class="text-capitalize">
+            <th>#</th>
+            <th>File</th>
+            <th>Line</th>
+            <th>Constraint</th>
+            <th>Message</th>
+        </thead>
+        <tbody>
+    #foreach ($violation in $validationResult.getViolations())
+        <tr>
+            <td>$foreach.count</td>
+            <td>$violation.getLocation().getFileName().toString()</td>
+            <td>$violation.getLocation().getLocation().getRow()</td>
+            <td>$violation.getConstraint()</td>
+            <td>$violation.getMessage()</td>
+        </tr>
+    #end
+        </tbody>
+    </table>
+    </div>
+#end
+
+    #if ( !$validationResult.getWarnings().isEmpty() )
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h4>Warnings</h4></div>
+            <table class="table table-striped">
+                <thead class="text-capitalize">
+                <th>#</th>
+                <th>File</th>
+                <th>Line</th>
+                <th>Message</th>
+                </thead>
+                <tbody>
+                    #foreach ($warning in $validationResult.getWarnings())
+                    <tr>
+                        <td>$foreach.count</td>
+                        <td>$warning.getLocation().getFileName().toString()</td>
+                        <td>$warning.getLocation().getLocation().getRow()</td>
+                        <td>$warning.getMessage()</td>
+                    </tr>
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
+
+</div>
+</body>
+</html>

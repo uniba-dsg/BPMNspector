@@ -27,4 +27,28 @@ public class FileUtils {
         }
     }
 
+    public static Path createResourcesForReports() throws IOException {
+        Path reportDir = Paths.get("reports");
+
+        if(!Files.exists(reportDir)) {
+            Files.createDirectory(reportDir);
+        }
+        if(!Files.exists(reportDir) || !Files.exists(reportDir.resolve("res"))) {
+            Files.createDirectory(reportDir.resolve("res"));
+            org.apache.commons.io.FileUtils.copyDirectory(Paths.get("src/main/resources/reporting/res").toFile(), reportDir.resolve("res").toFile());
+        }
+
+        return reportDir;
+    }
+
+    public static Path createFileForReport(Path reportDir, String filePrefix, String fileSuffix) {
+        Path reportFile = reportDir.resolve(filePrefix + "_validation_result."+fileSuffix);
+
+        for(int i=1; Files.exists(reportFile); i++) {
+            reportFile = reportDir.resolve(filePrefix+"("+i+")_validation_result."+fileSuffix);
+        }
+
+        return reportFile;
+    }
+
 }

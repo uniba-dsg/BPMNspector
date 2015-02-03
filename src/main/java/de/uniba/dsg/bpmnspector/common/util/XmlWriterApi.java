@@ -30,6 +30,20 @@ public class XmlWriterApi {
     private final JDOMFactory factory = new DefaultJDOMFactory();
     private final Namespace nsp = Namespace.getNamespace(ConstantHelper.PINAMESPACE);
 
+    public static void createXmlReport(ValidationResult result) {
+        try {
+            String fileName = result.getFoundFiles().get(0).getFileName().toString();
+            Path reportPath = FileUtils.createResourcesForReports();
+
+            Path reportFile = FileUtils.createFileForReport(reportPath, fileName, "xml");
+
+            XmlWriterApi xmlWriter = new XmlWriterApi();
+            xmlWriter.writeResult(result, reportFile);
+        } catch ( IOException ioe) {
+            LOGGER.error("Creation of XML Report files failed.", ioe);
+        }
+    }
+
     /**
      * writes the result to the given file
      *
@@ -40,7 +54,7 @@ public class XmlWriterApi {
      * @throws java.io.IOException
      *             if an error occurs during xml writing process
      */
-    public void writeResult(ValidationResult result, Path file) throws IOException {
+    private void writeResult(ValidationResult result, Path file) throws IOException {
         Document doc = createDocFromValidationResult(result);
         XMLOutputter outputter = new XMLOutputter();
         outputter.setFormat(Format.getPrettyFormat());
