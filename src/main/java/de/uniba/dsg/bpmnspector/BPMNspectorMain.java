@@ -75,8 +75,4 @@ public class BPMNspectorMain {
             XmlWriterApi.createXmlReport(result);
         } // else: NONE - create no reports
     }
-
-    // TODO own method for HTML reports
-    // TODO CLI selection for report format
-
 }
