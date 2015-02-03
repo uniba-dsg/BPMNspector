@@ -5,11 +5,11 @@ import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
 import api.ValidationResult;
 import api.ValidationException;
+import de.uniba.dsg.bpmnspector.common.util.HtmlReportGenerator;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,16 +35,16 @@ public class BPMNspectorMain {
             if (Files.exists(path)) {
 
                 try {
-
                     if (Files.isDirectory(path)) {
                         List<ValidationResult> results = inspector
                                 .inspectDirectory(path,
                                         params.getValidationOptions());
-                        results.forEach(BPMNspectorMain::createXmlReport);
+
+                        results.forEach(r -> createReport(r, params.getReportOption()));
                     } else {
                         ValidationResult result = inspector.inspectFile(path,
                                 params.getValidationOptions());
-                        createXmlReport(result);
+                        createReport(result, params.getReportOption());
                     }
 
                 } catch (ValidationException e) {
@@ -65,27 +65,18 @@ public class BPMNspectorMain {
         LOGGER.debug("Debug mode activated.");
     }
 
-    private static void createXmlReport(ValidationResult result) {
-        try {
-            String fileName = result.getFoundFiles().get(0).getFileName().toString();
-            Path reportPath = Paths.get("reports");
-
-            if(!Files.exists(reportPath)) {
-                Files.createDirectory(reportPath);
-            }
-
-            Path reportFile = reportPath.resolve(fileName + "_validation_result.xml");
-
-            for(int i=1; Files.exists(reportFile); i++) {
-                reportFile = reportPath.resolve(fileName+"("+i+")_validation_result.xml");
-            }
-
-            XmlWriterApi xmlWriter = new XmlWriterApi();
-            xmlWriter.writeResult(result, reportFile);
-        //} catch (JAXBException | IOException e) {
-        } catch ( IOException e) {
-            LOGGER.error("result of validation couldn't be written in xml!", e);
-        }
+    private static void createReport(ValidationResult result, ReportOption option) {
+        if(ReportOption.ALL.equals(option)) {
+            HtmlReportGenerator.createHtmlReport(result);
+            XmlWriterApi.createXmlReport(result);
+        } else if (ReportOption.HTML.equals(option)) {
+            HtmlReportGenerator.createHtmlReport(result);
+        } else if (ReportOption.XML.equals(option)) {
+            XmlWriterApi.createXmlReport(result);
+        } // else: NONE - create no reports
     }
+
+    // TODO own method for HTML reports
+    // TODO CLI selection for report format
 
 }

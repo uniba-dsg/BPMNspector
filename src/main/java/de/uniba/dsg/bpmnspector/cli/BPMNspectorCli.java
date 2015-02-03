@@ -1,5 +1,6 @@
 package de.uniba.dsg.bpmnspector.cli;
 
+import de.uniba.dsg.bpmnspector.ReportOption;
 import de.uniba.dsg.bpmnspector.ValidationOption;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
@@ -19,15 +20,31 @@ public class BPMNspectorCli {
     public static final String CHECK_ALL = "ALL";
 
     private final Map<String, String> checkOptions;
+    private final Map<String, String> reportOptions;
 
     public BPMNspectorCli() {
         checkOptions = createCheckOptions();
+        reportOptions = createReportOptions();
     }
 
     private Options createCliOptions() {
         Option debug = OptionBuilder.withDescription("run BPMNspector in debug mode")
                 .withLongOpt(DEBUG)
                 .create("d");
+
+        StringBuilder reportDescBuilder = new StringBuilder(400)
+                .append("defines which report type should be generated.\nAllowed values:\n");
+
+        for(Map.Entry entry : reportOptions.entrySet()) {
+            reportDescBuilder.append(entry.getKey()).append(" - ")
+                    .append(entry.getValue()).append('\n');
+        }
+
+        Option reportFormat = OptionBuilder.withDescription(reportDescBuilder.toString())
+                .hasArg()
+                .withArgName("NONE | XML | HTML | BOTH")
+                .create("r");
+
         StringBuilder checksDescBuilder = new StringBuilder(400)
                 .append("defines which checks should be performed.\nAllowed values:\n");
 
@@ -45,6 +62,7 @@ public class BPMNspectorCli {
         Options options = new Options();
         options.addOption(debug);
         options.addOption(help);
+        options.addOption(reportFormat);
         options.addOption(checks);
 
         return options;
@@ -75,7 +93,7 @@ public class BPMNspectorCli {
                     return new CliParameter(cl.getArgs()[0],
                             validateAndCreateValidationOptions(
                                     cl.getOptionValue(CHECKS, CHECK_ALL)),
-                            cl.hasOption(DEBUG));
+                            cl.hasOption(DEBUG), validateAndCreateReportOption(cl.getOptionValue("r", "HTML")));
                 } else {
                     LOGGER.error("Invalid usage: Too much arguments detected. It is only possible to check one file or directory at the same time.");
                     printUsageInformation();
@@ -115,6 +133,15 @@ public class BPMNspectorCli {
         return options;
     }
 
+    private ReportOption validateAndCreateReportOption(String reportOptionString) throws ParseException {
+        try {
+            return ReportOption.valueOf(reportOptionString);
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(
+                    "Report option "+reportOptionString+" is not valid.");
+        }
+    }
+
     private Map<String, String> createCheckOptions() {
         Map<String, String> checkOptions = new HashMap<>();
         for(ValidationOption option : ValidationOption.values()) {
@@ -124,5 +151,13 @@ public class BPMNspectorCli {
         checkOptions.put("ALL", "performs all checks (default)");
 
         return checkOptions;
+    }
+
+    private Map<String, String> createReportOptions() {
+        Map<String, String> reportOptions = new HashMap<>();
+        for(ReportOption option : ReportOption.values()) {
+            reportOptions.put(option.toString(), option.getDescription());
+        }
+        return reportOptions;
     }
 }
