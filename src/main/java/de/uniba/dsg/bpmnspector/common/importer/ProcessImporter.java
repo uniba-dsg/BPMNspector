@@ -80,16 +80,14 @@ public class ProcessImporter {
                     return null;
                 }
 
-
-
             } catch (ValidationException e) {
-                // Thrown if file is not well-formed - error is already logged and
+                // Thrown if file is not well-formed or does not have claimed encoding- error is already logged and
                 // added to the validation result - but further processing is not
                 // possible
 
                 return null;
             } catch (SAXException | JDOMException | IOException e) {
-                throw new ValidationException("Creation of BPMNProcess object failed.", e);
+                throw new ValidationException("Creation of BPMNProcess for file "+path.toString()+" object failed.", e);
             }
         }
     }

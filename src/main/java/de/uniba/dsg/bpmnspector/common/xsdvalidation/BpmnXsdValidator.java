@@ -1,6 +1,7 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
 import api.*;
+import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -57,7 +58,8 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
         Validator validator = schema.newValidator();
         validator.setErrorHandler(new XsdValidationErrorHandler(xsdErrorList));
         try {
-            validator.validate(new StreamSource(xmlFile));
+            StreamSource src = new StreamSource(xmlFile);
+            validator.validate(src);
             for (SAXParseException saxParseException : xsdErrorList) {
                 Location location = new Location(xmlFile.toPath(),
                         new LocationCoordinate(saxParseException.getLineNumber(),
@@ -69,6 +71,17 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
                          saxParseException.getLineNumber());
                 }
             }
+        } catch (MalformedByteSequenceException e) {
+            // Thrown if file encoding is not valid
+            String msg = "File "+xmlFile.toString()+" does not have claimed encoding - further processing is not possible.";
+            Location location = new Location(xmlFile.toPath(),
+                    new LocationCoordinate(1,1));
+            Violation violation = new Violation(location, msg, "XSD-Check");
+            if(!validationResult.getViolations().contains(violation)) {
+                validationResult.addViolation(violation);
+                LOGGER.info(msg);
+            }
+            throw new ValidationException("Cancel Validation as checked File does not have claimed encoding.");
         } catch (SAXParseException e) {
             // if process is not well-formed exception is not processed via the error handler
             Location location = new Location(xmlFile.toPath(),
