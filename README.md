@@ -43,7 +43,7 @@ or here:
 
 ```
 usage: BPMNspector <file or directory> [-c <[opt1[,opt2]...>] [-d] [-h]
-       [-r <NONE | XML | HTML | BOTH>]
+       [-o] [-r <NONE | XML | HTML | BOTH>]
 Options:
  -c,--checks <[opt1[,opt2]...>   defines which checks should be performed.
                                  Allowed values:
@@ -54,6 +54,7 @@ Options:
                                  XSD - performs an XML schema validation
  -d,--debug                      run BPMNspector in debug mode
  -h,--help                       prints this usage information
+ -o,--open                       open the report file upon completion
  -r <NONE | XML | HTML | BOTH>   defines which report type should be
                                  generated.
                                  Allowed values:
@@ -65,6 +66,7 @@ Options:
 Examples:
 		BPMNspector myfile.bpmn
 		BPMNspector c:\absolute\path\to\folder -c REF -d
+		BPMNspector c:\absolute\path\to\file.bpmn -o -r HTML
 ```
 
 ## How can I use BPMNspector as a developer? || Development

@@ -26,7 +26,7 @@ public class HtmlReportGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(HtmlReportGenerator.class
             .getSimpleName());
 
-    public static void createHtmlReport(ValidationResult result) {
+    public static Path createHtmlReport(ValidationResult result) {
         String fileName = result.getFoundFiles().get(0).getFileName().toString();
 
         try {
@@ -35,8 +35,11 @@ public class HtmlReportGenerator {
             Path htmlFile = FileUtils.createFileForReport(reportPath, fileName, "html");
 
             createReportFromValidationResult(result, htmlFile);
+
+            return htmlFile;
         } catch ( IOException ioe) {
             LOGGER.error("Creation of HTML Report files failed. Report directory or needed resources could not be created.", ioe);
+            return null;
         }
     }
 

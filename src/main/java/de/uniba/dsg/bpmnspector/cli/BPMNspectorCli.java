@@ -16,6 +16,7 @@ public class BPMNspectorCli {
     public static final String HELP = "help";
     public static final String DEBUG = "debug";
     public static final String CHECKS = "checks";
+    public static final String OPEN = "open";
 
     public static final String CHECK_ALL = "ALL";
 
@@ -58,11 +59,16 @@ public class BPMNspectorCli {
                 .withArgName("[opt1[,opt2]...")
                 .withLongOpt(CHECKS)
                 .create("c");
+
         Option help = new Option("h", HELP, false, "prints this usage information");
+
+        Option open = new Option("o", OPEN, false, "open the report file upon completion");
+
         Options options = new Options();
         options.addOption(debug);
         options.addOption(help);
         options.addOption(reportFormat);
+        options.addOption(open);
         options.addOption(checks);
 
         return options;
@@ -72,7 +78,8 @@ public class BPMNspectorCli {
         HelpFormatter formatter = new HelpFormatter();
         String example = "\nExamples:\n"
                 +"\t\tBPMNspector myfile.bpmn\n"
-                +"\t\tBPMNspector c:\\absolute\\path\\to\\folder -c REF -d";
+                +"\t\tBPMNspector c:\\absolute\\path\\to\\folder -c REF -d\n"
+                +"\t\tBPMNspector c:\\absolute\\path\\to\\file.bpmn -o -r HTML";
         formatter.printHelp("BPMNspector <file or directory>", "Options:", createCliOptions(), "", true);
         System.out.println(example);
     }
