@@ -1,4 +1,4 @@
-# BPMNspector <img align="right" src="src/main/resources/logo-h100.png" height="100" width="217"/>
+# BPMNspector <img align="right" src="src/main/resources/reporting/res/logo-h100.png" height="100" width="217"/>
 
 **Statical analysis for BPMN 2.0 process models**
 
@@ -108,7 +108,7 @@ LGPL Version 3: http://www.gnu.org/licenses/lgpl-3.0.html
 
 BPMNspector is partly based on the practical part of two Bachelor theses:
 - Andreas has developed the reference checking mechanism ```de.uniba.dsg.bpmnspector.refcheck``` - this part has already been published [here](https://github.com/uniba-dsg/BPMN-Reference-Validator)
-- Philipp created the Schematron validation part of BPMNspector ```de.uniba.dsg.bpmnspector.schematron```
+- Philipp created the Schematron validation part of BPMNspector ```de.uniba.dsg.bpmnspector.schematron``` - the standalone version is [SchematronBPMNValidator](https://github.com/philippneugebauer/SchematronBPMNValidator)
 
 ## Found a bug?
 Report your issue here at GitHub!
