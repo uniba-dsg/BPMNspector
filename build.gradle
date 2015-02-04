@@ -74,12 +74,22 @@ jacoco {
 jar.archiveName = "BPMNspector.jar"
 
 jar {
-        from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
-        manifest { attributes 'Main-Class': mainClassName }
+    from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest { attributes 'Main-Class': mainClassName }
+}
+
+compileJava {
+    dependsOn 'zipReportResources'
 }
 
 run {
     if(project.hasProperty('args')){
         args project.args.split('\\s+')
     }
+}
+
+task zipReportResources(type: Zip) {
+    archiveName = "reportingResources.zip"
+    from('src/main/resources/reporting/res')
+    destinationDir = file('src/main/resources')
 }

@@ -5,6 +5,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.exception.VelocityException;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,12 @@ public class HtmlReportGenerator {
     }
 
     private static void createReportFromValidationResult(ValidationResult result, Path outputPath) {
+        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.init();
+
         try {
-            Template template = Velocity.getTemplate("src/main/resources/reporting/ValidationResult.vm");
+            Template template = Velocity.getTemplate("reporting/ValidationResult.vm");
 
             VelocityContext context = new VelocityContext();
             context.put("validationResult", result);
