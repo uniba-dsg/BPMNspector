@@ -16,6 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import static de.uniba.dsg.bpmnspector.common.util.XmlWriterApi.*;
+
 public class BPMNspectorMain {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BPMNspectorMain.class.getSimpleName());
@@ -41,7 +43,7 @@ public class BPMNspectorMain {
                                 .inspectDirectory(path,
                                         params.getValidationOptions());
 
-                        results.forEach(r -> createReport(r, params.getReportOption(), false));
+                        createFolderReports(path, results,params.getReportOption(), true);
                     } else {
                         ValidationResult result = inspector.inspectFile(path,
                                 params.getValidationOptions());
@@ -70,11 +72,33 @@ public class BPMNspectorMain {
         Path reportPath = null;
         if(ReportOption.ALL.equals(option)) {
             reportPath = HtmlReportGenerator.createHtmlReport(result);
-            XmlWriterApi.createXmlReport(result);
+            createXmlReport(result);
         } else if (ReportOption.HTML.equals(option)) {
             reportPath = HtmlReportGenerator.createHtmlReport(result);
         } else if (ReportOption.XML.equals(option)) {
-            reportPath = XmlWriterApi.createXmlReport(result);
+            reportPath = createXmlReport(result);
+        } // else: NONE - create no reports
+        if(andOpen && reportPath!=null) {
+            try {
+                Desktop.getDesktop().browse(reportPath.toUri());
+            } catch (Exception ignore) {
+                // ignore any exceptions
+            }
+        }
+    }
+
+    private static void createFolderReports(Path baseFolder, List<ValidationResult> results, ReportOption option, boolean andOpen) {
+        Path reportPath = null;
+        if(ReportOption.ALL.equals(option)) {
+            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
+            reportPath = htmlReportGenerator.createSummaryReport(results, baseFolder);
+            results.forEach(result -> createXmlReport(result));
+        } else if (ReportOption.HTML.equals(option)) {
+            //reportPath = HtmlReportGenerator.createHtmlReport(result);
+            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
+            reportPath = htmlReportGenerator.createSummaryReport(results, baseFolder);
+        } else if (ReportOption.XML.equals(option)) {
+            results.forEach(result -> createXmlReport(result));
         } // else: NONE - create no reports
         if(andOpen && reportPath!=null) {
             try {
