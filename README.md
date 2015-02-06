@@ -1,6 +1,6 @@
 # BPMNspector <img align="right" src="src/main/resources/reporting/res/logo-h100.png" height="100" width="217"/>
 
-**Statical analysis for BPMN 2.0 process models**
+**Static analysis for BPMN 2.0 process models**
 
 ## What is it? || Description
 
@@ -33,6 +33,8 @@ To use BPMNspector simply run the start script:
 ```
 $ BPMNspector fileToValidate.bpmn
 ```
+
+After completion a HTML report will be opened automatically - all reports are stored in ```{BPMNspector.home}/reports```.
 
 Available options are listed by calling:
 ```

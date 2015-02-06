@@ -53,7 +53,7 @@ public class HtmlReportGenerator {
             Path summaryFile = reportPath.resolve(fileName);
 
             int checkedFilesSum = 0;
-            int filesWithViolationsSum = 0;
+            int validResults = 0;
 
             List<SingleValidationSummary> summaries = new LinkedList<>();
 
@@ -64,7 +64,9 @@ public class HtmlReportGenerator {
                 Path singleReport = createHtmlReport(singleResult);
                 // update counters
                 checkedFilesSum += singleResult.getFoundFiles().size();
-                filesWithViolationsSum += singleResult.getFilesWithViolations().size();
+                if(singleResult.isValid()) {
+                    validResults++;
+                }
 
                 // update violationsByConstraintCount
                 addViolationsToMap(singleResult, violationsByConstraintCount);
@@ -76,7 +78,7 @@ public class HtmlReportGenerator {
                 summaries.add(summary);
             }
 
-            createSummaryHtml(baseFolder.toString(), summaryFile, checkedFilesSum, filesWithViolationsSum, violationsByConstraintCount, summaries);
+            createSummaryHtml(baseFolder.toString(), summaryFile, checkedFilesSum, validResults,  violationsByConstraintCount, summaries);
 
             return summaryFile;
         } catch ( IOException ioe) {
@@ -85,7 +87,7 @@ public class HtmlReportGenerator {
         }
     }
 
-    private void createSummaryHtml(String baseFolder, Path summaryFile, int checkedFilesSum, int filesWithViolationsSum,
+    private void createSummaryHtml(String baseFolder, Path summaryFile, int checkedFilesSum, int validResults,
                                    Map<String, Integer> violationsByConstraintCount,
                                    List<SingleValidationSummary> summaries) {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -98,8 +100,10 @@ public class HtmlReportGenerator {
             VelocityContext context = new VelocityContext();
             context.put("baseFolder", baseFolder);
             context.put("checkedFilesSum", checkedFilesSum);
-            context.put("validFilesSum", checkedFilesSum-filesWithViolationsSum);
-            context.put("filesWithViolationsSum", filesWithViolationsSum);
+            context.put("directlyChecked", summaries.size());
+            context.put("importedFilesChecked", checkedFilesSum-summaries.size());
+            context.put("validResults", validResults);
+            context.put("invalidResults", summaries.size()-validResults);
             context.put("violationsByConstraintCount", violationsByConstraintCount);
             context.put("summaries", summaries);
 
