@@ -37,8 +37,8 @@ dependencies {
     internal 'org.apache.velocity:velocity:1.7'
     
     pmd(  
-        'net.sourceforge.pmd:pmd-core:5.2.+',  
-        'net.sourceforge.pmd:pmd-java:5.2.+'  
+        'net.sourceforge.pmd:pmd-core:5.2.3',  
+        'net.sourceforge.pmd:pmd-java:5.2.3'  
     ) 
 
     external files(fileTree(dir: "lib", includes: ['*.jar']))
@@ -50,7 +50,7 @@ dependencies {
 }
 
 pmd {
-    toolVersion = '5.2.1'
+    toolVersion = '5.2.3'
     ruleSetFiles = files("config/pmd.xml")
     ruleSets = []
 	ignoreFailures = true
