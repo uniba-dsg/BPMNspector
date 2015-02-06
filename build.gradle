@@ -26,24 +26,24 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    internal 'org.jdom:jdom2:2.0.5'
-    internal 'jaxen:jaxen:1.1.6'
-    internal 'ch.qos.logback:logback-core:1.1.2'
-    internal 'ch.qos.logback:logback-classic:1.1.2'
-    internal 'org.slf4j:slf4j-api:1.7.7'
-    internal 'com.phloc:phloc-commons:4.3.5'
+    internal 'org.jdom:jdom2:2.0.+'
+    internal 'jaxen:jaxen:1.1.+'
+    internal 'ch.qos.logback:logback-core:1.1.+'
+    internal 'ch.qos.logback:logback-classic:1.1.+'
+    internal 'org.slf4j:slf4j-api:1.7.+'
+    internal 'com.phloc:phloc-commons:4.3.+'
     internal 'commons-cli:commons-cli:1.2'
     internal 'commons-io:commons-io:2.4'
     internal 'org.apache.velocity:velocity:1.7'
     
     pmd(  
-        'net.sourceforge.pmd:pmd-core:5.2.1',  
-        'net.sourceforge.pmd:pmd-java:5.2.1'  
+        'net.sourceforge.pmd:pmd-core:5.2.+',  
+        'net.sourceforge.pmd:pmd-java:5.2.+'  
     ) 
 
     external files(fileTree(dir: "lib", includes: ['*.jar']))
 
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4.+'
 
     compile configurations.internal
     compile configurations.external
