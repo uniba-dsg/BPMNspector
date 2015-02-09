@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static de.uniba.dsg.bpmnspector.common.util.XmlWriterApi.*;
 
 public class BPMNspectorMain {
 
@@ -72,11 +71,11 @@ public class BPMNspectorMain {
         Path reportPath = null;
         if(ReportOption.ALL.equals(option)) {
             reportPath = HtmlReportGenerator.createHtmlReport(result);
-            createXmlReport(result);
+            XmlWriterApi.createXmlReport(result);
         } else if (ReportOption.HTML.equals(option)) {
             reportPath = HtmlReportGenerator.createHtmlReport(result);
         } else if (ReportOption.XML.equals(option)) {
-            reportPath = createXmlReport(result);
+            reportPath = XmlWriterApi.createXmlReport(result);
         } // else: NONE - create no reports
         if(andOpen && reportPath!=null) {
             try {
@@ -90,15 +89,12 @@ public class BPMNspectorMain {
     private static void createFolderReports(Path baseFolder, List<ValidationResult> results, ReportOption option, boolean andOpen) {
         Path reportPath = null;
         if(ReportOption.ALL.equals(option)) {
-            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
-            reportPath = htmlReportGenerator.createSummaryReport(results, baseFolder);
-            results.forEach(result -> createXmlReport(result));
+            reportPath = HtmlReportGenerator.createSummaryReport(results, baseFolder);
+            results.forEach(XmlWriterApi::createXmlReport);
         } else if (ReportOption.HTML.equals(option)) {
-            //reportPath = HtmlReportGenerator.createHtmlReport(result);
-            HtmlReportGenerator htmlReportGenerator = new HtmlReportGenerator();
-            reportPath = htmlReportGenerator.createSummaryReport(results, baseFolder);
+            reportPath = HtmlReportGenerator.createSummaryReport(results, baseFolder);
         } else if (ReportOption.XML.equals(option)) {
-            results.forEach(result -> createXmlReport(result));
+            results.forEach(XmlWriterApi::createXmlReport);
         } // else: NONE - create no reports
         if(andOpen && reportPath!=null) {
             try {

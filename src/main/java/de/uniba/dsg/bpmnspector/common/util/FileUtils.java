@@ -48,9 +48,9 @@ public class FileUtils {
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = entries.nextElement();
                     Path zippedFile = reportResDir.resolve(entry.getName());
-                    if (entry.isDirectory())
+                    if (entry.isDirectory()) {
                         Files.createDirectory(zippedFile);
-                    else {
+                    } else {
                         InputStream in = zipFile.getInputStream(entry);
                         org.apache.commons.io.FileUtils.copyInputStreamToFile(in, zippedFile.toFile());
                     }

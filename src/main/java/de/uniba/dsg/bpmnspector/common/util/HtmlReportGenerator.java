@@ -44,8 +44,8 @@ public class HtmlReportGenerator {
         }
     }
 
-    public Path createSummaryReport(List<ValidationResult> results, Path baseFolder) {
-        String fileName = "ValidationSummary"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()))+".html";
+    public static Path createSummaryReport(List<ValidationResult> results, Path baseFolder) {
+        String fileName = "ValidationSummary"+(new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault()).format(new Date()))+".html";
 
         try {
             Path reportPath = FileUtils.createResourcesForReports();
@@ -87,7 +87,7 @@ public class HtmlReportGenerator {
         }
     }
 
-    private void createSummaryHtml(String baseFolder, Path summaryFile, int checkedFilesSum, int validResults,
+    private static void createSummaryHtml(String baseFolder, Path summaryFile, int checkedFilesSum, int validResults,
                                    Map<String, Integer> violationsByConstraintCount,
                                    List<SingleValidationSummary> summaries) {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -122,13 +122,13 @@ public class HtmlReportGenerator {
         }
     }
 
-    private void addViolationsToMap(ValidationResult singleResult, Map<String, Integer> violationsByConstraintCount) {
+    private static void addViolationsToMap(ValidationResult singleResult, Map<String, Integer> violationsByConstraintCount) {
         for(Violation violation : singleResult.getViolations()) {
             Integer i = violationsByConstraintCount.get(violation.getConstraint());
-            if (i != null) {
-                violationsByConstraintCount.put(violation.getConstraint(), i + 1);
-            } else {
+            if (i == null) {
                 violationsByConstraintCount.put(violation.getConstraint(), 1);
+            } else {
+                violationsByConstraintCount.put(violation.getConstraint(), i + 1);
             }
         }
     }
@@ -163,7 +163,7 @@ public class HtmlReportGenerator {
         return result.getWarnings().stream().map(v -> v.getLocation().getFileName()).distinct().collect(Collectors.toList());
     }
 
-    public class SingleValidationSummary {
+    public static class SingleValidationSummary {
         private final String reportFilename;
         private final String checkedFilename;
         private final int violationCount;
@@ -175,7 +175,6 @@ public class HtmlReportGenerator {
             this.violationCount = violationCount;
             this.warningCount = warningCount;
         }
-
 
         public String getReportFilename() {
             return reportFilename;

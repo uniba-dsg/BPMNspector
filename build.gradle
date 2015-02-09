@@ -35,11 +35,9 @@ dependencies {
     internal 'commons-cli:commons-cli:1.2'
     internal 'commons-io:commons-io:2.4'
     internal 'org.apache.velocity:velocity:1.7'
-    
-    pmd(  
-        'net.sourceforge.pmd:pmd-core:5.2.3',  
-        'net.sourceforge.pmd:pmd-java:5.2.3'  
-    ) 
+
+    pmd 'net.sourceforge.pmd:pmd-core:5.2.+'
+    pmd 'net.sourceforge.pmd:pmd-java:5.2.+'
 
     external files(fileTree(dir: "lib", includes: ['*.jar']))
 
