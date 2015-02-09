@@ -155,9 +155,8 @@ public class SchematronBPMNValidator {
         String constraint = message.substring(0, message.indexOf('|'));
         String errorMessage = message.substring(message.indexOf('|') + 1);
 
-        int line = -1;
-        int column = -1;
-        String fileName;
+        Location violationLocation = null;
+
         String location = "";
 
         // direct usage of xpath expression failedAssert.getLocation() not possible
@@ -179,11 +178,18 @@ public class SchematronBPMNValidator {
                 Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluate(
                 baseProcess.getProcessAsDoc());
         LOGGER.debug("Number of found elems: "+elems.size());
+        String logText;
         if(elems.size()>=xpathIndex+1) {
-            line = ((LocatedElement) elems.get(xpathIndex)).getLine();
-            column = ((LocatedElement) elems.get(xpathIndex)).getColumn();
-            fileName = baseProcess.getBaseURI();
+            int line = ((LocatedElement) elems.get(xpathIndex)).getLine();
+            int column = ((LocatedElement) elems.get(xpathIndex)).getColumn();
+            String fileName = baseProcess.getBaseURI();
             location = failedAssert.getLocation();
+            violationLocation = new Location(
+                    Paths.get(fileName),
+                    new LocationCoordinate(line, column), location);
+            logText = String.format(
+                    "violation of constraint %s found in %s at line %s.",
+                    constraint, violationLocation.getFileName().getFileName().toString(), violationLocation.getLocation().getRow());
         } else {
             try {
                 String xpathId = "";
@@ -192,28 +198,19 @@ public class SchematronBPMNValidator {
                             .getText().trim();
                 }
                 LOGGER.debug("Trying to locate in files: "+xpathId);
-                String[] result = searchForViolationFile(xpathId, baseProcess);
-                fileName = result[0];
-                line = Integer.parseInt(result[1]);
-                column = Integer.parseInt(result[2]);
-                location = result[3];
-            } catch (ValidationException e) {
-                fileName = e.getMessage();
+                violationLocation = searchForViolationFile(xpathId, baseProcess);
+                logText = String.format(
+                        "violation of constraint %s found in %s at line %s.",
+                        constraint, violationLocation.getFileName().getFileName().toString(), violationLocation.getLocation().getRow());
+            } catch (ValidationException | StringIndexOutOfBoundsException e) {
                 LOGGER.error("Line of affected Element could not be determined.");
-            } catch (StringIndexOutOfBoundsException e) {
-                fileName = "Element couldn't be found!";
-                LOGGER.error("Line of affected Element could not be determined.");
+                logText = String.format("Found violation of constraint %s but the correct location could not be determined.",
+                        constraint);
             }
         }
 
-        String logText = String.format(
-                "violation of constraint %s found in %s at line %s.",
-                constraint, fileName, line);
         LOGGER.info(logText);
 
-        Location violationLocation = new Location(
-                Paths.get(fileName),
-                new LocationCoordinate(line, column), location);
         Violation violation = new Violation(violationLocation, errorMessage, constraint);
         validationResult.addViolation(violation);
     }
@@ -226,17 +223,15 @@ public class SchematronBPMNValidator {
      *            identified
      * @param baseProcess
      *            baseProcess used for validation
-     * @return string array with filename, line and xpath expression to find the
-     *         element
+     * @return the violation Location
      * @throws ValidationException
      *             if no element can be found
      */
-    // TODO: extract in own object?
-    private String[] searchForViolationFile(String xpathExpression,
+    private Location searchForViolationFile(String xpathExpression,
             BPMNProcess baseProcess) throws ValidationException {
         String fileName = "";
-        String line = "-1";
-        String column = "-1";
+        int line = -1;
+        int column = -1;
         String xpathObjectId = "";
 
         String namespacePrefix = xpathExpression.substring(0,
@@ -254,21 +249,23 @@ public class SchematronBPMNValidator {
                     Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluate(optional.get().getProcessAsDoc());
 
             if(elems.size()==1) {
-                line = String.valueOf(((LocatedElement) elems.get(0)).getLine());
-                column = String.valueOf(((LocatedElement) elems.get(0)).getColumn());
+                line = ((LocatedElement) elems.get(0)).getLine();
+                column = ((LocatedElement) elems.get(0)).getColumn();
                 //use ID without prefix  (=original ID) as Violation xPath
                 xpathObjectId = createIdBpmnExpression(xpathExpression
                         .substring(xpathExpression.indexOf('_') + 1));
             }
+
+            if (line==-1 || column==-1) {
+                throw new ValidationException("BPMN Element couldn't be found in file '"+fileName+"'!");
+            }
+
+            return new Location(Paths.get(fileName), new LocationCoordinate(line, column), xpathObjectId);
+
         } else {
             // File not found
+            throw new ValidationException("BPMN Element couldn't be found as no corresponding file could be found.");
         }
-
-        if ("-1".equals(line) || "-1".equals(column)) {
-            throw new ValidationException("BPMN Element couldn't be found!");
-        }
-
-        return new String[] { fileName, line, column, xpathObjectId };
     }
 
     /**
