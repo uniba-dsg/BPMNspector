@@ -11,7 +11,6 @@ import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
 import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +34,12 @@ public class BPMNspector implements Validator {
 
     public List<ValidationResult> inspectDirectory(Path directory, List<ValidationOption> validationOptions) throws ValidationException {
         List<ValidationResult> results = new ArrayList<>();
-        try {
-            List<Path> relevantFiles = FileUtils
-                    .getAllBpmnFileFromDirectory(directory);
-            for (Path path : relevantFiles) {
-                    results.add(inspectFile(path, validationOptions));
-            }
-        } catch (IOException ioe) {
-            throw new ValidationException(
-                    "Validation failed due to an IOException.", ioe);
-        }
 
+        List<Path> relevantFiles = FileUtils
+                    .getAllBpmnFileFromDirectory(directory);
+        for (Path path : relevantFiles) {
+                    results.add(inspectFile(path, validationOptions));
+        }
         return results;
     }
 

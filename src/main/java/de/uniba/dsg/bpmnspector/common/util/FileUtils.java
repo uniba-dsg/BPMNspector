@@ -13,8 +13,7 @@ import java.util.zip.ZipFile;
 
 public class FileUtils {
 
-    public static List<Path> getAllBpmnFileFromDirectory(Path directory) throws
-            IOException {
+    public static List<Path> getAllBpmnFileFromDirectory(Path directory) {
         assertDirectory(directory);
         List<Path> bpmnFiles = new ArrayList<>();
         String[] suffixes = {"bpmn", "bpmn2", "bpmn20.xml"};
