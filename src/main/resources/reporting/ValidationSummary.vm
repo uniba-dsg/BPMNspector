@@ -46,9 +46,11 @@
             <div class="panel-heading"><h4>Validation Results:</h4></div>
             <table class="table table-striped">
                 <thead class="text-capitalize">
-                <th class="text-center">#</th>
-                <th>File</th>
-                <th>Result</th>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>File</th>
+                        <th>Result</th>
+                    </tr>
                 </thead>
                 <tbody>
                 #foreach ($summary in $summaries)

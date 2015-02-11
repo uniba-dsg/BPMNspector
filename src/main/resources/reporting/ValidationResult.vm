@@ -53,11 +53,13 @@
         <div class="panel-heading"><h4>Found Violations</h4></div>
     <table class="table table-striped">
         <thead class="text-capitalize">
-            <th>#</th>
-            <th>File</th>
-            <th>Line</th>
-            <th>Constraint</th>
-            <th>Message</th>
+            <tr>
+                <th>#</th>
+                <th>File</th>
+                <th>Line</th>
+                <th>Constraint</th>
+                <th>Message</th>
+            </tr>
         </thead>
         <tbody>
     #foreach ($violation in $validationResult.getViolations())
@@ -79,10 +81,12 @@
             <div class="panel-heading"><h4>Warnings</h4></div>
             <table class="table table-striped">
                 <thead class="text-capitalize">
-                <th>#</th>
-                <th>File</th>
-                <th>Line</th>
-                <th>Message</th>
+                    <tr>
+                        <th>#</th>
+                        <th>File</th>
+                        <th>Line</th>
+                        <th>Message</th>
+                    </tr>
                 </thead>
                 <tbody>
                     #foreach ($warning in $validationResult.getWarnings())
