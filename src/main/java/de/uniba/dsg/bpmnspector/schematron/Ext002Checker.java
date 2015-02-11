@@ -56,13 +56,11 @@ public class Ext002Checker {
         for(BPMNProcess child : allChildren) {
             Map<String, Attribute> idsOfChild = getAllIdAttributesInProcess(child);
             if(nspIdMap.containsKey(child.getNamespace())) {
-                for(String key : idsOfChild.keySet()) {
-                    if (nspIdMap.get(child.getNamespace()).containsKey(key)) {
-                        // duplicate found create Violation:
-                        createViolation(nspIdMap.get(child.getNamespace()).get(
-                                key), idsOfChild.get(key), validationResult);
-                    }
-                }
+                // duplicate found create Violation:
+                idsOfChild.keySet().stream()
+                        .filter(key -> nspIdMap.get(child.getNamespace()).containsKey(key))
+                        .forEach(key -> createViolation(nspIdMap.get(child.getNamespace())
+                                .get(key), idsOfChild.get(key), validationResult));
             } else {
                 nspIdMap.put(child.getNamespace(),idsOfChild);
             }

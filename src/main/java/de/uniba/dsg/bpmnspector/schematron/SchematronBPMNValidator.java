@@ -120,12 +120,9 @@ public class SchematronBPMNValidator {
                 SchematronOutputType schematronOutputType = schematronSchema
                         .applySchematronValidationToSVRL(new DOMSource(w3cDoc));
 
-                for (Object obj : schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert()) {
-                    if (obj instanceof FailedAssert) {
-                        handleSchematronErrors(process, validationResult,
-                                (FailedAssert) obj);
-                    }
-                }
+            schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert().stream()
+                    .filter(obj -> obj instanceof FailedAssert)
+                    .forEach(obj -> handleSchematronErrors(process, validationResult, (FailedAssert) obj));
         } catch (Exception e) { // NOPMD
             LOGGER.debug("exception during schematron validation. Cause: {}", e);
             throw new ValidationException(
@@ -229,20 +226,20 @@ public class SchematronBPMNValidator {
      */
     private Location searchForViolationFile(String xpathExpression,
             BPMNProcess baseProcess) throws ValidationException {
-        String fileName = "";
-        int line = -1;
-        int column = -1;
-        String xpathObjectId = "";
 
         String namespacePrefix = xpathExpression.substring(0,
                 xpathExpression.indexOf('_'));
 
         Optional<BPMNProcess> optional = baseProcess.findProcessByGeneratedPrefix(namespacePrefix);
         if(optional.isPresent()) {
-            fileName = optional.get().getBaseURI();
+            String fileName = optional.get().getBaseURI();
+
+            int line = -1;
+            int column = -1;
 
             // use ID with generated prefix for lookup
-            xpathObjectId = createIdBpmnExpression(xpathExpression);
+            String xpathObjectId = createIdBpmnExpression(xpathExpression);
+
             LOGGER.debug("Expression to evaluate: "+xpathObjectId);
             XPathFactory fac = XPathFactory.instance();
             List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,

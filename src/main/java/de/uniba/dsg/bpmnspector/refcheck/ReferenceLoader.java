@@ -136,15 +136,12 @@ public class ReferenceLoader {
 		// add not yet existing key references of the element children
 		Map<String, BPMNElement> missingMap = new HashMap<>();
 
-		for(Map.Entry<String, BPMNElement> entry : bpmnElements.entrySet()) {
-			if(entry.getValue().getChildren() != null) {
-				for (String childName : entry.getValue().getChildren()) {
-					if (!bpmnElements.containsKey(childName)) {
-						missingMap.put(childName, entry.getValue());
-					}
-				}
-			}
-		}
+        bpmnElements.entrySet().stream()
+                .filter(entry -> entry.getValue().getChildren() != null)
+                .forEach(entry ->
+                    entry.getValue().getChildren().stream()
+                            .filter(childName -> !bpmnElements.containsKey(childName))
+                            .forEach(childName -> missingMap.put(childName, entry.getValue())));
 
 		bpmnElements.putAll(missingMap);
 

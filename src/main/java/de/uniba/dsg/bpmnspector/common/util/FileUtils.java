@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -18,9 +19,7 @@ public class FileUtils {
         List<Path> bpmnFiles = new ArrayList<>();
         String[] suffixes = {"bpmn", "bpmn2", "bpmn20.xml"};
         Collection<File> filesColl = org.apache.commons.io.FileUtils.listFiles(directory.toFile(), suffixes, true);
-        for(File file : filesColl) {
-            bpmnFiles.add(file.toPath());
-        }
+        bpmnFiles.addAll(filesColl.stream().map(File::toPath).collect(Collectors.toList()));
         return bpmnFiles;
     }
 
