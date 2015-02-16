@@ -120,5 +120,8 @@ Report your issue here at GitHub!
 ## Contribute?
 Just Fork and send a Pull request.
 
+## Related Work
+* [BPMNspector-fixSeqFlow](https://github.com/matthiasgeiger/BPMNspector-fixSeqFlow): Tool to fix the most common mistake in BPMN processes: EXT.023 violations
+
 ----
 [![Build Status](https://travis-ci.org/uniba-dsg/BPMNspector.svg?branch=master)](https://travis-ci.org/uniba-dsg/BPMNspector) [![Dependency Status](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7)
