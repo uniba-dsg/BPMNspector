@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
-    internal 'org.jdom:jdom2:2.0.+'
+    internal 'org.jdom:jdom2:2.0.6'
     internal 'jaxen:jaxen:1.1.+'
     internal 'ch.qos.logback:logback-core:1.1.+'
     internal 'ch.qos.logback:logback-classic:1.1.+'
