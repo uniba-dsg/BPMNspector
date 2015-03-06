@@ -34,12 +34,12 @@ public class FileUtils {
         if(!Files.exists(reportDir)) {
             Files.createDirectory(reportDir);
         }
-
         Path reportResDir = reportDir.resolve("res");
         if(!Files.exists(reportResDir)) {
             Files.createDirectory(reportResDir);
-
-            File zip = org.apache.commons.io.FileUtils.toFile(FileUtils.class.getClassLoader().getResource("res.zip"));
+        }
+        if(isEmptyDir(reportResDir)) {
+            File zip = org.apache.commons.io.FileUtils.toFile(FileUtils.class.getClassLoader().getResource("reportingResources.zip"));
             if(zip != null) {
                 ZipFile zipFile = new ZipFile(zip);
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -53,6 +53,8 @@ public class FileUtils {
                         org.apache.commons.io.FileUtils.copyInputStreamToFile(in, zippedFile.toFile());
                     }
                 }
+            } else {
+                System.out.println("Zip not found!");
             }
         }
 
@@ -67,6 +69,12 @@ public class FileUtils {
         }
 
         return reportFile;
+    }
+
+    private static boolean isEmptyDir(Path dir) throws IOException {
+        try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            return !stream.iterator().hasNext();
+        }
     }
 
 }
