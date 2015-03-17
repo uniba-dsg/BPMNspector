@@ -67,7 +67,12 @@
             <td>$foreach.count</td>
             <td>$violation.getLocation().getFileName().toString()</td>
             <td>$violation.getLocation().getLocation().getRow()</td>
+        #if($violation.getConstraint().contains("EXT"))
+            #set( $ExtNo = $violation.getConstraint().replace(".",""))
+            <td><a href="http://bpmnspector.org/ConstraintList_EXT.html#title$ExtNo" title="Click for description">$violation.getConstraint()</a></td>
+        #else
             <td>$violation.getConstraint()</td>
+        #end
             <td>$violation.getMessage()</td>
         </tr>
     #end
