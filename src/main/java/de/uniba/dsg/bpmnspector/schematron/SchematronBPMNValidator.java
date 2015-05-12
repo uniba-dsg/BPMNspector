@@ -91,7 +91,7 @@ public class SchematronBPMNValidator {
     public ValidationResult validate(BPMNProcess process, ValidationResult validationResult)
             throws ValidationException {
         final ISchematronResource schematronSchema = SchematronResourcePure
-                .fromClassPath("validation.sch");
+                .fromClassPath("EXT_descriptive.sch");
         if (!schematronSchema.isValidSchematron()) {
             LOGGER.debug("schematron file is invalid");
             throw new ValidationException("Invalid Schematron file!");
