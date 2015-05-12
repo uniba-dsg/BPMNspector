@@ -29,9 +29,9 @@ public class BPMNspectorCli {
     }
 
     private Options createCliOptions() {
-        Option debug = OptionBuilder.withDescription("run BPMNspector in debug mode")
-                .withLongOpt(DEBUG)
-                .create("d");
+        Option debug = Option.builder("d").desc("run BPMNspector in debug mode")
+                .longOpt(DEBUG)
+                .build();
 
         StringBuilder reportDescBuilder = new StringBuilder(400)
                 .append("defines which report type should be generated.\nAllowed values:\n");
@@ -41,10 +41,10 @@ public class BPMNspectorCli {
                     .append(entry.getValue()).append('\n');
         }
 
-        Option reportFormat = OptionBuilder.withDescription(reportDescBuilder.toString())
+        Option reportFormat = Option.builder("r").desc(reportDescBuilder.toString())
                 .hasArg()
-                .withArgName("NONE | XML | HTML | BOTH")
-                .create("r");
+                .argName("NONE | XML | HTML | BOTH")
+                .build();
 
         StringBuilder checksDescBuilder = new StringBuilder(400)
                 .append("defines which checks should be performed.\nAllowed values:\n");
@@ -54,11 +54,11 @@ public class BPMNspectorCli {
                     .append(entry.getValue()).append('\n');
         }
 
-        Option checks = OptionBuilder.withDescription(checksDescBuilder.toString())
+        Option checks = Option.builder("c").desc(checksDescBuilder.toString())
                 .hasArg()
-                .withArgName("[opt1[,opt2]...")
-                .withLongOpt(CHECKS)
-                .create("c");
+                .argName("[opt1[,opt2]...")
+                .longOpt(CHECKS)
+                .build();
 
         Option help = new Option("h", HELP, false, "prints this usage information");
 
@@ -85,7 +85,7 @@ public class BPMNspectorCli {
     }
 
     public CliParameter parse(String[] args) {
-        Parser parser = new BasicParser();
+        CommandLineParser parser = new DefaultParser();
         try {
             CommandLine cl = parser.parse(createCliOptions(), args);
             if(cl.hasOption(HELP)) {
