@@ -90,12 +90,7 @@ public class SchematronBPMNValidator {
 
     public ValidationResult validate(BPMNProcess process, ValidationResult validationResult)
             throws ValidationException {
-        final ISchematronResource schematronSchema = SchematronResourcePure
-                .fromClassPath("EXT_descriptive.sch");
-        if (!schematronSchema.isValidSchematron()) {
-            LOGGER.debug("schematron file is invalid");
-            throw new ValidationException("Invalid Schematron file!");
-        }
+        final List<ISchematronResource> schemaToCheck = loadAndValidateSchematronFiles();
 
         LOGGER.info("Validating {}", process.getBaseURI());
 
@@ -117,12 +112,14 @@ public class SchematronBPMNValidator {
                 DOMOutputter domOutputter = new DOMOutputter();
                 Document w3cDoc = domOutputter
                         .output(documentToCheck);
-                SchematronOutputType schematronOutputType = schematronSchema
-                        .applySchematronValidationToSVRL(new DOMSource(w3cDoc));
+                for(ISchematronResource schematronFile : schemaToCheck) {
+                    SchematronOutputType schematronOutputType = schematronFile
+                            .applySchematronValidationToSVRL(new DOMSource(w3cDoc));
 
-            schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert().stream()
-                    .filter(obj -> obj instanceof FailedAssert)
-                    .forEach(obj -> handleSchematronErrors(process, validationResult, (FailedAssert) obj));
+                    schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert().stream()
+                            .filter(obj -> obj instanceof FailedAssert)
+                            .forEach(obj -> handleSchematronErrors(process, validationResult, (FailedAssert) obj));
+                }
         } catch (Exception e) { // NOPMD
             LOGGER.debug("exception during schematron validation. Cause: {}", e);
             throw new ValidationException(
@@ -135,6 +132,26 @@ public class SchematronBPMNValidator {
         return validationResult;
     }
 
+
+    private List<ISchematronResource> loadAndValidateSchematronFiles() throws ValidationException {
+        List<ISchematronResource> schemasToCheck = new ArrayList<>();
+        final ISchematronResource schematronSchemaDescriptive = SchematronResourcePure
+                .fromClassPath("EXT_descriptive.sch");
+        if (!schematronSchemaDescriptive.isValidSchematron()) {
+            LOGGER.debug("schematron file for Descriptive Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_descriptive.sch)!");
+        } else {
+            schemasToCheck.add(schematronSchemaDescriptive);
+        }
+        final ISchematronResource schematronSchemaAnalytic = SchematronResourcePure.fromClassPath("EXT_analytic.sch");
+        if(!schematronSchemaAnalytic.isValidSchematron()) {
+            LOGGER.debug("schematron file for Analytic Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_analytic.sch)!");
+        } else {
+            schemasToCheck.add(schematronSchemaAnalytic);
+        }
+        return schemasToCheck;
+    }
 
     /**
      * tries to locate errors in the specific files
