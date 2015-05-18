@@ -17,7 +17,7 @@ public class Ext026 extends TestCase {
 
     @Test
     public void testConstraintActivityFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_activity.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:task[@default][0]");
@@ -25,7 +25,7 @@ public class Ext026 extends TestCase {
 
     @Test
     public void testConstraintGatewayFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_gateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:exclusiveGateway[@default][0]");

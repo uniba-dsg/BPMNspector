@@ -23,35 +23,35 @@ public class Ext146 extends TestCase {
 
     @Test
     public void testConstraintLinkFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_link.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintTimerFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_timer.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintTimerRefFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_timer_ref.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 8);
     }
 
     @Test
     public void testConstraintMultipleFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_multiple.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintConditionalFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_conditional.bpmn"), 2);
         Violation v = result.getViolations().get(0);
         assertTrue(v.getMessage().contains("cvc-complex-type.2.4.b"));

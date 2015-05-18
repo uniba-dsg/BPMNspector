@@ -21,7 +21,7 @@ public class Ext151 extends TestCase {
     @Test
     public void testConstraintNormalSequenceFlowFail1()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_normal_sequence_flow_missing_1.bpmn"), 2);
         assertFirstViolation(
                 result.getViolations().get(0),
@@ -36,7 +36,7 @@ public class Ext151 extends TestCase {
     @Test
     public void testConstraintNormalSequenceFlowFail2()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_normal_sequence_flow_missing_2.bpmn"), 2);
         assertFirstViolation(
                 result.getViolations().get(0),
@@ -51,7 +51,7 @@ public class Ext151 extends TestCase {
     @Test
     public void testConstraintSequenceFlowInSubProcessFail1()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_sequence_flow_in_sub_process_missing_1.bpmn"),
                 2);
         assertFirstViolation(result.getViolations().get(0),
@@ -65,7 +65,7 @@ public class Ext151 extends TestCase {
     @Test
     public void testConstraintSequenceFlowInSubProcessFail2()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_sequence_flow_in_sub_process_missing_2.bpmn"),
                 4);
         assertViolation(

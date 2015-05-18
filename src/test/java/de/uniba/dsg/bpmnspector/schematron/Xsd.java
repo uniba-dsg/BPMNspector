@@ -19,7 +19,7 @@ public class Xsd extends TestCase {
 
     @Test
     public void testXsdFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("xsdfail.bpmn"), 1);
         Violation v = result.getViolations().get(0);
         assertEquals("xsdfail.bpmn", v.getLocation().getFileName().getFileName().toString());

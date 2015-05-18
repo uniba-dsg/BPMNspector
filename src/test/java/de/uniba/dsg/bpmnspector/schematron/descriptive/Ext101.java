@@ -16,7 +16,7 @@ public class Ext101 extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile("fail.bpmn"),
+        ValidationResult result = verifyInvalidResult(createFile("fail.bpmn"),
                 2);
         assertViolation(
                 result.getViolations().get(0),

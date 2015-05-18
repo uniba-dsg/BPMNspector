@@ -17,21 +17,21 @@ public class Ext076 extends TestCase {
 
     @Test
     public void testConstraintFail1() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_1.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFail2() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_2.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFail3() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_3.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }

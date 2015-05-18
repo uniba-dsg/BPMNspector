@@ -18,7 +18,7 @@ public class Ext057 extends TestCase {
 
     @Test
     public void testConstraintFailInvalidIncoming() throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile("EXT057_fail_incoming_seqFlow.bpmn"),
+        ValidationResult result = verifyInvalidResult(createFile("EXT057_fail_incoming_seqFlow.bpmn"),
                 2);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,
@@ -27,7 +27,7 @@ public class Ext057 extends TestCase {
 
     @Test
     public void testConstraintFailInvalidOutgoing() throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile("EXT057_fail_outgoing_seqFlow.bpmn"),
+        ValidationResult result = verifyInvalidResult(createFile("EXT057_fail_outgoing_seqFlow.bpmn"),
                 2);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,

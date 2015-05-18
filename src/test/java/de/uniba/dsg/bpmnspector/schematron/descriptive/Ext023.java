@@ -16,7 +16,7 @@ public class Ext023 extends TestCase {
 
     @Test
     public void testConstraintNoIncomingFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_no_incoming.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
@@ -27,7 +27,7 @@ public class Ext023 extends TestCase {
 
     @Test
     public void testConstraintNoOutgoingFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_no_outgoing.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

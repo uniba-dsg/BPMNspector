@@ -18,7 +18,7 @@ public class Ext135 extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile("fail.bpmn"),
+        ValidationResult result = verifyInvalidResult(createFile("fail.bpmn"),
                 2);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:parallelGateway[0]", 10);
@@ -28,7 +28,7 @@ public class Ext135 extends TestCase {
 
     @Test
     public void testConstraintSubFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:parallelGateway[0]", 4);
@@ -36,7 +36,7 @@ public class Ext135 extends TestCase {
 
     @Test
     public void testConstraintEXSubFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_ex_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:exclusiveGateway[0]", 4);

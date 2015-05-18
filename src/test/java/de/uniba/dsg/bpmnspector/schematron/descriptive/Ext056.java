@@ -47,7 +47,7 @@ public class Ext056 extends TestCase {
 
     private void assertTests(String fileName, String xpath)
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile(fileName), 3);
+        ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
         assertViolation(result.getViolations().get(0), ERRORMESSAGESOURCE,
                 XPATHSTRINGSOURCE, 11);
         assertViolation(result.getViolations().get(1), ERRORMESSAGETARGET,

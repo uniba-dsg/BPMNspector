@@ -18,14 +18,14 @@ abstract public class AbstractArtifactTest extends TestCase {
 
     @Test
     public void testConstraintAssociationFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_association.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintGroupFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_group.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }
@@ -33,7 +33,7 @@ abstract public class AbstractArtifactTest extends TestCase {
     @Test
     public void testConstraintTextAnnotationFail()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_text_annotation.bpmn"), 1);
         assertViolation(result.getViolations().get(0));
     }

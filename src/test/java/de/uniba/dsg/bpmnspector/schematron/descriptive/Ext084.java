@@ -16,7 +16,7 @@ public class Ext084 extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
+        ValidationResult result = verifyInvalidResult(createFile("Fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0),
                 "A DataInput must be referenced by at least one InputSet",

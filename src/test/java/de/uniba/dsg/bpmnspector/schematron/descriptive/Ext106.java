@@ -17,14 +17,14 @@ public class Ext106 extends TestCase {
 
     @Test
     public void testConstraintEventFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_cancel_end_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 9);
     }
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_sub_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 24);
     }
@@ -32,7 +32,7 @@ public class Ext106 extends TestCase {
     @Test
     public void testConstraintCancelBoundaryEventFail()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_cancel_boundary_event.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 18);
     }

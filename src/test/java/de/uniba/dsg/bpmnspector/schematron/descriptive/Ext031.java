@@ -20,14 +20,14 @@ public class Ext031 extends TestCase {
 
     @Test
     public void testConstraintCircleFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_circle.bpmn"), 1);
         assertFirstViolation(result.getViolations().get(0));
     }
 
     @Test
     public void testConstraintFromPoolFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_message_flow_from_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
         assertTargetViolation(result.getViolations().get(1));
@@ -35,7 +35,7 @@ public class Ext031 extends TestCase {
 
     @Test
     public void testConstraintToPoolFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_message_flow_to_pool.bpmn"), 2);
         assertFirstViolation(result.getViolations().get(0));
         assertSourceViolation(result.getViolations().get(1));
@@ -43,7 +43,7 @@ public class Ext031 extends TestCase {
 
     @Test
     public void testConstraintSamePoolFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("Fail_message_flow_in_same_pool.bpmn"), 3);
         assertFirstViolation(result.getViolations().get(0));
         assertSourceViolation(result.getViolations().get(1));

@@ -16,7 +16,7 @@ public class Ext100 extends TestCase {
 
     @Test
     public void testConstraintEventFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_event.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
@@ -27,7 +27,7 @@ public class Ext100 extends TestCase {
     @Test
     public void testConstraintTransactionEventFail()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_event_transaction.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:transaction/bpmn:startEvent[0]", 10);
@@ -35,7 +35,7 @@ public class Ext100 extends TestCase {
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_event_ref.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

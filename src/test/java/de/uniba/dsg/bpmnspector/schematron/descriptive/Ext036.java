@@ -36,7 +36,7 @@ public class Ext036 extends TestCase {
     }
 
     private void assertTests(String fileName) throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile(fileName), 3);
+        ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
         assertViolation(result.getViolations().get(0), ERRORMESSAGESOURCE,
                 "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][1]", 10);
         assertViolation(result.getViolations().get(1), ERRORMESSAGETARGET,

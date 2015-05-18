@@ -16,7 +16,7 @@ public class Ext105 extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_end_without_sub-events.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "//bpmn:startEvent[0]",
                 4);
@@ -24,7 +24,7 @@ public class Ext105 extends TestCase {
 
     @Test
     public void testConstraintSubFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_with_sub-startevent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "//bpmn:startEvent[1]",
                 10);

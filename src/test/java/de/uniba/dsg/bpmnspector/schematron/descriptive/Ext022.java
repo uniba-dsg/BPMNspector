@@ -17,7 +17,7 @@ public class Ext022 extends TestCase {
     @Test
     public void testConstraintEventSubProcessFail()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_event_sub_process.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

@@ -48,7 +48,7 @@ public class TestCase {
         assertTrue(result.getViolations().isEmpty());
     }
 
-    protected ValidationResult verifyInValidResult(File f, int violationsCount)
+    protected ValidationResult verifyInvalidResult(File f, int violationsCount)
             throws ValidationException {
         ValidationResult result = validate(f);
         assertFalse(result.isValid());

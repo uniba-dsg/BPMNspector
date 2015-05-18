@@ -16,7 +16,7 @@ public class Ext152 extends TestCase {
 
     @Test
     public void testConstraintFail1() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_1.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:sequenceFlow[0]", 16);
@@ -29,7 +29,7 @@ public class Ext152 extends TestCase {
 
     @Test
     public void testConstraintFail2() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_2.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:sequenceFlow[1]", 17);

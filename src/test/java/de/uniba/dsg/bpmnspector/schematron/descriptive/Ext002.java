@@ -20,7 +20,7 @@ public class Ext002 extends TestCase {
 
     @Test
     public void testConstraintImport1Fail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_import.bpmn"), 10);
         assertViolation(result.getViolations().get(0), "fail_import.bpmn", 2);
         assertViolation(result.getViolations().get(1), "import.bpmn", 2);
@@ -28,7 +28,7 @@ public class Ext002 extends TestCase {
 
     @Test
     public void testConstraintImport2Fail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_import2.bpmn"), 10);
         assertViolation(result.getViolations().get(0), "import.bpmn", 2);
         assertViolation(result.getViolations().get(1), "import2.bpmn", 2);
@@ -36,7 +36,7 @@ public class Ext002 extends TestCase {
 
     @Test
     public void testConstraintImport3Fail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_import3.bpmn"), 20);
         assertViolation(result.getViolations().get(0), "fail_import3.bpmn", 2);
         assertViolation(result.getViolations().get(1), "fail_import2.bpmn", 2);

@@ -16,7 +16,7 @@ public class Ext095 extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(createFile("Fail.bpmn"),
+        ValidationResult result = verifyInvalidResult(createFile("Fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]",
@@ -25,7 +25,7 @@ public class Ext095 extends TestCase {
 
     @Test
     public void testConstraintEndFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_end.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:endEvent/bpmn:messageEventDefinition[0]", 10);

@@ -19,7 +19,7 @@ public class Wsdl extends TestCase {
 
     @Test
     public void testConstraintImportedWsdlFail() throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("wsdl-fail.bpmn"), 4);
         Violation v = result.getViolations().get(0);
         assertTrue(v.getMessage().contains("cvc-complex-type.2.4.c:"));

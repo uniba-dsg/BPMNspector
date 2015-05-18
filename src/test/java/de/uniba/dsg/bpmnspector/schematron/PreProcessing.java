@@ -21,7 +21,7 @@ public class PreProcessing extends TestCase {
     @Test
     public void testConstraintImportedProcessFail()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_call_ref_process.bpmn"), 1);
         assertViolation(result.getViolations().get(0), "ref_process.bpmn", 3);
     }
@@ -29,7 +29,7 @@ public class PreProcessing extends TestCase {
     @Test
     public void testConstraintImportedProcessFail1()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_call_ref_process_call.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 "fail_call_ref_process.bpmn", 4);
@@ -39,7 +39,7 @@ public class PreProcessing extends TestCase {
     @Test
     public void testConstraintImportedProcessFail2()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_call_ref_process_call_call.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 "fail_call_ref_process.bpmn", 4);
@@ -49,7 +49,7 @@ public class PreProcessing extends TestCase {
     @Test
     public void testConstraintParticipantImportedProcessFail()
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile("fail_call_participant_process.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),

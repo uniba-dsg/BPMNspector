@@ -35,7 +35,7 @@ abstract public class AbstractArtifactSequenceFlowTest extends TestCase {
 
     private void assertTests(String fileName, int line)
             throws ValidationException {
-        ValidationResult result = verifyInValidResult(
+        ValidationResult result = verifyInvalidResult(
                 createFile(fileName), 3);
         assertFirstViolation(result.getViolations().get(0), fileName);
         assertSecondViolation(result.getViolations().get(1), fileName, line);
