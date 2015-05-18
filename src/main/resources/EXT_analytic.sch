@@ -65,10 +65,10 @@
     <!-- All -->
     <let name="allElements" value="//bpmn:*"/>
 
-    <iso:pattern name="DUMMYPATTERN">
-        <iso:rule context="bpmn:sequenceFlow[@targetRef]">
-            <iso:assert test="true()" diagnostics="id">
-                DUMMY PATTERN TO BE REMOVED WHEN REAL PATTERNS ARE ADDED TO THIS FILE
+    <iso:pattern name="EXT.057">
+        <iso:rule context="bpmn:subProcess[@triggeredByEvent='true']">
+            <iso:assert test="not(bpmn:incoming) and not(bpmn:outgoing)" diagnostics="id">
+                EXT.057|An Event Sub-Process MUST NOT have any incoming or outgoing Sequence Flows.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
