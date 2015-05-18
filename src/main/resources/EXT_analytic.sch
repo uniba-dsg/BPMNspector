@@ -19,22 +19,25 @@
     <let name="messageFlows" value="//bpmn:messageFlow"/>
     
     <!-- Activities -->
-    <let name="callActivities" value="//bpmn:callActivity"/>
-    
-    <!-- Tasks -->
-    <let name="tasks" value="//bpmn:task"/>
-    <let name="sendTasks" value="//bpmn:sendTask"/>
-    <let name="receiveTasks" value="//bpmn:receiveTask"/>
-    <let name="serviceTasks" value="//bpmn:serviceTask"/>
-    <let name="userTasks" value="//bpmn:userTask"/>
-    <let name="manualTasks" value="//bpmn:manualTask"/>
-    <let name="scriptTasks" value="//bpmn:scriptTask"/>
-    <let name="businessTasks" value="//bpmn:businessRuleTask"/>
-      
-    <!-- SubProcesses -->
-    <let name="subProcesses" value="//bpmn:subProcess"/>
-    <let name="transactions" value="//bpmn:transaction"/>
-    <let name="adHocSubProcesses" value="//bpmn:adHocSubProcess"/>      
+        <!-- activities as direct children of context -->
+        <let name="activities" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask | bpmn:callActivity | bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>"
+
+        <let name="callActivities" value="//bpmn:callActivity"/>
+
+        <!-- Tasks -->
+        <let name="tasks" value="//bpmn:task"/>
+        <let name="sendTasks" value="//bpmn:sendTask"/>
+        <let name="receiveTasks" value="//bpmn:receiveTask"/>
+        <let name="serviceTasks" value="//bpmn:serviceTask"/>
+        <let name="userTasks" value="//bpmn:userTask"/>
+        <let name="manualTasks" value="//bpmn:manualTask"/>
+        <let name="scriptTasks" value="//bpmn:scriptTask"/>
+        <let name="businessTasks" value="//bpmn:businessRuleTask"/>
+
+        <!-- SubProcesses -->
+        <let name="subProcesses" value="//bpmn:subProcess"/>
+        <let name="transactions" value="//bpmn:transaction"/>
+        <let name="adHocSubProcesses" value="//bpmn:adHocSubProcess"/>
          
     <!-- Events -->
     <let name="startEvents" value="//bpmn:startEvent"/>
@@ -119,6 +122,14 @@
                 messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
                 conditionalEventDefinition, signalEventDefinition.
                 Moreover, an errorEventDefinition is not allowed for Non-Interrupting StartEvents.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.061">
+        <iso:rule context="bpmn:adHocSubProcess">
+            <iso:assert test="count($activities)>0" diagnostics="id">
+                EXT.061|At least one Activity must be contained in an AdHocSubProcess.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
