@@ -7,7 +7,7 @@
 
 
     <!-- EventDefinitions -->
-    <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensationEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
+    <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensateEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
     
     <!-- Artifacts -->
     <let name="associations" value="//bpmn:association" />
@@ -74,12 +74,54 @@
     </iso:pattern>
 
     <iso:pattern name="EXT.058">
-            <iso:rule context="bpmn:subProcess[@triggeredByEvent='true']">
-                <iso:assert test="count(./bpmn:startEvent)=1" diagnostics="id">
-                    EXT.058|An Event Sub-Process MUST have exactly one Start Event.
-                </iso:assert>
-            </iso:rule>
-        </iso:pattern>
+        <iso:rule context="bpmn:subProcess[@triggeredByEvent='true']">
+            <iso:assert test="count(./bpmn:startEvent)=1" diagnostics="id">
+                EXT.058|An Event Sub-Process MUST have exactly one Start Event.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.059">
+        <iso:rule context="bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent">
+            <iso:assert test="count($eventDefinitions)>0" diagnostics="id">
+                EXT.059|An Event Sub-Process MUST define at least one of the following EventDefinitions:
+                messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
+                conditionalEventDefinition, signalEventDefinition.
+            </iso:assert>
+            <iso:assert test="not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)" diagnostics="id">
+                EXT.059|An Event Sub-Process MUST define at least one of the following EventDefinitions:
+                messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
+                conditionalEventDefinition, signalEventDefinition.
+                A linkEventDefinition is not allowed for Event Sub-Processes.
+            </iso:assert>
+            <iso:assert test="not(./bpmn:cancelEventDefinition or ./bpmn:eventDefinitionRef = $cancelEventDefinitions/@id)" diagnostics="id">
+                EXT.059|An Event Sub-Process MUST define at least one of the following EventDefinitions:
+                messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
+                conditionalEventDefinition, signalEventDefinition.
+                A cancelEventDefinition is not allowed for Event Sub-Processes.
+            </iso:assert>
+            <iso:assert test="not(./bpmn:terminateEventDefinition or ./bpmn:eventDefinitionRef = $terminateEventDefinitions/@id)" diagnostics="id">
+                EXT.059|An Event Sub-Process MUST define at least one of the following EventDefinitions:
+                messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
+                conditionalEventDefinition, signalEventDefinition.
+                A terminateEventDefinition is not allowed for Event Sub-Processes.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[@isInterrupting='false']">
+            <iso:assert test="not(./bpmn:compensateEventDefinition or ./bpmn:eventDefinitionRef = $compensateEventDefinitions/@id)" diagnostics="id">
+                EXT.059|An Event Sub-Process MUST define at least one of the following EventDefinitions:
+                messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
+                conditionalEventDefinition, signalEventDefinition.
+                Moreover, a compensateEventDefinition is not allowed for Non-Interrupting StartEvents.
+            </iso:assert>
+            <iso:assert test="not(./bpmn:errorEventDefinition or ./bpmn:eventDefinitionRef = $errorEventDefinitions/@id)" diagnostics="id">
+                EXT.059|An Event Sub-Process MUST define at least one of the following EventDefinitions:
+                messageEventDefinition, errorEventDefinition, escalationEventDefinition, compensationEventDefinition,
+                conditionalEventDefinition, signalEventDefinition.
+                Moreover, an errorEventDefinition is not allowed for Non-Interrupting StartEvents.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
     
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
