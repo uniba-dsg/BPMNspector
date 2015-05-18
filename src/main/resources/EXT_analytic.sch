@@ -22,6 +22,8 @@
         <!-- activities as direct children of context -->
         <let name="activities" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask | bpmn:callActivity | bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>"
 
+        <!-- chorography activities as direct children of context -->
+        <let name="chorActivities" value="//bpmn:choreographyTask | bpmn:callChoreography | bpmn:subChoreography" />
         <let name="callActivities" value="//bpmn:callActivity"/>
 
         <!-- Tasks -->
@@ -130,6 +132,15 @@
         <iso:rule context="bpmn:adHocSubProcess">
             <iso:assert test="count($activities)>0" diagnostics="id">
                 EXT.061|At least one Activity must be contained in an AdHocSubProcess.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.062">
+        <iso:rule context="bpmn:adHocSubProcess">
+            <!-- Conversations are not allowed by the XSD-->
+            <iso:assert test="count(bpmn:startEvent)=0 and count(bpmn:endEvents)=0 and count($chorActivities)=0" diagnostics="id">
+                EXT.062|Start Event, End Event, Conversations, Conversation Links and Choreography Activities MUST NOT be used in an AdHocSubProcess.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
