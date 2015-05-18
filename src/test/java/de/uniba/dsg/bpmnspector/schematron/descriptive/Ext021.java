@@ -18,7 +18,7 @@ public class Ext021 extends TestCase {
     public void testConstraintEventSubProcessFail()
             throws ValidationException {
         ValidationResult result = verifyInvalidResult(
-                createFile("fail_event_sub_process.bpmn"), 1);
+                createFile("fail_event_sub_process.bpmn"), 2);
         assertViolation(
                 result.getViolations().get(0),
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
