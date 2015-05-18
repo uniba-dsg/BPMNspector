@@ -5,8 +5,16 @@
       <incoming>_4</incoming>
     </task>
     <subProcess completionQuantity="1" id="_7" isForCompensation="false" name="Event Sub-Process" startQuantity="1" triggeredByEvent="true">
-			<outgoing>_4</outgoing>
-		</subProcess>
+        <outgoing>_4</outgoing>
+        <startEvent id="_12" isInterrupting="true" name="Start Event" parallelMultiple="false">
+            <outgoing>_13</outgoing>
+            <messageEventDefinition id="_12_ED_1"/>
+        </startEvent>
+        <sequenceFlow id="_13" sourceRef="_12" targetRef="_14"/>
+        <endEvent id="_14" name="End Event">
+            <incoming>_13</incoming>
+        </endEvent>
+    </subProcess>
     <sequenceFlow id="_4" sourceRef="_2" targetRef="_7"/>
   </process>
 </definitions>

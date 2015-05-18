@@ -72,6 +72,14 @@
             </iso:assert>
         </iso:rule>
     </iso:pattern>
+
+    <iso:pattern name="EXT.058">
+            <iso:rule context="bpmn:subProcess[@triggeredByEvent='true']">
+                <iso:assert test="count(./bpmn:startEvent)=1" diagnostics="id">
+                    EXT.058|An Event Sub-Process MUST have exactly one Start Event.
+                </iso:assert>
+            </iso:rule>
+        </iso:pattern>
     
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
