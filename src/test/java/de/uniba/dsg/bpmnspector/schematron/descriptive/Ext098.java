@@ -22,12 +22,8 @@ public class Ext098 extends TestCase {
     @Test
     public void testConstraintCancelFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
-                createFile("fail_cancel.bpmn"), 2);
+                createFile("fail_cancel.bpmn"), 1);
         assertViolation(result.getViolations().get(0), 4);
-        assertViolation(
-                result.getViolations().get(1),
-                "A cancel EndEvent is only allowed in a transaction sub-process",
-                "//bpmn:cancelEventDefinition[0]", 6);
     }
 
     @Test

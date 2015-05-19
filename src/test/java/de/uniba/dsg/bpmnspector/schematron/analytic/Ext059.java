@@ -34,8 +34,8 @@ public class Ext059 extends TestCase {
 
     @Test
     public void testConstraintFailIllegalCancelEventDef() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_cancelEventDef.bpmn"), 2);
-        assertViolation(result.getViolations().get(1), ERR_MSG_DEFAULT+ERR_CANCEL,
+        ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_cancelEventDef.bpmn"), 1);
+        assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT+ERR_CANCEL,
                 "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[0]", 28);
     }
 

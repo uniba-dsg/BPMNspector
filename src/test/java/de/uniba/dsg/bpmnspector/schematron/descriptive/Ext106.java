@@ -19,22 +19,14 @@ public class Ext106 extends TestCase {
     public void testConstraintEventFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_cancel_end_event.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), 9);
+        assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test
     public void testConstraintEventRefFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_sub_process.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), 24);
-    }
-
-    @Test
-    public void testConstraintCancelBoundaryEventFail()
-            throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
-                createFile("fail_cancel_boundary_event.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), 18);
+        assertViolation(result.getViolations().get(0), 22);
     }
 
     @Test
@@ -51,7 +43,7 @@ public class Ext106 extends TestCase {
     }
 
     private void assertViolation(Violation v, int line) {
-        assertViolation(v, "//bpmn:cancelEventDefinition[0]", line);
+        assertViolation(v, "//bpmn:endEvent[./bpmn:cancelEventDefinition][0]", line);
     }
 
     @Override
