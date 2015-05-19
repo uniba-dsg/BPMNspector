@@ -235,6 +235,26 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.110">
+        <iso:rule context="bpmn:boundaryEvent[@cancelActivity='true']">
+            <iso:assert test="count($eventDefinitions)>0
+                    and count(bpmn:terminateEventDefinition)=0
+                    and count(bpmn:linkEventDefinition)=0" diagnostics="id">
+                EXT.110|A boundaryEvent with cancelActivity='true' must have at least one eventDefinition but does not allow link or terminate eventDefinitions.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:boundaryEvent[@cancelActivity='false']">
+            <iso:assert test="count($eventDefinitions)>0
+                    and count(bpmn:terminateEventDefinition)=0
+                    and count(bpmn:linkEventDefinition)=0
+                    and count(bpmn:errorEventDefinition)=0
+                    and count(bpmn:cancelEventDefinition)=0
+                    and count(bpmn:compensateEventDefinition)=0" diagnostics="id">
+                EXT.110|A boundaryEvent with cancelActivity='false' must have at least one eventDefinition but does not allow link, error, cancel, compensate or terminate eventDefinitions.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
