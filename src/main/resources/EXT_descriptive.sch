@@ -454,9 +454,6 @@
         <iso:rule context="bpmn:intermediateCatchEvent[parent::*/bpmn:startEvent] [not(./bpmn:linkEventDefinition or ./bpmn:eventDefinitionRef = $linkEventDefinitions/@id)]">
             <iso:assert test="bpmn:incoming" diagnostics="id">EXT.150|If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:boundaryEvent">
-            <iso:assert test="not(bpmn:incoming)" diagnostics="id">EXT.150|If a start event is used to initiate a process, all flow nodes must have an incoming sequence flow</iso:assert>
-        </iso:rule>
     </iso:pattern>
     
     <iso:pattern name="EXT.151">
