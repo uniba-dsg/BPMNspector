@@ -23,7 +23,7 @@
         <let name="activities" value="bpmn:task | bpmn:sendTask | bpmn:receiveTask | bpmn:serviceTask | bpmn:userTask | bpmn:manualTask | bpmn:scriptTask | bpmn:businessRuleTask | bpmn:callActivity | bpmn:subProcess | bpmn:transaction | bpmn:adHocSubProcess"/>"
 
         <!-- chorography activities as direct children of context -->
-        <let name="chorActivities" value="//bpmn:choreographyTask | bpmn:callChoreography | bpmn:subChoreography" />
+        <let name="chorActivities" value="bpmn:choreographyTask | bpmn:callChoreography | bpmn:subChoreography" />
         <let name="callActivities" value="//bpmn:callActivity"/>
 
         <!-- Tasks -->
@@ -65,8 +65,12 @@
     <let name="parallelGateways" value="//bpmn:parallelGateway"/>
     <let name="inclusiveGateways" value="//bpmn:inclusiveGateway"/>
     <let name="complexGateways" value="//bpmn:complexGateway"/>
-    <let name="eventBasedGateways" value="//bpmn:eventBasedGateway"/> 
-    
+    <let name="eventBasedGateways" value="//bpmn:eventBasedGateway"/>
+
+    <!-- ItemAwareElements -->
+    <let name="itemAwareElements" value="//bpmn:dataObject | //bpmn:dataObjectReference | //bpmn:property | //bpmn:dataStore | //bpmn:dataStoreReference | //bpmn:dataInput | //bpmn:dataOutput" />
+    <let name="itemAwareNoRef" value="//bpmn:dataObject | //bpmn:property | //bpmn:dataStore | //bpmn:dataInput | //bpmn:dataOutput" />
+
     <!-- All -->
     <let name="allElements" value="//bpmn:*"/>
 
@@ -142,6 +146,79 @@
             <iso:assert test="count(bpmn:startEvent)=0 and count(bpmn:endEvents)=0 and count($chorActivities)=0" diagnostics="id">
                 EXT.062|Start Event, End Event, Conversations, Conversation Links and Choreography Activities MUST NOT be used in an AdHocSubProcess.
             </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.091">
+        <iso:rule context="bpmn:dataInputAssociation[not(./bpmn:transformation)]">
+            <!-- Very complex condition due to combinatorial explosion regarding the combination of itemAwareElements
+            and dataStoreReferences and/or dataObjectReferencesdirect usage of itemAwareElements each line represents
+             one of the following cases:
+                 (no dataObjectReference or dataStoreReference)
+              or (dataObjectReference for source - no Reference for target)
+              or (no reference for source - dataObjectReference for target)
+              or (dataObjectReference for both)
+              or (dataStoreReference for source - no reference for target)
+              or (no reference for source - dataStoreReference for target)
+              or (dataStoreReference for both)
+              or (dataObjectReference for source - dataStoreReference for target)
+              or (dateStoreReference for source - dataObjectReference for target)
+              or (underspecified usage: no itemSubjectRefs used for itemAwareItems)-->
+            <iso:assert test="(//bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:sourceRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:targetRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:targetRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:sourceRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:targetRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:sourceRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef)
+                or (
+                    (($itemAwareNoRef)[@id=current()/bpmn:sourceRef and not(@itemSubjectRef)])
+                    or (//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef] and not(@itemSubjectRef)])
+                    or (//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef] and not(@itemSubjectRef)])
+                    or (($itemAwareNoRef)[@id=current()/bpmn:targetRef and not(@itemSubjectRef)])
+                    or (//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef] and not(@itemSubjectRef)])
+                    or (//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef] and not(@itemSubjectRef)])
+	            )" diagnostics="id">
+                EXT.091|sourceRef and targetRef of a DataAssociation must have the same ItemDefinition or a transformation must be present.
+            </iso:assert>
+
+        </iso:rule>
+        <iso:rule context="bpmn:dataOutputAssociation[not(./bpmn:transformation)]">
+            <!-- Very complex condition due to combinatorial explosion regarding the combination of itemAwareElements
+            and dataStoreReferences and/or dataObjectReferencesdirect usage of itemAwareElements each line represents
+             one of the following cases:
+                 (no dataObjectReference or dataStoreReference)
+              or (dataObjectReference for source - no Reference for target)
+              or (no reference for source - dataObjectReference for target)
+              or (dataObjectReference for both)
+              or (dataStoreReference for source - no reference for target)
+              or (no reference for source - dataStoreReference for target)
+              or (dataStoreReference for both)
+              or (dataObjectReference for source - dataStoreReference for target)
+              or (dateStoreReference for source - dataObjectReference for target)
+              or (underspecified usage: no itemSubjectRefs used for itemAwareItems)-->
+            <iso:assert test="(//bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:sourceRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:targetRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:targetRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:sourceRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:targetRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=($itemAwareElements)[@id=current()/bpmn:sourceRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef)
+                or (//bpmn:itemDefinition[@id=//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef]/@dataStoreRef]/@itemSubjectRef]/@structureRef = //bpmn:itemDefinition[@id=//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef]/@dataObjectRef]/@itemSubjectRef]/@structureRef)
+                or (
+                    (($itemAwareNoRef)[@id=current()/bpmn:sourceRef and not(@itemSubjectRef)])
+                    or (//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:sourceRef] and not(@itemSubjectRef)])
+                    or (//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:sourceRef] and not(@itemSubjectRef)])
+                    or (($itemAwareNoRef)[@id=current()/bpmn:targetRef and not(@itemSubjectRef)])
+                    or (//bpmn:dataObject[@id=//bpmn:dataObjectReference[@id=current()/bpmn:targetRef] and not(@itemSubjectRef)])
+                    or (//bpmn:dataStore[@id=//bpmn:dataStoreReference[@id=current()/bpmn:targetRef] and not(@itemSubjectRef)])
+	            )" diagnostics="id">
+                EXT.091|sourceRef and targetRef of a DataAssociation must have the same ItemDefinition or a transformation must be present.
+            </iso:assert>
+
         </iso:rule>
     </iso:pattern>
     
