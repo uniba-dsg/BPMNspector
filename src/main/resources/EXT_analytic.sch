@@ -221,7 +221,20 @@
 
         </iso:rule>
     </iso:pattern>
-    
+
+    <iso:pattern name="EXT.092">
+        <iso:rule context="bpmn:dataInputAssociation[not(./bpmn:transformation)]">
+            <iso:assert test="count(bpmn:sourceRef)=1" diagnostics="id">
+                EXT.092|If a DataAssociation does not define a Transformation, only a single sourceRef is allowed.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:dataOutputAssociation[not(./bpmn:transformation)]">
+            <iso:assert test="count(bpmn:sourceRef)=1" diagnostics="id">
+                EXT.092|If a DataAssociation does not define a Transformation, only a single sourceRef is allowed.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
