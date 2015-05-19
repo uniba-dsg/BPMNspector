@@ -255,6 +255,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.111">
+        <iso:rule context="bpmn:boundaryEvent[bpmn:cancelEventDefinition]">
+            <iso:assert test="@attachedToRef = $transactions/@id" diagnostics="id">
+                EXT.111|A cancel boundary event must be attached to a Transaction.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
