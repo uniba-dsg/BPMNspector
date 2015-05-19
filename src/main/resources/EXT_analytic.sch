@@ -263,6 +263,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.112">
+        <iso:rule context="bpmn:boundaryEvent[bpmn:incoming]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.112|A boundary event must not be target of a Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
