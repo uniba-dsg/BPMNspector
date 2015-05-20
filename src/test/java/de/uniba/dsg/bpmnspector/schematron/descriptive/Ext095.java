@@ -20,7 +20,7 @@ public class Ext095 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]",
-                13);
+                14);
     }
 
     @Test
