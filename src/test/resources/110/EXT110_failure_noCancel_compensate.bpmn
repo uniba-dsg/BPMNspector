@@ -14,13 +14,10 @@
     </endEvent>
     <sequenceFlow id="_6" sourceRef="_3" targetRef="_5"/>
     <boundaryEvent attachedToRef="_3" cancelActivity="false" id="_7" name="Boundary Event" parallelMultiple="false">
-      <outgoing>_9</outgoing>
-      <compensateEventDefinition id="_7_ED_1"/>
+      <compensateEventDefinition id="_7_ED_1" waitForCompletion="true"/>
     </boundaryEvent>
-    <endEvent id="_8" name="End Event">
-      <incoming>_9</incoming>
-    </endEvent>
-    <sequenceFlow id="_9" sourceRef="_7" targetRef="_8"/>
+    <task completionQuantity="1" id="_8" isForCompensation="true" name="Task" startQuantity="1"/>
+    <association associationDirection="One" id="_9" sourceRef="_7" targetRef="_8"/>
   </process>
   <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=597.6;height=842.4;imageableWidth=587.6;imageableHeight=832.4;imageableX=5.0;imageableY=5.0" id="Yaoqiang_Diagram-_1" name="New Diagram" resolution="96.0">
     <bpmndi:BPMNPlane bpmnElement="PROCESS_1">
