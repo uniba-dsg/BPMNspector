@@ -279,10 +279,23 @@
         </iso:rule>
     </iso:pattern>
 
-    <iso:pattern name="EXT.113">
+    <iso:pattern name="EXT.114">
         <iso:rule context="bpmn:boundaryEvent[bpmn:compensateEventDefinition]">
             <iso:assert test="not(bpmn:outgoing)" diagnostics="id">
                 EXT.114|A compensation boundary event MUST NOT have an outgoing Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.115">
+        <iso:rule context="bpmn:intermediateThrowEvent[not(bpmn:linkEventDefinition) and not(bpmn:incoming)]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.115|Intermediate Events MUST be a target of at least a Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[not(bpmn:linkEventDefinition) and not(bpmn:incoming)]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.115|Intermediate Events MUST be a target of at least a Sequence Flow.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
