@@ -313,6 +313,19 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.117">
+        <iso:rule context="bpmn:intermediateThrowEvent[bpmn:linkEventDefinition and bpmn:outgoing]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.117|A Link Intermediate Event MUST NOT be both a target and a source of a Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[bpmn:linkEventDefinition and bpmn:incoming]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.117|A Link Intermediate Event MUST NOT be both a target and a source of a Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
