@@ -326,6 +326,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.118">
+        <iso:rule context="bpmn:linkEventDefinition[bpmn:target]">
+            <iso:assert test="//bpmn:linkEventDefinition[@id=current()/bpmn:target]/bpmn:source = current()/@id" diagnostics="id">
+                EXT.118|For each source Link there must exist a corresponding target. There may be multiple sources for one target.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
