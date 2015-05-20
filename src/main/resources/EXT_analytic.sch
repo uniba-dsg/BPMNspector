@@ -279,6 +279,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.113">
+        <iso:rule context="bpmn:boundaryEvent[bpmn:compensateEventDefinition]">
+            <iso:assert test="not(bpmn:outgoing)" diagnostics="id">
+                EXT.114|A compensation boundary event MUST NOT have an outgoing Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
