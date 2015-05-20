@@ -342,6 +342,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.125">
+        <iso:rule context="bpmn:linkEventDefinition[parent::bpmn:intermediateThrowEvent]">
+            <iso:assert test="count(bpmn:target)=1" diagnostics="id">
+                EXT.125|A LinkEventDefinition in a Throw Event must have exactly one target Element.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
