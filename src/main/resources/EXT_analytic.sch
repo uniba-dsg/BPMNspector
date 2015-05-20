@@ -334,6 +334,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.124">
+        <iso:rule context="bpmn:linkEventDefinition[parent::bpmn:intermediateCatchEvent]">
+            <iso:assert test="count(bpmn:source)>0" diagnostics="id">
+                EXT.124|A LinkEventDefinition in a Catch Event must have at least one source Element.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
