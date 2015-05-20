@@ -21,7 +21,7 @@ public class Ext115 extends TestCase {
     public void testConstraintFailNoIncoming() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT115_failure_noIncoming.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[not(bpmn:linkEventDefinition) and not(bpmn:incoming)][0]", 11);
+                "//bpmn:intermediateThrowEvent[not(bpmn:incoming)][0]", 11);
     }
 
     @Test

@@ -288,7 +288,7 @@
     </iso:pattern>
 
     <iso:pattern name="EXT.115">
-        <iso:rule context="bpmn:intermediateThrowEvent[not(bpmn:linkEventDefinition) and not(bpmn:incoming)]">
+        <iso:rule context="bpmn:intermediateThrowEvent[not(bpmn:incoming)]">
             <iso:assert test="false()" diagnostics="id">
                 EXT.115|Intermediate Events MUST be a target of at least a Sequence Flow.
             </iso:assert>
@@ -306,7 +306,7 @@
                 EXT.116|Intermediate Events MUST be a source of at least a Sequence Flow.
             </iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:intermediateCatchEvent[not(bpmn:linkEventDefinition) and not(bpmn:outgoing)]">
+        <iso:rule context="bpmn:intermediateCatchEvent[not(bpmn:outgoing)]">
             <iso:assert test="false()" diagnostics="id">
                 EXT.116|Intermediate Events MUST be a source of at least a Sequence Flow.
             </iso:assert>
