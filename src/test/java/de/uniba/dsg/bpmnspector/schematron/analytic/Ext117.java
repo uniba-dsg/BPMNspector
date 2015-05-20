@@ -26,7 +26,7 @@ public class Ext117 extends TestCase {
 
     @Test
     public void testConstraintFailCatchIncoming() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT117_failure_CatchIncoming.bpmn"), 1);
+        ValidationResult result = verifyInvalidResult(createFile("EXT117_failure_catchIncoming.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
                 "//bpmn:intermediateCatchEvent[bpmn:linkEventDefinition and bpmn:incoming][0]", 19);
     }
