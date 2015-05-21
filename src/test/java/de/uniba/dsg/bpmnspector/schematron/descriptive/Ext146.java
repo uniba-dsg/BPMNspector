@@ -52,13 +52,8 @@ public class Ext146 extends TestCase {
     @Test
     public void testConstraintConditionalFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
-                createFile("fail_conditional.bpmn"), 2);
-        Violation v = result.getViolations().get(0);
-        assertTrue(v.getMessage().contains("cvc-complex-type.2.4.b"));
-        assertTrue(v.getMessage().contains("conditionalEventDefinition"));
-        assertEquals("XSD-Check", v.getConstraint());
-        assertEquals(9, v.getLocation().getLocation().getRow());
-        assertViolation(result.getViolations().get(1), 7);
+                createFile("fail_conditional.bpmn"), 1);
+        assertViolation(result.getViolations().get(0), 7);
     }
 
     @Test

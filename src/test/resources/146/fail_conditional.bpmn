@@ -6,7 +6,9 @@
     </startEvent>
     <endEvent id="_3" name="End Event">
       <incoming>_4</incoming>
-			<conditionalEventDefinition id="_3_ED_1"/>
+			<conditionalEventDefinition id="_3_ED_1">
+              <condition xsi:type="tFormalExpression">dummyCondition</condition>
+            </conditionalEventDefinition>
     </endEvent>
     <sequenceFlow id="_4" sourceRef="_2" targetRef="_3"/>
   </process>
