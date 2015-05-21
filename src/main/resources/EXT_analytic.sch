@@ -350,6 +350,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.126">
+        <iso:rule context="bpmn:linkEventDefinition[parent::bpmn:intermediateThrowEvent]">
+            <iso:assert test="parent::*/parent::* =//bpmn:linkEventDefinition[./bpmn:source=current()/@id]/parent::*/parent::*" diagnostics="id">
+                EXT.126|Links are only allowed to a target in the same process and process level.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
