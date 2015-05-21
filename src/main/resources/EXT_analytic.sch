@@ -4,7 +4,7 @@
     queryBinding="xslt2" schemaVersion="ISO19757-3">
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
-
+    <iso:ns prefix='xsi' uri='http://www.w3.org/2001/XMLSchema-instance'/>
 
     <!-- EventDefinitions -->
     <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensateEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
@@ -351,6 +351,15 @@
         <iso:rule context="bpmn:intermediateCatchEvent[bpmn:compensateEventDefinition]">
             <iso:assert test="false()" diagnostics="id">
                 EXT.122|A intermediateCatchEvent in normal flow must not contain a compensateEventDefinition.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.123">
+        <iso:rule context="bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:condition/node() and bpmn:condition/@xsi:type='tFormalExpression'" diagnostics="id">
+                EXT.123|For executable Processes (isExecutable = true), if the trigger is Conditional, then a
+                FormalExpression MUST be entered.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
