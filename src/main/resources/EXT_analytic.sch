@@ -347,6 +347,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.122">
+        <iso:rule context="bpmn:intermediateCatchEvent[bpmn:compensateEventDefinition]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.122|A intermediateCatchEvent in normal flow must not contain a compensateEventDefinition.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.124">
         <iso:rule context="bpmn:linkEventDefinition[parent::bpmn:intermediateCatchEvent]">
             <iso:assert test="count(bpmn:source)>0" diagnostics="id">
