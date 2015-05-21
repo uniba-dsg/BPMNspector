@@ -34,7 +34,7 @@ public class Ext119 extends TestCase {
 
     @Test
     public void testConstraintFailThrowInOut() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_ThrowInOut.bpmn"), 1);
+        ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_throwInOut.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_THROW,
                 "//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition][0]", 7);
     }
@@ -53,7 +53,7 @@ public class Ext119 extends TestCase {
 
     @Test
     public void testConstraintSuccessThrowOutgoing() throws ValidationException {
-        verifyValidResult(createFile("EXT119_success_ThrowOutgoing.bpmn"));
+        verifyValidResult(createFile("EXT119_success_throwOutgoing.bpmn"));
     }
 
     @Override
