@@ -334,6 +334,19 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.119">
+        <iso:rule context="bpmn:intermediateThrowEvent[bpmn:messageEventDefinition]">
+            <iso:assert test="not(//bpmn:messageFlow[@targetRef=current()/@id])" diagnostics="id">
+                EXT.119|An intermediateThrowEvent must not be a target of a messageFlow.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[bpmn:messageEventDefinition]">
+            <iso:assert test="not(//bpmn:messageFlow[@sourceRef=current()/@id])" diagnostics="id">
+                EXT.119|An intermediateCatchEvent must not be a source of a messageFlow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.124">
         <iso:rule context="bpmn:linkEventDefinition[parent::bpmn:intermediateCatchEvent]">
             <iso:assert test="count(bpmn:source)>0" diagnostics="id">
