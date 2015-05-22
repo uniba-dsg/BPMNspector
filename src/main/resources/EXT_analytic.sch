@@ -459,6 +459,15 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.144">
+        <iso:rule context="bpmn:boundaryEvent[bpmn:compensateEventDefinition]">
+            <iso:assert test="//bpmn:*[@id=bpmn:association[@sourceRef=current()/@id]/@targetRef]/@isForCompensation='true'" diagnostics="id">
+                EXT.144|The associated Activity must be a Task or a Sub-Process which is marked for compensation
+                (i.e., isForCompensation=true)
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
