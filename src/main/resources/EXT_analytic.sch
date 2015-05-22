@@ -388,6 +388,15 @@
         </iso:rule>
     </iso:pattern>
 
+
+    <iso:pattern name="EXT.136">
+        <iso:rule context="bpmn:eventBasedGateway">
+            <iso:assert test="count(bpmn:outgoing)>=2" diagnostics="id">
+                EXT.136|An Event Gateway MUST have two or more outgoing Sequence Flows.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
