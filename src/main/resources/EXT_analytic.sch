@@ -451,6 +451,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.143">
+        <iso:rule context="bpmn:boundaryEvent[bpmn:compensateEventDefinition]">
+            <iso:assert test="//bpmn:association[@sourceRef=current()/@id]" diagnostics="id">
+                EXT.143|A compensateBoundaryEvent must be connected with an Association to a Compensation Activity.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
