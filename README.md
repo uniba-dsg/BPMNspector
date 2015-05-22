@@ -11,7 +11,7 @@ BPMNspector checks single files - or complete directories - of BPMN files and re
 **BPMNspector currently supports:**
 - **Schema validation:** Ensures correctness regarding the official OMG XSD files
 - **Reference Checking:** Ensures that all used references exist and that only valid types are used
-- **Check of Advanced Constraints: **
+- **Check of Advanced Constraints:**
     - 40 (of 52) constraints defined for the "descriptive conformance sub class" are checked
     - all additional "analytic conformance sub class" constraints are checked
 - **Support of imports:** (resolvable) imports of processes, WSDL and XSD files are also checked
