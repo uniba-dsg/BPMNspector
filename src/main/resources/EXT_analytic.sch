@@ -442,6 +442,15 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.142">
+        <iso:rule context="bpmn:eventBasedGateway[@instantiate='true']">
+            <iso:assert test="count(bpmn:incoming) = 0" diagnostics="id">
+                EXT.142|When an EventBasedGateway is used to instantiate a process instance no Incoming
+                Sequence Flow is allowed.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
