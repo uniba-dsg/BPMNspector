@@ -19,7 +19,7 @@ public class Ext122 extends TestCase {
 
     @Test
     public void testConstraintFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT122_failure.bpmn"), 1);
+        ValidationResult result = verifyInvalidResult(createFile("EXT122_failure.bpmn"), 2);
         assertViolation(result.getViolations().get(0), ERR_MSG,
                 "//bpmn:intermediateCatchEvent[bpmn:compensateEventDefinition][0]", 7);
     }
