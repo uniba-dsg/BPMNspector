@@ -405,6 +405,18 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.138">
+        <iso:rule context="bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing]">
+            <iso:assert test="(//bpmn:receiveTask[@id=current()/@targetRef])
+                    or (//bpmn:intermediateCatchEvent[(bpmn:messageEventDefinition or bpmn:signalEventDefinition or
+                                bpmn:timerEventDefinition or bpmn:conditionalEventDefinition) and
+                                @id=current()/@targetRef])" diagnostics="id">
+                EXT.138|An eventBasedGateway may only be connected to a ReceiveTask or one of the following intermediate
+                Events: Message, Signal, Timer, Conditional, and Multiple (which can only include the previous triggers)
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
 
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
