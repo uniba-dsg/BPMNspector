@@ -418,6 +418,15 @@
     </iso:pattern>
 
 
+    <iso:pattern name="EXT.139">
+        <iso:rule context="bpmn:eventBasedGateway[bpmn:outgoing=//bpmn:sequenceFlow[@targetRef=//bpmn:receiveTask/@id]/@id]">
+            <iso:assert test="not(//bpmn:intermediateCatchEvent[@id=//bpmn:sequenceFlow[@id=current()/bpmn:outgoing]/@targetRef and bpmn:messageEventDefinition])" diagnostics="id">
+                EXT.139|If Message Intermediate Events are used in the configuration, then Receive Tasks MUST NOT be
+                used in that configuration and vice versa.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
