@@ -14,7 +14,7 @@ import org.junit.Test;
  */
 public class Ext148 extends TestCase {
 
-    private static final String ERR_MSG = "Only messageEventDefininitions, timerEventDefinitions, " +
+    private static final String ERR_MSG = "Only messageEventDefinitions, timerEventDefinitions, " +
             "conditionalEventDefinitions, linkEventDefinitions and signalEventDefinitions are allowed for " +
             "intermediate catch events.";
 
