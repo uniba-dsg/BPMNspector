@@ -468,6 +468,26 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.148">
+        <iso:rule context="bpmn:intermediateCatchEvent">
+            <iso:assert test="not[count($eventDefinitions)=0 or bpmn:escalationEventDefinition
+                or bpmn:errorEventDefinition or bpmn:cancelEventDefinition or bpmn:compensateEventDefinition or bpmn:terminateEventDefinition]" diagnostics="id">
+                EXT.148|Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions,
+                linkEventDefinitions and signalEventDefinitions are allowed for intermediate catch events.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.149">
+        <iso:rule context="bpmn:intermediateThrowEvent[bpmn:timerEventDefinition
+                or bpmn:errorEventDefinition or bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition]">
+            <iso:assert test="false()" diagnostics="id">
+                EXT.149|Only messageEventDefinitions, escalationEventDefinitions, compensationEventDefinitions,
+                linkEventDefinitions and signalEventDefinitions are allowed for intermediate throw events.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
