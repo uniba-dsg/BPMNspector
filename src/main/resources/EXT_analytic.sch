@@ -434,6 +434,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.141">
+        <iso:rule context="bpmn:*[@id=//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing]/@targetRef]">
+            <iso:assert test="count(bpmn:incoming) &lt; 2" diagnostics="id">
+                EXT.141|Targets of an EventBasedGateway must not have any other incoming SequenceFlow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
