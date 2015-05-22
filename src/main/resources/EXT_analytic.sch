@@ -397,6 +397,15 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.137">
+        <iso:rule context="bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing]">
+            <iso:assert test="not(bpmn:conditionExpression)" diagnostics="id">
+                EXT.137|The outgoing Sequence Flows of the Event Gateway MUST NOT have a conditionExpression.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
