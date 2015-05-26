@@ -135,6 +135,7 @@ public class SchematronBPMNValidator {
 
     private List<ISchematronResource> loadAndValidateSchematronFiles() throws ValidationException {
         List<ISchematronResource> schemasToCheck = new ArrayList<>();
+
         final ISchematronResource schematronSchemaDescriptive = SchematronResourcePure
                 .fromClassPath("EXT_descriptive.sch");
         if (!schematronSchemaDescriptive.isValidSchematron()) {
@@ -143,6 +144,7 @@ public class SchematronBPMNValidator {
         } else {
             schemasToCheck.add(schematronSchemaDescriptive);
         }
+
         final ISchematronResource schematronSchemaAnalytic = SchematronResourcePure.fromClassPath("EXT_analytic.sch");
         if(!schematronSchemaAnalytic.isValidSchematron()) {
             LOGGER.debug("schematron file for Analytic Conformance class is invalid");
@@ -150,6 +152,15 @@ public class SchematronBPMNValidator {
         } else {
             schemasToCheck.add(schematronSchemaAnalytic);
         }
+
+        final ISchematronResource schematronSchemaCommonExec = SchematronResourcePure.fromClassPath("EXT_commonExec.sch");
+        if(!schematronSchemaCommonExec.isValidSchematron()) {
+            LOGGER.debug("schematron file for Common Executable Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_commonExec.sch)!");
+        } else {
+            schemasToCheck.add(schematronSchemaCommonExec);
+        }
+
         return schemasToCheck;
     }
 
