@@ -89,6 +89,22 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.017">
+        <iso:rule context="bpmn:*[@gatewayDirection='Converging']">
+            <iso:assert test="count(bpmn:outgoing)&lt;2" diagnostics="id">
+                EXT.017|A converging Gateway must not have more than one outgoing Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.018">
+        <iso:rule context="bpmn:*[@gatewayDirection='Diverging']">
+            <iso:assert test="count(bpmn:incoming)&lt;2" diagnostics="id">
+                EXT.017|A diverging Gateway must not have more than one incoming Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
 
 
     <iso:diagnostics>
