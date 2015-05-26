@@ -22,7 +22,7 @@
       <outgoing>_11</outgoing>
     </task>
     <sequenceFlow id="_8" sourceRef="_3" targetRef="_7"/>
-    <exclusiveGateway gatewayDirection="Diverging" id="_9" name="Parallel Gateway">
+    <exclusiveGateway gatewayDirection="Converging" id="_9" name="Parallel Gateway">
       <incoming>_10</incoming>
       <incoming>_11</incoming>
       <outgoing>_13</outgoing>
