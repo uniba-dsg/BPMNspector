@@ -22,7 +22,7 @@ public class Ext011 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT011_failure_endEventNoRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:endEvent[bpmn:escalationEventDefinition][0]", 7);
+                "//bpmn:endEvent[bpmn:escalationEventDefinition and ancestor::bpmn:process[@isExecutable='true']][0]", 7);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class Ext011 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT011_failure_endEventNoEscCode.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:endEvent[bpmn:escalationEventDefinition][0]", 7);
+                "//bpmn:endEvent[bpmn:escalationEventDefinition and ancestor::bpmn:process[@isExecutable='true']][0]", 7);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class Ext011 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT011_failure_intermediateThrowNoEscCode.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:escalationEventDefinition][0]", 10);
+                "//bpmn:intermediateThrowEvent[bpmn:escalationEventDefinition and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
     }
 
     @Test
@@ -54,6 +54,11 @@ public class Ext011 extends TestCase {
     @Test
     public void testConstraintSuccessBoundaryNoEscCode() throws ValidationException {
         verifyValidResult(createFile("EXT011_success_boundaryNoEscCode.bpmn"));
+    }
+
+    @Test
+    public void testConstraintSuccessNotExecutable() throws ValidationException {
+        verifyValidResult(createFile("EXT011_success_notExecutable.bpmn"));
     }
 
 

@@ -75,13 +75,13 @@
     <let name="allElements" value="//bpmn:*"/>
 
     <iso:pattern name="EXT.011">
-        <iso:rule context="bpmn:intermediateThrowEvent[bpmn:escalationEventDefinition]">
+        <iso:rule context="bpmn:intermediateThrowEvent[bpmn:escalationEventDefinition and ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="bpmn:escalationEventDefinition/@escalationRef and //bpmn:escalation[@id=current()/bpmn:escalationEventDefinition/@escalationRef]/@escalationCode" diagnostics="id">
                 EXT.011|An escalationCode must be present if the escalation is used in an EndEvent or in an intermediate
                 throw Event if the trigger is an Escalation.
             </iso:assert>
         </iso:rule>
-        <iso:rule context="bpmn:endEvent[bpmn:escalationEventDefinition]">
+        <iso:rule context="bpmn:endEvent[bpmn:escalationEventDefinition and ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="bpmn:escalationEventDefinition/@escalationRef and //bpmn:escalation[@id=current()/bpmn:escalationEventDefinition/@escalationRef]/@escalationCode" diagnostics="id">
                 EXT.011|An escalationCode must be present if the escalation is used in an EndEvent or in an intermediate
                 throw Event if the trigger is an Escalation.
