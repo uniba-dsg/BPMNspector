@@ -47,7 +47,7 @@
       <intermediateThrowEvent id="_22" name="Intermediate Throw Event">
         <incoming>_35</incoming>
         <outgoing>_34</outgoing>
-        <escalationEventDefinition id="_22_ED_1"/>
+        <escalationEventDefinition id="_22_ED_1" escalationRef="ES_1"/>
       </intermediateThrowEvent>
       <subProcess completionQuantity="1" id="_24" isForCompensation="false" name="Event Sub-Process" startQuantity="1" triggeredByEvent="true">
         <task completionQuantity="1" id="_25" isForCompensation="false" name="Task" startQuantity="1">
@@ -96,6 +96,7 @@
     <sequenceFlow id="_33" sourceRef="_31" targetRef="_32"/>
     <association associationDirection="One" id="_36" sourceRef="_23" targetRef="_21"/>
   </process>
+  <escalation escalationCode="ESC1" id="ES_1" name="Escalation 1"/>
   <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=597.6;height=842.4;imageableWidth=587.6;imageableHeight=832.4;imageableX=5.0;imageableY=5.0" id="Yaoqiang_Diagram-_1" name="Untitled Diagram" resolution="96.0">
     <bpmndi:BPMNPlane bpmnElement="PROCESS_1">
       <bpmndi:BPMNShape bpmnElement="_2" id="Yaoqiang-_2">
