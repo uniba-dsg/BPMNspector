@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xs:schema PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd">
 <!-- 
    W3C XML Schema defined in the Web Services Description (WSDL)
     Version 2.0 specification
@@ -17,7 +16,8 @@
 
    $Id: wsdl20.xsd,v 1.4 2008/03/31 19:12:51 plehegar Exp $
 -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://www.w3.org/ns/wsdl" targetNamespace="http://www.w3.org/ns/wsdl" elementFormDefault="qualified" finalDefault="" blockDefault="" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://www.w3.org/ns/wsdl"
+           targetNamespace="http://www.w3.org/ns/wsdl" elementFormDefault="qualified" finalDefault="" blockDefault="" attributeFormDefault="unqualified">
 
   <xs:element name="documentation" type="wsdl:DocumentationType"/>
   <xs:complexType name="DocumentationType" mixed="true">
@@ -41,7 +41,7 @@
   <xs:complexType name="ExtensibleDocumentedType" abstract="true" mixed="false">
     <xs:annotation>
       <xs:documentation>
-      This type is extended by component types to allow 
+      This type is extended by component types to allow
       attributes from other namespaces to be added.
       </xs:documentation>
     </xs:annotation>
@@ -205,9 +205,9 @@
   <xs:simpleType name="ElementReferenceType">
     <xs:annotation>
       <xs:documentation>
-      Use the QName of a GED that describes the content, 
-      #any for any content, 
-      #none for empty content, or 
+      Use the QName of a GED that describes the content,
+      #any for any content,
+      #none for empty content, or
       #other for content described by some other extension attribute that references a declaration in a non-XML extension type system.
       </xs:documentation>
     </xs:annotation>
@@ -331,7 +331,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
   <xs:element name="endpoint" type="wsdl:EndpointType"/>
   <xs:complexType name="EndpointType" mixed="false">
     <xs:complexContent>
