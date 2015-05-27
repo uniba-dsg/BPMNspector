@@ -143,6 +143,44 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.013">
+        <iso:rule context="bpmn:*[contains(@*[local-name()='type'],'tFormalExpression')]">
+            <iso:assert test="text()" diagnostics="id">
+                EXT.013|According to constraint CARD.064 (see Sec. 3.1) body is a mandatory attribute
+                of a FormalExpression. Therefore the element must contain any Expression as
+                a string content.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:condition[parent::bpmn:complexBehaviorDefinition]">
+            <iso:assert test="text()" diagnostics="id">
+                EXT.013|According to constraint CARD.064 (see Sec. 3.1) body is a mandatory attribute
+                of a FormalExpression. Therefore the element must contain any Expression as
+                a string content.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:dataPath">
+            <iso:assert test="text()" diagnostics="id">
+                EXT.013|According to constraint CARD.064 (see Sec. 3.1) body is a mandatory attribute
+                of a FormalExpression. Therefore the element must contain any Expression as
+                a string content.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:messagePath">
+            <iso:assert test="text()" diagnostics="id">
+                EXT.013|According to constraint CARD.064 (see Sec. 3.1) body is a mandatory attribute
+                of a FormalExpression. Therefore the element must contain any Expression as
+                a string content.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:transformation">
+            <iso:assert test="text()" diagnostics="id">
+                EXT.013|According to constraint CARD.064 (see Sec. 3.1) body is a mandatory attribute
+                of a FormalExpression. Therefore the element must contain any Expression as
+                a string content.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.017">
         <iso:rule context="bpmn:*[@gatewayDirection='Converging']">
             <iso:assert test="count(bpmn:outgoing)&lt;2" diagnostics="id">
