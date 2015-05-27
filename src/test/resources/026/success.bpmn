@@ -15,7 +15,7 @@
     </exclusiveGateway>
     <sequenceFlow id="_10" sourceRef="_3" targetRef="_9"/>
     <sequenceFlow id="_11" sourceRef="_9" targetRef="_5">
-      <conditionExpression><![CDATA[i > 1]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[i > 1]]></conditionExpression>
     </sequenceFlow>
     <task completionQuantity="1" id="_12" isForCompensation="false" name="Task" startQuantity="1">
       <incoming>_13</incoming>

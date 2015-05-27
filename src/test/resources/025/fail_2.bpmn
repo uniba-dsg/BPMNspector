@@ -17,7 +17,7 @@
       <incoming>_7</incoming>
     </endEvent>
     <sequenceFlow id="_6" sourceRef="_3" targetRef="_5">
-      <conditionExpression><![CDATA[i > 1]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[i > 1]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="_7" sourceRef="_5" targetRef="_12"/>
   </process>
