@@ -105,6 +105,13 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.019">
+        <iso:rule context="bpmn:*[@gatewayDirection='Mixed']">
+            <iso:assert test="count(bpmn:incoming)>=2 and count(bpmn:outgoing)>=2" diagnostics="id">
+                EXT.019|A mixed Gateway must have more than one incoming and more than one outgoing Sequence Flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
 
 
     <iso:diagnostics>
