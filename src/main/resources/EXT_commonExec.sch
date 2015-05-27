@@ -89,6 +89,60 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.012">
+        <iso:rule context="bpmn:adHocSubProcess[bpmn:completionCondition and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:completionCondition/@xsi:type='tFormalExpression' or substring-after(bpmn:completionCondition/@xsi:type, ':')='tFormalExpression'" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:assignment[ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="(bpmn:from/@xsi:type='tFormalExpression' or substring-after(bpmn:from/@xsi:type, ':')='tFormalExpression')
+                    and (bpmn:to/@xsi:type='tFormalExpression' or substring-after(bpmn:completionCondition/@xsi:type, ':')='tFormalExpression')" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:complexGateway[bpmn:activationCondition and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:activationCondition/@xsi:type='tFormalExpression' or substring-after(bpmn:activationCondition/@xsi:type, ':')='tFormalExpression'" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:multiInstanceLoopCharacteristics[bpmn:loopCardinality and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:loopCardinality/@xsi:type='tFormalExpression' or substring-after(bpmn:loopCardinality/@xsi:type, ':')='tFormalExpression'" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:multiInstanceLoopCharacteristics[bpmn:completionCondition and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:completionCondition/@xsi:type='tFormalExpression' or substring-after(bpmn:completionCondition/@xsi:type, ':')='tFormalExpression'" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:sequenceFlow[bpmn:conditionExpression and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:conditionExpression/@xsi:type='tFormalExpression' or substring-after(bpmn:conditionExpression/@xsi:type, ':')='tFormalExpression'" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:standardLoopCharacteristics[bpmn:loopCondition and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:loopCondition/@xsi:type='tFormalExpression' or substring-after(bpmn:loopCondition/@xsi:type, ':')='tFormalExpression'" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="(bpmn:timeDate/@xsi:type='tFormalExpression' or substring-after(bpmn:timeDate/@xsi:type, ':')='tFormalExpression')
+                    or (bpmn:timeDuration/@xsi:type='tFormalExpression' or substring-after(bpmn:timeDuration/@xsi:type, ':')='tFormalExpression')
+                    or (bpmn:timeCycle/@xsi:type='tFormalExpression' or substring-after(bpmn:timeCycle/@xsi:type, ':')='tFormalExpression')" diagnostics="id">
+                EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
+                to be provided or the process must be marked as isExecutable='false'.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.017">
         <iso:rule context="bpmn:*[@gatewayDirection='Converging']">
             <iso:assert test="count(bpmn:outgoing)&lt;2" diagnostics="id">
