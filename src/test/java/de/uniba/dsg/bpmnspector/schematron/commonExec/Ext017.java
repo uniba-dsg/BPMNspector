@@ -17,7 +17,7 @@ public class Ext017 extends TestCase {
     private static final String ERR_MSG = "A converging Gateway must not have more than one outgoing Sequence Flow.";
 
     @Test
-    public void testConstraintFailEndEventNoRef() throws ValidationException {
+    public void testConstraintFailExclusiveGateway() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT017_failure_exclusiveGateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
