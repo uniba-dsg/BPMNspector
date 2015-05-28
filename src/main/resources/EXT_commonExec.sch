@@ -240,6 +240,13 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.035">
+        <iso:rule context="bpmn:process[@processType='Public']">
+            <iso:assert test="@isExecutable='false'" diagnostics="id">
+                EXT.024|A Public process may not be marked as executable.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
 
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
