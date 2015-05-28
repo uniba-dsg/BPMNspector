@@ -207,17 +207,26 @@
 
     <iso:pattern name="EXT.020">
         <iso:rule context="bpmn:dataObject[@itemSubjectRef]">
-            <iso:assert test="@isCollection=//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection" diagnostics="id">
+            <iso:assert test="(@isCollection=//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection)
+                    or (@isCollection='false' and not(//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection))
+                    or (not(@isCollection) and //bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection='false')
+                    or (not(@isCollection) and not(//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection))" diagnostics="id">
                 EXT.020|The attribute isCollection must match the definition of the referenced itemDefinition.
             </iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:dataOutput[@itemSubjectRef]">
-            <iso:assert test="@isCollection=//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection" diagnostics="id">
+            <iso:assert test="(@isCollection=//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection)
+                    or (@isCollection='false' and not(//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection))
+                    or (not(@isCollection) and //bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection='false')
+                    or (not(@isCollection) and not(//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection))" diagnostics="id">
                 EXT.020|The attribute isCollection must match the definition of the referenced itemDefinition.
             </iso:assert>
         </iso:rule>
         <iso:rule context="bpmn:dataInput[@itemSubjectRef]">
-            <iso:assert test="@isCollection=//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection" diagnostics="id">
+            <iso:assert test="(@isCollection=//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection)
+                    or (@isCollection='false' and not(//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection))
+                    or (not(@isCollection) and //bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection='false')
+                    or (not(@isCollection) and not(//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@isCollection))" diagnostics="id">
                 EXT.020|The attribute isCollection must match the definition of the referenced itemDefinition.
             </iso:assert>
         </iso:rule>

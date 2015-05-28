@@ -25,6 +25,14 @@ public class Ext020 extends TestCase {
     }
 
     @Test
+    public void testConstraintFailDataInputDefaultValue() throws ValidationException {
+        ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataInput_defaultValue.bpmn"), 1);
+        assertViolation(result.getViolations().get(0),
+                ERR_MSG,
+                "//bpmn:dataInput[@itemSubjectRef][0]", 12);
+    }
+
+    @Test
     public void testConstraintFailDataOutput() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
@@ -48,6 +56,11 @@ public class Ext020 extends TestCase {
     @Test
     public void testConstraintSuccessNoCollection() throws ValidationException {
         verifyValidResult(createFile("EXT020_success_noCollection.bpmn"));
+    }
+
+    @Test
+    public void testConstraintSuccessNoCollectionDefaultValues() throws ValidationException {
+        verifyValidResult(createFile("EXT020_success_noCollection_defaultValues.bpmn"));
     }
 
     @Override
