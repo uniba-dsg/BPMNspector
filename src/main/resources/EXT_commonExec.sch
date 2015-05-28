@@ -232,6 +232,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.024">
+        <iso:rule context="bpmn:sequenceFlow[@isImmediate='false']">
+            <iso:assert test="ancestor::bpmn:process/@isExecutable='false'" diagnostics="id">
+                EXT.024|The optional attribute isImmediate must not be 'false' for executable processes.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
 
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
