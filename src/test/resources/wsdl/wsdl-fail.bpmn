@@ -22,6 +22,16 @@
     <serviceTask completionQuantity="1" id="_3" implementation="##WebService" isForCompensation="false" name="Service Task" operationRef="IF_1_O_1" startQuantity="1">
       <incoming>_4</incoming>
       <outgoing>_6</outgoing>
+      <ioSpecification>
+        <dataInput id="Din_3_1" name="dataIn"/>
+        <dataOutput id="Dout_3_1" name="dataOut"/>
+        <inputSet>
+          <dataInputRefs>Din_3_1</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>Dout_3_1</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
     </serviceTask>
     <sequenceFlow id="_4" sourceRef="_2" targetRef="_3"/>
     <endEvent id="_5" name="End Event">

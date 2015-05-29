@@ -256,6 +256,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.043">
+        <iso:rule context="bpmn:serviceTask[@operationRef]">
+            <iso:assert test="count(bpmn:ioSpecification/bpmn:outputSet)&lt;2" diagnostics="id">
+                EXT.043|If a ServiceTask references an operation, at most one OutputSet can be defined in the ioSpecification.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
