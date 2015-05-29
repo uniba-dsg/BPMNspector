@@ -38,11 +38,6 @@ public class Ext044 extends TestCase {
         verifyValidResult(createFile("EXT044_success_differentItemDef_equalStructureRef.bpmn"));
     }
 
-    @Test
-    public void testConstraintSuccess() throws ValidationException {
-        verifyValidResult(createFile("EXT042_success.bpmn"));
-    }
-
     @Override
     protected String getExtNumber() {
         return "044";
