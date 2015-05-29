@@ -5,7 +5,6 @@
   <interface id="IF_1" name="Interface">
     <operation id="IF_1_O_1" name="Operation1">
       <inMessageRef>MSG_1</inMessageRef>
-      <outMessageRef>MSG_2</outMessageRef>
     </operation>
   </interface>
   <process id="PROCESS_1" isClosed="false" isExecutable="true" processType="None">
