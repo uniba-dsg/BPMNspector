@@ -243,7 +243,15 @@
     <iso:pattern name="EXT.035">
         <iso:rule context="bpmn:process[@processType='Public']">
             <iso:assert test="@isExecutable='false'" diagnostics="id">
-                EXT.024|A Public process may not be marked as executable.
+                EXT.035|A Public process may not be marked as executable.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.042">
+        <iso:rule context="bpmn:serviceTask[@operationRef]">
+            <iso:assert test="count(bpmn:ioSpecification/bpmn:inputSet)=1" diagnostics="id">
+                EXT.042|If a ServiceTask references an operation, exactly one InputSet must be defined in the ioSpecification.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
