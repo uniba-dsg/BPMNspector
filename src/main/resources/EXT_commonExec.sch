@@ -264,6 +264,18 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.044">
+        <iso:rule context="bpmn:serviceTask[@operationRef and bpmn:ioSpecification/bpmn:dataInput]">
+            <iso:assert test="(bpmn:ioSpecification/bpmn:dataInput/@itemSubjectRef =
+                            //bpmn:message[@id=//bpmn:inMessageRef[parent::bpmn:operation[@id=current()/@operationRef]]]/@itemRef)
+                    or (//bpmn:itemDefinition[@id = current()/bpmn:ioSpecification/bpmn:dataInput/@itemSubjectRef]/@structureRef =
+                        //bpmn:itemDefinition[@id = //bpmn:message[@id=//bpmn:inMessageRef[parent::bpmn:operation[@id=current()/@operationRef]]]/@itemRef]/@structureRef)" diagnostics="id">
+                EXT.044|The ItemDefinition of the DataInput of the ServiceTask and the inMessage of the referenced
+                Operation must be equal.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
