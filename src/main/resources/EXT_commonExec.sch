@@ -276,6 +276,19 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.045">
+        <iso:rule context="bpmn:serviceTask[@operationRef]">
+            <iso:assert test="not(//bpmn:operation[@id=current()/@operationRef]/bpmn:outMessageRef)
+                    or ((bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef =
+                            //bpmn:message[@id=//bpmn:outMessageRef[parent::bpmn:operation[@id=current()/@operationRef]]]/@itemRef)
+                    or (//bpmn:itemDefinition[@id = current()/bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef]/@structureRef =
+                        //bpmn:itemDefinition[@id = //bpmn:message[@id=//bpmn:outMessageRef[parent::bpmn:operation[@id=current()/@operationRef]]]/@itemRef]/@structureRef))" diagnostics="id">
+                EXT.045|If the operation defines a outMessage, the ItemDefinition of the DataOutput of the ServiceTask
+                and the outMessage of the operation must be equal.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
