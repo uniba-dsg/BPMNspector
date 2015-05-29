@@ -297,6 +297,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.047">
+        <iso:rule context="bpmn:sendTask[@messageRef]">
+            <iso:assert test="count(bpmn:ioSpecification/bpmn:dataInput)&lt;2" diagnostics="id">
+                EXT.047|If a SendTask references a message, at most one DataInput must be defined in the ioSpecification.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
