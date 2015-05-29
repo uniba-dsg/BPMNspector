@@ -23,8 +23,8 @@
       <incoming>_4</incoming>
       <outgoing>_6</outgoing>
       <ioSpecification>
-        <dataInput id="Din_3_1" name="dataIn"/>
-        <dataOutput id="Dout_3_1" name="dataOut"/>
+        <dataInput id="Din_3_1" name="dataIn" itemSubjectRef="ID_1"/>
+        <dataOutput id="Dout_3_1" name="dataOut" itemSubjectRef="ID_2"/>
         <inputSet>
           <dataInputRefs>Din_3_1</dataInputRefs>
         </inputSet>

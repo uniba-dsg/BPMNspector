@@ -22,7 +22,7 @@ public class Ext043 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT043_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:serviceTask[@operationRef][0]", 15);
+                "//bpmn:serviceTask[@operationRef][0]", 16);
     }
 
     @Override
