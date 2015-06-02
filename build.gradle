@@ -2,9 +2,6 @@ apply plugin: "java"
 apply plugin: "idea"
 apply plugin: "eclipse"
 apply plugin: "application"
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
-apply plugin: 'jacoco'
 
 mainClassName = "de.uniba.dsg.bpmnspector.BPMNspectorMain"
 
@@ -13,7 +10,7 @@ task wrapper(type: Wrapper) {
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 configurations {
@@ -36,9 +33,6 @@ dependencies {
     internal 'commons-io:commons-io:2.4'
     internal 'org.apache.velocity:velocity:1.7'
 
-    pmd 'net.sourceforge.pmd:pmd-core:5.3.+'
-    pmd 'net.sourceforge.pmd:pmd-java:5.3.+'
-
     external files(fileTree(dir: "lib", includes: ['*.jar']))
 
     testCompile 'junit:junit:4.+'
@@ -47,27 +41,12 @@ dependencies {
     compile configurations.external
 }
 
-pmd {
-    toolVersion = '5.2.3'
-    ruleSetFiles = files("config/pmd.xml")
-    ruleSets = []
-	ignoreFailures = true
-}
-
-findbugs {
-    ignoreFailures = true
-}
-
 tasks.withType(FindBugs) {
     reports {
         xml.enabled = false
         html.enabled = true
     }
  }
-
-jacoco {
-    toolVersion = "0.7.1.201405082137"
-}
 
 jar.archiveName = "BPMNspector.jar"
 
