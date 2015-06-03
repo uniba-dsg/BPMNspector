@@ -380,6 +380,15 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.069">
+        <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataOutputRef and bpmn:outputDataItem]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=current()/bpmn:loopDataOutputRef]/@itemSubjectRef]/@structureRef =
+                    //bpmn:itemDefinition[@id=current()/bpmn:outputDataItem/@itemSubjectRef and not(@isCollection='true')]/@structureRef" diagnostics="id">
+                EXT.069|Type of DataOutput must be the scalar of the loopDataOutput type.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
