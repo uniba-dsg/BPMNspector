@@ -350,7 +350,15 @@
                         //bpmn:itemDefinition[@id = //bpmn:message[@id=current()/@messageRef]/@itemRef]/@structureRef)
                     )
                     " diagnostics="id">
-                EXT.048|An Item must be referenced which must be declared in referenced Message definition.
+                EXT.052|An Item must be referenced which must be declared in referenced Message definition.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.053">
+        <iso:rule context="bpmn:scriptTask[bpmn:script]">
+            <iso:assert test="@scriptFormat" diagnostics="id">
+                EXT.053|If a script is present the script type must be defined.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
