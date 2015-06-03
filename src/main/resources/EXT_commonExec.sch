@@ -371,6 +371,15 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.068">
+        <iso:rule context="bpmn:multiInstanceLoopCharacteristics[bpmn:loopDataInputRef and not(parent::bpmn:subProcess) and ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="parent::bpmn:*[bpmn:ioSpecification/bpmn:dataInput[@id=current()/bpmn:loopDataInputRef]]" diagnostics="id">
+                EXT.068|If a multiInstance task is used in an executable process loopDataInputReference must be
+                resolvable to a DataInput defined in the InputOutputSpecification of the Task.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
