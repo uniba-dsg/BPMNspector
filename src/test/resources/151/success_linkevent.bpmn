@@ -12,7 +12,7 @@
 
     <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="StartEvent_1" targetRef="start"/>
 
-    <bpmn2:scriptTask id="start" name="Start">
+    <bpmn2:scriptTask id="start" name="Start" scriptFormat="dummyFormat">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
       <bpmn2:script>CREATE_LOG_FILE</bpmn2:script>
@@ -36,7 +36,7 @@
 
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="IntermediateCatchEvent_1" targetRef="end"/>
 
-    <bpmn2:scriptTask id="end" name="End">
+    <bpmn2:scriptTask id="end" name="End" scriptFormat="dummyFormat">
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
       <bpmn2:script>SCRIPT_task1</bpmn2:script>
