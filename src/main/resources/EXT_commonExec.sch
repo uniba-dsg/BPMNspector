@@ -363,6 +363,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.067">
+        <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="(bpmn:loopCardinality) or (bpmn:loopDataInputRef)" diagnostics="id">
+                EXT.067|If a multiInstance marker is used in an executable process either a loopCardinality or a loopDataInputRef must be present.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
