@@ -342,6 +342,19 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.052">
+        <iso:rule context="bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput]">
+            <iso:assert test="bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef
+                    and ((bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef=//bpmn:message[@id=current()/@messageRef]/@itemRef)
+                        or (//bpmn:itemDefinition[@id = current()/bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef]/@structureRef =
+                        //bpmn:itemDefinition[@id = //bpmn:message[@id=current()/@messageRef]/@itemRef]/@structureRef)
+                    )
+                    " diagnostics="id">
+                EXT.048|An Item must be referenced which must be declared in referenced Message definition.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
