@@ -334,6 +334,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.051">
+        <iso:rule context="bpmn:receiveTask[@messageRef]">
+            <iso:assert test="count(bpmn:ioSpecification/bpmn:dataOutput)&lt;2" diagnostics="id">
+                EXT.051|If a ReceiveTask references a message, at most one DataOutput must be defined in the ioSpecification.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
