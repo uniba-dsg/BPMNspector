@@ -318,6 +318,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.049">
+        <iso:rule context="bpmn:receiveTask[@instantiate='true']">
+            <iso:assert test="not(bpmn:incoming)" diagnostics="id">
+                EXT.049|A ReceiveTask with attribute instantiate set to true must not have any incoming sequence flow.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
