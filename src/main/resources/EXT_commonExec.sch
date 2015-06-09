@@ -363,6 +363,77 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.063">
+        <!-- For each InputSet which is a child of a callActivity applies: -->
+        <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
+        (indirectly) referenced itemDefinition of the called Process -->
+        <iso:rule context="bpmn:inputSet[ancestor::bpmn:callActivity and node()]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataInput[@id=current()/bpmn:dataInputRefs]/@itemSubjectRef]/@structureRef =
+        //bpmn:itemDefinition[@id=//bpmn:dataInput[@id=//bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:inputSet=current()]
+                /@calledElement]/bpmn:ioSpecification/bpmn:inputSet/bpmn:dataInputRefs]/@itemSubjectRef]/@structureRef" diagnostics="id">
+                EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
+                CallableElement being invoked. This means that the elements contained in the Call Activity's
+                InputOutputSpecification MUST exactly match the elements contained in the referenced CallableElement.
+                This includes DataInputs, DataOutputs, InputSets, and OutputSets.
+            </iso:assert>
+        </iso:rule>
+        <!-- For each OutputSet which is a child of a callActivity applies: -->
+        <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
+        (indirectly) referenced itemDefinition of the called Process -->
+        <iso:rule context="bpmn:outputSet[ancestor::bpmn:callActivity and node()]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=current()/bpmn:dataOutputRefs]/@itemSubjectRef]/@structureRef =
+        //bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=//bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:outputSet=current()]
+                /@calledElement]/bpmn:ioSpecification/bpmn:outputSet/bpmn:dataOutputRefs]/@itemSubjectRef]/@structureRef" diagnostics="id">
+                EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
+                CallableElement being invoked. This means that the elements contained in the Call Activity's
+                InputOutputSpecification MUST exactly match the elements contained in the referenced CallableElement.
+                This includes DataInputs, DataOutputs, InputSets, and OutputSets.
+            </iso:assert>
+        </iso:rule>
+        <!-- For each dataInput which is a child of a callActivity applies: -->
+        <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
+        (indirectly) referenced itemDefinition of the called Process -->
+        <iso:rule context="bpmn:dataInput[ancestor::bpmn:callActivity]">
+            <iso:assert test="//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@structureRef =
+        //bpmn:itemDefinition[@id=
+                //bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataInput=current()]/@calledElement]
+                    /bpmn:ioSpecification/bpmn:dataInput/@itemSubjectRef]/@structureRef" diagnostics="id">
+                EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
+                CallableElement being invoked. This means that the elements contained in the Call Activity's
+                InputOutputSpecification MUST exactly match the elements contained in the referenced CallableElement.
+                This includes DataInputs, DataOutputs, InputSets, and OutputSets.
+            </iso:assert>
+        </iso:rule>
+        <!-- For each dataOutput which is a child of a callActivity applies: -->
+        <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
+        (indirectly) referenced itemDefinition of the called Process -->
+        <iso:rule context="bpmn:dataOutput[ancestor::bpmn:callActivity]">
+            <iso:assert test="//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@structureRef =
+        //bpmn:itemDefinition[@id=
+                //bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataOutput=current()]/@calledElement]
+                    /bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef]/@structureRef" diagnostics="id">
+                EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
+                CallableElement being invoked. This means that the elements contained in the Call Activity's
+                InputOutputSpecification MUST exactly match the elements contained in the referenced CallableElement.
+                This includes DataInputs, DataOutputs, InputSets, and OutputSets.
+            </iso:assert>
+        </iso:rule>
+        <!-- The number of dataInputs, dataOutputs, InputSets and OutputSets (and there dataInput/dataOutputRefs must be equal) -->
+        <iso:rule context="bpmn:callActivity[@calledElement]">
+            <iso:assert test="count(bpmn:ioSpecification/bpmn:dataInput)=count(//bpmn:ioSpecification[parent::bpmn:*[@id=current()/@calledElement]]/bpmn:dataInput)
+            and count(bpmn:ioSpecification/bpmn:dataOutput)=count(//bpmn:ioSpecification[parent::bpmn:*[@id=current()/@calledElement]]/bpmn:dataOutput)
+            and count(bpmn:ioSpecification/bpmn:inputSet)=count(//bpmn:ioSpecification[parent::bpmn:*[@id=current()/@calledElement]]/bpmn:inputSet)
+            and count(bpmn:ioSpecification/bpmn:outputSet)=count(//bpmn:ioSpecification[parent::bpmn:*[@id=current()/@calledElement]]/bpmn:outputSet)
+            and count(bpmn:ioSpecification/bpmn:inputSet/bpmn:dataInputRefs)=count(//bpmn:ioSpecification[parent::bpmn:*[@id=current()/@calledElement]]/bpmn:inputSet/bpmn:dataInputRefs)
+            and count(bpmn:ioSpecification/bpmn:outputSet/bpmn:dataOutputRefs)=count(//bpmn:ioSpecification[parent::bpmn:*[@id=current()/@calledElement]]/bpmn:outputSet/bpmn:dataOutputRefs)" diagnostics="id">
+                EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
+                CallableElement being invoked. This means that the elements contained in the Call Activity's
+                InputOutputSpecification MUST exactly match the elements contained in the referenced CallableElement.
+                This includes DataInputs, DataOutputs, InputSets, and OutputSets.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.067">
         <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="(bpmn:loopCardinality) or (bpmn:loopDataInputRef)" diagnostics="id">
