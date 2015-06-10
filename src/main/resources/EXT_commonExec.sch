@@ -442,6 +442,19 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.065">
+        <iso:rule context="bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding]">
+            <iso:assert test="//bpmn:itemDefinition[@id=current()/bpmn:ioSpecification/bpmn:dataInput[current()/bpmn:ioBinding/@inputDataRef]/@itemSubjectRef]/@structureRef
+            = //bpmn:itemDefinition[@id=//bpmn:message[@id=//bpmn:operation[@id=current()/bpmn:ioBinding/@operationRef]/bpmn:inMessageRef]/@itemRef]/@structureRef" diagnostics="id">
+                EXT.065|An InputOutputBinding element must correctly bind one Input and one Output of the InputOutputSpecification to an Operation of a Service Interface.
+            </iso:assert>
+            <iso:assert test="//bpmn:itemDefinition[@id=current()/bpmn:ioSpecification/bpmn:dataOutput[current()/bpmn:ioBinding/@outputDataRef]/@itemSubjectRef]/@structureRef
+            = //bpmn:itemDefinition[@id=//bpmn:message[@id=//bpmn:operation[@id=current()/bpmn:ioBinding/@operationRef]/bpmn:outMessageRef]/@itemRef]/@structureRef" diagnostics="id">
+                EXT.065|An InputOutputBinding element must correctly bind one Input and one Output of the InputOutputSpecification to an Operation of a Service Interface.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.067">
         <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="(bpmn:loopCardinality) or (bpmn:loopDataInputRef)" diagnostics="id">
