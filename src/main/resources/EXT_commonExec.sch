@@ -366,10 +366,10 @@
     <iso:pattern name="EXT.063">
         <!-- For each InputSet which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
-        (indirectly) referenced itemDefinition of the called Process -->
+        (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
         <iso:rule context="bpmn:inputSet[ancestor::bpmn:callActivity and node()]">
             <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataInput[@id=current()/bpmn:dataInputRefs]/@itemSubjectRef]/@structureRef =
-        //bpmn:itemDefinition[@id=//bpmn:dataInput[@id=//bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:inputSet=current()]
+        //bpmn:itemDefinition[@id=//bpmn:dataInput[@id=//bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:inputSet=current()]
                 /@calledElement]/bpmn:ioSpecification/bpmn:inputSet/bpmn:dataInputRefs]/@itemSubjectRef]/@structureRef" diagnostics="id">
                 EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
                 CallableElement being invoked. This means that the elements contained in the Call Activity's
@@ -379,10 +379,10 @@
         </iso:rule>
         <!-- For each OutputSet which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
-        (indirectly) referenced itemDefinition of the called Process -->
+        (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
         <iso:rule context="bpmn:outputSet[ancestor::bpmn:callActivity and node()]">
             <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=current()/bpmn:dataOutputRefs]/@itemSubjectRef]/@structureRef =
-        //bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=//bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:outputSet=current()]
+        //bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=//bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:outputSet=current()]
                 /@calledElement]/bpmn:ioSpecification/bpmn:outputSet/bpmn:dataOutputRefs]/@itemSubjectRef]/@structureRef" diagnostics="id">
                 EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
                 CallableElement being invoked. This means that the elements contained in the Call Activity's
@@ -392,11 +392,11 @@
         </iso:rule>
         <!-- For each dataInput which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
-        (indirectly) referenced itemDefinition of the called Process -->
+        (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
         <iso:rule context="bpmn:dataInput[ancestor::bpmn:callActivity]">
             <iso:assert test="//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@structureRef =
         //bpmn:itemDefinition[@id=
-                //bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataInput=current()]/@calledElement]
+                //bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataInput=current()]/@calledElement]
                     /bpmn:ioSpecification/bpmn:dataInput/@itemSubjectRef]/@structureRef" diagnostics="id">
                 EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
                 CallableElement being invoked. This means that the elements contained in the Call Activity's
@@ -406,11 +406,11 @@
         </iso:rule>
         <!-- For each dataOutput which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
-        (indirectly) referenced itemDefinition of the called Process -->
+        (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
         <iso:rule context="bpmn:dataOutput[ancestor::bpmn:callActivity]">
             <iso:assert test="//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@structureRef =
         //bpmn:itemDefinition[@id=
-                //bpmn:process[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataOutput=current()]/@calledElement]
+                //bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataOutput=current()]/@calledElement]
                     /bpmn:ioSpecification/bpmn:dataOutput/@itemSubjectRef]/@structureRef" diagnostics="id">
                 EXT.063|A Call Activity MUST fulfill the data requirements, as well as return the data produced by the
                 CallableElement being invoked. This means that the elements contained in the Call Activity's

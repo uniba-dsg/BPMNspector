@@ -53,6 +53,14 @@ public class Ext063 extends TestCase {
                 ERR_MSG,
                 "//bpmn:dataOutput[ancestor::bpmn:callActivity][0]", 69);
     }
+
+    @Test
+    public void testConstraintFailCalledGlobalTaskAdditionalOutput() throws ValidationException {
+        ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledGlobalTask_additionalOutput.bpmn"), 1);
+        assertViolation(result.getViolations().get(0),
+                ERR_MSG,
+                "//bpmn:callActivity[@calledElement][0]", 16);
+    }
     
     @Test
     public void testConstraintSuccessCalledProcess() throws ValidationException {
@@ -62,6 +70,11 @@ public class Ext063 extends TestCase {
     @Test
     public void testConstraintSuccessCalledProcessDifferentItemsMatchingStructure() throws ValidationException {
         verifyValidResult(createFile("EXT063_success_calledProcess_differentItemsMatchingStructure.bpmn"));
+    }
+
+    @Test
+    public void testConstraintSuccessCalledGlobalTask() throws ValidationException {
+        verifyValidResult(createFile("EXT063_success_calledGlobalTask.bpmn"));
     }
 
     @Override
