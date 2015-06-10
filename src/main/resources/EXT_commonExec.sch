@@ -490,6 +490,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.085">
+        <iso:rule context="bpmn:inputSet[bpmn:optionalInputRefs]">
+            <iso:assert test="bpmn:dataInputRefs[text()=current()/bpmn:optionalInputRefs/text()]" diagnostics="id">
+                EXT.085|An optionalInputRef must be listed as dataInputRef.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
