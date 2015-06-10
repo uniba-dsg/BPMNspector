@@ -521,6 +521,23 @@
         </iso:rule>
     </iso:pattern>
 
+
+    <iso:pattern name="EXT.089">
+        <iso:rule context="bpmn:outputSet[bpmn:optionalOutputRefs]">
+            <iso:assert test="bpmn:dataOutputRefs[text()=current()/bpmn:optionalOutputRefs/text()]" diagnostics="id">
+                EXT.089|An optionalOutputRef must be listed as dataOutputRef.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.090">
+        <iso:rule context="bpmn:outputSet[bpmn:whileExecutingOutputRefs]">
+            <iso:assert test="bpmn:dataOutputRefs[text()=current()/bpmn:whileExecutingOutputRefs/text()]" diagnostics="id">
+                EXT.090|A whileExecutingOutputRef must be listed as dataOutputRef.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
