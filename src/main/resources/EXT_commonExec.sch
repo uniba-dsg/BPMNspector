@@ -561,7 +561,7 @@
         </iso:rule>
         <iso:rule context="bpmn:boundaryEvent[bpmn:dataOutput]">
             <iso:assert test="count(bpmn:dataOutput)=count($eventDefinitions)" diagnostics="id">
-                EXT.093|If dataOutputs are used in an BoundaryEvent for each eventDefinition a DataOutput must be defined.
+                EXT.093|If dataOutputs are used in a BoundaryEvent for each eventDefinition a DataOutput must be defined.
             </iso:assert>
         </iso:rule>
     </iso:pattern>

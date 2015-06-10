@@ -18,7 +18,7 @@ public class Ext093 extends TestCase {
     public void testConstraintFailBoundaryEventMissingDataOutput() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT093_failure_boundaryEvent_missingDataOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "If dataOutputs are used in a BoundaryEvent for each eventDefinition a DataInput must be defined.",
+                "If dataOutputs are used in a BoundaryEvent for each eventDefinition a DataOutput must be defined.",
                 "//bpmn:boundaryEvent[bpmn:dataOutput][0]", 21);
     }
 
@@ -34,7 +34,7 @@ public class Ext093 extends TestCase {
     public void testConstraintFailIntCatchMissingDataOutput() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT093_failure_intCatch_missingDataOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "If dataOutputs are used in an IntermediateCatchEvent for each eventDefinition a DataInput must be defined.",
+                "If dataOutputs are used in an IntermediateCatchEvent for each eventDefinition a DataOutput must be defined.",
                 "//bpmn:intermediateCatchEvent[bpmn:dataOutput][0]", 10);
     }
 
@@ -50,7 +50,7 @@ public class Ext093 extends TestCase {
     public void testConstraintFailStartEventMissingDataOutput() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT093_failure_startEvent_missingDataOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "If dataOutputs are used in a StartEvent for each eventDefinition a DataInput must be defined.",
+                "If dataOutputs are used in a StartEvent for each eventDefinition a DataOutput must be defined.",
                 "//bpmn:startEvent[bpmn:dataOutput][0]", 7);
     }
 
