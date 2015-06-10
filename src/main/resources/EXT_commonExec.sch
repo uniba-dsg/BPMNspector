@@ -498,10 +498,25 @@
         </iso:rule>
     </iso:pattern>
 
-    <iso:pattern name="EXT.085">
+    <iso:pattern name="EXT.086">
         <iso:rule context="bpmn:inputSet[bpmn:whileExecutingInputRefs]">
             <iso:assert test="bpmn:dataInputRefs[text()=current()/bpmn:whileExecutingInputRefs/text()]" diagnostics="id">
-                EXT.085|A whileExecutingInputRef must be listed as dataInputRef.
+                EXT.086|A whileExecutingInputRef must be listed as dataInputRef.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+    <iso:pattern name="EXT.087">
+        <iso:rule context="bpmn:inputSet[bpmn:outputSetRefs]">
+            <iso:assert test="parent::bpmn:*/bpmn:outputSet[@id=current()/bpmn:outputSetRefs]/bpmn:inputSetRefs=current()/@id" diagnostics="id">
+                EXT.085|If an inputSet references an outputSet using the outputSetRefs element it must be referenced by
+                the outputSet using the inputSetRefs element and vice versa.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:outputSet[bpmn:inputSetRefs]">
+            <iso:assert test="parent::bpmn:*/bpmn:inputSet[@id=current()/bpmn:inputSetRefs]/bpmn:outputSetRefs=current()/@id" diagnostics="id">
+                EXT.085|If an inputSet references an outputSet using the outputSetRefs element it must be referenced by
+                the outputSet using the inputSetRefs element and vice versa.
             </iso:assert>
         </iso:rule>
     </iso:pattern>
