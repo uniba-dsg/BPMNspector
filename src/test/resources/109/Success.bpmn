@@ -9,7 +9,7 @@
     </participant>
     <messageFlow id="_8" sourceRef="_6" targetRef="_3"/>
   </collaboration>
-  <process id="PROCESS_1" isClosed="false" isExecutable="true" processType="None">
+  <process id="PROCESS_1" isClosed="false" isExecutable="false" processType="None">
     <startEvent id="_5" isInterrupting="true" name="Start Event" parallelMultiple="false">
       <outgoing>_7</outgoing>
     </startEvent>
