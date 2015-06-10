@@ -434,6 +434,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.064">
+        <iso:rule context="bpmn:*[bpmn:supportedInterfaceRef]">
+            <iso:assert test="count(bpmn:ioBinding)>0" diagnostics="id">
+                EXT.064|At least one InputOutputBinding must be defined as the Callable Element is exposed as a Service.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.067">
         <iso:rule context="bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="(bpmn:loopCardinality) or (bpmn:loopDataInputRef)" diagnostics="id">
