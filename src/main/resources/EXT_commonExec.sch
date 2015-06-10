@@ -537,6 +537,34 @@
             </iso:assert>
         </iso:rule>
     </iso:pattern>
+    
+    <iso:pattern name="EXT.093">
+        <iso:rule context="bpmn:intermediateThrowEvent[bpmn:dataInput]">
+            <iso:assert test="count(bpmn:dataInput)=count($eventDefinitions)" diagnostics="id">
+                EXT.093|If dataInputs are used in an intermediateThrowEvent for each eventDefinition a DataInput must be defined.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:endEvent[bpmn:dataInput]">
+            <iso:assert test="count(bpmn:dataInput)=count($eventDefinitions)" diagnostics="id">
+                EXT.093|If dataInputs are used in an EndEvent for each eventDefinition a DataInput must be defined.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:startEvent[bpmn:dataOutput]">
+            <iso:assert test="count(bpmn:dataOutput)=count($eventDefinitions)" diagnostics="id">
+                EXT.093|If dataOutputs are used in a StartEvent for each eventDefinition a DataOutput must be defined.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:intermediateCatchEvent[bpmn:dataOutput]">
+            <iso:assert test="count(bpmn:dataOutput)=count($eventDefinitions)" diagnostics="id">
+                EXT.093|If dataOutputs are used in an IntermediateCatchEvent for each eventDefinition a DataOutput must be defined.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:boundaryEvent[bpmn:dataOutput]">
+            <iso:assert test="count(bpmn:dataOutput)=count($eventDefinitions)" diagnostics="id">
+                EXT.093|If dataOutputs are used in an BoundaryEvent for each eventDefinition a DataOutput must be defined.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
 
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
