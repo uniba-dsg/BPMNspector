@@ -3,6 +3,11 @@
   <itemDefinition id="ID_1" isCollection="false" itemKind="Information" structureRef="xsd:String"/>
   <itemDefinition id="ID_2" isCollection="false" itemKind="Information" structureRef="xsd:String"/>
   <message id="MSG_1" itemRef="ID_1" name="Message"/>
+  <interface id="IF_1" name="IF1">
+    <operation id="OP_1" name="operation">
+      <inMessageRef>MSG_1</inMessageRef>
+    </operation>
+  </interface>
   <process id="PROCESS_1" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" isInterrupting="true" name="Start Event" parallelMultiple="false">
       <outgoing>_10</outgoing>
@@ -35,7 +40,9 @@
         <dataOutputRefs>Dout_12_7a</dataOutputRefs>
       </outputSet>
       <signalEventDefinition id="_12_ED_1" signalRef="SIG_1"/>
-      <messageEventDefinition id="_12_ED_2" messageRef="MSG_1"/>
+      <messageEventDefinition id="_12_ED_2" messageRef="MSG_1">
+        <operationRef>OP_1</operationRef>
+      </messageEventDefinition>
     </boundaryEvent>
     <endEvent id="_14" name="End Event">
       <incoming>_15</incoming>

@@ -3,6 +3,11 @@
   <itemDefinition id="ID_1" itemKind="Information" structureRef="xsd:String"/>
   <itemDefinition id="ID_2" itemKind="Information" structureRef="xsd:String"/>
   <message id="MSG_1" itemRef="ID_1" name="Message"/>
+  <interface id="IF_1" name="IF1">
+    <operation id="OP_1" name="operation">
+      <inMessageRef>MSG_1</inMessageRef>
+    </operation>
+  </interface>
   <process id="PROCESS_1" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" isInterrupting="true" name="Start Event" parallelMultiple="false">
       <outgoing>_4</outgoing>
@@ -18,7 +23,9 @@
       <outputSet>
         <dataOutputRefs>Din_3_7</dataOutputRefs>
       </outputSet>
-      <messageEventDefinition id="_3_ED_1" messageRef="MSG_1"/>
+      <messageEventDefinition id="_3_ED_1" messageRef="MSG_1">
+        <operationRef>OP_1</operationRef>
+      </messageEventDefinition>
       <signalEventDefinition id="_3_ED_2" signalRef="SIG_1"/>
     </intermediateCatchEvent>
     <sequenceFlow id="_4" sourceRef="_2" targetRef="_3"/>
