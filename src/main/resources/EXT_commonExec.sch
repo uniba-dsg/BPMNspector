@@ -574,6 +574,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.128">
+        <iso:rule context="bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']]">
+            <iso:assert test="bpmn:operationRef" diagnostics="id">
+                EXT.128|An operationRef must be present if the process should be executable.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
