@@ -566,6 +566,59 @@
         </iso:rule>
     </iso:pattern>
 
+    <let name="precedingEventDefs" value="preceding-sibling::bpmn:messageEventDefinition | preceding-sibling::bpmn:errorEventDefinition | preceding-sibling::bpmn:escalationEventDefinition | preceding-sibling::bpmn:signalEventDefinition" />
+
+    <iso:pattern name="EXT.094">
+        <iso:rule context="bpmn:messageEventDefinition[preceding-sibling::bpmn:dataOutput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:message[@id=current()/@messageRef]/@itemRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataOutput[count(preceding-sibling::bpmn:dataOutput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:messageEventDefinition[preceding-sibling::bpmn:dataInput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:message[@id=current()/@messageRef]/@itemRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataInput[count(preceding-sibling::bpmn:dataInput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:errorEventDefinition[preceding-sibling::bpmn:dataOutput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:error[@id=current()/@errorRef]/@structureRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataOutput[count(preceding-sibling::bpmn:dataOutput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:errorEventDefinition[preceding-sibling::bpmn:dataInput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:error[@id=current()/@errorRef]/@structureRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataInput[count(preceding-sibling::bpmn:dataInput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:escalationEventDefinition[preceding-sibling::bpmn:dataOutput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:escalation[@id=current()/@escalationRef]/@structureRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataOutput[count(preceding-sibling::bpmn:dataOutput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:escalationEventDefinition[preceding-sibling::bpmn:dataInput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:escalation[@id=current()/@escalationRef]/@structureRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataInput[count(preceding-sibling::bpmn:dataInput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:signalEventDefinition[preceding-sibling::bpmn:dataOutput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:signal[@id=current()/@signalRef]/@structureRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataOutput[count(preceding-sibling::bpmn:dataOutput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+        <iso:rule context="bpmn:signalEventDefinition[preceding-sibling::bpmn:dataInput]">
+            <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:signal[@id=current()/@signalRef]/@structureRef]/@structureRef
+= //bpmn:itemDefinition[@id=//bpmn:dataInput[count(preceding-sibling::bpmn:dataInput) = count($precedingEventDefs)]/@itemSubjectRef]/@structureRef " diagnostics="id">
+                EXT.094|The itemDefinition for each eventDefinition must be equivalent to the itemDefinition of the corresponding dataInput/dataOutput.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.127">
         <iso:rule context="bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="@messageRef" diagnostics="id">
