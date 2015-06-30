@@ -1,6 +1,7 @@
 package de.uniba.dsg.bpmnspector;
 
 
+import ch.qos.logback.classic.Level;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
 import api.ValidationResult;
@@ -27,6 +28,8 @@ public class BPMNspectorMain {
 
         if(params.isDebug()) {
             setDebugLevel();
+        } else {
+            setInfoLevel();
         }
 
         try {
@@ -65,6 +68,11 @@ public class BPMNspectorMain {
         ch.qos.logback.classic.Logger rootLogger  = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
         rootLogger.setLevel(ch.qos.logback.classic.Level.DEBUG);
         LOGGER.debug("Debug mode activated.");
+    }
+
+    private static void setInfoLevel() {
+        ch.qos.logback.classic.Logger rootLogger  = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
+        rootLogger.setLevel(ch.qos.logback.classic.Level.INFO);
     }
 
     private static void createReport(ValidationResult result, ReportOption option, boolean andOpen) {
