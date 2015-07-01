@@ -161,6 +161,14 @@ public class SchematronBPMNValidator {
             schemasToCheck.add(schematronSchemaCommonExec);
         }
 
+        final ISchematronResource schematronSchemaFull = SchematronResourcePure.fromClassPath("EXT_full.sch");
+        if(!schematronSchemaFull.isValidSchematron()) {
+            LOGGER.debug("schematron file for Full Conformance class is invalid");
+            throw new ValidationException("Invalid Schematron file (EXT_full.sch)!");
+        } else {
+            schemasToCheck.add(schematronSchemaFull);
+        }
+
         return schemasToCheck;
     }
 
