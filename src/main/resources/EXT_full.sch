@@ -87,6 +87,15 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.029">
+        <iso:rule context="bpmn:participantMultiplicity[@minimum]">
+            <iso:assert test="@minimum >= 0" diagnostics="id">
+                EXT.029|The value of the minimum attribute of the participant multiplicity must not be negative.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
