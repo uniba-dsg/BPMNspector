@@ -96,6 +96,15 @@
     </iso:pattern>
 
 
+    <iso:pattern name="EXT.030">
+        <iso:rule context="bpmn:participantMultiplicity">
+            <iso:assert test="(@maximum >= @minimum) or (not(@minimum) and @maximum>0) or (not(@maximum) and @minimum&lt;=1) or (not(@maximum) and not(@minimum))" diagnostics="id">
+                EXT.030|The value of maximum MUST be one or greater, AND MUST be equal or greater than the minimum value.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
