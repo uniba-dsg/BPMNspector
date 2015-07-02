@@ -104,6 +104,19 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.032">
+        <iso:rule context="bpmn:globalConversation">
+            <iso:assert test="not(bpmn:conversationNode | bpmn:conversation | bpmn:subConversation | bpmn:callConversation)
+                    and not(bpmn:participantAssociation)
+                    and not(bpmn:messageFlowAssociation)
+                    and not(bpmn:conversationAssociation)
+                    and not(bpmn:association | bpmn:group | bpmn:textAnnotation)" diagnostics="id">
+                EXT.032|A globalConversation must not contain any ConversationNodes, participantAssociations,
+                messageFlowAssociations, conversationAssociations or artifacts.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.037">
         <iso:rule context="bpmn:*[@startQuantity]">
             <iso:assert test="@startQuantity >= 1" diagnostics="id">
