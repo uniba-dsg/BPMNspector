@@ -38,9 +38,9 @@ public class Ext036 extends TestCase {
     private void assertTests(String fileName) throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
         assertViolation(result.getViolations().get(0), ERRORMESSAGESOURCE,
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][1]", 10);
+                "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef and ancestor::bpmn:process][1]", 10);
         assertViolation(result.getViolations().get(1), ERRORMESSAGETARGET,
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][1]", 10);
+                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process][1]", 10);
         assertViolation(result.getViolations().get(2),
                 "A Process must not contain Choreography Activities",
                 "//bpmn:process[0]", 3);

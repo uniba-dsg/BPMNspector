@@ -20,7 +20,7 @@ public class Ext108 extends TestCase {
                 2);
         assertViolation(
                 result.getViolations().get(0),
-                "A message flow must connect ’InteractionNodes’ from different Pools",
+                "A message flow must connect 'InteractionNodes' from different Pools",
                 "//bpmn:messageFlow[0]", 7);
         assertViolation(result.getViolations().get(1),
                 "An End Event MUST NOT be a target for a message flow",

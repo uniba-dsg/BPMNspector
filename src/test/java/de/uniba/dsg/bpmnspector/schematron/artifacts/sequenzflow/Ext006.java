@@ -24,7 +24,7 @@ public class Ext006 extends AbstractArtifactSequenceFlowTest {
     @Override
     protected void assertSecondViolation(Violation v, String fileName, int line) {
         assertViolation(v, ERRORMESSAGETWO, fileName,
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef][0]", line);
+                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process][0]", line);
     }
 
     @Override

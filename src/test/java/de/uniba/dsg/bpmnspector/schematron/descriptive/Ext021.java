@@ -22,7 +22,7 @@ public class Ext021 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source",
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef][0]", 7);
+                "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef and ancestor::bpmn:process][0]", 7);
     }
 
     @Test
