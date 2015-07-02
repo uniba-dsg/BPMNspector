@@ -15,6 +15,7 @@ BPMNspector checks single files - or complete directories - of BPMN files and re
     - 40 (of 52) constraints defined for the "descriptive conformance sub class" are checked
     - all additional "analytic conformance sub class" constraints are checked
     - 45 (of 50) constraints for the "common executable conformance sub class" are checked
+    - 8 (of 12) further constraints for "full conformance sub class" are checked
 - **Support of imports:** (resolvable) imports of processes, WSDL and XSD files are also checked
 
 This software is licensed under the LGPL Version 3 Open Source License.
