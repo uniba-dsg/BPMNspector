@@ -117,6 +117,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.033">
+        <iso:rule context="bpmn:collaboration[bpmn:choreographyRef]">
+            <iso:assert test="@isClosed = //bpmn:choreography[@id=current()/bpmn:choreographyRef]/@isClosed" diagnostics="id">
+                EXT.033|If a collaboration references a Choreography the value of the attribute isClosed must be equal for both elements.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:pattern name="EXT.037">
         <iso:rule context="bpmn:*[@startQuantity]">
             <iso:assert test="@startQuantity >= 1" diagnostics="id">
