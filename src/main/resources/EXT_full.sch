@@ -104,6 +104,14 @@
         </iso:rule>
     </iso:pattern>
 
+    <iso:pattern name="EXT.037">
+        <iso:rule context="bpmn:*[@startQuantity]">
+            <iso:assert test="@startQuantity >= 1" diagnostics="id">
+                EXT.037|The value of the startQuantity attribute of an activity MUST NOT be less than 1.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
 
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
