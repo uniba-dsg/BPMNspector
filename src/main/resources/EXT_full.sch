@@ -113,6 +113,14 @@
     </iso:pattern>
 
 
+    <iso:pattern name="EXT.038">
+        <iso:rule context="bpmn:*[@completionQuantity]">
+            <iso:assert test="@completionQuantity >= 1" diagnostics="id">
+                EXT.038|The value of the completionQuantity attribute of an activity MUST NOT be less than 1.
+            </iso:assert>
+        </iso:rule>
+    </iso:pattern>
+
     <iso:diagnostics>
         <iso:diagnostic id="id"><value-of select="current()/@id" /></iso:diagnostic>
         <iso:diagnostic id="sourceRef"><value-of select="current()/@sourceRef" /></iso:diagnostic>
