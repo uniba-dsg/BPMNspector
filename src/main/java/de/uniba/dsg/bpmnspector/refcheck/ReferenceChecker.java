@@ -8,34 +8,23 @@ import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import de.uniba.dsg.bpmnspector.refcheck.utils.ViolationMessageCreator;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
+import org.jdom2.xpath.XPathHelper;
 
 import java.nio.file.Paths;
 import java.util.*;
 
-public class RefTypeChecker {
+public class ReferenceChecker {
 
     public static final String CONSTRAINT_REF_TYPE = "REF_TYPE";
+    public static final String CONSTRAINT_REF_EXISTENCE = "REF_EXISTENCE";
 
-    private Properties language;
-
-    private final ExistenceChecker existenceChecker;
+    private final Properties language;
 
     private final Map<String, BPMNElement> bpmnRefElements;
 
-    public RefTypeChecker(Properties language, ExistenceChecker existenceChecker, Map<String, BPMNElement> bpmnRefElements) {
+    public ReferenceChecker(Properties language, Map<String, BPMNElement> bpmnRefElements) {
         this.language = language;
-        this.existenceChecker = existenceChecker;
         this.bpmnRefElements = bpmnRefElements;
-    }
-
-    /**
-     * Setter to change Language after initial creation.
-     *
-     * @param language
-     *            - the new language properties to use
-     */
-    public void setLanguage(Properties language) {
-        this.language = language;
     }
 
     /**
@@ -45,6 +34,7 @@ public class RefTypeChecker {
      * @param elements
      *            the elements of the root file (= <code>bpmnFile</code>)
      * @param importedElements
+     *            the elements which have been defined in imported files
      * @param validationResult
      *            the validation result for adding found violations
      * @param currentElement
@@ -59,6 +49,7 @@ public class RefTypeChecker {
      * @param referencedId
      *            the referenced ID
      * @param ownPrefix
+     *        the namespace prefix of the current element
      */
     public void validateReferenceType(Map<String, Element> elements,
             Map<String, Map<String, Element>> importedElements,
@@ -112,7 +103,7 @@ public class RefTypeChecker {
                                 currentElement, checkingReference,
                                 relevantImportedElements.get(importedId));
                     } else {
-                        existenceChecker.createAndAddExistenceViolation(
+                        createAndAddExistenceViolation(
                                 validationResult, line, column,
                                 currentElement, checkingReference);
                     }
@@ -124,7 +115,7 @@ public class RefTypeChecker {
                                 currentElement, checkingReference,
                                 relevantImportedElements.get(importedId));
                     } else {
-                        existenceChecker.createAndAddExistenceViolation(
+                        createAndAddExistenceViolation(
                                 validationResult, line, column,
                                 currentElement, checkingReference);
                     }
@@ -134,7 +125,7 @@ public class RefTypeChecker {
                     // imported file
                     // import does not exist or is no BPMN file (as it has to
                     // be)
-                    existenceChecker.createAndAddExistenceViolation(
+                    createAndAddExistenceViolation(
                             validationResult, line, column,
                             currentElement, checkingReference);
                 }
@@ -145,7 +136,7 @@ public class RefTypeChecker {
                             currentElement, checkingReference,
                             elements.get(referencedId));
                 } else {
-                    existenceChecker.createAndAddExistenceViolation(
+                    createAndAddExistenceViolation(
                             validationResult, line, column,
                             currentElement, checkingReference);
                 }
@@ -157,7 +148,7 @@ public class RefTypeChecker {
                         currentElement,
                         checkingReference, elements.get(referencedId));
             } else {
-                existenceChecker.createAndAddExistenceViolation(validationResult,
+                createAndAddExistenceViolation(validationResult,
                         line, column, currentElement, checkingReference);
             }
         }
@@ -342,6 +333,33 @@ public class RefTypeChecker {
                 Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
                 new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_TYPE);
+        validationResult.addViolation(violation);
+    }
+
+    /**
+     * Adds a found existence violation to the list.
+     *
+     * @param validationResult
+     *            the validation result for adding the found violation
+     * @param line
+     *            the line of the reference in the root file
+     * @param column
+     *            the column of the reference in the root file
+     * @param currentElement
+     *            the element causing the violation
+     * @param checkingReference
+     *            the violated reference
+     */
+    public void createAndAddExistenceViolation(ValidationResult validationResult,
+                                               int line, int column, Element currentElement, Reference checkingReference) {
+        String message = ViolationMessageCreator
+                .createExistenceViolationMessage(currentElement.getName(),
+                        checkingReference.getName(), line,
+                        ViolationMessageCreator.DEFAULT_MSG,
+                        XPathHelper.getAbsolutePath(currentElement), language);
+        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")),
+                new LocationCoordinate(line, column));
+        Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);
         validationResult.addViolation(violation);
     }
 }

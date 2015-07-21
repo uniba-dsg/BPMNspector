@@ -7,7 +7,7 @@ import api.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
-import de.uniba.dsg.bpmnspector.refcheck.RefTypeChecker;
+import de.uniba.dsg.bpmnspector.refcheck.ReferenceChecker;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -270,8 +270,8 @@ public class TestBPMNFiles {
 
 	private static void validateResultType(Violation foundError, int expectedLine, String validType, String typeToBeFound) {
 		if(foundError.getConstraint()==null || !foundError.getConstraint().equals(
-				RefTypeChecker.CONSTRAINT_REF_TYPE)) {
-			fail("found violation has the wrong type. Expected: "+RefTypeChecker.CONSTRAINT_REF_TYPE+" Found: "+foundError.getConstraint());
+				ReferenceChecker.CONSTRAINT_REF_TYPE)) {
+			fail("found violation has the wrong type. Expected: "+ ReferenceChecker.CONSTRAINT_REF_TYPE+" Found: "+foundError.getConstraint());
 		}
 		
 		if(foundError.getLocation().getLocation().getRow()<=0 || foundError.getLocation().getLocation().getRow()!=expectedLine) {

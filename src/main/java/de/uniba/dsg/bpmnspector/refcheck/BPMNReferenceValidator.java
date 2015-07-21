@@ -30,7 +30,7 @@ public class BPMNReferenceValidator {
 	private Properties language;
 	private Map<String, BPMNElement> bpmnRefElements;
 
-    private final RefTypeChecker refTypeChecker;
+    private final ReferenceChecker referenceChecker;
 
 	private static final String RESULT_TEXT_TEMPLATE = "Reference check of file %s finished; %d violations found.";
 
@@ -47,7 +47,7 @@ public class BPMNReferenceValidator {
         loadLanguage();
 		loadReferences();
 
-        refTypeChecker = new RefTypeChecker(language, new ExistenceChecker(language), bpmnRefElements);
+        referenceChecker = new ReferenceChecker(language, bpmnRefElements);
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class BPMNReferenceValidator {
 						// if the current element has the reference start
 						// the validation
 						if (referencedId != null) {
-							refTypeChecker.validateReferenceType(elements,
+							referenceChecker.validateReferenceType(elements,
 									importedElements, validationResult,
 									currentElement, line, column,
 									checkingReference, referencedId,
