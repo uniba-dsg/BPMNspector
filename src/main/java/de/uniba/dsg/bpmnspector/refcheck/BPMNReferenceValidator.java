@@ -2,7 +2,6 @@ package de.uniba.dsg.bpmnspector.refcheck;
 
 import api.*;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
-import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -16,9 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.logging.Level;
 
 /**
  * @author Andreas Vorndran
@@ -28,7 +25,7 @@ import java.util.logging.Level;
  * @see ValidationException
  *
  */
-public class BPMNReferenceValidatorImpl {
+public class BPMNReferenceValidator {
 
 	private Properties language;
 	private Map<String, BPMNElement> bpmnRefElements;
@@ -38,7 +35,7 @@ public class BPMNReferenceValidatorImpl {
 	private static final String RESULT_TEXT_TEMPLATE = "Reference check of file %s finished; %d violations found.";
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(BPMNReferenceValidatorImpl.class.getSimpleName());
+			.getLogger(BPMNReferenceValidator.class.getSimpleName());
 
 	/**
 	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
@@ -46,7 +43,7 @@ public class BPMNReferenceValidatorImpl {
 	 * @throws ValidationException
 	 *             if problems with the language files exist
 	 */
-	public BPMNReferenceValidatorImpl() throws ValidationException {
+	public BPMNReferenceValidator() throws ValidationException {
         loadLanguage();
 		loadReferences();
 

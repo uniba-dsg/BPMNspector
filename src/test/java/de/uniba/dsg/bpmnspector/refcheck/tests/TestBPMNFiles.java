@@ -6,7 +6,7 @@ import api.ValidationException;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
-import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
+import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.refcheck.RefTypeChecker;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,12 +26,12 @@ import static org.junit.Assert.*;
  */
 public class TestBPMNFiles {
 
-	private static BPMNReferenceValidatorImpl application;
+	private static BPMNReferenceValidator application;
 	private static ProcessImporter bpmnImporter;
 
 	@BeforeClass
 	public static void setupBeforeClass() throws ValidationException {
-		application = new BPMNReferenceValidatorImpl();
+		application = new BPMNReferenceValidator();
 		bpmnImporter = new ProcessImporter();
 	}
 
