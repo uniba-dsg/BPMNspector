@@ -1,13 +1,17 @@
 package de.uniba.dsg.bpmnspector.refcheck.tests;
 
+import api.UnsortedValidationResult;
 import api.ValidationResult;
 import api.ValidationException;
 import api.Violation;
-import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
+import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl;
 import de.uniba.dsg.bpmnspector.refcheck.RefTypeChecker;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
 
@@ -22,24 +26,19 @@ import static org.junit.Assert.*;
  */
 public class TestBPMNFiles {
 
-	private static BPMNReferenceValidator application;
+	private static BPMNReferenceValidatorImpl application;
+	private static ProcessImporter bpmnImporter;
 
 	@BeforeClass
 	public static void setupBeforeClass() throws ValidationException {
 		application = new BPMNReferenceValidatorImpl();
+		bpmnImporter = new ProcessImporter();
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T1.
-	 * 
-	 * @throws ValidationException
-	 */
 	@Test
 	public void testValidateWithT1() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-1-gruppe-c.bpmn");
+
+		ValidationResult result = importAndTestProcess("src/test/resources/test-1-gruppe-c.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -49,18 +48,9 @@ public class TestBPMNFiles {
 		
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T2.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT2() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-2-gruppe-d.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-2-gruppe-d.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -70,17 +60,9 @@ public class TestBPMNFiles {
 		
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T3.
-	 * 
-	 * @throws ValidationException
-	 */
 	@Test
 	public void testValidateWithT3() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-3-gruppe-e.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-3-gruppe-e.bpmn");
 
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -91,18 +73,9 @@ public class TestBPMNFiles {
 		
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T4.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT4() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-4-gruppe-f.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-4-gruppe-f.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -112,18 +85,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(1), 30, "default", "startEvent");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T5.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT5() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-5-gruppe-g.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-5-gruppe-g.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -132,18 +96,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 11, "interfaceRef", "task");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T6.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT6() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-6-gruppe-h.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-6-gruppe-h.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -152,18 +107,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 23, "participantRef", "sequenceFlow");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T7.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT7() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-7-gruppe-i1.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-7-gruppe-i1.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -173,18 +119,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(1), 11, "targetRef", "process");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T8.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT8() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-8-gruppe-l.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-8-gruppe-l.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -193,18 +130,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 22, "operationRef", "message");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T9.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT9() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-9-gruppe-m.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-9-gruppe-m.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -213,18 +141,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 18, "dataInputRefs", "participant");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T10.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT10() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-10-gruppe-n.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-10-gruppe-n.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -233,18 +152,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 19, "dataOutputRefs", "participant");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T11.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT11() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-11-gruppe-o.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-11-gruppe-o.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -254,18 +164,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(1), 44, "targetRef", "startEvent");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T12.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT12() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-12-gruppe-p.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-12-gruppe-p.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -274,18 +175,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 27, "eventDefinitionRef", "sequenceFlow");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T13.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT13() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-13-gruppe-q.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-13-gruppe-q.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -294,18 +186,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 19, "attachedToRef", "participant");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T14.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT14() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-14-gruppe-r.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-14-gruppe-r.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -315,18 +198,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(1), 43, "target", "endEvent");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T15.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT15() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-15-gruppe-s.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-15-gruppe-s.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -335,18 +209,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 18, "definitionalCollaborationRef", "message");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T16.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT16() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-16-gruppe-t.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-16-gruppe-t.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -355,18 +220,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 23, "correlationPropertyRef", "participant");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T17.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT17() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-17-gruppe-u.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-17-gruppe-u.bpmn");
 		
 		assertEquals(1, result.getFoundFiles().size());
 		
@@ -375,18 +231,9 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 8, "errorRef", "message");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T18.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT18() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-18-referenz-6-teil-2.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-18-referenz-6-teil-2.bpmn");
 		
 		assertEquals(2, result.getFoundFiles().size());
 		
@@ -395,65 +242,32 @@ public class TestBPMNFiles {
 		validateResultType(result.getViolations().get(0), 10, "categoryValueRef", "participant");
 	}
 
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T18 using a reference to a Subfolder.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
 	@Test
 	public void testValidateWithT18Subfolder() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-18-referenz-6-teil-2-subfolder.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-18-referenz-6-teil-2-subfolder.bpmn");
 		assertEquals(2, result.getFoundFiles().size());
 				
 		assertViolationCount(result, 1);
 		
 		validateResultType(result.getViolations().get(0), 10, "categoryValueRef", "participant");
 	}
-	
-//	commented out as absolute path is system dependent
-//	/**
-//	 * Test method for
-//	 * {@link de.uniba.wiai.lspi.ws1213.ba.application.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-//	 * with T18 using a reference with an absolute path.
-//	 * 
-//	 * @throws ValidationException
-//	 * 
-//	 */
-//	@Test
-//	public void testValidateWithT18Absolute() throws ValidationException {
-//		ValidationResult result = application
-//				.validate("src/test/resources/test-18-referenz-6-teil-2-absolute.bpmn");
-//		assertEquals(2, result.getFoundFiles().size());
-//		assertFalse(result1.isValid());
-//		List<Violation> errors = result1.getViolations();
-//		assertEquals(1, errors.size());
-//		TypeViolation foundError = (TypeViolation) errors.get(0);
-//		TypeViolation expectedError = new TypeViolation("group", 10,
-//				"categoryValueRef", "participant", null, null);
-//		assertEquals(expectedError, foundError);
-//		assertTrue(results.get(1).isValid());
-//	}
-	
-	/**
-	 * Test method for
-	 * {@link de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidatorImpl#validate(java.lang.String)}
-	 * with T19.
-	 * 
-	 * @throws ValidationException
-	 * 
-	 */
+
 	@Test
 	public void testValidateWithT19() throws ValidationException {
-		ValidationResult result = application
-				.validate("src/test/resources/test-19-referenz-6-korrekt.bpmn");
+		ValidationResult result = importAndTestProcess("src/test/resources/test-19-referenz-6-korrekt.bpmn");
 		assertEquals(2, result.getFoundFiles().size());
 		assertTrue(result.isValid());
 	}
-	
+
+	private ValidationResult importAndTestProcess(String filename) throws ValidationException {
+		ValidationResult result = new UnsortedValidationResult();
+		BPMNProcess process = bpmnImporter
+				.importProcessFromPath(Paths.get(filename), result);
+
+		application.validate(process, result);
+		return result;
+	}
+
 	private static void validateResultType(Violation foundError, int expectedLine, String validType, String typeToBeFound) {
 		if(foundError.getConstraint()==null || !foundError.getConstraint().equals(
 				RefTypeChecker.CONSTRAINT_REF_TYPE)) {

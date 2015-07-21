@@ -21,37 +21,24 @@ import java.util.*;
 import java.util.logging.Level;
 
 /**
- * The implementation of the BPMNReferenceValidator. For more information and an
- * example: {@link BPMNReferenceValidator}.
- *
  * @author Andreas Vorndran
  * @author Matthias Geiger
  * @version 1.0
- * @see BPMNReferenceValidator
  * @see ValidationResult
  * @see ValidationException
  *
  */
-public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
+public class BPMNReferenceValidatorImpl {
 
 	private Properties language;
 	private Map<String, BPMNElement> bpmnRefElements;
 
-
-	private final ProcessImporter bpmnImporter;
-    private final ExistenceChecker existenceChecker;
     private final RefTypeChecker refTypeChecker;
-
-	public static final int ENGLISH = 0;
-	public static final int GERMAN = 1;
-
-	public static final String EXISTENCE = "existence";
-	public static final String REFERENCE = "referenceType";
 
 	private static final String RESULT_TEXT_TEMPLATE = "Reference check of file %s finished; %d violations found.";
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(BPMNReferenceValidator.class.getSimpleName());
+			.getLogger(BPMNReferenceValidatorImpl.class.getSimpleName());
 
 	/**
 	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
@@ -60,45 +47,24 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	 *             if problems with the language files exist
 	 */
 	public BPMNReferenceValidatorImpl() throws ValidationException {
-        loadLanguage(ENGLISH);
-        setLogLevel(Level.OFF);
+        loadLanguage();
 		loadReferences();
 
-        bpmnImporter = new ProcessImporter();
-        existenceChecker = new ExistenceChecker(language);
-        refTypeChecker = new RefTypeChecker(language, existenceChecker, bpmnRefElements);
+        refTypeChecker = new RefTypeChecker(language, new ExistenceChecker(language), bpmnRefElements);
 	}
 
-	@Override
-	public ValidationResult validate(String path) throws ValidationException {
-		ValidationResult result = new UnsortedValidationResult();
-		try {
-			BPMNProcess process = bpmnImporter
-					.importProcessFromPath(Paths.get(path), result);
-
-			if (process != null) {
-				List<BPMNProcess> processesToCheck = new ArrayList<>();
-
-				process.getAllProcessesRecursively(processesToCheck);
-
-				for (BPMNProcess processToCheck : processesToCheck) {
-					startValidation(processToCheck, REFERENCE, result);
-				}
-
-			}
-
-			String resultText = String
-					.format(RESULT_TEXT_TEMPLATE,
-							path, result.getViolations().size());
-			LOGGER.info(resultText);
-		} catch (ValidationException e) {
-			LOGGER.error("Validation of process {} failed, due to an error: {}",
-					path, e);
-		}
-		return result;
-	}
-
-	@Override
+	/**
+	 * This method validates a set of BPMN processes given in the parameter
+	 * process regarding reference correctness, i.e., exist all references and are they referencing an allowed
+	 * BPMN element.
+	 *
+	 * @param process
+	 * 			the base process which should be checked
+	 * @param validationResult
+	 * 			the ValidationResult to be used
+	 * @throws ValidationException
+	 * 				if technical problems occurred
+	 */
 	public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
 		try {
 			if (process != null) {
@@ -107,7 +73,7 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 				process.getAllProcessesRecursively(processesToCheck);
 
 				for (BPMNProcess processToCheck : processesToCheck) {
-					startValidation(processToCheck, REFERENCE, validationResult);
+					startValidation(processToCheck, validationResult);
 				}
 			}
 
@@ -121,95 +87,17 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 		}
 	}
 
-	@Override
-	public ValidationResult validateExistenceOnly(String path)
-			throws ValidationException {
-		ValidationResult result = new UnsortedValidationResult();
-		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
-		if (process != null) {
-			List<BPMNProcess> processesToCheck = new ArrayList<>();
-
-			process.getAllProcessesRecursively(processesToCheck);
-
-			for(BPMNProcess processToCheck : processesToCheck) {
-				startValidation(processToCheck, EXISTENCE, result);
-			}
-
+    private void loadLanguage() throws ValidationException{
+		language = new Properties();
+		try(InputStream stream = getClass().getResourceAsStream("/en.lang")) {
+			language.load(stream);
+		} catch (FileNotFoundException e) {
+			throw new ValidationException(
+					"Could not find the language file 'lang/en.lang'.", e);
+		} catch (IOException e) {
+			throw new ValidationException(
+					"IO problems with the language file 'lang/en.lang'.", e);
 		}
-
-		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
-		LOGGER.info(resultText);
-		return result;
-	}
-
-	@Override
-	public ValidationResult validateSingleFile(String path)
-			throws ValidationException {
-		ValidationResult result = new UnsortedValidationResult();
-		BPMNProcess process = bpmnImporter.importProcessFromPath(Paths.get(path), result);
-		if (process != null) {
-			startValidation(process, REFERENCE, result);
-		}
-		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
-		LOGGER.info(resultText);
-		return result;
-	}
-
-	@Override
-	public ValidationResult validateSingleFileExistenceOnly(String path)
-			throws ValidationException {
-		ValidationResult result = new UnsortedValidationResult();
-		BPMNProcess process = bpmnImporter.importProcessFromPath(
-				Paths.get(path), result);
-		if (process != null) {
-			startValidation(process, EXISTENCE, result);
-		}
-		String resultText = String.format(RESULT_TEXT_TEMPLATE, path, result.getViolations().size());
-		LOGGER.info(resultText);
-		return result;
-	}
-
-	@Override
-	public void setLogLevel(Level level) {
-		// TODO decide what to do with setLogLevel methods
-	}
-
-	@Override
-	public void setLanguage(int languageNumber) throws ValidationException {
-        loadLanguage(languageNumber);
-        refTypeChecker.setLanguage(language);
-        existenceChecker.setLanguage(language);
-	}
-
-    private void loadLanguage(int languageNumber) throws ValidationException{
-        if (languageNumber == ENGLISH) {
-            language = new Properties();
-            try(InputStream stream = getClass().getResourceAsStream("/en.lang")) {
-                language.load(stream);
-            } catch (FileNotFoundException e) {
-                throw new ValidationException(
-                        "Could not find the language file 'lang/en.lang'.", e);
-            } catch (IOException e) {
-                throw new ValidationException(
-                        "IO problems with the language file 'lang/en.lang'.", e);
-            }
-        } else if (languageNumber == GERMAN) {
-            language = new Properties();
-            try(InputStream stream = getClass().getResourceAsStream("/ger.lang")) {
-                language.load(stream);
-            } catch (FileNotFoundException e) {
-                throw new ValidationException(
-                        "Die Sprachdatei 'lang/ger.lang' kann nicht gefunden werden.",
-                        e);
-            } catch (IOException e) {
-                throw new ValidationException(
-                        "Es sind I/O-Probleme bei der Sprachdatei 'lang/ger.lang' aufgetreten.",
-                        e);
-            }
-        } else {
-            throw new ValidationException(
-                    "The desired language is not available. Please choose ENGLISH or GERMAN.");
-        }
     }
 
 	/**
@@ -235,19 +123,16 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 	}
 
 	/**
-	 * This method validates the BPMN file given through the path for the given
-	 * validation level. It is the entrance point for the validation. Therefore
-	 * it is used by the public methods of the interface.
+	 * This method validates the BPMN process stored in the parameter baseProcess.
 	 *
 	 * @param baseProcess
 	 *            the ProcessFileSet of the file, which should be validated
-	 * @param validationLevel
-	 *            the validation level as String: "existence" or "referenceType"
+	 * @param validationResult
+	 * 			  the ValidationResult to be used to store the validation results
 	 * @throws ValidationException
 	 *             if technical problems occurred
 	 */
-	private void startValidation(BPMNProcess baseProcess,
-			String validationLevel, ValidationResult validationResult) throws ValidationException {
+	private void startValidation(BPMNProcess baseProcess, ValidationResult validationResult) throws ValidationException {
 
 		Document baseDocument = baseProcess.getProcessAsDoc();
 
@@ -343,29 +228,11 @@ public class BPMNReferenceValidatorImpl implements BPMNReferenceValidator {
 						// if the current element has the reference start
 						// the validation
 						if (referencedId != null) {
-							if (EXISTENCE.equals(validationLevel)) {
-                                existenceChecker.validateExistence(elements,
-                                        importedElements,
-                                        validationResult, currentElement, line,
-                                        column, checkingReference, referencedId,
-                                        ownPrefix);
-							} else if (REFERENCE.equals(validationLevel)) {
-								refTypeChecker.validateReferenceType(elements,
-                                        importedElements, validationResult,
-                                        currentElement, line, column,
-                                        checkingReference, referencedId,
-                                        ownPrefix);
-							} else {
-								StringBuilder logText = new StringBuilder(
-										language.getProperty("validator.illegalargument.validatinglevel.part1"));
-								logText.append(validationLevel)
-										.append(' ')
-										.append(language
-												.getProperty(
-                                                        "validator.illegalargument.validatinglevel.part2"));
-								LOGGER.error(logText.toString());
-								throw new ValidationException(logText.toString());
-							}
+							refTypeChecker.validateReferenceType(elements,
+									importedElements, validationResult,
+									currentElement, line, column,
+									checkingReference, referencedId,
+									ownPrefix);
 						}
 					}
 				}
