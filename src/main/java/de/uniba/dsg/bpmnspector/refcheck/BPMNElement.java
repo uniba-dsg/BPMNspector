@@ -21,7 +21,6 @@ public class BPMNElement {
 	private final String parent;
 	private final List<String> children;
 	private final List<Reference> references;
-	private final Properties language;
 
 	/**
 	 * Constructor
@@ -34,17 +33,13 @@ public class BPMNElement {
 	 *            the children element names of this element or null
 	 * @param references
 	 *            the references of this element
-	 * @param language
-	 *            the reference to the language properties (used for the
-	 *            toString method)
 	 */
 	public BPMNElement(String name, String parent, List<String> children,
-			List<Reference> references, Properties language) {
+			List<Reference> references) {
 		this.name = name;
 		this.parent = parent;
 		this.children = children;
 		this.references = references;
-		this.language = language;
 	}
 
 	/**
@@ -78,7 +73,7 @@ public class BPMNElement {
 	@Override
 	public String toString() {
 		return "<" + name + "(" + children + ") "
-				+ language.getProperty("bpmnelement.references") + references
+				+ "Possible referencing attribs/elems: " + references
 				+ ">";
 	}
 }

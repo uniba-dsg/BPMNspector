@@ -24,6 +24,8 @@ import java.util.*;
  * the classes {@link BPMNElement} and {@link Reference}.
  * 
  * @author Andreas Vorndran
+ * @author Matthias Geiger
+ *
  * @version 1.0
  * @see BPMNElement
  * @see Reference
@@ -32,16 +34,11 @@ import java.util.*;
 public class ReferenceLoader {
 
 	private final List<SAXParseException> xsdErrorList;
-	private final Properties language;
 
 	/**
 	 * Constructor
-	 * 
-	 * @param language
-	 *            the reference to the language properties
 	 */
-	public ReferenceLoader(Properties language) {
-		this.language = language;
+	public ReferenceLoader() {
 		xsdErrorList = new ArrayList<>();
 	}
 
@@ -70,13 +67,9 @@ public class ReferenceLoader {
 
 			return createReferences(root);
 
-		} catch (JDOMException e) {
-			throw new ValidationException(language.getProperty("loader.jdom"), e);
-		} catch (IOException e) {
-			throw new ValidationException(language.getProperty("loader.io"), e);
+		} catch (JDOMException | IOException e) {
+			throw new ValidationException("Problems occurred while traversing the 'references.xml' file.", e);
 		}
-
-
 	}
 
 	private Map<String, BPMNElement> createReferences(Element rootElem) {
@@ -124,12 +117,11 @@ public class ReferenceLoader {
                     special = convertToBoolean(specialAttribute);
                 }
                 Reference bpmnReference = new Reference(number,
-                        referenceName, types, qname, attribute, special,
-                        language);
+                        referenceName, types, qname, attribute, special);
                 references.add(bpmnReference);
             }
             BPMNElement bpmnElement = new BPMNElement(elementName, parent,
-                    children, references, language);
+                    children, references);
             bpmnElements.put(elementName, bpmnElement);
         }
 
@@ -161,22 +153,19 @@ public class ReferenceLoader {
 			validator.validate(new StreamSource(refPathStream));
 			if (!xsdErrorList.isEmpty()) {
 				StringBuilder xsdErrorText = new StringBuilder(200)
-						.append(language.getProperty("loader.xsd.general"))
+						.append("While the XSD validation of the 'references.xml' file the following errors occurred:")
 						.append(System.lineSeparator());
 				for (SAXParseException saxParseException : xsdErrorList) {
-					xsdErrorText.append(language
-							.getProperty("loader.xsd.error.part1"))
+					xsdErrorText.append("line: ")
 							.append(saxParseException.getLineNumber())
-							.append(' ')
-							.append(language
-									.getProperty("loader.xsd.error.part2"))
+							.append(':')
 							.append(saxParseException.getMessage())
 							.append(System.lineSeparator());
 				}
 				throw new ValidationException(xsdErrorText.toString());
 			}
 		} catch (SAXException e) {
-			throw new ValidationException(language.getProperty("loader.sax"), e);
+			throw new ValidationException("Problems occurred while trying to check the references XML file against the corresponding XSD file.", e);
 		}
 
 	}

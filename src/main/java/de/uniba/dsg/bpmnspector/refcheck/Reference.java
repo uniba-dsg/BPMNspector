@@ -14,6 +14,7 @@ import java.util.Properties;
  * corresponding bachelor thesis.
  * 
  * @author Andreas Vorndran
+ * @author Matthias Geiger
  * @version 1.0
  * 
  */
@@ -25,7 +26,6 @@ public class Reference {
 	private final boolean qname;
 	private final boolean attribute;
 	private final boolean special;
-	private final Properties language;
 
 	/**
 	 * Constructor
@@ -45,20 +45,15 @@ public class Reference {
 	 * @param special
 	 *            true if a special handling is needed (more than the normal
 	 *            program logic)
-	 * @param language
-	 *            the reference to the language properties (for the toString
-	 *            method)
 	 */
 	public Reference(int number, String name, List<String> types,
-			boolean qname, boolean attribute, boolean special,
-			Properties language) {
+			boolean qname, boolean attribute, boolean special) {
 		this.number = number;
 		this.name = name;
 		this.types = types;
 		this.qname = qname;
 		this.attribute = attribute;
 		this.special = special;
-		this.language = language;
 	}
 
 	/**
@@ -105,11 +100,11 @@ public class Reference {
 
 	@Override
 	public String toString() {
-		return "{" + language.getProperty("reference.number") + number
-				+ language.getProperty("reference.name") + name
-				+ language.getProperty("reference.qname") + qname
-				+ language.getProperty("reference.attribute") + attribute
-				+ language.getProperty("reference.types") + types
-				+ language.getProperty("reference.special") + special + "}";
+		return "{ #" + number
+				+" name: " + name
+				+" isQname?" + qname
+				+" isAttribute?" + attribute
+				+" allowed Types: [" + types
+				+" ]";
 	}
 }

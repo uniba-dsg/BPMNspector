@@ -108,7 +108,7 @@ public class BPMNReferenceValidator {
 	 *             "references.xsd" occurred
 	 */
 	private void loadReferences() throws ValidationException {
-		ReferenceLoader referenceLoader = new ReferenceLoader(language);
+		ReferenceLoader referenceLoader = new ReferenceLoader();
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
 		StringBuilder bpmnElementsLogText = new StringBuilder(500);
@@ -142,20 +142,18 @@ public class BPMNReferenceValidator {
 		// special case if a prefix is used for the target namespace
 		Element rootNode = baseDocument.getRootElement();
 		String targetNamespace = rootNode.getAttributeValue("targetNamespace");
-		if(targetNamespace==null) {
-			targetNamespace = "";
-		}
-		for (Namespace namespace : rootNode.getNamespacesInScope()) {
-			if (targetNamespace.equals(namespace.getURI())) {
-				ownPrefix = namespace.getPrefix();
-				break;
+		if(targetNamespace!=null) {
+			for (Namespace namespace : rootNode.getNamespacesInScope()) {
+				if (targetNamespace.equals(namespace.getURI())) {
+					ownPrefix = namespace.getPrefix();
+					break;
+				}
 			}
 		}
 
 		LOGGER.debug("ownprefix after getAllElements():" + ownPrefix);
 
-		// Store all Elements and their IDs in referenced Files into nested
-		// Map:
+		// Store all Elements and their IDs in referenced Files into nested Map:
 		// outerKey: namespace, innerKey: Id
 		Map<String, Map<String, Element>> importedElements = new HashMap<>();
 		JDOMUtils.getAllElementsGroupedByNamespace(importedElements,
@@ -174,15 +172,15 @@ public class BPMNReferenceValidator {
 					.append(entry.getValue())
 					.append(System.lineSeparator());
 		}
-
 		LOGGER.debug(importedFilesLogText.toString());
-		// get all elements of the file for validate their references
+
+		// get all elements of the file to validate their references
 		Filter<Element> filter = Filters.element();
 		IteratorIterable<Element> list = baseDocument.getDescendants(filter);
 		while (list.hasNext()) {
 			Element currentElement = list.next();
 			String currentName = currentElement.getName();
-			// proof if the current element can have references
+			// check if the current element can have references
 			if (bpmnRefElements.containsKey(currentName)) {
 				BPMNElement bpmnElement = bpmnRefElements.get(currentName);
 				// create list of all inherited elements and their
@@ -193,7 +191,7 @@ public class BPMNReferenceValidator {
 					bpmnElement = bpmnRefElements.get(bpmnElement.getParent());
 					checkingBPMNElements.add(bpmnElement);
 				}
-				// proof each possible reference
+				// check each possible reference
 				for (BPMNElement checkingElement : checkingBPMNElements) {
 					for (Reference checkingReference : checkingElement
 							.getReferences()) {
