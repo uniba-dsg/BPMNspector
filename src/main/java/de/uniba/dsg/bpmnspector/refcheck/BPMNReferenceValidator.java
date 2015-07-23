@@ -56,15 +56,19 @@ public class BPMNReferenceValidator {
 	 * BPMN element.
 	 *
 	 * @param process
-	 * 			the base process which should be checked
+	 * 			the base process which should be checked; must not be <code>null</code>
 	 * @param validationResult
-	 * 			the ValidationResult to be used
+	 * 			the ValidationResult to be used; must not be <code>null</code>
 	 * @throws ValidationException
 	 * 				if technical problems occurred
+	 *  @throws NullPointerException
+	 *  		if one of the parameters is <code>null</code>
 	 */
 	public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
+		Objects.requireNonNull(process, "process must not be null.");
+		Objects.requireNonNull(validationResult, "validationResult must not be null.");
+
 		try {
-			if (process != null) {
 				List<BPMNProcess> processesToCheck = new ArrayList<>();
 
 				process.getAllProcessesRecursively(processesToCheck);
@@ -72,12 +76,10 @@ public class BPMNReferenceValidator {
 				for (BPMNProcess processToCheck : processesToCheck) {
 					startValidation(processToCheck, validationResult);
 				}
-			}
-
-			String resultText = String
-					.format(RESULT_TEXT_TEMPLATE,
-							process.getBaseURI(), validationResult.getViolations().size());
-			LOGGER.info(resultText);
+				String resultText = String
+						.format(RESULT_TEXT_TEMPLATE,
+								process.getBaseURI(), validationResult.getViolations().size());
+				LOGGER.info(resultText);
 		} catch (ValidationException e) {
 			LOGGER.error("Validation of process {} failed, due to an error: {}",
 					process.getBaseURI(), e);
