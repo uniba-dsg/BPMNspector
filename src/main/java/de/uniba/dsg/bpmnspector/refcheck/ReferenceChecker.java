@@ -182,94 +182,12 @@ public class ReferenceChecker {
                 }
             }
 
-            if (!validType
-                    || checkingReference.isSpecial() && !performSpecialChecks(
-                    currentElement, checkingReference,
-                    referencedElement)) {
+            if (!validType) {
                 createAndAddReferenceTypeViolation(validationResult, line, column,
                         currentElement, checkingReference, referencedElement,
                         types);
             }
         }
-    }
-
-    /**
-     * Method to perform additional checks for special cases
-     *
-     * @param currentElement
-     *            Element to check
-     * @param checkingReference
-     *            reference to check
-     * @param referencedElement
-     *            referenced element
-     * @return true if no violation is found, false otherwise
-     */
-    private boolean performSpecialChecks(Element currentElement, Reference checkingReference,
-                                         Element referencedElement) {
-        // perform additional checks for special cases (look up bachelor thesis for the reference number)
-        boolean validType = true;
-        if (checkingReference.getNumber() == 18
-                || checkingReference.getNumber() == 19) {
-            String isEventSubprocess = referencedElement
-                    .getAttributeValue("triggeredByEvent");
-            if (isEventSubprocess != null && isEventSubprocess.equals("true")) {
-                validType = false;
-            }
-        } else if (checkingReference.getNumber() == 62) {
-            Element parent = currentElement.getParentElement();
-            if (parent != null) {
-                List<String> tasks = getBPMNTasksList();
-                List<String> subprocesses = getBPMNSubProcessList();
-                if (tasks.contains(parent.getName())
-                        && !referencedElement.getName().equals("dataInput")) {
-                    validType = false;
-                } else if (subprocesses.contains(parent.getName())
-                        && !referencedElement.getName().equals("dataObject")) {
-                    validType = false;
-                }
-            }
-        } else if (checkingReference.getNumber() == 63) {
-            Element parent = currentElement.getParentElement();
-            if (parent != null) {
-                List<String> tasks = getBPMNTasksList();
-                List<String> subprocesses = getBPMNSubProcessList();
-                if (tasks.contains(parent.getName()) &&
-                        !referencedElement.getName().equals("dataOutput")) {
-                    validType = false;
-                }
-                else if (subprocesses.contains(parent.getName()) &&
-                        !referencedElement.getName().equals("dataObject")) {
-                    validType = false;
-                }
-            }
-        }
-        return validType;
-    }
-
-    /**
-     * @return a list with BPMN task and its subtypes
-     */
-    private List<String> getBPMNTasksList() {
-        ArrayList<String> tasks = new ArrayList<>();
-        tasks.add("task");
-        tasks.add("serviceTask");
-        tasks.add("sendTask");
-        tasks.add("receiveTask");
-        tasks.add("userTask");
-        tasks.add("manualTask");
-        tasks.add("scriptTask");
-        tasks.add("businessRuleTask");
-        return tasks;
-    }
-
-    /**
-     * @return a list with BPMN subProcesses
-     */
-    private List<String> getBPMNSubProcessList() {
-        ArrayList<String> subprocesses = new ArrayList<>();
-        subprocesses.add("subProcess");
-        subprocesses.add("adHocSubProcess");
-        return subprocesses;
     }
 
     /**

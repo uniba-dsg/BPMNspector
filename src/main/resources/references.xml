@@ -81,7 +81,7 @@
 	</element>
 	<element name="sequenceFlow">
 		<parent>flowElement</parent>
-		<reference number="18" qname="false" attribute="true" special="true">
+		<reference number="18" qname="false" attribute="true">
 			<name>sourceRef</name>
 			<type>activity</type>
 			<type>gateway</type>
@@ -94,7 +94,7 @@
 			<type>throwEvent</type>
 			<type>catchEvent</type>
 		</reference>
-		<reference number="19" qname="false" attribute="true" special="true">
+		<reference number="19" qname="false" attribute="true">
 			<name>targetRef</name>
 			<type>activity</type>
 			<type>gateway</type>
@@ -326,7 +326,7 @@
 		</reference>
 	</element>
 	<element name="multiInstanceLoopCharacteristics">
-		<reference number="62" qname="true" attribute="false" special="true">
+		<reference number="62" qname="true" attribute="false">
 			<name>loopDataInputRef</name>
 			<type>property</type>
 			<type>dataObject</type>
@@ -336,7 +336,7 @@
 			<type>dataStoreReference</type>
 			<type>dataObjectReference</type>
 		</reference>
-		<reference number="63" qname="true" attribute="false" special="true">
+		<reference number="63" qname="true" attribute="false">
 			<name>loopDataOutputRef</name>
 			<type>property</type>
 			<type>dataObject</type>

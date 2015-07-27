@@ -155,14 +155,9 @@ public class ReferenceLoader {
 					.getAttributeValue("qname"));
 			boolean attribute = convertToBoolean(reference
 					.getAttributeValue("attribute"));
-			boolean special = false;
-			String specialAttribute = reference
-					.getAttributeValue("special");
-			if (specialAttribute != null) {
-				special = convertToBoolean(specialAttribute);
-			}
+
 			Reference bpmnReference = new Reference(number,
-					referenceName, types, qname, attribute, special);
+					referenceName, types, qname, attribute);
 			referenceList.add(bpmnReference);
 		}
 	}

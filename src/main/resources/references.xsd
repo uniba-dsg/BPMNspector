@@ -33,7 +33,5 @@
 		<xs:attribute name="qname" type="xs:boolean" use="required"/>
 		<!-- Attribute: true, Element: false -->
 		<xs:attribute name="attribute" type="xs:boolean" use="required"/>
-		<!-- specifies if special hard coded handling is needed -->
-		<xs:attribute name="special" type="xs:boolean" use="optional"/>
 	</xs:complexType>
 </xs:schema>
