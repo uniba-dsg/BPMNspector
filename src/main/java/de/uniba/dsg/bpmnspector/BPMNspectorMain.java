@@ -1,11 +1,10 @@
 package de.uniba.dsg.bpmnspector;
 
 
-import ch.qos.logback.classic.Level;
+import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
-import api.ValidationResult;
-import api.ValidationException;
 import de.uniba.dsg.bpmnspector.common.util.HtmlReportGenerator;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
 import org.slf4j.Logger;
@@ -45,11 +44,11 @@ public class BPMNspectorMain {
                                 .inspectDirectory(path,
                                         params.getValidationOptions());
 
-                        createFolderReports(path, results,params.getReportOption(), true);
+                        createFolderReports(path, results,params.getReportOption(), params.isOpenReport());
                     } else {
                         ValidationResult result = inspector.inspectFile(path,
                                 params.getValidationOptions());
-                        createReport(result, params.getReportOption(), true);
+                        createReport(result, params.getReportOption(), params.isOpenReport());
                     }
 
                 } catch (ValidationException e) {

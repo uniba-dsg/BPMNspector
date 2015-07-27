@@ -100,7 +100,7 @@ public class BPMNspectorCli {
                     return new CliParameter(cl.getArgs()[0],
                             validateAndCreateValidationOptions(
                                     cl.getOptionValue(CHECKS, CHECK_ALL)),
-                            cl.hasOption(DEBUG), validateAndCreateReportOption(cl.getOptionValue("r", "HTML")));
+                            cl.hasOption(DEBUG), validateAndCreateReportOption(cl.getOptionValue("r", "HTML")), cl.hasOption(OPEN));
                 } else {
                     LOGGER.error("Invalid usage: Too much arguments detected. It is only possible to check one file or directory at the same time.");
                     printUsageInformation();

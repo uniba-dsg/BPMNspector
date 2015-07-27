@@ -8,15 +8,17 @@ import java.util.List;
 public class CliParameter {
 
     private final boolean debug;
+    private final boolean openReport;
     private final List<ValidationOption> validationOptions;
     private final String path;
     private final ReportOption reportOption;
 
-    public CliParameter(String path, List<ValidationOption> validationOptions, boolean debug, ReportOption reportOption) {
+    public CliParameter(String path, List<ValidationOption> validationOptions, boolean debug, ReportOption reportOption, boolean openReport) {
         this.path = path;
         this.validationOptions = validationOptions;
         this.debug = debug;
         this.reportOption = reportOption;
+        this.openReport = openReport;
     }
 
     public boolean isDebug() {
@@ -33,5 +35,9 @@ public class CliParameter {
 
     public ReportOption getReportOption() {
         return reportOption;
+    }
+
+    public boolean isOpenReport() {
+        return openReport;
     }
 }
