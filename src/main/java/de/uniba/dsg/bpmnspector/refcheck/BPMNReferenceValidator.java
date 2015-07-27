@@ -1,6 +1,8 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import api.*;
+import api.ValidationException;
+import api.ValidationResult;
+import api.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import org.jdom2.Document;
@@ -182,55 +184,42 @@ public class BPMNReferenceValidator {
 			String currentName = currentElement.getName();
 			// check if the current element can have references
 			if (bpmnRefElements.containsKey(currentName)) {
-				BPMNElement bpmnElement = bpmnRefElements.get(currentName);
-				// create list of all inherited elements and their
-				// references
-				List<BPMNElement> checkingBPMNElements = new ArrayList<>();
-				checkingBPMNElements.add(bpmnElement);
-				while (bpmnElement.getParent() != null) {
-					bpmnElement = bpmnRefElements.get(bpmnElement.getParent());
-					checkingBPMNElements.add(bpmnElement);
-				}
-				// check each possible reference
-				for (BPMNElement checkingElement : checkingBPMNElements) {
-					for (Reference checkingReference : checkingElement
-							.getReferences()) {
-						LOGGER.debug(language
-								.getProperty(
-										"validator.logger.checkingreference")
-								+ System.lineSeparator()
-								+ currentName
-								+ "  ::   " + checkingReference);
-						// try to get the reference ID
-						String referencedId = null;
-						int line = -1;
-						int column = -1;
-						if (checkingReference.isAttribute()) {
-							referencedId = currentElement
-									.getAttributeValue(checkingReference
-											.getName());
-							line = ((LocatedElement) currentElement).getLine();
-							column = ((LocatedElement) currentElement).getColumn();
-						} else {
-							for (Element child : currentElement.getChildren()) {
-								if (child.getName().equals(
-										checkingReference.getName())) {
-									referencedId = child.getText();
-									line = ((LocatedElement) child).getLine();
-									column = ((LocatedElement) child).getColumn();
-									break;
-								}
+				for (Reference checkingReference : bpmnRefElements.get(currentName).getReferences()) {
+					LOGGER.debug(language
+							.getProperty(
+									"validator.logger.checkingreference")
+							+ System.lineSeparator()
+							+ currentName
+							+ "  ::   " + checkingReference);
+					// try to get the reference ID
+					String referencedId = null;
+					int line = -1;
+					int column = -1;
+					if (checkingReference.isAttribute()) {
+						referencedId = currentElement
+								.getAttributeValue(checkingReference
+										.getName());
+						line = ((LocatedElement) currentElement).getLine();
+						column = ((LocatedElement) currentElement).getColumn();
+					} else {
+						for (Element child : currentElement.getChildren()) {
+							if (child.getName().equals(
+									checkingReference.getName())) {
+								referencedId = child.getText();
+								line = ((LocatedElement) child).getLine();
+								column = ((LocatedElement) child).getColumn();
+								break;
 							}
 						}
-						// if the current element has the reference start
-						// the validation
-						if (referencedId != null) {
-							referenceChecker.validateReferenceType(elements,
-									importedElements, validationResult,
-									currentElement, line, column,
-									checkingReference, referencedId,
-									ownPrefix);
-						}
+					}
+					// if the current element has the reference start
+					// the validation
+					if (referencedId != null) {
+						referenceChecker.validateReferenceType(elements,
+								importedElements, validationResult,
+								currentElement, line, column,
+								checkingReference, referencedId,
+								ownPrefix);
 					}
 				}
 			}

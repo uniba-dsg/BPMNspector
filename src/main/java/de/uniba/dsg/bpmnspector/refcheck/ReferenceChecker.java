@@ -11,7 +11,10 @@ import org.jdom2.Namespace;
 import org.jdom2.xpath.XPathHelper;
 
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 public class ReferenceChecker {
 
@@ -56,12 +59,9 @@ public class ReferenceChecker {
             ValidationResult validationResult, Element currentElement, int line,
             int column, Reference checkingReference, String referencedId, String ownPrefix) {
         if (checkingReference.isQname()) {
-
             // Check whether the QName is prefixed
             if (referencedId.contains(":")) { // reference ID is prefixed and
-                // therefore probably to find in
-                // an
-                // imported file
+                // therefore probably to find in an imported file
                 String[] parts = referencedId.split(":");
                 String prefix = parts[0];
                 String importedId = parts[1];
@@ -78,78 +78,50 @@ public class ReferenceChecker {
                 Map<String, Element> relevantImportedElements = importedElements
                         .get(namespace);
 
-                // Checking whether the namespace is used for the root and/or
-                // the imported file
+                // Checking whether the namespace is used for the root and/or the imported file
                 // to determine the correct element to be checked
-                if (ownPrefix.equals(prefix)) { // namespace is used for the
-                    // root file
-
-                    // check whether element with ID importedId exists in root
-                    // or another file
-                    if (elements.containsKey(importedId)) { // elem is in root
-                        // file
-                        checkTypeAndAddViolation(validationResult, line, column,
-                                currentElement, checkingReference,
+                if (ownPrefix.equals(prefix)) { // namespace is used for the root file
+                    // check whether element with ID importedId exists in root or another file
+                    if (elements.containsKey(importedId)) { // elem is in root file
+                        checkTypeAndAddViolation(validationResult, line, column, currentElement, checkingReference,
                                 elements.get(importedId));
                     } else if (relevantImportedElements != null
-                            && relevantImportedElements.containsKey(importedId)) { // element
-                        // is
-                        // found
-                        // in
-                        // the
-                        // imported
-                        // file
-                        checkTypeAndAddViolation(validationResult, line, column,
-                                currentElement, checkingReference,
+                            && relevantImportedElements.containsKey(importedId)) { // element is found in the imported file
+                        checkTypeAndAddViolation(validationResult, line, column, currentElement, checkingReference,
                                 relevantImportedElements.get(importedId));
                     } else {
-                        createAndAddExistenceViolation(
-                                validationResult, line, column,
-                                currentElement, checkingReference);
+                        createAndAddExistenceViolation(validationResult, line, column, currentElement, checkingReference);
                     }
 
                 } else if (relevantImportedElements != null) { // NOPMD
                     // namespace is used by an imported file
                     if (relevantImportedElements.containsKey(importedId)) {
-                        checkTypeAndAddViolation(validationResult, line, column,
-                                currentElement, checkingReference,
+                        checkTypeAndAddViolation(validationResult, line, column, currentElement, checkingReference,
                                 relevantImportedElements.get(importedId));
                     } else {
-                        createAndAddExistenceViolation(
-                                validationResult, line, column,
-                                currentElement, checkingReference);
+                        createAndAddExistenceViolation(validationResult, line, column, currentElement, checkingReference);
                     }
                 } else {
-                    // invalid namespace: not used in any file
-                    // case if the namespace is not used for the root file or an
-                    // imported file
-                    // import does not exist or is no BPMN file (as it has to
-                    // be)
-                    createAndAddExistenceViolation(
-                            validationResult, line, column,
-                            currentElement, checkingReference);
+                    // invalid namespace: not used in any file case if the namespace is not used for the root file or an
+                    // imported file import does not exist or is no BPMN file (as it has to be)
+                    createAndAddExistenceViolation(validationResult, line, column, currentElement, checkingReference);
                 }
 
             } else { // no QName prefix - the elem has to be in the root file
                 if (elements.containsKey(referencedId)) {
-                    checkTypeAndAddViolation(validationResult, line, column,
-                            currentElement, checkingReference,
+                    checkTypeAndAddViolation(validationResult, line, column, currentElement, checkingReference,
                             elements.get(referencedId));
                 } else {
-                    createAndAddExistenceViolation(
-                            validationResult, line, column,
-                            currentElement, checkingReference);
+                    createAndAddExistenceViolation(validationResult, line, column, currentElement, checkingReference);
                 }
             }
 
         } else { // reference uses IDREF - ref has to exist in root file
             if (elements.containsKey(referencedId)) {
-                checkTypeAndAddViolation(validationResult, line, column,
-                        currentElement,
-                        checkingReference, elements.get(referencedId));
+                checkTypeAndAddViolation(validationResult, line, column, currentElement, checkingReference,
+                        elements.get(referencedId));
             } else {
-                createAndAddExistenceViolation(validationResult,
-                        line, column, currentElement, checkingReference);
+                createAndAddExistenceViolation(validationResult, line, column, currentElement, checkingReference);
             }
         }
     }
@@ -174,9 +146,9 @@ public class ReferenceChecker {
      * @param referencedElement
      *            the referenced element to validate
      */
-    private void checkTypeAndAddViolation(ValidationResult validationResult,
-            int line, int column, Element currentElement,
-            Reference checkingReference, Element referencedElement) {
+    private void checkTypeAndAddViolation(ValidationResult validationResult,int line, int column,
+                                          Element currentElement, Reference checkingReference,
+                                          Element referencedElement) {
         boolean validType = false;
         List<String> referencedTypes = checkingReference.getTypes();
         // do not check references which are only for existence validation
@@ -232,10 +204,9 @@ public class ReferenceChecker {
      *            referenced element
      * @return true if no violation is found, false otherwise
      */
-    private boolean performSpecialChecks(Element currentElement,
-            Reference checkingReference, Element referencedElement) {
-        // perform additional checks for special cases (look up bachelor thesis
-        // for the reference number)
+    private boolean performSpecialChecks(Element currentElement, Reference checkingReference,
+                                         Element referencedElement) {
+        // perform additional checks for special cases (look up bachelor thesis for the reference number)
         boolean validType = true;
         if (checkingReference.getNumber() == 18
                 || checkingReference.getNumber() == 19) {
@@ -320,17 +291,13 @@ public class ReferenceChecker {
      * @param types
      *            a list of allowed reference types
      */
-    private void createAndAddReferenceTypeViolation(
-            ValidationResult validationResult, int line, int column,
-            Element currentElement, Reference checkingReference,
-            Element referencedElement, List<String> types) {
+    private void createAndAddReferenceTypeViolation(ValidationResult validationResult, int line, int column,
+            Element currentElement, Reference checkingReference, Element referencedElement, List<String> types) {
 
-        String message = ViolationMessageCreator.createTypeViolationMessage(
-                currentElement.getName(), line, checkingReference.getName(),
-                referencedElement.getName(), types.toString(), language);
+        String message = ViolationMessageCreator.createTypeViolationMessage(currentElement.getName(), line,
+                checkingReference.getName(), referencedElement.getName(), types.toString(), language);
 
-        Location location = new Location(
-                Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
+        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
                 new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_TYPE);
         validationResult.addViolation(violation);
@@ -353,10 +320,8 @@ public class ReferenceChecker {
     public void createAndAddExistenceViolation(ValidationResult validationResult,
                                                int line, int column, Element currentElement, Reference checkingReference) {
         String message = ViolationMessageCreator
-                .createExistenceViolationMessage(currentElement.getName(),
-                        checkingReference.getName(), line,
-                        ViolationMessageCreator.DEFAULT_MSG,
-                        XPathHelper.getAbsolutePath(currentElement), language);
+                .createExistenceViolationMessage(currentElement.getName(), checkingReference.getName(), line,
+                        ViolationMessageCreator.DEFAULT_MSG, XPathHelper.getAbsolutePath(currentElement), language);
         Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")),
                 new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);

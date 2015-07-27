@@ -65,79 +65,106 @@ public class ReferenceLoader {
 			Document document = new SAXBuilder().build(refPathStream);
 			Element root = document.getRootElement();
 
-			return createReferences(root);
+			Map<String, BPMNElement> bpmnElements = new HashMap<>();
+
+			List<Element> elems = root.getChildren();
+
+			// Create References for all <element>'s in the file which do not have a defined parent
+			// all other <element>'s will be processed when their parent is processed
+			for(Element elem : elems) {
+				if(elem.getChild("parent")==null && !bpmnElements.containsKey(elem.getAttributeValue("name"))) {
+					createBPMNElementAndReferences(root, elem, bpmnElements, new ArrayList<>());
+				}
+			}
+
+			return bpmnElements;
 
 		} catch (JDOMException | IOException e) {
-			throw new ValidationException("Problems occurred while traversing the 'references.xml' file.", e);
+			throw new ValidationException("Problems occurred while traversing the file '"+referencesPath+"'", e);
 		}
 	}
 
-	private Map<String, BPMNElement> createReferences(Element rootElem) {
-		Map<String, BPMNElement> bpmnElements = new HashMap<>();
-		// separates all BPMN elements
-		List<Element> elements = rootElem.getChildren();
-		for (Element element : elements) {
-            String elementName = element.getAttributeValue("name");
-            String parent = element.getChildText("parent");
-            List<String> children = null;
-            // separates possible child elements (element names of the
-            // element, which inherits the references from the current
-            // element)
-            List<Element> childrenInFile = element.getChildren("child");
-            if (!childrenInFile.isEmpty()) {
-                children = new ArrayList<>();
-                for (Element child : childrenInFile) {
-                    children.add(child.getText());
-                }
-            }
-            // separates the references for the current element
-            List<Reference> references = new ArrayList<>();
-            List<Element> referencesInFile = element
-					.getChildren("reference");
-            for (Element reference : referencesInFile) {
-                int number = Integer.parseInt(reference
-.getAttributeValue("number"));
-                String referenceName = reference.getChild("name").getText();
-                ArrayList<String> types = null;
-                List<Element> typesInFile = reference.getChildren("type");
-                if (!typesInFile.isEmpty()) {
-                    types = new ArrayList<>();
-                    for (Element type : typesInFile) {
-                        types.add(type.getText());
-                    }
-                }
-                boolean qname = convertToBoolean(reference
-                        .getAttributeValue("qname"));
-                boolean attribute = convertToBoolean(reference
-                        .getAttributeValue("attribute"));
-                boolean special = false;
-                String specialAttribute = reference
-                        .getAttributeValue("special");
-                if (specialAttribute != null) {
-                    special = convertToBoolean(specialAttribute);
-                }
-                Reference bpmnReference = new Reference(number,
-                        referenceName, types, qname, attribute, special);
-                references.add(bpmnReference);
-            }
-            BPMNElement bpmnElement = new BPMNElement(elementName, parent,
-                    children, references);
-            bpmnElements.put(elementName, bpmnElement);
-        }
+	private void createBPMNElementAndReferences(Element rootElem, Element elementToAdd,
+												Map<String, BPMNElement> processedElements,
+												List<Reference> referencesFromParent) {
 
-		// add not yet existing key references of the element children
-		Map<String, BPMNElement> missingMap = new HashMap<>();
+		String elementName = elementToAdd.getAttributeValue("name");
+		String parent = elementToAdd.getChildText("parent");
 
-        bpmnElements.entrySet().stream()
-                .filter(entry -> entry.getValue().getChildren() != null)
-                .forEach(entry ->
-                    entry.getValue().getChildren().stream()
-                            .filter(childName -> !bpmnElements.containsKey(childName))
-                            .forEach(childName -> missingMap.put(childName, entry.getValue())));
+		// create list of references
+		// use referencesFromParent as a base - references are inherited
+		List<Reference> references = new ArrayList<>(referencesFromParent);
+		// add further References directly defined for the current elementToAdd
+		createReferencesOfElement(elementToAdd, references);
 
-		bpmnElements.putAll(missingMap);
 
-		return bpmnElements;
+		List<String> children = null;
+		// separates possible child elements (element names of the
+		// element, which inherits the references from the current
+		// element)
+		List<Element> childElements= elementToAdd.getChildren("child");
+		if (!childElements.isEmpty()) {
+			children = new ArrayList<>();
+			for (Element child : childElements) {
+				children.add(child.getText());
+				// process child
+				createBPMNElementAndReferencesForChild(rootElem, child.getText(), elementName, processedElements, references);
+			}
+		}
+
+		BPMNElement bpmnElement = new BPMNElement(elementName, parent, children, references);
+
+		// add newly created Element to Map of all processed elements
+		processedElements.put(elementName, bpmnElement);
+
+	}
+
+	private void createBPMNElementAndReferencesForChild(Element rootElem, String nameOfChild, String nameOfParent,
+														Map<String, BPMNElement> processedElements,
+														List<Reference> referencesFromParent) {
+		// Check whether there is a child which defines further references,
+		// i.e., there exists a <element name=$nameOfChild>
+		Optional<Element> childToProcess = rootElem.getChildren("element").stream()
+				.filter(element -> nameOfChild.equals(element.getAttributeValue("name")))
+				.findAny();
+
+		if(childToProcess.isPresent()) {
+			// further definitions for child are present -> process child
+			createBPMNElementAndReferences(rootElem, childToProcess.get(), processedElements, referencesFromParent);
+		} else {
+			// no further references for child -> create BPMNElement for Child and add child directly with referencesFromParent
+			processedElements.put(nameOfChild, new BPMNElement(nameOfChild, nameOfParent, null, referencesFromParent));
+		}
+	}
+
+	private void createReferencesOfElement(Element element, List<Reference> referenceList) {
+		List<Element> referencesInFile = element
+                .getChildren("reference");
+		for (Element reference : referencesInFile) {
+			int number = Integer.parseInt(reference.getAttributeValue("number"));
+			String referenceName = reference.getChild("name").getText();
+			ArrayList<String> types = null;
+			List<Element> typesInFile = reference.getChildren("type");
+			if (!typesInFile.isEmpty()) {
+				types = new ArrayList<>();
+				for (Element type : typesInFile) {
+					types.add(type.getText());
+				}
+			}
+			boolean qname = convertToBoolean(reference
+					.getAttributeValue("qname"));
+			boolean attribute = convertToBoolean(reference
+					.getAttributeValue("attribute"));
+			boolean special = false;
+			String specialAttribute = reference
+					.getAttributeValue("special");
+			if (specialAttribute != null) {
+				special = convertToBoolean(specialAttribute);
+			}
+			Reference bpmnReference = new Reference(number,
+					referenceName, types, qname, attribute, special);
+			referenceList.add(bpmnReference);
+		}
 	}
 
 	private void validateReferencesFile(String referencesPath, String xsdPath)
