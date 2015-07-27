@@ -1,7 +1,6 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
 import java.util.List;
-import java.util.Properties;
 
 /**
  * This class represents a BPMN element, which has one or more checkable
@@ -72,8 +71,6 @@ public class BPMNElement {
 
 	@Override
 	public String toString() {
-		return "<" + name + "(" + children + ") "
-				+ "Possible referencing attribs/elems: " + references
-				+ ">";
+		return String.format("<%s ; Possible referencing attribs/elems: %s >", name, references);
 	}
 }

@@ -14,9 +14,6 @@ import org.jdom2.located.LocatedElement;
 import org.jdom2.util.IteratorIterable;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -29,7 +26,6 @@ import java.util.*;
  */
 public class BPMNReferenceValidator {
 
-	private Properties language;
 	private Map<String, BPMNElement> bpmnRefElements;
 
     private final ReferenceChecker referenceChecker;
@@ -46,10 +42,8 @@ public class BPMNReferenceValidator {
 	 *             if problems with the language files exist
 	 */
 	public BPMNReferenceValidator() throws ValidationException {
-        loadLanguage();
 		loadReferences();
-
-        referenceChecker = new ReferenceChecker(language, bpmnRefElements);
+        referenceChecker = new ReferenceChecker(bpmnRefElements);
 	}
 
 	/**
@@ -88,19 +82,6 @@ public class BPMNReferenceValidator {
 		}
 	}
 
-    private void loadLanguage() throws ValidationException{
-		language = new Properties();
-		try(InputStream stream = getClass().getResourceAsStream("/en.lang")) {
-			language.load(stream);
-		} catch (FileNotFoundException e) {
-			throw new ValidationException(
-					"Could not find the language file 'lang/en.lang'.", e);
-		} catch (IOException e) {
-			throw new ValidationException(
-					"IO problems with the language file 'lang/en.lang'.", e);
-		}
-    }
-
 	/**
 	 * This method loads the BPMN elements with the checkable references for the
 	 * validation.
@@ -114,13 +95,13 @@ public class BPMNReferenceValidator {
 		bpmnRefElements = referenceLoader.load("/references.xml",
 				"/references.xsd");
 		StringBuilder bpmnElementsLogText = new StringBuilder(500);
+		bpmnElementsLogText.append("Imported BPMNElements: ");
 		for (String key : bpmnRefElements.keySet()) {
 			bpmnElementsLogText.append(String.format("%s :: %s", key,
 					bpmnRefElements.get(key)));
 			bpmnElementsLogText.append(System.lineSeparator());
 		}
-		LOGGER.debug(language.getProperty("validator.logger.bpmnelements")
-				+ System.lineSeparator() + bpmnElementsLogText);
+		LOGGER.debug(bpmnElementsLogText.toString());
 	}
 
 	/**
@@ -135,6 +116,7 @@ public class BPMNReferenceValidator {
 	 */
 	private void startValidation(BPMNProcess baseProcess, ValidationResult validationResult) throws ValidationException {
 
+		LOGGER.debug("Starting to process {} :", baseProcess.getBaseURI());
 		Document baseDocument = baseProcess.getProcessAsDoc();
 
 		// Get all Elements to Check from Base BPMN Process
@@ -162,14 +144,13 @@ public class BPMNReferenceValidator {
 				baseProcess,
 				new ArrayList<>());
 
-		LOGGER.debug(language.getProperty("validator.logger.elements")
-				+ System.lineSeparator() + elements.toString());
+		// log ns prefixes of all imported files
 		StringBuilder importedFilesLogText = new StringBuilder(100)
-				.append(language.getProperty("validator.logger.importedfiles"))
+				.append("Elements found by namespace: ")
 				.append(System.lineSeparator());
 		for (Map.Entry entry : importedElements.entrySet()) {
 			importedFilesLogText
-					.append(language.getProperty("validator.logger.prefix"))
+					.append("Namespace prefix: ")
 					.append(entry.getKey()).append(System.lineSeparator())
 					.append(entry.getValue())
 					.append(System.lineSeparator());
@@ -185,12 +166,6 @@ public class BPMNReferenceValidator {
 			// check if the current element can have references
 			if (bpmnRefElements.containsKey(currentName)) {
 				for (Reference checkingReference : bpmnRefElements.get(currentName).getReferences()) {
-					LOGGER.debug(language
-							.getProperty(
-									"validator.logger.checkingreference")
-							+ System.lineSeparator()
-							+ currentName
-							+ "  ::   " + checkingReference);
 					// try to get the reference ID
 					String referencedId = null;
 					int line = -1;
@@ -215,6 +190,7 @@ public class BPMNReferenceValidator {
 					// if the current element has the reference start
 					// the validation
 					if (referencedId != null) {
+						LOGGER.debug(String.format("Checking the Reference: %s :: %s", currentName, checkingReference.getName()));
 						referenceChecker.validateReferenceType(elements,
 								importedElements, validationResult,
 								currentElement, line, column,
@@ -226,8 +202,7 @@ public class BPMNReferenceValidator {
 		}
 		// log violations
 		if (!validationResult.isValid()) {
-			StringBuilder violationListLogText = new StringBuilder(
-					language.getProperty("validator.logger.violationlist"))
+			StringBuilder violationListLogText = new StringBuilder("VIOLATIONSLIST:")
 					.append(System.lineSeparator());
 			for (Violation violation : validationResult.getViolations()) {
 				violationListLogText.append(violation.getMessage()).append(

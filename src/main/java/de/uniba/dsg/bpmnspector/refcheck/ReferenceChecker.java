@@ -14,19 +14,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public class ReferenceChecker {
 
     public static final String CONSTRAINT_REF_TYPE = "REF_TYPE";
     public static final String CONSTRAINT_REF_EXISTENCE = "REF_EXISTENCE";
 
-    private final Properties language;
-
     private final Map<String, BPMNElement> bpmnRefElements;
 
-    public ReferenceChecker(Properties language, Map<String, BPMNElement> bpmnRefElements) {
-        this.language = language;
+    public ReferenceChecker(Map<String, BPMNElement> bpmnRefElements) {
         this.bpmnRefElements = bpmnRefElements;
     }
 
@@ -213,7 +209,7 @@ public class ReferenceChecker {
             Element currentElement, Reference checkingReference, Element referencedElement, List<String> types) {
 
         String message = ViolationMessageCreator.createTypeViolationMessage(currentElement.getName(), line,
-                checkingReference.getName(), referencedElement.getName(), types.toString(), language);
+                checkingReference.getName(), referencedElement.getName(), types.toString());
 
         Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
                 new LocationCoordinate(line, column));
@@ -239,7 +235,7 @@ public class ReferenceChecker {
                                                int line, int column, Element currentElement, Reference checkingReference) {
         String message = ViolationMessageCreator
                 .createExistenceViolationMessage(currentElement.getName(), checkingReference.getName(), line,
-                        ViolationMessageCreator.DEFAULT_MSG, XPathHelper.getAbsolutePath(currentElement), language);
+                        ViolationMessageCreator.DEFAULT_MSG, XPathHelper.getAbsolutePath(currentElement));
         Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")),
                 new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);

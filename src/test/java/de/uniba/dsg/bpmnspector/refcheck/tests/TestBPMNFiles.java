@@ -1,8 +1,8 @@
 package de.uniba.dsg.bpmnspector.refcheck.tests;
 
 import api.UnsortedValidationResult;
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
@@ -278,7 +278,7 @@ public class TestBPMNFiles {
 			fail("Violation is at an unexpected line. Expected: "+expectedLine+" Found: "+foundError.getLocation().getLocation().getRow());
 		}
 		
-		if(foundError.getMessage()==null || !foundError.getMessage().contains("incorrect type "+typeToBeFound)) {
+		if(foundError.getMessage()==null || !foundError.getMessage().contains("incorrect type '"+typeToBeFound)) {
 			fail("Violation Message does not contain expected String: 'incorrect type "+typeToBeFound+"'\n\t Message was: "+foundError.getMessage());
 		} else if(!foundError.getMessage().contains(validType)) {
 			fail("Valid Type ("+validType+") is not found in list of expected types."+foundError.getMessage());

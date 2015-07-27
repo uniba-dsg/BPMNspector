@@ -87,11 +87,7 @@ public class Reference {
 
 	@Override
 	public String toString() {
-		return "{ #" + number
-				+" name: " + name
-				+" isQname?" + qname
-				+" isAttribute?" + attribute
-				+" allowed Types: [" + types
-				+" ]";
+		return String.format("{ #%d name: %s isQname? %b isAttribute? %b allowed Types: [%s]",
+				number, name, qname, attribute, types);
 	}
 }
