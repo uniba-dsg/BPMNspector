@@ -267,7 +267,7 @@ public class TestBPMNFiles {
 		assertEquals(result.getViolations().size(), 1);
 		Violation existenceViolation = result.getViolations().get(0);
 		assertEquals("REF_EXISTENCE", existenceViolation.getConstraint());
-		assertEquals(14, existenceViolation.getLocation().getLocation().getRow());
+		assertEquals(13, existenceViolation.getLocation().getLocation().getRow());
 		assertEquals(64, existenceViolation.getLocation().getLocation().getColumn());
 	}
 
