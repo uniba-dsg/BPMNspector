@@ -11,4 +11,10 @@ public class SystemTest {
         String[] args = {"src/test/resources/test-1-gruppe-c.bpmn"};
         BPMNspectorMain.main(args);
     }
+
+    @Test
+    public void runMainCheckingFolderInDebugMode() {
+        String[] args = {"src/test/resources/001", "-d"};
+        BPMNspectorMain.main(args);
+    }
 }
