@@ -6,7 +6,7 @@ apply plugin: "application"
 mainClassName = "de.uniba.dsg.bpmnspector.BPMNspectorMain"
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.5'
 }
 
 repositories {
