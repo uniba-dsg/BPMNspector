@@ -259,6 +259,18 @@ public class TestBPMNFiles {
 		assertTrue(result.isValid());
 	}
 
+	@Test
+	public void testExistenceViolationMsgEventDef() throws ValidationException {
+		ValidationResult result = importAndTestProcess("src/test/resources/refCheck_existenceViolation_MsgEventDef_messageRef.bpmn");
+		assertEquals(1, result.getFoundFiles().size());
+		assertFalse(result.isValid());
+		assertEquals(result.getViolations().size(), 1);
+		Violation existenceViolation = result.getViolations().get(0);
+		assertEquals("REF_EXISTENCE", existenceViolation.getConstraint());
+		assertEquals(14, existenceViolation.getLocation().getLocation().getRow());
+		assertEquals(64, existenceViolation.getLocation().getLocation().getColumn());
+	}
+
 	private ValidationResult importAndTestProcess(String filename) throws ValidationException {
 		ValidationResult result = new UnsortedValidationResult();
 		BPMNProcess process = bpmnImporter

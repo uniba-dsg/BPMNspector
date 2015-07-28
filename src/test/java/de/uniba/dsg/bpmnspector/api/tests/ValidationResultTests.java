@@ -85,5 +85,20 @@ public class ValidationResultTests {
         assertEquals(result.getViolatedConstraints(), expectedConstraints);
     }
 
+    @Test
+    public void testSimpleValidationResultWithWarning() {
+        ValidationResult result = new SimpleValidationResult();
+
+        String warn1Msg = "1-sample warning";
+        String warn2Msg = "2-sample warning";
+        result.addWarning(new Warning(warn2Msg, new Location(Paths.get("dummy path"), LocationCoordinate.EMPTY)));
+        result.addWarning(new Warning(warn1Msg, new Location(Paths.get("dummy path"), LocationCoordinate.EMPTY)));
+
+        assertTrue(result.isValid());
+        assertEquals(result.getWarnings().size(), 2);
+        assertEquals(result.getWarnings().get(0).getMessage(), warn1Msg);
+        assertEquals(result.getWarnings().get(0).getLocation().getLocation(), LocationCoordinate.EMPTY);
+        assertEquals(result.getWarnings().get(1).getMessage(), warn2Msg);
+    }
 
 }
