@@ -146,6 +146,7 @@ public class ProcessImporter {
 
     private Violation createViolation(BPMNProcess parent, Path path, String msg) {
         Location location;
+        path = path.toAbsolutePath();
         if(parent == null) {
             location = new Location(path, LocationCoordinate.EMPTY);
         } else {

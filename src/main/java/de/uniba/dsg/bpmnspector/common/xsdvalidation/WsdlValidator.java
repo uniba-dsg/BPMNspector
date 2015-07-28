@@ -54,7 +54,7 @@ public class WsdlValidator extends AbstractXsdValidator {
         try {
             validator.validate(new StreamSource(xmlFile));
             for (SAXParseException saxParseException : xsdErrorList) {
-                Location location = new Location(xmlFile.toPath(),
+                Location location = new Location(xmlFile.toPath().toAbsolutePath(),
                         new LocationCoordinate(saxParseException.getLineNumber(),
                                 saxParseException.getColumnNumber()));
                 Violation violation = new Violation(location, saxParseException.getMessage(), "WSDL-XSD-Check");
@@ -64,7 +64,7 @@ public class WsdlValidator extends AbstractXsdValidator {
             }
         } catch (SAXParseException e) {
             // if process is not well-formed exception is not processed via the error handler
-            Location location = new Location(xmlFile.toPath(),
+            Location location = new Location(xmlFile.toPath().toAbsolutePath(),
                     new LocationCoordinate(e.getLineNumber(),
                             e.getColumnNumber()));
             Violation violation = new Violation(location, e.getMessage(), "XSD-Check");

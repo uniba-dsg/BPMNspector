@@ -211,7 +211,7 @@ public class ReferenceChecker {
         String message = ViolationMessageCreator.createTypeViolationMessage(currentElement.getName(), line,
                 checkingReference.getName(), referencedElement.getName(), types.toString());
 
-        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")),
+        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")).toAbsolutePath(),
                 new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_TYPE);
         validationResult.addViolation(violation);
@@ -236,7 +236,7 @@ public class ReferenceChecker {
         String message = ViolationMessageCreator
                 .createExistenceViolationMessage(currentElement.getName(), checkingReference.getName(), line,
                         ViolationMessageCreator.DEFAULT_MSG, XPathHelper.getAbsolutePath(currentElement));
-        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")),
+        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")).toAbsolutePath(),
                 new LocationCoordinate(line, column));
         Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);
         validationResult.addViolation(violation);

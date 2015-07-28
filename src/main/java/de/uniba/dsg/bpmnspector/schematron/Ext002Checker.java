@@ -80,13 +80,13 @@ public class Ext002Checker {
         String file2XPath = XPathHelper.getAbsolutePath(secondAttrib);
 
         Location location = new Location(
-                Paths.get(file1Name),
+                Paths.get(file1Name).toAbsolutePath(),
                 new LocationCoordinate(file1Line, file1Column), file1XPath);
         Violation violation = new Violation(location, "Files have id duplicates", CONSTRAINTNUMBER);
         validationResult.addViolation(violation);
 
         Location location2 = new Location(
-                Paths.get(file2Name),
+                Paths.get(file2Name).toAbsolutePath(),
                 new LocationCoordinate(file2Line, file2Column), file2XPath);
         Violation violation2 = new Violation(location2, "Files have id duplicates", CONSTRAINTNUMBER);
         validationResult.addViolation(violation2);

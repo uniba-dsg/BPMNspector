@@ -218,7 +218,7 @@ public class SchematronBPMNValidator {
             String fileName = baseProcess.getBaseURI();
             location = failedAssert.getLocation();
             violationLocation = new Location(
-                    Paths.get(fileName),
+                    Paths.get(fileName).toAbsolutePath(),
                     new LocationCoordinate(line, column), location);
             logText = String.format(
                     "violation of constraint %s found in %s at line %s.",
@@ -293,7 +293,7 @@ public class SchematronBPMNValidator {
                 throw new ValidationException("BPMN Element couldn't be found in file '"+fileName+"'!");
             }
 
-            return new Location(Paths.get(fileName), new LocationCoordinate(line, column), xpathObjectId);
+            return new Location(Paths.get(fileName).toAbsolutePath(), new LocationCoordinate(line, column), xpathObjectId);
 
         } else {
             // File not found

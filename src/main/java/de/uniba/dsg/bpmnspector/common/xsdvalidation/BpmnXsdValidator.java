@@ -61,7 +61,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
             StreamSource src = new StreamSource(xmlFile);
             validator.validate(src);
             for (SAXParseException saxParseException : xsdErrorList) {
-                Location location = new Location(xmlFile.toPath(),
+                Location location = new Location(xmlFile.toPath().toAbsolutePath(),
                         new LocationCoordinate(saxParseException.getLineNumber(),
                                 saxParseException.getColumnNumber()));
                 Violation violation = new Violation(location, saxParseException.getMessage(), "XSD-Check");
@@ -74,7 +74,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
         } catch (MalformedByteSequenceException e) {
             // Thrown if file encoding is not valid
             String msg = "File "+xmlFile.toString()+" does not have claimed encoding - further processing is not possible.";
-            Location location = new Location(xmlFile.toPath(),
+            Location location = new Location(xmlFile.toPath().toAbsolutePath(),
                     new LocationCoordinate(1,1));
             Violation violation = new Violation(location, msg, "XSD-Check");
             if(!validationResult.getViolations().contains(violation)) {
@@ -84,7 +84,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
             throw new ValidationException("Cancel Validation as checked File does not have claimed encoding.");
         } catch (SAXParseException e) {
             // if process is not well-formed exception is not processed via the error handler
-            Location location = new Location(xmlFile.toPath(),
+            Location location = new Location(xmlFile.toPath().toAbsolutePath(),
                     new LocationCoordinate(e.getLineNumber(),
                             e.getColumnNumber()));
             Violation violation = new Violation(location, e.getMessage(), "XSD-Check");
