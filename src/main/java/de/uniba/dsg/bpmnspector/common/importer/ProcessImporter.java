@@ -1,9 +1,9 @@
 package de.uniba.dsg.bpmnspector.common.importer;
 
 import api.*;
+import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.BpmnXsdValidator;
 import de.uniba.dsg.bpmnspector.common.xsdvalidation.WsdlValidator;
-import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -145,21 +145,25 @@ public class ProcessImporter {
     }
 
     private Violation createViolation(BPMNProcess parent, Path path, String msg) {
-        int line = -1;
-        int column = -1;
-        String xpath = "";
-
-        List<Element> imports = parent.getProcessAsDoc().getRootElement().getChildren("import",
-                getBPMNNamespace());
-        for(Element elem : imports) {
-            Path importPath = Paths.get(parent.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
-            if(importPath.equals(path)) {
-                line = ((LocatedElement) elem).getLine();
-                column = ((LocatedElement) elem).getColumn();
-                xpath = XPathHelper.getAbsolutePath(elem);
+        Location location;
+        if(parent == null) {
+            location = new Location(path, LocationCoordinate.EMPTY);
+        } else {
+            int line = -1;
+            int column = -1;
+            String xpath = "";
+            List<Element> imports = parent.getProcessAsDoc().getRootElement().getChildren("import",
+                    getBPMNNamespace());
+            for (Element elem : imports) {
+                Path importPath = Paths.get(parent.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
+                if (importPath.equals(path)) {
+                    line = ((LocatedElement) elem).getLine();
+                    column = ((LocatedElement) elem).getColumn();
+                    xpath = XPathHelper.getAbsolutePath(elem);
+                }
             }
+            location = new Location(path, new LocationCoordinate(line, column), xpath);
         }
-        Location location = new Location(path, new LocationCoordinate(line, column), xpath);
         return new Violation(location, msg, "EXT.001");
     }
 
