@@ -20,7 +20,7 @@ public class SystemTest {
 
     @Test
     public void runMainCheckingFolderCreateXMLReports() {
-        String[] args = {"src/test/resources/001 -r XML"};
+        String[] args = {"src/test/resources/001", "-rXML"};
         BPMNspectorMain.main(args);
     }
 
