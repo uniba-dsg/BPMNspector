@@ -2,7 +2,9 @@ package api;
 
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SimpleValidationResult implements ValidationResult {
 
@@ -37,27 +39,9 @@ public class SimpleValidationResult implements ValidationResult {
         return new ArrayList<>(warnings);
     }
 
-    public Set<Integer> getViolatedRules() {
-        if (isValid()) {
-            return Collections.emptySet();
-        } else {
-            Set<Integer> actualViolatedRules = new HashSet<>();
-            for (Violation violation : getViolations()) {
-                String withoutSA = violation.getConstraint().substring(2);
-                actualViolatedRules.add(Integer.parseInt(withoutSA));
-            }
-            return actualViolatedRules;
-        }
-    }
-
     @Override
     public List<Path> getFoundFiles() {
         Collections.sort(files);
         return new ArrayList<>(files);
-    }
-
-    @Override
-    public String toString() {
-        return "Violated Rules " + getViolatedRules();
     }
 }
