@@ -64,10 +64,10 @@ Options:
  -r <NONE | XML | HTML | BOTH>   defines which report type should be
                                  generated.
                                  Allowed values:
-                                 ALL - create both report types
+                                 NONE - No report file should be created
                                  XML - create XML reports
                                  HTML - create HTML reports (default)
-                                 NONE - No report file should be created
+                                 BOTH - create both report types, XML and HTML
 
 Examples:
 		BPMNspector myfile.bpmn
