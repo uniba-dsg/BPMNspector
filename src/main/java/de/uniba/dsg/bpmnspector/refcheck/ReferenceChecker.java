@@ -1,15 +1,15 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
-import api.Location;
-import api.LocationCoordinate;
-import api.ValidationResult;
-import api.Violation;
-import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
+import api.*;
 import de.uniba.dsg.bpmnspector.refcheck.utils.ViolationMessageCreator;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.jdom2.xpath.XPathHelper;
+import org.slf4j.LoggerFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,9 @@ public class ReferenceChecker {
     public static final String CONSTRAINT_REF_EXISTENCE = "REF_EXISTENCE";
 
     private final Map<String, BPMNElement> bpmnRefElements;
+
+    private static final org.slf4j.Logger LOGGER = LoggerFactory
+            .getLogger(ReferenceChecker.class.getSimpleName());
 
     public ReferenceChecker(Map<String, BPMNElement> bpmnRefElements) {
         this.bpmnRefElements = bpmnRefElements;
@@ -49,11 +52,12 @@ public class ReferenceChecker {
      *            the referenced ID
      * @param ownPrefix
      *        the namespace prefix of the current element
+     * @throws ValidationException thrown if errors occur during creation of the Violation
      */
     public void validateReferenceType(Map<String, Element> elements,
             Map<String, Map<String, Element>> importedElements,
             ValidationResult validationResult, Element currentElement, int line,
-            int column, Reference checkingReference, String referencedId, String ownPrefix) {
+            int column, Reference checkingReference, String referencedId, String ownPrefix) throws ValidationException {
         if (checkingReference.isQname()) {
             // Check whether the QName is prefixed
             if (referencedId.contains(":")) { // reference ID is prefixed and
@@ -141,10 +145,11 @@ public class ReferenceChecker {
      *            the reference to validate against
      * @param referencedElement
      *            the referenced element to validate
+     * @throws ValidationException thrown if errors occur during creation of the Violation
      */
     private void checkTypeAndAddViolation(ValidationResult validationResult,int line, int column,
                                           Element currentElement, Reference checkingReference,
-                                          Element referencedElement) {
+                                          Element referencedElement) throws ValidationException {
         boolean validType = false;
         List<String> referencedTypes = checkingReference.getTypes();
         // do not check references which are only for existence validation
@@ -204,16 +209,14 @@ public class ReferenceChecker {
      *            the actually referenced element
      * @param types
      *            a list of allowed reference types
+     * @throws ValidationException thrown if the Validation could not be created
      */
     private void createAndAddReferenceTypeViolation(ValidationResult validationResult, int line, int column,
-            Element currentElement, Reference checkingReference, Element referencedElement, List<String> types) {
+            Element currentElement, Reference checkingReference, Element referencedElement, List<String> types) throws ValidationException {
 
         String message = ViolationMessageCreator.createTypeViolationMessage(currentElement.getName(), line,
                 checkingReference.getName(), referencedElement.getName(), types.toString());
-
-        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/","")).toAbsolutePath(),
-                new LocationCoordinate(line, column));
-        Violation violation = new Violation(location, message, CONSTRAINT_REF_TYPE);
+        Violation violation = new Violation(createLocation(line, column, currentElement), message, CONSTRAINT_REF_TYPE);
         validationResult.addViolation(violation);
     }
 
@@ -230,15 +233,27 @@ public class ReferenceChecker {
      *            the element causing the violation
      * @param checkingReference
      *            the violated reference
+     * @throws ValidationException thrown if the Validation could not be created
      */
     public void createAndAddExistenceViolation(ValidationResult validationResult,
-                                               int line, int column, Element currentElement, Reference checkingReference) {
+                                               int line, int column, Element currentElement,
+                                               Reference checkingReference) throws ValidationException {
         String message = ViolationMessageCreator
                 .createExistenceViolationMessage(currentElement.getName(), checkingReference.getName(), line,
                         ViolationMessageCreator.DEFAULT_MSG, XPathHelper.getAbsolutePath(currentElement));
-        Location location = new Location(Paths.get(JDOMUtils.getUriFromElement(currentElement).replace("file:/", "")).toAbsolutePath(),
-                new LocationCoordinate(line, column));
-        Violation violation = new Violation(location, message, CONSTRAINT_REF_EXISTENCE);
+        Violation violation = new Violation(createLocation(line, column, currentElement), message, CONSTRAINT_REF_EXISTENCE);
         validationResult.addViolation(violation);
+    }
+
+    private Location createLocation(int line, int column, Element currentElement) throws ValidationException {
+        try {
+            URI baseUri = currentElement.getXMLBaseURI();
+            Path locationPath = Paths.get(baseUri);
+            return new Location(locationPath,
+                    new LocationCoordinate(line, column));
+        } catch (URISyntaxException e) {
+            throw new ValidationException("Base URI of current element " + currentElement.getName()
+                    + " could not be restored.", e);
+        }
     }
 }

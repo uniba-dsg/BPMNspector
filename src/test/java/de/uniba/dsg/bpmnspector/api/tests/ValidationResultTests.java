@@ -71,8 +71,8 @@ public class ValidationResultTests {
         assertEquals(result.getFoundFiles().size(), 1);
         assertEquals(result.getFoundFiles().get(0), path);
 
-//        assertEquals(result.getFilesWithViolations().size(), 1);
-//        assertEquals(result.getFilesWithViolations().get(0), path);
+        assertEquals(result.getFilesWithViolations().size(), 1);
+        assertEquals(result.getFilesWithViolations().get(0), path);
 
         assertEquals(result.getViolations().size(), 5);
 

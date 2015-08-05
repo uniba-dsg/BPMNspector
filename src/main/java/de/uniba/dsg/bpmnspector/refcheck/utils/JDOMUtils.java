@@ -7,17 +7,12 @@ import org.jdom2.Element;
 import org.jdom2.filter.Filter;
 import org.jdom2.filter.Filters;
 import org.jdom2.util.IteratorIterable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class JDOMUtils {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(JDOMUtils.class.getSimpleName());
 
     /**
      * This method puts all elements with an id found in the given document into
@@ -88,22 +83,4 @@ public class JDOMUtils {
         }
     }
 
-    /**
-     * Gets the baseURI String from the given element
-     * (i.e., determines the location of the file containing the element)
-     *
-     * @param element
-     *            the element
-     * @return the URI string - null if the base URI cannot be restored
-     */
-    public static String getUriFromElement(Element element) {
-        try {
-            return element.getXMLBaseURI().toString();
-
-        } catch (URISyntaxException e) {
-            LOGGER.error("Base URI of current element " + element.getName()
-                    + " could not be restored.");
-            return null;
-        }
-    }
 }
