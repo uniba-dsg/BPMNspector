@@ -43,7 +43,7 @@ public class BPMNspectorCli {
 
         Option reportFormat = Option.builder("r").desc(reportDescBuilder.toString())
                 .hasArg()
-                .argName("NONE | XML | HTML | BOTH")
+                .argName("ALL | XML | HTML | NONE")
                 .build();
 
         StringBuilder checksDescBuilder = new StringBuilder(400)

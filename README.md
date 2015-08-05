@@ -49,7 +49,7 @@ or here:
 
 ```
 usage: BPMNspector <file or directory> [-c <[opt1[,opt2]...>] [-d] [-h]
-       [-o] [-r <NONE | XML | HTML | BOTH>]
+       [-o] [-r <ALL | XML | HTML | NONE>]
 Options:
  -c,--checks <[opt1[,opt2]...>   defines which checks should be performed.
                                  Allowed values:
@@ -61,13 +61,13 @@ Options:
  -d,--debug                      run BPMNspector in debug mode
  -h,--help                       prints this usage information
  -o,--open                       open the report file upon completion
- -r <NONE | XML | HTML | BOTH>   defines which report type should be
+ -r <ALL | XML | HTML | NONE>    defines which report type should be
                                  generated.
                                  Allowed values:
-                                 ALL - create both report types
+                                 ALL - create all report types
                                  XML - create XML reports
                                  HTML - create HTML reports (default)
-                                 NONE - No report file should be created
+                                 NONE - No report files should be created
 
 Examples:
 		BPMNspector myfile.bpmn
