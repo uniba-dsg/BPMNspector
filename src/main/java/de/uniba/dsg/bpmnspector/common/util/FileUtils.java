@@ -1,15 +1,14 @@
 package de.uniba.dsg.bpmnspector.common.util;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.*;
 
 public class FileUtils {
 
@@ -38,23 +37,33 @@ public class FileUtils {
         if(!Files.exists(reportResDir)) {
             Files.createDirectory(reportResDir);
         }
-        if(isEmptyDir(reportResDir)) {
-            File zip = org.apache.commons.io.FileUtils.toFile(FileUtils.class.getClassLoader().getResource("reportingResources.zip"));
-            if(zip != null) {
-                ZipFile zipFile = new ZipFile(zip);
-                Enumeration<? extends ZipEntry> entries = zipFile.entries();
-                while (entries.hasMoreElements()) {
-                    ZipEntry entry = entries.nextElement();
-                    Path zippedFile = reportResDir.resolve(entry.getName());
-                    if (entry.isDirectory()) {
-                        Files.createDirectory(zippedFile);
-                    } else {
-                        InputStream in = zipFile.getInputStream(entry);
-                        org.apache.commons.io.FileUtils.copyInputStreamToFile(in, zippedFile.toFile());
-                    }
-                }
+        Path myPath = null;
+        boolean loadedFromJar = false;
+        try {
+            URI uri = FileUtils.class.getResource("/reporting/res").toURI();
+
+            if (uri.getScheme().equals("jar")) {
+                loadedFromJar = true;
+                FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.emptyMap());
+                myPath = fileSystem.getPath("/reporting/res");
             } else {
-                System.out.println("Zip not found!");
+                myPath = Paths.get(uri);
+            }
+
+            Files.walk(myPath).forEach(path -> {
+                try {
+                    Files.copy(path, reportResDir.resolve(path.getFileName().toString()), StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                    LOGGER.error("Unable to copy resources for HTML reports.", e);
+                }
+            });
+        } catch (URISyntaxException e) {
+            LOGGER.error("Unable to copy resources for HTML reports.", e);
+        } finally {
+            // close FileSystem if created before - try-with resources is not working as FileSystem is needed during
+            // Files.walk()
+            if(loadedFromJar && myPath!=null) {
+                myPath.getFileSystem().close();
             }
         }
 
@@ -69,12 +78,6 @@ public class FileUtils {
         }
 
         return reportFile;
-    }
-
-    private static boolean isEmptyDir(Path dir) throws IOException {
-        try(DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            return !stream.iterator().hasNext();
-        }
     }
 
 }
