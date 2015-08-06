@@ -1,7 +1,6 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
 import api.*;
-import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -13,6 +12,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+import java.io.CharConversionException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
                          saxParseException.getLineNumber());
                 }
             }
-        } catch (MalformedByteSequenceException e) {
+        } catch (CharConversionException e) {
             // Thrown if file encoding is not valid
             String msg = "File "+xmlFile.toString()+" does not have claimed encoding - further processing is not possible.";
             Location location = new Location(xmlFile.toPath().toAbsolutePath(),
