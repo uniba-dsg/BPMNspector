@@ -3,41 +3,32 @@ package de.uniba.dsg.bpmnspector.cli;
 import de.uniba.dsg.bpmnspector.ReportOption;
 import de.uniba.dsg.bpmnspector.ValidationOption;
 
+import java.util.Collections;
 import java.util.List;
 
-public class CliParameter {
+public interface CliParameter {
 
-    private final boolean debug;
-    private final boolean openReport;
-    private final List<ValidationOption> validationOptions;
-    private final String path;
-    private final ReportOption reportOption;
 
-    public CliParameter(String path, List<ValidationOption> validationOptions, boolean debug, ReportOption reportOption, boolean openReport) {
-        this.path = path;
-        this.validationOptions = validationOptions;
-        this.debug = debug;
-        this.reportOption = reportOption;
-        this.openReport = openReport;
+
+    default boolean isDebug() {
+        return false;
     }
 
-    public boolean isDebug() {
-        return debug;
+    default List<ValidationOption> getValidationOptions() {
+        return Collections.emptyList();
     }
 
-    public List<ValidationOption> getValidationOptions() {
-        return validationOptions;
+    default String getPath() {
+        return "";
     }
 
-    public String getPath() {
-        return path;
+    default ReportOption getReportOption() {
+        return ReportOption.NONE;
     }
 
-    public ReportOption getReportOption() {
-        return reportOption;
+    default boolean isOpenReport() {
+        return false;
     }
 
-    public boolean isOpenReport() {
-        return openReport;
-    }
+    default boolean showHelpOnly() { return true; }
 }

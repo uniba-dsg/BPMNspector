@@ -74,7 +74,7 @@ public class BPMNspectorCli {
         return options;
     }
 
-    private void printUsageInformation() {
+    public void printUsageInformation() {
         HelpFormatter formatter = new HelpFormatter();
         String example = "\nExamples:\n"
                 +"\t\tBPMNspector myfile.bpmn\n"
@@ -84,36 +84,56 @@ public class BPMNspectorCli {
         System.out.println(example);
     }
 
-    public CliParameter parse(String[] args) {
+    public CliParameter parse(String[] args) throws CliException {
         CommandLineParser parser = new DefaultParser();
         try {
             CommandLine cl = parser.parse(createCliOptions(), args);
             if(cl.hasOption(HELP)) {
-                printUsageInformation();
-                System.exit(0);
+                return new CliParameter() {};
             } else {
                 if(cl.getArgs().length==0) { //NOPMD
-                    LOGGER.error("Invalid usage: No arguments detected. It is only possible to check one file or directory at the same time.");
-                    printUsageInformation();
-                    System.exit(0);
+                    throw new CliException("Invalid usage: No arguments detected. It is only possible to check one file or directory at the same time.");
                 } else if(cl.getArgs().length==1) {//NOPMD
-                    return new CliParameter(cl.getArgs()[0],
-                            validateAndCreateValidationOptions(
-                                    cl.getOptionValue(CHECKS, CHECK_ALL)),
-                            cl.hasOption(DEBUG), validateAndCreateReportOption(cl.getOptionValue("r", "HTML")), cl.hasOption(OPEN));
+                    ReportOption reportOption = validateAndCreateReportOption(cl.getOptionValue("r", "HTML"));
+                    List<ValidationOption> validationOptions = validateAndCreateValidationOptions(cl.getOptionValue(CHECKS, CHECK_ALL));
+                    return new CliParameter() {
+                        @Override
+                        public boolean isDebug() {
+                            return cl.hasOption(DEBUG);
+                        }
+
+                        @Override
+                        public List<ValidationOption> getValidationOptions() {
+                            return validationOptions;
+                        }
+
+                        @Override
+                        public String getPath() {
+                            return cl.getArgs()[0];
+                        }
+
+                        @Override
+                        public ReportOption getReportOption() {
+                            return reportOption;
+                        }
+
+                        @Override
+                        public boolean isOpenReport() {
+                            return cl.hasOption(OPEN);
+                        }
+
+                        @Override
+                        public boolean showHelpOnly() {
+                            return false;
+                        }
+                    };
                 } else {
-                    LOGGER.error("Invalid usage: Too much arguments detected. It is only possible to check one file or directory at the same time.");
-                    printUsageInformation();
-                    System.exit(0);
+                    throw new CliException("Invalid usage: Too much arguments detected. It is only possible to check one file or directory at the same time.");
                 }
             }
         } catch (ParseException e) {
-            LOGGER.error("Invalid usage: "+e.getMessage());
-            printUsageInformation();
-            System.exit(-1);
+            throw new CliException("Invalid Usage: "+e.getMessage(), e);
         }
-
-        return null;
     }
 
     private List<ValidationOption> validateAndCreateValidationOptions(String checkArgs)

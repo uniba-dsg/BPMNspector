@@ -4,6 +4,7 @@ package de.uniba.dsg.bpmnspector;
 import api.ValidationException;
 import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
+import de.uniba.dsg.bpmnspector.cli.CliException;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
 import de.uniba.dsg.bpmnspector.common.util.HtmlReportGenerator;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
@@ -23,43 +24,49 @@ public class BPMNspectorMain {
 
     public static void main(String[] args) {
         BPMNspectorCli cli = new BPMNspectorCli();
-        CliParameter params = cli.parse(args);
-
-        if(params.isDebug()) {
-            setDebugLevel();
-        } else {
-            setInfoLevel();
-        }
-
         try {
-            BPMNspector inspector = new BPMNspector();
-
-            // Check whether path exists
-            Path path = Paths.get(params.getPath());
-            if (Files.exists(path)) {
-
-                try {
-                    if (Files.isDirectory(path)) {
-                        List<ValidationResult> results = inspector
-                                .inspectDirectory(path,
-                                        params.getValidationOptions());
-
-                        createFolderReports(path, results,params.getReportOption(), params.isOpenReport());
-                    } else {
-                        ValidationResult result = inspector.inspectFile(path,
-                                params.getValidationOptions());
-                        createReport(result, params.getReportOption(), params.isOpenReport());
-                    }
-
-                } catch (ValidationException e) {
-                    LOGGER.error("Inspection failed.", e);
-                }
+            CliParameter params = cli.parse(args);
+            if (params.showHelpOnly()) {
+                cli.printUsageInformation();
+                return;
+            } else if (params.isDebug()) {
+                setDebugLevel();
             } else {
-                LOGGER.error("File or directory does not exist.");
-                System.exit(-1);
+                setInfoLevel();
             }
-        } catch (ValidationException e) {
-            LOGGER.error("Initialization of BPMNspector failed.", e);
+
+            try {
+                BPMNspector inspector = new BPMNspector();
+
+                // Check whether path exists
+                Path path = Paths.get(params.getPath());
+                if (Files.exists(path)) {
+
+                    try {
+                        if (Files.isDirectory(path)) {
+                            List<ValidationResult> results = inspector
+                                    .inspectDirectory(path,
+                                            params.getValidationOptions());
+
+                            createFolderReports(path, results, params.getReportOption(), params.isOpenReport());
+                        } else {
+                            ValidationResult result = inspector.inspectFile(path,
+                                    params.getValidationOptions());
+                            createReport(result, params.getReportOption(), params.isOpenReport());
+                        }
+
+                    } catch (ValidationException e) {
+                        LOGGER.error("Inspection failed.", e);
+                    }
+                } else {
+                    LOGGER.error("File or directory does not exist.");
+                }
+            } catch (ValidationException e) {
+                LOGGER.error("Initialization of BPMNspector failed.", e);
+            }
+        } catch (CliException e) {
+            LOGGER.error(e.getMessage());
+            cli.printUsageInformation();
         }
     }
 
