@@ -12,7 +12,7 @@
     <file>validator.log</file>
     <append>true</append>
     <encoder>
-      <pattern>[%-5level] %logger{35} - %msg%n</pattern>
+      <pattern>[%d{HH:mm:ss.SSS}] [%-5level] %logger{35} - %msg%n</pattern>
     </encoder>
   </appender>
   
