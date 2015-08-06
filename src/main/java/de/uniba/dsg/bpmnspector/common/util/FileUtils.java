@@ -12,12 +12,21 @@ import java.util.*;
 
 public class FileUtils {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class.getSimpleName());
+
     public static List<Path> getAllBpmnFileFromDirectory(Path directory) {
         assertDirectory(directory);
+
         List<Path> bpmnFiles = new ArrayList<>();
-        String[] suffixes = {"bpmn", "bpmn2", "bpmn20.xml"};
-        Collection<File> filesColl = org.apache.commons.io.FileUtils.listFiles(directory.toFile(), suffixes, true);
-        bpmnFiles.addAll(filesColl.stream().map(File::toPath).collect(Collectors.toList()));
+
+        try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory, "*.{bpmn,bpmn2,bpmn20.xml}")) {
+            for (Path path : dirStream) {
+                bpmnFiles.add(path);
+            }
+        } catch (IOException e) {
+            LOGGER.error("IOException while traversing folder.", e);
+        }
+
         return bpmnFiles;
     }
 

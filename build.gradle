@@ -30,7 +30,6 @@ dependencies {
     internal 'org.slf4j:slf4j-api:1.7.+'
     internal 'com.phloc:phloc-commons:4.3.+'
     internal 'commons-cli:commons-cli:1.3.+'
-    internal 'commons-io:commons-io:2.4'
     internal 'org.apache.velocity:velocity:1.7'
 
     external files(fileTree(dir: "lib", includes: ['*.jar']))
