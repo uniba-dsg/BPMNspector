@@ -5,6 +5,8 @@ apply plugin: "application"
 
 mainClassName = "de.uniba.dsg.bpmnspector.BPMNspectorMain"
 
+version = 1.0
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.5'
 }
@@ -43,24 +45,20 @@ dependencies {
 jar.archiveName = "BPMNspector.jar"
 
 jar {
-    from configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
     manifest { attributes 'Main-Class': mainClassName }
 }
 
-compileJava {
-    dependsOn 'zipReportResources'
+task fatJar(type: Jar) {
+    manifest.from jar.manifest
+    baseName = project.name + '-fat'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 run {
     if(project.hasProperty('args')){
         args project.args.split('\\s+')
     }
-}
-
-task zipReportResources(type: Zip) {
-    archiveName = "reportingResources.zip"
-    from('src/main/resources/reporting/res')
-    destinationDir = file('src/main/resources')
 }
 
 apply plugin: 'jacoco'
