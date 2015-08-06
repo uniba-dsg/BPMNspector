@@ -2,6 +2,8 @@
 
 **Static analysis for BPMN 2.0 process models**
 
+[![Build Status](https://travis-ci.org/uniba-dsg/BPMNspector.svg?branch=master)](https://travis-ci.org/uniba-dsg/BPMNspector) [![Dependency Status](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7) [![Coverage Status](https://coveralls.io/repos/uniba-dsg/BPMNspector/badge.svg?branch=master&service=github)](https://coveralls.io/github/uniba-dsg/BPMNspector?branch=master)
+
 ## What is it? || Description
 
 Creating valid, standard compliant BPMN 2.0 process models is not trivial. Even when state-of-art modeling tools are used, model often violate some of the constraints stated in the standard document.
@@ -12,9 +14,9 @@ BPMNspector checks single files - or complete directories - of BPMN files and re
 - **Schema validation:** Ensures correctness regarding the official OMG XSD files
 - **Reference Checking:** Ensures that all used references exist and that only valid types are used
 - **Check of Advanced Constraints:**
-    - 40 (of 52) constraints defined for the "descriptive conformance sub class" are checked
+    - 44 (of 50) constraints defined for the "descriptive conformance sub class" are checked
     - all additional "analytic conformance sub class" constraints are checked
-    - 45 (of 50) constraints for the "common executable conformance sub class" are checked
+    - 45 (of 49) constraints for the "common executable conformance sub class" are checked
     - 8 (of 12) further constraints for "full conformance sub class" are checked
 - **Support of imports:** (resolvable) imports of processes, WSDL and XSD files are also checked
 
@@ -90,16 +92,16 @@ $ gradlew eclipse
 The repository is structured in the following way:
 
 	|- gradle: contains the gradle wapper
-	|- lib: all libs required for the tool which aren't uploaded to maven central
+	|- lib: all libs required for the tool which aren't available via public repositories
 	|- src
 	|-- main
 	|--- java: contains all java classes
     |---- api: contains the API files needed for integration in other tools
 	|---- de.uniba.dsg.bpmnspector: implementation of BPMNspector
-	|--- resources: contains all needed resources such as schema validation files
+	|--- resources: contains all needed resource files (e.g., schema validation files)
 	|-- test
-	|--- java: contains all test classes named by their test case
-	|--- resources: contains all test files sorted in folders by their test case
+	|--- java: contains the sources of all JUnit test classes
+	|--- resources: contains all needed test resource files
 
 ### Technical Documentation / Javadoc
 Run...
@@ -127,5 +129,3 @@ Just Fork and send a Pull request.
 ## Related Work
 * [BPMNspector-fixSeqFlow](https://github.com/matthiasgeiger/BPMNspector-fixSeqFlow): Tool to fix the most common mistake in BPMN processes: EXT.023 violations
 
-----
-[![Build Status](https://travis-ci.org/uniba-dsg/BPMNspector.svg?branch=master)](https://travis-ci.org/uniba-dsg/BPMNspector) [![Dependency Status](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7)
