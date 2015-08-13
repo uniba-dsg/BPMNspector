@@ -4,11 +4,14 @@ package de.uniba.dsg.bpmnspector.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.*;
-import java.util.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class FileUtils {
 
@@ -19,10 +22,16 @@ public class FileUtils {
 
         List<Path> bpmnFiles = new ArrayList<>();
 
-        try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory, "*.{bpmn,bpmn2,bpmn20.xml}")) {
-            for (Path path : dirStream) {
-                bpmnFiles.add(path);
-            }
+        try {
+            Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (FileSystems.getDefault().getPathMatcher("glob:**/*.{bpmn,bpmn2,bpmn20.xml}").matches(file)) {
+                        bpmnFiles.add(file);
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         } catch (IOException e) {
             LOGGER.error("IOException while traversing folder.", e);
         }
@@ -88,5 +97,4 @@ public class FileUtils {
 
         return reportFile;
     }
-
 }
