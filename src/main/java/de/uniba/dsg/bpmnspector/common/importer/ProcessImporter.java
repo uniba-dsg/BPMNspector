@@ -19,6 +19,7 @@ import javax.xml.XMLConstants;
 import javax.xml.validation.SchemaFactory;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -43,52 +44,48 @@ public class ProcessImporter {
 
     public BPMNProcess importProcessFromPath(Path path, ValidationResult result)
             throws ValidationException {
+        if(Files.notExists(path) || !Files.isRegularFile(path)) {
+            String msg = "BPMNProcess cannot be created: Path "+path+" is invalid.";
+            throw new ValidationException(msg);
+        }
         return importProcessRecursively(path, null, null, result);
     }
 
     private BPMNProcess importProcessRecursively(Path path, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result)
             throws ValidationException {
         result.addFile(path);
-        if(Files.notExists(path) || !Files.isRegularFile(path)) {
-            String msg = "Import could not be resolved: Path "+path+" is invalid.";
-            Violation violation = createViolation(parent, path, msg);
-            result.addViolation(violation);
+        try {
+            bpmnXsdValidator.validateAgainstXsd(path.toFile(), result);
+            Document processAsDoc = builder.build(path.toFile());
+            if("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMNNAMESPACE.equals(processAsDoc.getRootElement().getNamespaceURI())) {
+                String processNamespace = processAsDoc.getRootElement()
+                        .getAttributeValue("targetNamespace");
 
-            throw new ValidationException(msg);
-        } else {
-            try {
-                bpmnXsdValidator.validateAgainstXsd(path.toFile(), result);
-                Document processAsDoc = builder.build(path.toFile());
-                if("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMNNAMESPACE.equals(processAsDoc.getRootElement().getNamespaceURI())) {
-                    String processNamespace = processAsDoc.getRootElement()
-                            .getAttributeValue("targetNamespace");
+                BPMNProcess process = new BPMNProcess(processAsDoc,
+                        path.toString(), processNamespace, parent);
 
-                    BPMNProcess process = new BPMNProcess(processAsDoc,
-                            path.toString(), processNamespace, parent);
+                // remove BPMNDI information
+                processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
 
-                    // remove BPMNDI information
-                    processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
-
-                    if (rootProcess == null) {
-                        resolveAndAddImports(process, process, result);
-                    } else {
-                        resolveAndAddImports(process, rootProcess, result);
-                    }
-                    return process;
+                if (rootProcess == null) {
+                    resolveAndAddImports(process, process, result);
                 } else {
-                    // Invalid BPMN file
-                    return null;
+                    resolveAndAddImports(process, rootProcess, result);
                 }
-
-            } catch (ValidationException e) {
-                // Thrown if file is not well-formed or does not have claimed encoding- error is already logged and
-                // added to the validation result - but further processing is not
-                // possible
-
+                return process;
+            } else {
+                // Invalid BPMN file
                 return null;
-            } catch (SAXException | JDOMException | IOException e) {
-                throw new ValidationException("Creation of BPMNProcess for file "+path.toString()+" object failed.", e);
             }
+
+        } catch (ValidationException e) {
+            // Thrown if file is not well-formed or does not have claimed encoding- error is already logged and
+            // added to the validation result - but further processing is not
+            // possible
+
+            return null;
+        } catch (SAXException | JDOMException | IOException e) {
+            throw new ValidationException("Creation of BPMNProcess for file " + path.toString() + " object failed.", e);
         }
     }
 
@@ -99,39 +96,52 @@ public class ProcessImporter {
 
         for (Element elem : importElements) {
             String importType = elem.getAttributeValue("importType");
-            Path importPath = Paths.get(process.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
-            if (ConstantHelper.BPMNNAMESPACE.equals(importType)) {
-                if(!isFileAlreadyImported(importPath.toString(), rootProcess)) {
-                    BPMNProcess importedProcess = importProcessRecursively(
-                            importPath, process, rootProcess, result);
-                    if(importedProcess!=null) {
-                        process.getChildren().add(importedProcess);
+            try {
+                Path importPath = Paths.get(elem.getAttributeValue("location"));
+                if(!importPath.isAbsolute()) {
+                    // resolve relative path based on the baseURI from the process
+                    importPath = Paths.get(process.getBaseURI()).getParent().resolve(importPath).normalize().toAbsolutePath();
+                }
+
+                if(Files.notExists(importPath) || !Files.isRegularFile(importPath)) {
+                    String msg = "Import could not be resolved: Path "+elem.getAttributeValue("location")+" is invalid.";
+                    Violation violation = createViolation(process, elem, msg);
+                    result.addViolation(violation);
+                } else {
+                    if (ConstantHelper.BPMNNAMESPACE.equals(importType)) {
+                        if (!isFileAlreadyImported(importPath.toString(), rootProcess)) {
+                            BPMNProcess importedProcess = importProcessRecursively(
+                                    importPath, process, rootProcess, result);
+                            if (importedProcess != null) {
+                                process.getChildren().add(importedProcess);
+                            }
+                        }
+                    } else if (ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
+                        result.addFile(importPath);
+                        try {
+                            wsdlValidator.validateAgainstXsd(importPath.toFile(), result);
+                            process.getWsdls().add(builder.build(importPath.toFile()));
+                        } catch (SAXParseException e) {
+                            String msg = "File " + importPath + " is not a valid WSDL file.";
+                            result.addViolation(createViolation(process, elem, msg));
+                        } catch (IOException | SAXException | JDOMException e) {
+                            throw new ValidationException("WSDL validation of file " + importPath + " failed.", e);
+                        }
+                    } else if (ConstantHelper.XSDNAMESPACE.equals(importType)) {
+                        result.addFile(importPath);
+                        SchemaFactory schemaFactory = SchemaFactory
+                                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                        try {
+                            schemaFactory
+                                    .newSchema(importPath.toFile());
+                        } catch (SAXException e) {
+                            String msg = "File " + importPath + " is not a valid XSD file.";
+                            result.addViolation(createViolation(process, elem, msg));
+                        }
                     }
                 }
-            } else if(ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
-                result.addFile(importPath);
-                try {
-                    wsdlValidator.validateAgainstXsd(importPath.toFile(), result);
-                    process.getWsdls().add(builder.build(importPath.toFile()));
-                } catch (SAXParseException e) {
-                    String msg = "File "+importPath+" is not a valid WSDL file.";
-                    Violation violation = createViolation(process, importPath, msg);
-                    result.getViolations().add(violation);
-                } catch (IOException | SAXException | JDOMException e) {
-                    throw new ValidationException("WSDL validation of file "+importPath+" failed.", e);
-                }
-            } else if(ConstantHelper.XSDNAMESPACE.equals(importType)) {
-                result.addFile(importPath);
-                SchemaFactory schemaFactory = SchemaFactory
-                        .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                try {
-                    schemaFactory
-                            .newSchema(importPath.toFile());
-                } catch (SAXException e) {
-                    String msg = "File "+importPath+" is not a valid XSD file.";
-                    Violation violation = createViolation(process, importPath, msg);
-                    result.addViolation(violation);
-                }
+            } catch(InvalidPathException e) {
+                result.addViolation(createViolation(process, elem, "Import location " + elem.getAttributeValue("location")+" is not a valid Path"));
             }
         }
     }
@@ -144,27 +154,12 @@ public class ProcessImporter {
         return Namespace.getNamespace(ConstantHelper.BPMNDINAMESPACE);
     }
 
-    private Violation createViolation(BPMNProcess parent, Path path, String msg) {
-        Location location;
-        path = path.toAbsolutePath();
-        if(parent == null) {
-            location = new Location(path, LocationCoordinate.EMPTY);
-        } else {
-            int line = -1;
-            int column = -1;
-            String xpath = "";
-            List<Element> imports = parent.getProcessAsDoc().getRootElement().getChildren("import",
-                    getBPMNNamespace());
-            for (Element elem : imports) {
-                Path importPath = Paths.get(parent.getBaseURI()).getParent().resolve(elem.getAttributeValue("location")).normalize().toAbsolutePath();
-                if (importPath.equals(path)) {
-                    line = ((LocatedElement) elem).getLine();
-                    column = ((LocatedElement) elem).getColumn();
-                    xpath = XPathHelper.getAbsolutePath(elem);
-                }
-            }
-            location = new Location(path, new LocationCoordinate(line, column), xpath);
-        }
+    private Violation createViolation(BPMNProcess parent, Element importElement, String msg) {
+        int line = ((LocatedElement) importElement).getLine();
+        int column = ((LocatedElement) importElement).getColumn();
+        String xpath = XPathHelper.getAbsolutePath(importElement);
+
+        Location location = new Location(Paths.get(parent.getBaseURI()), new LocationCoordinate(line, column), xpath);
         return new Violation(location, msg, "EXT.001");
     }
 

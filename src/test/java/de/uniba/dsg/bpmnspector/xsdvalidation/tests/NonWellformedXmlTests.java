@@ -1,9 +1,9 @@
 package de.uniba.dsg.bpmnspector.xsdvalidation.tests;
 
+import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.BPMNspector;
 import de.uniba.dsg.bpmnspector.ValidationOption;
-import api.ValidationResult;
-import api.ValidationException;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -81,7 +81,7 @@ public class NonWellformedXmlTests {
     public void nonWellformedXsdFileImportedTest() throws ValidationException {
         Path file = Paths
                 .get("src/test/resources/non-wellformed/import_xsd_non_wellformed.bpmn");
-        String affectedFile = "simple_corrupt.xsd";
+        String affectedFile = "import_xsd_non_wellformed.bpmn";
         int affectedLine = 3;
 
         ValidationResult result = nspector.inspectFile(file, EXT_ONLY);
