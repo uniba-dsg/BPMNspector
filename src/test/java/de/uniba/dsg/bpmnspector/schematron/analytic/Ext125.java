@@ -19,7 +19,7 @@ public class Ext125 extends TestCase {
 
     @Test
     public void testConstraintFailNoTarget() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(createFile("EXT125_failure_noTarget.bpmn"), 2);
+        ValidationResult result = verifyInvalidResult(createFile("EXT125_failure_noTarget.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
                 "//bpmn:linkEventDefinition[parent::bpmn:intermediateThrowEvent][0]", 19);
     }
