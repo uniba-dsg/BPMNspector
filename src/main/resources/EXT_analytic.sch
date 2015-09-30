@@ -357,7 +357,7 @@
 
     <iso:pattern name="EXT.123">
         <iso:rule context="bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']]">
-            <iso:assert test="bpmn:condition/node() and bpmn:condition/@xsi:type='tFormalExpression'" diagnostics="id">
+            <iso:assert test="bpmn:condition/node() and contains(bpmn:condition/@xsi:type, 'tFormalExpression')" diagnostics="id">
                 EXT.123|For executable Processes (isExecutable = true), if the trigger is Conditional, then a
                 FormalExpression MUST be entered.
             </iso:assert>
