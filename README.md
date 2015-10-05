@@ -2,7 +2,7 @@
 
 **Static analysis for BPMN 2.0 process models**
 
-[![Build Status](https://travis-ci.org/uniba-dsg/BPMNspector.svg?branch=master)](https://travis-ci.org/uniba-dsg/BPMNspector) [![Dependency Status](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7) [![Coverage Status](https://coveralls.io/repos/uniba-dsg/BPMNspector/badge.svg?branch=master&service=github)](https://coveralls.io/github/uniba-dsg/BPMNspector?branch=master)
+[![Build Status](https://travis-ci.org/uniba-dsg/BPMNspector.svg?branch=master)](https://travis-ci.org/uniba-dsg/BPMNspector) [![Dependency Status](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d48c473ca0840b190002f7) [![Coverage Status](https://coveralls.io/repos/uniba-dsg/BPMNspector/badge.svg?branch=master&service=github)](https://coveralls.io/github/uniba-dsg/BPMNspector?branch=master) [![Download](https://api.bintray.com/packages/uniba-dsg/BPMNspector/BPMNspector/images/download.svg) ](https://bintray.com/uniba-dsg/BPMNspector/BPMNspector/_latestVersion)
 
 ## What is it? || Description
 
