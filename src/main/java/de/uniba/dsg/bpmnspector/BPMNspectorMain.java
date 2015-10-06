@@ -41,7 +41,7 @@ public class BPMNspectorMain {
                 // Check whether path exists
                 Path path = Paths.get(params.getPath());
                 if (Files.exists(path)) {
-
+                    path = path.toAbsolutePath().normalize();
                     try {
                         if (Files.isDirectory(path)) {
                             List<ValidationResult> results = inspector
