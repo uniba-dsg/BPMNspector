@@ -270,7 +270,7 @@
                             //bpmn:message[@id=//bpmn:inMessageRef[parent::bpmn:operation[@id=current()/@operationRef]]]/@itemRef)
                     or (//bpmn:itemDefinition[@id = current()/bpmn:ioSpecification/bpmn:dataInput/@itemSubjectRef]/@structureRef =
                         //bpmn:itemDefinition[@id = //bpmn:message[@id=//bpmn:inMessageRef[parent::bpmn:operation[@id=current()/@operationRef]]]/@itemRef]/@structureRef)" diagnostics="id">
-                EXT.044|The ItemDefinition of the DataInput of the ServiceTask and the inMessage of the referenced
+                EXT.044|The ItemDefinition of the DataInput of the ServiceTask and the inMessage itemDefinition of the referenced
                 Operation must be equal.
             </iso:assert>
         </iso:rule>
