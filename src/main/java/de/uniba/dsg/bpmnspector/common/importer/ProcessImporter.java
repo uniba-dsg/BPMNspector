@@ -96,52 +96,59 @@ public class ProcessImporter {
 
         for (Element elem : importElements) {
             String importType = elem.getAttributeValue("importType");
-            try {
-                Path importPath = Paths.get(elem.getAttributeValue("location"));
-                if(!importPath.isAbsolute()) {
-                    // resolve relative path based on the baseURI from the process
-                    importPath = Paths.get(process.getBaseURI()).getParent().resolve(importPath).normalize().toAbsolutePath();
-                }
+            String location = elem.getAttributeValue("location");
+            if(location.startsWith("http://")) {
+                int line = ((LocatedElement) elem).getLine();
+                int column = ((LocatedElement) elem).getColumn();
+                String xpath = XPathHelper.getAbsolutePath(elem);
 
-                if(Files.notExists(importPath) || !Files.isRegularFile(importPath)) {
-                    String msg = "Import could not be resolved: Path "+elem.getAttributeValue("location")+" is invalid.";
-                    Violation violation = createViolation(process, elem, msg);
-                    result.addViolation(violation);
-                } else {
-                    if (ConstantHelper.BPMNNAMESPACE.equals(importType)) {
-                        if (!isFileAlreadyImported(importPath.toString(), rootProcess)) {
-                            BPMNProcess importedProcess = importProcessRecursively(
-                                    importPath, process, rootProcess, result);
-                            if (importedProcess != null) {
-                                process.getChildren().add(importedProcess);
+                Location loc = new Location(Paths.get(process.getBaseURI()), new LocationCoordinate(line, column), xpath);
+                result.addWarning(new Warning("Imports using URLs are currently not supported.", loc));
+            } else {
+                try {
+                    Path importPath = Paths.get(location);
+                    if (!importPath.isAbsolute()) {
+                        // resolve relative path based on the baseURI from the process
+                        importPath = Paths.get(process.getBaseURI()).getParent().resolve(importPath).normalize().toAbsolutePath();
+                    }
+
+                    if (Files.notExists(importPath) || !Files.isRegularFile(importPath)) {
+                        String msg = "Import could not be resolved: Path " + elem.getAttributeValue("location") + " is invalid.";
+                        Violation violation = createViolation(process, elem, msg);
+                        result.addViolation(violation);
+                    } else {
+                        if (ConstantHelper.BPMNNAMESPACE.equals(importType)) {
+                            if (!isFileAlreadyImported(importPath.toString(), rootProcess)) {
+                                BPMNProcess importedProcess = importProcessRecursively(importPath, process, rootProcess, result);
+                                if (importedProcess != null) {
+                                    process.getChildren().add(importedProcess);
+                                }
+                            }
+                        } else if (ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
+                            result.addFile(importPath);
+                            try {
+                                wsdlValidator.validateAgainstXsd(importPath.toFile(), result);
+                                process.getWsdls().add(builder.build(importPath.toFile()));
+                            } catch (SAXParseException e) {
+                                String msg = "File " + importPath + " is not a valid WSDL file.";
+                                result.addViolation(createViolation(process, elem, msg));
+                            } catch (IOException | SAXException | JDOMException e) {
+                                throw new ValidationException("WSDL validation of file " + importPath + " failed.", e);
+                            }
+                        } else if (ConstantHelper.XSDNAMESPACE.equals(importType)) {
+                            result.addFile(importPath);
+                            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                            try {
+                                schemaFactory.newSchema(importPath.toFile());
+                            } catch (SAXException e) {
+                                String msg = "File " + importPath + " is not a valid XSD file.";
+                                result.addViolation(createViolation(process, elem, msg));
                             }
                         }
-                    } else if (ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
-                        result.addFile(importPath);
-                        try {
-                            wsdlValidator.validateAgainstXsd(importPath.toFile(), result);
-                            process.getWsdls().add(builder.build(importPath.toFile()));
-                        } catch (SAXParseException e) {
-                            String msg = "File " + importPath + " is not a valid WSDL file.";
-                            result.addViolation(createViolation(process, elem, msg));
-                        } catch (IOException | SAXException | JDOMException e) {
-                            throw new ValidationException("WSDL validation of file " + importPath + " failed.", e);
-                        }
-                    } else if (ConstantHelper.XSDNAMESPACE.equals(importType)) {
-                        result.addFile(importPath);
-                        SchemaFactory schemaFactory = SchemaFactory
-                                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                        try {
-                            schemaFactory
-                                    .newSchema(importPath.toFile());
-                        } catch (SAXException e) {
-                            String msg = "File " + importPath + " is not a valid XSD file.";
-                            result.addViolation(createViolation(process, elem, msg));
-                        }
                     }
+                } catch (InvalidPathException e) {
+                    result.addViolation(createViolation(process, elem, "Import location " + elem.getAttributeValue("location") + " is not a valid Path"));
                 }
-            } catch(InvalidPathException e) {
-                result.addViolation(createViolation(process, elem, "Import location " + elem.getAttributeValue("location")+" is not a valid Path"));
             }
         }
     }
