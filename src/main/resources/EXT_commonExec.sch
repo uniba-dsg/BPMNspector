@@ -98,7 +98,7 @@
         </iso:rule>
         <iso:rule context="bpmn:assignment[ancestor::bpmn:process[@isExecutable='true']]">
             <iso:assert test="(bpmn:from/@xsi:type='tFormalExpression' or substring-after(bpmn:from/@xsi:type, ':')='tFormalExpression')
-                    and (bpmn:to/@xsi:type='tFormalExpression' or substring-after(bpmn:completionCondition/@xsi:type, ':')='tFormalExpression')" diagnostics="id">
+                    and (bpmn:to/@xsi:type='tFormalExpression' or substring-after(bpmn:to/@xsi:type, ':')='tFormalExpression')" diagnostics="id">
                 EXT.012|If natural-language expressions are used the process is not executable. A FormalExpression has
                 to be provided or the process must be marked as isExecutable='false'.
             </iso:assert>
