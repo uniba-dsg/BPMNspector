@@ -14,8 +14,8 @@ import org.junit.Test;
  */
 public class Ext044 extends TestCase {
 
-    private static final String ERR_MSG = "The ItemDefinition of the DataInput of the ServiceTask and the inMessage of " +
-            "the referenced Operation must be equal.";
+    private static final String ERR_MSG = "The ItemDefinition of the DataInput of the ServiceTask and the inMessage "
+            + "itemDefinition of the referenced Operation must be equal.";
 
     @Test
     public void testConstraintFailDifferentItemDefNoStructureRef() throws ValidationException {
