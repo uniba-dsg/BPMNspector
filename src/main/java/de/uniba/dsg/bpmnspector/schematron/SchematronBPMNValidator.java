@@ -102,13 +102,7 @@ public class SchematronBPMNValidator {
                     ext002Checker.checkConstraint002(process, validationResult);
                 }
 
-                org.jdom2.Document documentToCheck;
-                if (process.getChildren() == null || process.getChildren()
-                        .isEmpty()) {
-                    documentToCheck = process.getProcessAsDoc();
-                } else {
-                    documentToCheck = preProcessor.preProcess(process);
-                }
+                org.jdom2.Document documentToCheck = preProcessor.preProcess(process);
                 DOMOutputter domOutputter = new DOMOutputter();
                 Document w3cDoc = domOutputter
                         .output(documentToCheck);

@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import org.junit.Test;
 
@@ -55,6 +55,12 @@ public class PreProcessing extends TestCase {
                 result.getViolations().get(0),
                 "An end event must be present when a start event is used in the same process level",
                 "//bpmn:*[@id = '_3']", 4);
+    }
+
+    @Test
+    public void testTargetNamespaceIdReplacements()
+            throws ValidationException {
+        verifyValidResult(createFile("testTnsIdReplacement.bpmn"));
     }
 
     @Override

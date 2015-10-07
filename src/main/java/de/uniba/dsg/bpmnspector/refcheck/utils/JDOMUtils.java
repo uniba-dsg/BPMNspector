@@ -4,6 +4,7 @@ import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.Namespace;
 import org.jdom2.filter.Filter;
 import org.jdom2.filter.Filters;
 import org.jdom2.util.IteratorIterable;
@@ -11,6 +12,7 @@ import org.jdom2.util.IteratorIterable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class JDOMUtils {
 
@@ -82,5 +84,17 @@ public class JDOMUtils {
             groupedElements.put(targetNamespace, docElements);
         }
     }
+
+    public static Optional<String> getUsedPrefixForTargetNamespace(Document document) {
+        Element rootElem = document.getRootElement();
+        String targetNamespaceURI = rootElem.getAttributeValue("targetNamespace");
+        Optional<Namespace> namespaceForTargetNamespace = rootElem.getNamespacesInScope().stream().filter(n -> n.getURI().equals(targetNamespaceURI)).findAny();
+        if (namespaceForTargetNamespace.isPresent()) {
+            return Optional.of(namespaceForTargetNamespace.get().getPrefix());
+        }
+        return Optional.empty();
+    }
+
+
 
 }
