@@ -25,9 +25,18 @@ publishing {
 	publications {
 		Bintray(MavenPublication) {
 			from components.java
-			groupId 'uniba-dsg'
-            		artifactId 'BPMNspector'
-            		version '1.0.1'
+
+            artifact(sourceJar) {
+                classifier "sources"
+            }
+
+            artifact(javadocJar) {
+                classifier "javadoc"
+            }
+
+			groupId 'de.uniba.dsg'
+            artifactId 'bpmnspector'
+            version '1.0.1'
 		}
 	}
 }
@@ -95,6 +104,16 @@ jar.archiveName = "BPMNspector.jar"
 
 jar {
 	manifest { attributes 'Main-Class': mainClassName }	
+}
+
+task sourceJar(type: Jar) {
+    baseName = project.name + '-sources'
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    baseName = project.name + '-sources'
+    from javadoc.destinationDir
 }
 
 task fatJar(type: Jar) {
