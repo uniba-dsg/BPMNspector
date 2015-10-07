@@ -46,7 +46,7 @@ public class JDOMUtils {
     /**
      * Map which uses the namespace-URI as an ID and another
      * Map as value. The inner HashMap contains all Elements accessible via
-     * the ID as key {@see getAllElements()}
+     * the ID as key {@link #getAllElements}
      *
      * @param elementsMap
      *              the Map to be populated

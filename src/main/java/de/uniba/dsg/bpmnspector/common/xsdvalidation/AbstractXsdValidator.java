@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
@@ -24,14 +24,15 @@ public abstract class AbstractXsdValidator {
      * the given validation result
      *
      * @param xmlFile
-     *            the xml file which should be validated
+     *             the xml file which should be validated
      * @param validationResult
-     *            the result object of the validation
+     *             the result object of the validation
      * @throws IOException
      *             when xmlFile can't be read
      * @throws SAXException
      *             when validation process fails somehow
      * @throws ValidationException
+     *             thrown if checked file is not well-formed or does not have a valid encoding
      */
     public abstract void validateAgainstXsd(File xmlFile,
             ValidationResult validationResult) throws IOException, SAXException,
@@ -43,7 +44,7 @@ public abstract class AbstractXsdValidator {
      * streamsource with the searched source
      *
      * @param resourceName
-     *            the name of the resource file
+     *             the name of the resource file
      * @return the streamsource of the file to be load
      * @throws FileNotFoundException
      *             if the resource file doesn't exist there

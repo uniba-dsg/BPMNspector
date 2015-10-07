@@ -1,15 +1,15 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
 
 
 /**
@@ -40,8 +40,11 @@ public class Input implements LSInput {
      * InputStream
      *
      * @param publicId
+     *             public ID set by the ResourceResolver
      * @param sysId
+     *             System ID set by the ResourceResolver
      * @param input
+     *             InputStream to be used
      */
     public Input(String publicId, String sysId, InputStream input) {
         this.publicId = publicId;

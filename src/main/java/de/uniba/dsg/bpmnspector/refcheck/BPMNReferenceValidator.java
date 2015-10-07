@@ -36,7 +36,7 @@ public class BPMNReferenceValidator {
 			.getLogger(BPMNReferenceValidator.class.getSimpleName());
 
 	/**
-	 * Constructor sets the defaults. Log level = OFF and language = ENGLISH.
+	 * Constructor sets the defaults. And loads the reference definitions to be used for validations.
 	 *
 	 * @throws ValidationException
 	 *             if problems with the language files exist

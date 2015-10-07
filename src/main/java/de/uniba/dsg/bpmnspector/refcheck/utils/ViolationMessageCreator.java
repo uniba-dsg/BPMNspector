@@ -6,7 +6,8 @@ public class ViolationMessageCreator {
 	public static final int PREFIX_MSG = 1;
 
 	/**
-	 * 
+	 * Creates a description of a found ExistenceViolation based on the given parameters
+	 *
 	 * @param element
 	 *            the name of the BPMN element, where the violation occurred
 	 * @param reference
@@ -20,6 +21,7 @@ public class ViolationMessageCreator {
 	 *            use for additional information for special violation message
 	 *            text versions. For the DEFAULT version it is null, for the
 	 *            PREFIX it is the prefix of the namespace.
+	 * @return the created String describing the ExistenceViolation
 	 */
 	public static String createExistenceViolationMessage(String element, String reference, int line,
 			int textVersion, String additionalInfo) {
@@ -36,7 +38,8 @@ public class ViolationMessageCreator {
 	}
 	
 	/**
-	 * 
+	 * Creates a description of a found Reference Type violation based on the given parameters
+	 *
 	 * @param element
 	 *            the name of the BPMN element, where the violation occurred
 	 * @param line
@@ -47,6 +50,7 @@ public class ViolationMessageCreator {
 	 *            the incorrect type, which caused the violation
 	 * @param expectedType
 	 *            the types expected instead of the incorrect type
+	 * @return the created String describing the Reference Type violation
 	 */
 	public static String createTypeViolationMessage(String element, int line, String reference,
 			String incorrectType, String expectedType) {
