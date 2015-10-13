@@ -36,13 +36,13 @@ publishing {
 
             groupId 'de.uniba.dsg'
             artifactId 'bpmnspector'
-            version '1.0.2'
+            version '1.0.3'
 		}
 	}
 }
 
-bintray {   
-    user = 'bintray_user'
+bintray {
+	user = 'bintray_user'
     key = 'bintray_api_key'
 	publications = ['Bintray']
     pkg {
@@ -52,9 +52,9 @@ bintray {
         licenses = ['LGPL-3.0']
         vcsUrl = 'https://github.com/uniba-dsg/BPMNspector.git'
 		version {
-            name = 'v1.0.2'
-            desc = 'BPMNspector v1.0.2 - Static analysis for BPMN 2.0 process models.'
-            vcsTag = 'v1.0.2'
+            name = 'v1.0.3'
+            desc = 'BPMNspector v1.0.3 - Static analysis for BPMN 2.0 process models.'
+            vcsTag = 'v1.0.3'
         }
     }
 }
@@ -88,7 +88,7 @@ dependencies {
 
 mainClassName = "de.uniba.dsg.bpmnspector.BPMNspectorMain"
 
-version = "1.0.2"
+version = "1.0.3"
 
 run {
     if(project.hasProperty('args')){
