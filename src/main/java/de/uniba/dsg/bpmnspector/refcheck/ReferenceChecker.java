@@ -147,7 +147,7 @@ public class ReferenceChecker {
      *            the referenced element to validate
      * @throws ValidationException thrown if errors occur during creation of the Violation
      */
-    private void checkTypeAndAddViolation(ValidationResult validationResult,int line, int column,
+    private void checkTypeAndAddViolation(ValidationResult validationResult, int line, int column,
                                           Element currentElement, Reference checkingReference,
                                           Element referencedElement) throws ValidationException {
         boolean validType = false;

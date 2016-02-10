@@ -2,6 +2,7 @@ package api;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public interface ValidationResult {
@@ -23,7 +24,13 @@ public interface ValidationResult {
     }
 
     default List<Path> getFilesWithViolations() {
-        return getViolations().stream().map(v -> v.getLocation().getFileName()).distinct().sorted().collect(Collectors.toList());
+        return getViolations().stream().map(v -> v.getLocation().getFilePath()).filter(Optional::isPresent).map(
+                Optional::get).distinct().sorted().collect(Collectors.toList());
+    }
+
+    default List<String> getResourcesWithViolations() {
+        return getViolations().stream().map(v -> v.getLocation().getResourceName()).distinct().sorted().collect(
+                Collectors.toList());
     }
 
     default boolean isValid() {
