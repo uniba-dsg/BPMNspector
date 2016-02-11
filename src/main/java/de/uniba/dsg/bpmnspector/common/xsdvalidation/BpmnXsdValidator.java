@@ -1,6 +1,9 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
-import api.*;
+import api.Location;
+import api.ValidationException;
+import api.ValidationResult;
+import api.Violation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -13,9 +16,6 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +56,7 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
         validateUsingStreamSource(src, xmlFile.getAbsolutePath(), validationResult);
     }
 
+    @Override
     public void validateAgainstXsd(InputStream stream, String resourceName, ValidationResult validationResult)
             throws IOException, SAXException, ValidationException {
         LOGGER.debug("stream based xsd validation started: {}", resourceName);
@@ -99,17 +100,6 @@ public class BpmnXsdValidator extends AbstractXsdValidator {
                     e.getMessage());
             LOGGER.info(msg);
             throw new ValidationException("Cancel Validation as checked File is not well-formed.");
-        }
-    }
-
-    private Location createLocation(String resourceName, int row, int column) {
-        LocationCoordinate coordinate = new LocationCoordinate(row, column);
-        // Check whether resourceName refers to a local path
-        Path localFile = Paths.get(resourceName);
-        if (Files.exists(localFile)) {
-            return new Location(localFile, coordinate);
-        } else {
-            return new Location(resourceName, coordinate);
         }
     }
 }
