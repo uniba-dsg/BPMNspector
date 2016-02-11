@@ -1,5 +1,9 @@
 language: java
 jdk:
 - oraclejdk8
+
+script:
+  - ./gradlew check --info
+
 after_success:
 - ./gradlew jacocoTestReport coveralls
