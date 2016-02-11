@@ -85,6 +85,11 @@ dependencies {
 	compile configurations.external
 }
 
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
 
 mainClassName = "de.uniba.dsg.bpmnspector.BPMNspectorMain"
 
