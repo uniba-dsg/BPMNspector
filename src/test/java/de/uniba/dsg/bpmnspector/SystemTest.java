@@ -1,6 +1,11 @@
 package de.uniba.dsg.bpmnspector;
 
+import api.ValidationException;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @author Matthias Geiger
@@ -46,6 +51,12 @@ public class SystemTest {
     public void runMainCheckInvalidFile() {
         String[] args = {"NON_EXISTING"};
         BPMNspectorMain.main(args);
+    }
+
+    @Test
+    public void testStreamValidation() throws ValidationException, FileNotFoundException {
+        BPMNspector bpmnSpector = new BPMNspector();
+        bpmnSpector.validate(new FileInputStream(new File("src/test/resources/test-1-gruppe-c.bpmn")), "test-1-gruppe-c.bpmn");
     }
 
 }
