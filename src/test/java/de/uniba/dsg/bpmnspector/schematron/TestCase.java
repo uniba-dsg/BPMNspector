@@ -1,9 +1,9 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
-import ch.qos.logback.classic.Level;
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
+import ch.qos.logback.classic.Level;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -60,6 +60,12 @@ public class TestCase {
             String fileName, String xpath, int line) {
         assertViolation(v, message, xpath, line);
         assertEquals(fileName, v.getLocation().getResource().getPath().get().getFileName().toString());
+    }
+
+    protected void assertURLViolation(Violation v, String message,
+            String url, String xpath, int line) {
+        assertViolation(v, message, xpath, line);
+        assertEquals(url, v.getLocation().getResource().getResourceName());
     }
 
     protected void assertViolation(Violation v, String message, String xpath,

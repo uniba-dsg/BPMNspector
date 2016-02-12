@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class Ext002 extends TestCase {
 
-    private final static String ERRORMESSAGE = "Files have id duplicates";
+    private final static String ERRORMESSAGE = "Resources have id duplicates";
     private final static String XPATHSTRING = "/*[local-name() = 'definitions' and namespace-uri() = 'http://www.omg.org/spec/BPMN/20100524/MODEL']/@id";
 
     @Test
@@ -44,10 +44,10 @@ public class Ext002 extends TestCase {
 
     @Test
     public void testConstraintImportUrlFail() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
-                createFile("fail_import_URL.bpmn"), 10);
-        assertViolation(result.getViolations().get(0), "fail_import.bpmn", 2);
-        assertViolation(result.getViolations().get(1), "import.bpmn", 2);
+        ValidationResult result = verifyInvalidResult(createFile("fail_import_URL.bpmn"), 10);
+        assertViolation(result.getViolations().get(0), "fail_import_URL.bpmn", 2);
+        assertURLViolation(result.getViolations().get(1), ERRORMESSAGE, "http://www.bpmnspector.org/import.bpmn",
+                XPATHSTRING, 2);
     }
 
     @Test
