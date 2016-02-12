@@ -1,5 +1,6 @@
 package api;
 
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
@@ -9,37 +10,43 @@ public final class Location implements Comparable<Location> {
 	private final Optional<LocationCoordinate> location;
 	private final Optional<String> xpath;
 
-	private final String resourceName;
-	private final Optional<Path> filePath;
+	private final Resource resource;
 
 	public Location(Path filePath, LocationCoordinate location) {
-		this.filePath = Optional.of(filePath);
 		this.location = Optional.of(location);
 		this.xpath = Optional.empty();
-		this.resourceName = filePath.toAbsolutePath().toString();
+		this.resource = new Resource(filePath);
 	}
 
 	public Location(Path filePath, LocationCoordinate location, String xpath) {
-		this.filePath = Optional.of(filePath);
 		this.location = Optional.of(location);
 		this.xpath = Optional.of(xpath);
-		this.resourceName = filePath.getFileName().toString();
+		this.resource = new Resource(filePath);
 	}
 
-	public Location(String resourceName, LocationCoordinate location) {
-		this.resourceName = Objects.requireNonNull(resourceName);
+	public Location(URL url, LocationCoordinate location) {
 		this.location = Optional.of(location);
 		this.xpath = Optional.empty();
-		this.filePath = Optional.empty();
+		this.resource = new Resource(url);
 	}
 
-	public Location(String resourceName, LocationCoordinate location, String xpath) {
-		this.resourceName = Objects.requireNonNull(resourceName);
+	public Location(URL url, LocationCoordinate location, String xpath) {
 		this.location = Optional.of(location);
 		this.xpath = Optional.of(xpath);
-		this.filePath = Optional.empty();
+		this.resource = new Resource(url);
 	}
 
+	public Location(Resource resource, LocationCoordinate location) {
+		this.location = Optional.of(location);
+		this.xpath = Optional.empty();
+		this.resource = resource;
+	}
+
+	public Location(Resource resource, LocationCoordinate location, String xpath) {
+		this.location = Optional.of(location);
+		this.xpath = Optional.of(xpath);
+		this.resource = resource;
+	}
 
 
 	public LocationCoordinate getLocation() {
@@ -50,31 +57,19 @@ public final class Location implements Comparable<Location> {
 		return xpath;
 	}
 
-	public Optional<Path> getFilePath() {
-		return filePath;
-	}
-
-	public String getResourceName() {
-		return resourceName;
+	public Resource getResource() {
+		return resource;
 	}
 
 	@Override
 	public int compareTo(Location o) {
 		Objects.requireNonNull(o);
 
-		if (isSameFile(o)) {
+		if (resource.equals(o.getResource())) {
 			return getLocation().getId().compareTo(o.getLocation().getId());
 		} else {
-			if(filePath.isPresent() && o.filePath.isPresent()) {
-				return filePath.get().compareTo(o.filePath.get());
-			} else {
-				return resourceName.compareTo(o.resourceName);
-			}
+			return resource.compareTo(o.getResource());
 		}
-	}
-
-	private boolean isSameFile(Location o) {
-		return filePath.equals(o.filePath);
 	}
 
 }

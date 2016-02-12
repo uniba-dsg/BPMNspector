@@ -2,7 +2,6 @@ package api;
 
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public interface ValidationResult {
@@ -11,7 +10,7 @@ public interface ValidationResult {
 
     List<Warning> getWarnings();
 
-    List<Path> getFoundFiles();
+    List<Resource> getResources();
 
     void addWarning(Warning warning);
 
@@ -19,17 +18,25 @@ public interface ValidationResult {
 
     void addFile(Path s);
 
+    void addResource(Resource resource);
+
+    default List<Path> getFoundFiles() {
+        return getResources().stream().filter(r -> (r.getType() == Resource.ResourceType.FILE) && r.getPath().isPresent())
+                .map(r -> r.getPath().get()).collect(Collectors.toList());
+    }
+
     default List<String> getViolatedConstraints() {
         return getViolations().stream().map(Violation::getConstraint).distinct().sorted().collect(Collectors.toList());
     }
 
     default List<Path> getFilesWithViolations() {
-        return getViolations().stream().map(v -> v.getLocation().getFilePath()).filter(Optional::isPresent).map(
-                Optional::get).distinct().sorted().collect(Collectors.toList());
+        return getViolations().stream().map(v -> v.getLocation().getResource())
+                .filter(r -> (r.getType() == Resource.ResourceType.FILE && r.getPath().isPresent()))
+                .map(r -> r.getPath().get()).distinct().sorted().collect(Collectors.toList());
     }
 
-    default List<String> getResourcesWithViolations() {
-        return getViolations().stream().map(v -> v.getLocation().getResourceName()).distinct().sorted().collect(
+    default List<Resource> getResourcesWithViolations() {
+        return getViolations().stream().map(v -> v.getLocation().getResource()).distinct().sorted().collect(
                 Collectors.toList());
     }
 

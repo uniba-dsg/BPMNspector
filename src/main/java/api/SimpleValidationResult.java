@@ -1,6 +1,5 @@
 package api;
 
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +10,7 @@ public class SimpleValidationResult implements ValidationResult {
     private final List<Violation> violations = new ArrayList<>();
     private final List<Warning> warnings = new ArrayList<>();
     private final List<Path> files = new ArrayList<>();
+    private final List<Resource> resources = new ArrayList<>();
 
     @Override
     public void addWarning(Warning warning) {
@@ -27,6 +27,15 @@ public class SimpleValidationResult implements ValidationResult {
     @Override
     public void addFile(Path s) {
         files.add(s);
+        resources.add(new Resource(s));
+        Collections.sort(files);
+        Collections.sort(resources);
+    }
+
+    @Override
+    public void addResource(Resource resource) {
+        resources.add(resource);
+        Collections.sort(resources);
     }
 
     @Override
@@ -40,8 +49,14 @@ public class SimpleValidationResult implements ValidationResult {
     }
 
     @Override
+    public List<Resource> getResources() {
+        return new ArrayList<>(resources);
+    }
+
+    @Override
     public List<Path> getFoundFiles() {
-        Collections.sort(files);
         return new ArrayList<>(files);
     }
+
+
 }
