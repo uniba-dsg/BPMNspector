@@ -1,11 +1,9 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
-import api.Location;
-import api.LocationCoordinate;
-import api.ValidationResult;
-import api.Violation;
+import api.*;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
+import de.uniba.dsg.bpmnspector.common.util.ResourceUtils;
 import org.jdom2.Attribute;
 import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
@@ -15,7 +13,6 @@ import org.jdom2.xpath.XPathHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +26,7 @@ import java.util.Map;
  * @version 1.0
  *
  */
-public class Ext002Checker {
+class Ext002Checker {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(Ext002Checker.class.getSimpleName());
     private static final String CONSTRAINTNUMBER = "EXT.002";
@@ -69,30 +66,32 @@ public class Ext002Checker {
 
     private void createViolation(Attribute firstAttrib, Attribute secondAttrib,
             ValidationResult validationResult) {
-        String file1Name = firstAttrib.getDocument().getBaseURI().replace("file:/", "");
-        int file1Line = ((LocatedElement) firstAttrib.getParent()).getLine();
-        int file1Column = ((LocatedElement) secondAttrib.getParent()).getColumn();
-        String file1XPath = XPathHelper.getAbsolutePath(firstAttrib);
+        try {
+            Resource firstResource = ResourceUtils
+                    .determineAndCreateResourceFromString(firstAttrib.getDocument().getBaseURI(), null);
 
-        String file2Name = secondAttrib.getDocument().getBaseURI().replace("file:/", "");
-        int file2Line = ((LocatedElement) secondAttrib.getParent()).getLine();
-        int file2Column = ((LocatedElement) secondAttrib.getParent()).getColumn();
-        String file2XPath = XPathHelper.getAbsolutePath(secondAttrib);
+            int file1Line = ((LocatedElement) firstAttrib.getParent()).getLine();
+            int file1Column = ((LocatedElement) secondAttrib.getParent()).getColumn();
+            String file1XPath = XPathHelper.getAbsolutePath(firstAttrib);
 
-        Location location = new Location(
-                Paths.get(file1Name).toAbsolutePath(),
-                new LocationCoordinate(file1Line, file1Column), file1XPath);
-        Violation violation = new Violation(location, "Files have id duplicates", CONSTRAINTNUMBER);
-        validationResult.addViolation(violation);
+            Resource secondResource = ResourceUtils
+                    .determineAndCreateResourceFromString(secondAttrib.getDocument().getBaseURI(), null);
+            int file2Line = ((LocatedElement) secondAttrib.getParent()).getLine();
+            int file2Column = ((LocatedElement) secondAttrib.getParent()).getColumn();
+            String file2XPath = XPathHelper.getAbsolutePath(secondAttrib);
 
-        Location location2 = new Location(
-                Paths.get(file2Name).toAbsolutePath(),
-                new LocationCoordinate(file2Line, file2Column), file2XPath);
-        Violation violation2 = new Violation(location2, "Files have id duplicates", CONSTRAINTNUMBER);
-        validationResult.addViolation(violation2);
+            Location location = new Location(firstResource, new LocationCoordinate(file1Line, file1Column), file1XPath);
+            Violation violation = new Violation(location, "Resources have id duplicates", CONSTRAINTNUMBER);
+            validationResult.addViolation(violation);
 
-        LOGGER.info("violation of constraint {} found.",
-                CONSTRAINTNUMBER);
+            Location location2 = new Location(secondResource, new LocationCoordinate(file2Line, file2Column), file2XPath);
+            Violation violation2 = new Violation(location2, "Resources have id duplicates", CONSTRAINTNUMBER);
+            validationResult.addViolation(violation2);
+
+            LOGGER.info("violation of constraint {} found.", CONSTRAINTNUMBER);
+        } catch (ValidationException e) {
+            throw new IllegalArgumentException("Invalid baseURI detected.", e);
+        }
     }
 
     private Map<String, Attribute> getAllIdAttributesInProcess(BPMNProcess process) {

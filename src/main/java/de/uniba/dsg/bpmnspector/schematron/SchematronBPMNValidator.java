@@ -216,7 +216,7 @@ public class SchematronBPMNValidator {
                     new LocationCoordinate(line, column), location);
             logText = String.format(
                     "violation of constraint %s found in %s at line %s.",
-                    constraint, violationLocation.getResourceName(), violationLocation.getLocation().getRow());
+                    constraint, violationLocation.getResource(), violationLocation.getLocation().getRow());
         } else {
             try {
                 String xpathId = "";
@@ -228,7 +228,7 @@ public class SchematronBPMNValidator {
                 violationLocation = searchForViolationFile(xpathId, baseProcess);
                 logText = String.format(
                         "violation of constraint %s found in %s at line %s.",
-                        constraint, violationLocation.getResourceName(), violationLocation.getLocation().getRow());
+                        constraint, violationLocation.getResource(), violationLocation.getLocation().getRow());
             } catch (ValidationException | StringIndexOutOfBoundsException e) {
                 LOGGER.error("Line of affected Element could not be determined.");
                 logText = String.format("Found violation of constraint %s but the correct location could not be determined.",

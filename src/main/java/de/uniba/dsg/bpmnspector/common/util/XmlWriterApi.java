@@ -97,7 +97,7 @@ public class XmlWriterApi {
     private Element createViolationElement(Violation violation) {
         Element vElem = factory.element("violation", nsp);
         vElem.setAttribute("constraint", violation.getConstraint());
-        vElem.setAttribute("fileName", violation.getLocation().getResourceName());
+        vElem.setAttribute("fileName", violation.getLocation().getResource().getResourceName());
         if(violation.getLocation().getLocation().getRow()!=-1) {
             vElem.setAttribute("line", String.valueOf(violation.getLocation().getLocation().getRow()));
         }
@@ -113,7 +113,7 @@ public class XmlWriterApi {
 
     private Element createWarningElement(Warning warning) {
         Element wElem = factory.element("warning", nsp);
-        wElem.setAttribute("fileName", warning.getLocation().getResourceName());
+        wElem.setAttribute("fileName", warning.getLocation().getResource().getResourceName());
         if(warning.getLocation().getLocation().getRow()!=-1) {
             wElem.setAttribute("line", String.valueOf(warning.getLocation().getLocation().getRow()));
         }

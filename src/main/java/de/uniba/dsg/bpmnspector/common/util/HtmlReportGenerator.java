@@ -160,7 +160,7 @@ public class HtmlReportGenerator {
     }
 
     private static List<String> getFilesWithWarnings(ValidationResult result) {
-        return result.getWarnings().stream().map(v -> v.getLocation().getResourceName()).distinct().collect(Collectors.toList());
+        return result.getWarnings().stream().map(v -> v.getLocation().getResource().getResourceName()).distinct().collect(Collectors.toList());
     }
 
     public static class SingleValidationSummary {
