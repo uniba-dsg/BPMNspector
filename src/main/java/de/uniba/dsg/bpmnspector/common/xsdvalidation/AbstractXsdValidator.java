@@ -1,9 +1,6 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
-import api.Location;
-import api.LocationCoordinate;
-import api.ValidationException;
-import api.ValidationResult;
+import api.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
@@ -11,9 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Super class for all validators to avoid code redundance
@@ -50,8 +44,8 @@ public abstract class AbstractXsdValidator {
      *
      * @param stream
      *             a stream for a file which should be validated
-     * @param resourceName
-     *             the name for the checked resource
+     * @param resource
+     *             the resource description
      * @param validationResult
      *             the result object of the validation
      * @throws IOException
@@ -61,7 +55,7 @@ public abstract class AbstractXsdValidator {
      * @throws ValidationException
      *             thrown if checked file is not well-formed or does not have a valid encoding
      */
-    public abstract void validateAgainstXsd(InputStream stream, String resourceName,
+    public abstract void validateAgainstXsd(InputStream stream, Resource resource,
             ValidationResult validationResult) throws IOException, SAXException,
             ValidationException;
 
@@ -82,14 +76,7 @@ public abstract class AbstractXsdValidator {
                 "/" + resourceName));
     }
 
-    protected Location createLocation(String resourceName, int row, int column) {
-        LocationCoordinate coordinate = new LocationCoordinate(row, column);
-        // Check whether resourceName refers to a local path
-        Path localFile = Paths.get(resourceName);
-        if (Files.exists(localFile)) {
-            return new Location(localFile, coordinate);
-        } else {
-            return new Location(resourceName, coordinate);
-        }
+    protected Location createLocation(Resource resource, int row, int column) {
+        return new Location(resource, new LocationCoordinate(row, column));
     }
 }

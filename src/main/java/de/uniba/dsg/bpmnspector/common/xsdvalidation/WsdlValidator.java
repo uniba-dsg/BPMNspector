@@ -1,9 +1,6 @@
 package de.uniba.dsg.bpmnspector.common.xsdvalidation;
 
-import api.Location;
-import api.ValidationException;
-import api.ValidationResult;
-import api.Violation;
+import api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -53,17 +50,17 @@ public class WsdlValidator extends AbstractXsdValidator {
             throws IOException, SAXException, ValidationException {
         LOGGER.debug("file based WSDL xsd validation started: {}", xmlFile.getName());
         StreamSource src = new StreamSource(xmlFile);
-        validateUsingStreamSource(src, xmlFile.getAbsolutePath(), validationResult);
+        validateUsingStreamSource(src, new Resource(xmlFile.toPath()), validationResult);
     }
 
     @Override
-    public void validateAgainstXsd(InputStream stream, String resourceName, ValidationResult validationResult)
+    public void validateAgainstXsd(InputStream stream, Resource resource, ValidationResult validationResult)
             throws IOException, SAXException, ValidationException {
         StreamSource src = new StreamSource(stream);
-        validateUsingStreamSource(src, resourceName, validationResult);
+        validateUsingStreamSource(src, resource, validationResult);
     }
 
-    private void validateUsingStreamSource(StreamSource src, String resourceName, ValidationResult validationResult)
+    private void validateUsingStreamSource(StreamSource src, Resource resource, ValidationResult validationResult)
             throws IOException, SAXException, ValidationException {
         List<SAXParseException> xsdErrorList = new ArrayList<>();
         Validator validator = schema.newValidator();
@@ -71,19 +68,19 @@ public class WsdlValidator extends AbstractXsdValidator {
         try {
             validator.validate(src);
             for (SAXParseException saxParseException : xsdErrorList) {
-                Location location = createLocation(resourceName, saxParseException.getLineNumber(),
+                Location location = createLocation(resource, saxParseException.getLineNumber(),
                         saxParseException.getColumnNumber());
                 Violation violation = new Violation(location, saxParseException.getMessage(), "WSDL-XSD-Check");
                 validationResult.addViolation(violation);
                 LOGGER.info("WSDL xsd violation found in {} at line {}.",
-                        resourceName, saxParseException.getLineNumber());
+                        resource.getResourceName(), saxParseException.getLineNumber());
             }
         } catch (SAXParseException e) {
             // if process is not well-formed exception is not processed via the error handler
-            Location location = createLocation(resourceName, e.getLineNumber(), e.getLineNumber());
+            Location location = createLocation(resource, e.getLineNumber(), e.getLineNumber());
             Violation violation = new Violation(location, e.getMessage(), "XSD-Check");
             validationResult.addViolation(violation);
-            String msg = String.format("File %s is not well-formed at line %d: %s", resourceName,
+            String msg = String.format("File %s is not well-formed at line %d: %s", resource.getResourceName(),
                     e.getLineNumber(), e.getMessage());
             LOGGER.info(msg);
             throw new ValidationException("Cancel Validation as checked File is not well-formed.");
