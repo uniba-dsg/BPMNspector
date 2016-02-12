@@ -94,7 +94,7 @@ public class NonWellformedXmlTests {
             int affectedLine) {
         assertFalse(result.isValid());
         assertEquals(affectedLine, result.getViolations().get(0).getLocation().getLocation().getRow());
-        assertTrue(result.getViolations().get(0).getLocation().getFilePath().get().getFileName().toString().equals(affectedFile));
+        assertTrue(result.getViolations().get(0).getLocation().getResource().getPath().get().getFileName().toString().equals(affectedFile));
     }
 
 }

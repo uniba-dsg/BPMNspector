@@ -43,8 +43,21 @@ public class Ext002 extends TestCase {
     }
 
     @Test
+    public void testConstraintImportUrlFail() throws ValidationException {
+        ValidationResult result = verifyInvalidResult(
+                createFile("fail_import_URL.bpmn"), 10);
+        assertViolation(result.getViolations().get(0), "fail_import.bpmn", 2);
+        assertViolation(result.getViolations().get(1), "import.bpmn", 2);
+    }
+
+    @Test
     public void testConstraintSuccess() throws ValidationException {
         verifyValidResult(createFile("success_import.bpmn"));
+    }
+
+    @Test
+    public void testConstraintSuccessUrl() throws ValidationException {
+        verifyValidResult(createFile("success_import_URL.bpmn"));
     }
 
     @Override

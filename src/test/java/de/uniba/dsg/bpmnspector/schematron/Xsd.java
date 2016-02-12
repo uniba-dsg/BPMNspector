@@ -22,7 +22,7 @@ public class Xsd extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("xsdfail.bpmn"), 1);
         Violation v = result.getViolations().get(0);
-        assertEquals("xsdfail.bpmn", v.getLocation().getFilePath().get().getFileName().toString());
+        assertEquals("xsdfail.bpmn", v.getLocation().getResource().getPath().get().getFileName().toString());
         assertEquals(6, v.getLocation().getLocation().getRow());
         assertTrue(v.getMessage().contains("cvc-complex-type.2.4.a:"));
         assertTrue(v.getMessage().contains("outgoing"));

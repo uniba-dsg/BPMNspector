@@ -49,7 +49,7 @@ public class Wsdl extends TestCase {
 
     private void assertViolation(Violation v, int line) {
         assertEquals("undef", v.getLocation().getXpath().orElse("undef"));
-        assertEquals("wsdl2primer-fail.wsdl", v.getLocation().getFilePath().get().getFileName().toString());
+        assertEquals("wsdl2primer-fail.wsdl", v.getLocation().getResource().getPath().get().getFileName().toString());
         assertEquals(line, v.getLocation().getLocation().getRow());
     }
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for testing the right resolvement of pathes
@@ -32,12 +33,9 @@ public class Path extends TestCase {
     }
 
     @Test
-    public void testWarningIfUrlUsed() throws ValidationException {
+    public void testInvalidUrlImports() throws ValidationException {
         ValidationResult result = validate(createFile("import_URL.bpmn"));
-        assertEquals(result.getWarnings().size(), 1);
-        Warning warning  = result.getWarnings().get(0);
-        assertEquals(warning.getMessage(), "Imports using URLs are currently not supported.");
-        assertEquals(warning.getLocation().getLocation().getRow(), 3);
+        assertEquals(2, result.getViolations().size());
     }
 
     @Override
