@@ -10,6 +10,7 @@ import de.uniba.dsg.bpmnspector.common.util.FileUtils;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,5 +70,22 @@ public class BPMNspector implements Validator {
         options.add(ValidationOption.EXT);
         options.add(ValidationOption.REF);
         return inspectFile(path, options);
+    }
+
+    public ValidationResult validate(InputStream source, String resourceName) throws ValidationException {
+
+        ValidationResult result = new UnsortedValidationResult();
+
+        // Trying to generate BPMNProcess structure - XSD validation is always
+        // performed is included here
+        BPMNProcess process = bpmnImporter.importProcessFromStreamSource(source, resourceName, result);
+
+
+        if(process!=null) {
+            refValidator.validate(process, result);
+            extValidator.validate(process, result);
+        }
+
+        return result;
     }
 }
