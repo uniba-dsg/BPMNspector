@@ -65,7 +65,7 @@
     #foreach ($violation in $validationResult.getViolations())
         <tr>
             <td>$foreach.count</td>
-            <td>$violation.getLocation().getFileName().toString()</td>
+            <td>$violation.getLocation().getResource().getResourceName()</td>
             <td>$violation.getLocation().getLocation().getRow()</td>
         #if($violation.getConstraint().contains("EXT"))
             #set( $ExtNo = $violation.getConstraint().replace(".",""))
