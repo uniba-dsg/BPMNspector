@@ -1,6 +1,5 @@
 package api;
 
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -14,8 +13,6 @@ public class Resource implements Comparable<Resource> {
 
     private final Optional<Path> path;
 
-    private final Optional<InputStream> stream;
-
     private final ResourceType type;
 
     public Resource(Path path) {
@@ -24,7 +21,6 @@ public class Resource implements Comparable<Resource> {
         type = ResourceType.FILE;
 
         url = Optional.empty();
-        stream = Optional.empty();
     }
 
     public Resource(URL url) {
@@ -33,12 +29,10 @@ public class Resource implements Comparable<Resource> {
         this.type = ResourceType.URL;
 
         path = Optional.empty();
-        stream = Optional.empty();
     }
 
-    public Resource(InputStream stream, String resourceName) {
+    public Resource(String resourceName) {
         this.resourceName = resourceName;
-        this.stream = Optional.of(stream);
         this.type = ResourceType.STREAM;
 
         this.path = Optional.empty();

@@ -60,7 +60,7 @@ public class ProcessImporter {
     public BPMNProcess importProcessFromStreamSource(InputStream src, String resourceName, ValidationResult result)
             throws ValidationException {
         try {
-            Resource resource = new Resource(src, resourceName);
+            Resource resource = new Resource(resourceName);
             byte[] streamContent = IOUtils.toByteArray(src);
             bpmnXsdValidator
                     .validateAgainstXsd(new ByteArrayInputStream(streamContent), resource, result);
