@@ -62,7 +62,7 @@ public class XmlWriterApi {
         XMLOutputter outputter = new XMLOutputter();
         outputter.setFormat(Format.getPrettyFormat());
         outputter.output(doc, new FileOutputStream(file.toFile()));
-        LOGGER.info("Report for file {} successfully written to {}", result.getFoundFiles().get(0).getFileName().toString(), file.toString());
+        LOGGER.info("Report for Resource {} successfully written to {}", result.getResources().get(0).getResourceName(), file.toString());
     }
 
     private Document createDocFromValidationResult(ValidationResult result) {
@@ -72,14 +72,14 @@ public class XmlWriterApi {
 
         root.addContent(createTextElement("valid", String.valueOf(result.isValid())));
 
-        Element checkedFiles = factory.element("checkedFiles", nsp);
-        result.getFoundFiles().forEach(x -> checkedFiles.addContent(createTextElement("file", x.toString())));
-        root.addContent(checkedFiles);
+        Element checkedResources = factory.element("checkedResources", nsp);
+        result.getFoundFiles().forEach(x -> checkedResources.addContent(createTextElement("resource", x.toString())));
+        root.addContent(checkedResources);
 
         if(!result.isValid()) {
-            Element filesWithViolations = factory.element("filesWithViolations", nsp);
-            result.getFilesWithViolations().forEach(x -> filesWithViolations.addContent(createTextElement("file", x.toString())));
-            root.addContent(filesWithViolations);
+            Element resourcesWithViolations = factory.element("resourcesWithViolations", nsp);
+            result.getResourcesWithViolations().forEach(x -> resourcesWithViolations.addContent(createTextElement("resource", x.toString())));
+            root.addContent(resourcesWithViolations);
 
             Element violations = factory.element("violations", nsp);
             result.getViolations().forEach(x -> violations.addContent(createViolationElement(x)));

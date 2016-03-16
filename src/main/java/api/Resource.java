@@ -79,6 +79,11 @@ public class Resource implements Comparable<Resource> {
         return resourceName.compareTo(resource.getResourceName());
     }
 
+    @Override
+    public String toString() {
+        return resourceName;
+    }
+
     public enum ResourceType {
         URL, FILE, STREAM
     }
