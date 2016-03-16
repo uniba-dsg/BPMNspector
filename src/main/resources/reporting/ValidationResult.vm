@@ -2,13 +2,13 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>BPMNspector - Validation Result for file $validationResult.getFoundFiles().get(0).getFileName().toString()</title>
+    <title>BPMNspector - Validation Result for resource $validationResult.getResources().get(0).getResourceName()</title>
     <link href="res/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="page-header col-md-9"><h1>BPMNspector <small>Validation Result for file $validationResult.getFoundFiles().get(0).getFileName().toString()</small></h1></div>
+        <div class="page-header col-md-9"><h1>BPMNspector <small>Validation Result for resource $validationResult.getResources().get(0).getResourceName()</small></h1></div>
         <div class="col-md-3" style="padding-top: 20px"><img src="res/logo-h100.png" height="100"></div>
     </div>
     <div class="row">
@@ -18,25 +18,25 @@
             <div class="alert alert-warning" role="alert"><strong>Some warnings have been found.</strong> Additionally some warnings were detected.</div>
         #end
     #elseif ( !$validationResult.getWarnings().isEmpty())
-        <div class="alert alert-warning" role="alert"><strong>Some warnings have been found.</strong> All Files are generally valid but there are some warnings.</div>
+        <div class="alert alert-warning" role="alert"><strong>Some warnings have been found.</strong> All resources are generally valid but there are some warnings.</div>
     #else
-        <div class="alert alert-success" role="alert"><strong>All files are valid!</strong></div>
+        <div class="alert alert-success" role="alert"><strong>All resources are valid!</strong></div>
     #end
     </div>
 
     <div class="panel panel-default">
-        <div class="panel-heading"><h4>Checked files</h4></div>
+        <div class="panel-heading"><h4>Checked resources</h4></div>
 
         <ul class="list-group">
-            #foreach ($path in $validationResult.getFoundFiles())
-            <li class="list-group-item"><code>$path.toString()</code>
-                #if ($validationResult.getFilesWithViolations().contains($path))
+            #foreach ($resource in $validationResult.getResources())
+            <li class="list-group-item"><code>$resource</code>
+                #if ($validationResult.getResourcesWithViolations().contains($resource))
                     <span class="label label-danger">violations found</span>
-                    #if ($filesWithWarnings.contains($path))
+                    #if ($resourcesWithWarnings.contains($resource))
                     <span class="label label-warning">warnings found</span>
                     #end
                 #else
-                    #if ($filesWithWarnings.contains($path))
+                    #if ($resourcesWithWarnings.contains($resource))
                     <span class="label label-warning">warnings found</span>
                     #else
                     <span class="label label-success">valid</span>
@@ -55,7 +55,7 @@
         <thead class="text-capitalize">
             <tr>
                 <th>#</th>
-                <th>File</th>
+                <th>Resource</th>
                 <th>Line</th>
                 <th>Constraint</th>
                 <th>Message</th>
@@ -88,7 +88,7 @@
                 <thead class="text-capitalize">
                     <tr>
                         <th>#</th>
-                        <th>File</th>
+                        <th>Resource</th>
                         <th>Line</th>
                         <th>Message</th>
                     </tr>
@@ -97,7 +97,7 @@
                     #foreach ($warning in $validationResult.getWarnings())
                     <tr>
                         <td>$foreach.count</td>
-                        <td>$warning.getLocation().getFileName().toString()</td>
+                        <td>$warning.getLocation().getResourceName()</td>
                         <td>$warning.getLocation().getLocation().getRow()</td>
                         <td>$warning.getMessage()</td>
                     </tr>

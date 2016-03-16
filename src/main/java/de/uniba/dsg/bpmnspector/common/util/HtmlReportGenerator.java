@@ -1,6 +1,7 @@
 package de.uniba.dsg.bpmnspector.common.util;
 
-import api.*;
+import api.ValidationResult;
+import api.Violation;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -143,7 +144,7 @@ public class HtmlReportGenerator {
 
             VelocityContext context = new VelocityContext();
             context.put("validationResult", result);
-            context.put("filesWithWarnings", getFilesWithWarnings(result));
+            context.put("resourcesWithWarnings", getResourcesWithWarnings(result));
             StringWriter sw = new StringWriter();
             template.merge(context, sw);
 
@@ -159,7 +160,7 @@ public class HtmlReportGenerator {
 
     }
 
-    private static List<String> getFilesWithWarnings(ValidationResult result) {
+    private static List<String> getResourcesWithWarnings(ValidationResult result) {
         return result.getWarnings().stream().map(v -> v.getLocation().getResource().getResourceName()).distinct().collect(Collectors.toList());
     }
 
