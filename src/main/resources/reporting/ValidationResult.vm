@@ -97,7 +97,7 @@
                     #foreach ($warning in $validationResult.getWarnings())
                     <tr>
                         <td>$foreach.count</td>
-                        <td>$warning.getLocation().getResourceName()</td>
+                        <td>$warning.getLocation().getResource().getResourceName()</td>
                         <td>$warning.getLocation().getLocation().getRow()</td>
                         <td>$warning.getMessage()</td>
                     </tr>
