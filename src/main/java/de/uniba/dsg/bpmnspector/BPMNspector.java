@@ -9,6 +9,8 @@ import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.FileUtils;
 import de.uniba.dsg.bpmnspector.refcheck.BPMNReferenceValidator;
 import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -21,6 +23,8 @@ import java.util.List;
  * @version 1.0
  */
 public class BPMNspector implements Validator {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BPMNspector.class.getSimpleName());
 
     private final SchematronBPMNValidator extValidator;
     private final BPMNReferenceValidator refValidator;
@@ -53,7 +57,9 @@ public class BPMNspector implements Validator {
         BPMNProcess process = bpmnImporter
                 .importProcessFromPath(file, result);
 
-        if(process!=null) {
+        if(process==null) {
+            LOGGER.info("Process could not parsed correctly. Further processing is skipped.");
+        } else {
             if (validationOptions.contains(ValidationOption.REF)) {
                 refValidator.validate(process, result);
             }
@@ -61,6 +67,9 @@ public class BPMNspector implements Validator {
                 extValidator.validate(process, result);
             }
         }
+
+        String resultString = result.isValid() ? "valid" : "invalid";
+        LOGGER.info("Overall result for '{}': {}", file.getFileName().toString(), resultString);
 
         return result;
     }
@@ -81,11 +90,14 @@ public class BPMNspector implements Validator {
         BPMNProcess process = bpmnImporter.importProcessFromStreamSource(source, resourceName, result);
 
 
-        if(process!=null) {
+        if(process==null) {
+            LOGGER.info("Process could not parsed correctly. Further processing is skipped.");
+        } else {
             refValidator.validate(process, result);
             extValidator.validate(process, result);
         }
-
+        String resultString = result.isValid() ? "valid" : "invalid";
+        LOGGER.info("Overall result for '{}': {}", resourceName, resultString);
         return result;
     }
 }
