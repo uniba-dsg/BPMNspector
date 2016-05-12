@@ -1,8 +1,6 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
 import api.*;
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
@@ -17,6 +15,7 @@ import org.jdom2.output.DOMOutputter;
 import org.jdom2.xpath.XPathFactory;
 import org.oclc.purl.dsdl.svrl.FailedAssert;
 import org.oclc.purl.dsdl.svrl.SchematronOutputType;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
@@ -45,7 +44,7 @@ public class SchematronBPMNValidator {
     private final static Logger LOGGER;
 
     static {
-        LOGGER = (Logger) LoggerFactory.getLogger(SchematronBPMNValidator.class
+        LOGGER = LoggerFactory.getLogger(SchematronBPMNValidator.class
                 .getSimpleName());
     }
 
@@ -53,16 +52,6 @@ public class SchematronBPMNValidator {
         preProcessor = new PreProcessor();
         bpmnImporter = new ProcessImporter();
         ext002Checker = new Ext002Checker();
-    }
-
-    public Level getLogLevel() {
-        return LOGGER.getLevel();
-    }
-
-    public void setLogLevel(Level logLevel) {
-        // FIXME: without phloc libraries
-        ((Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME))
-                .setLevel(logLevel);
     }
 
     public List<ValidationResult> validateFiles(List<File> xmlFiles)

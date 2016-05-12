@@ -3,12 +3,13 @@ package de.uniba.dsg.bpmnspector.schematron;
 import api.ValidationException;
 import api.ValidationResult;
 import api.Violation;
-import ch.qos.logback.classic.Level;
 
 import java.io.File;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.*;
+
+//import ch.qos.logback.classic.Level;
 
 /**
  * Abstract test class for all tests of the BPMN Validator to simplify testing
@@ -24,7 +25,7 @@ public class TestCase {
 
     {
         validator = new SchematronBPMNValidator();
-        validator.setLogLevel(Level.OFF);
+        //validator.setLogLevel(Level.OFF);
     }
 
     protected static String getTestFilePath() {
