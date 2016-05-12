@@ -51,35 +51,11 @@ public class Ext128 extends TestCase {
                 "//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 8);
     }
 
-//    @Test
-//    public void testConstraintSuccessBoundary() throws ValidationException {
-//        verifyValidResult(createFile("EXT128_success_boundary.bpmn"));
-//    }
-//
-//    @Test
-//    public void testConstraintSuccessEndEvent() throws ValidationException {
-//        verifyValidResult(createFile("EXT128_success_endEvent.bpmn"));
-//    }
-//
-//    @Test
-//    public void testConstraintSuccessIntCatchw() throws ValidationException {
-//        verifyValidResult(createFile("EXT128_success_intCatch.bpmn"));
-//    }
-//
-//    @Test
-//    public void testConstraintSuccessIntThrow() throws ValidationException {
-//        verifyValidResult(createFile("EXT128_success_intThrow.bpmn"));
-//    }
-//
-//    @Test
-//    public void testConstraintSuccessNotExecutable() throws ValidationException {
-//        verifyValidResult(createFile("EXT128_success_notExecutable.bpmn"));
-//    }
-//
-//    @Test
-//    public void testConstraintSuccessStartEvent() throws ValidationException {
-//        verifyValidResult(createFile("EXT128_success_startEvent.bpmn"));
-//    }
+    @Test
+    public void testConstraintSuccessNotExecutable() throws ValidationException {
+        verifyValidResult(createFile("EXT128_success_notExecutable.bpmn"));
+    }
+
 
     @Override
     protected String getExtNumber() {
