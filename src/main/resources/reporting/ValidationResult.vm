@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<meta charset="utf-8"/>
 <head>
     <title>BPMNspector - Validation Result for resource $validationResult.getResources().get(0).getResourceName()</title>
     <link href="res/bootstrap.min.css" rel="stylesheet">
@@ -73,7 +74,7 @@
         #else
             <td>$violation.getConstraint()</td>
         #end
-            <td>$violation.getMessage()</td>
+            <td>$violation.getMessage().replaceAll("\n", "<br />")</td>
         </tr>
     #end
         </tbody>
