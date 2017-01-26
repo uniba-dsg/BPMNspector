@@ -21,6 +21,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
+import de.uniba.dsg.bpmnspector.BpmnProcessValidator;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
@@ -44,7 +45,7 @@ import org.w3c.dom.Document;
  * @author Matthias Geiger
  * @version 1.0
  */
-public class SchematronBPMNValidator {
+public class SchematronBPMNValidator implements BpmnProcessValidator {
 
     private final PreProcessor preProcessor;
     private final ProcessImporter bpmnImporter;
@@ -95,7 +96,7 @@ public class SchematronBPMNValidator {
 
     }
 
-    public ValidationResult validate(BPMNProcess process, ValidationResult validationResult)
+    public void validate(BPMNProcess process, ValidationResult validationResult)
             throws ValidationException {
         final List<ISchematronResource> schemaToCheck = loadAndValidateSchematronFiles();
 
@@ -130,8 +131,6 @@ public class SchematronBPMNValidator {
 
         LOGGER.info("Validating process successfully done, file is valid: {}",
                 validationResult.isValid());
-
-        return validationResult;
     }
 
 
