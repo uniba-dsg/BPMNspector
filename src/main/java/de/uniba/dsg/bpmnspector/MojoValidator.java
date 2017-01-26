@@ -1,5 +1,6 @@
 package de.uniba.dsg.bpmnspector;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -28,9 +29,6 @@ import org.mojo.interpreter.AbstractEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by mg on 28.11.2016.
- */
 public class MojoValidator {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(MojoValidator.class.getSimpleName());
@@ -46,16 +44,15 @@ public class MojoValidator {
         String processAsString = xmlOutputter.outputString(process.getProcessAsDoc());
         LOGGER.debug(processAsString);
         AnalysisInformation analysisInformation = new AnalysisInformation();
-        List<Annotation> mojoResult = mojo.verify(processAsString, analysisInformation);
-        //List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
+        // FIXME Use processAsString information as soon as Mojo is capable to do this
+        // List<Annotation> mojoResult = mojo.verify(processAsString, analysisInformation);
+        List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
         addMojoResultToValidationResult(mojoResult, result, process);
     }
 
     private void addMojoResultToValidationResult(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess)
             throws ValidationException {
-        if(mojoResult.isEmpty()) {
-            return;
-        } else {
+        if(!mojoResult.isEmpty()) {
             for(Annotation annotation : mojoResult) {
                 annotation.printInformation(null);
                 System.out.println("Annotation class: "+annotation.getClass()+" AlarmCategory: "+annotation.getAlarmCategory());
