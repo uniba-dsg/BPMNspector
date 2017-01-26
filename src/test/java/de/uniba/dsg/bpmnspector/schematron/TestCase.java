@@ -10,6 +10,7 @@ import api.ValidationResult;
 import api.Violation;
 import api.Warning;
 import ch.qos.logback.classic.Level;
+import org.junit.BeforeClass;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,9 +26,10 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestCase {
 
-    protected final SchematronBPMNValidator validator;
+    protected static SchematronBPMNValidator validator;
 
-    {
+    @BeforeClass
+    public static void setUp() throws ValidationException {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
