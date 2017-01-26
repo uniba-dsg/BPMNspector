@@ -1,6 +1,6 @@
 package de.uniba.dsg.bpmnspector;
 
-import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -29,7 +29,7 @@ import org.mojo.interpreter.AbstractEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MojoValidator {
+public class MojoValidator implements BpmnProcessValidator {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(MojoValidator.class.getSimpleName());
 
@@ -45,8 +45,8 @@ public class MojoValidator {
         LOGGER.debug(processAsString);
         AnalysisInformation analysisInformation = new AnalysisInformation();
         // FIXME Use processAsString information as soon as Mojo is capable to do this
-        // List<Annotation> mojoResult = mojo.verify(processAsString, analysisInformation);
-        List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
+        List<Annotation> mojoResult = mojo.verify(process.getBaseURI(), processAsString, analysisInformation, StandardCharsets.UTF_8);
+        //List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
         addMojoResultToValidationResult(mojoResult, result, process);
     }
 
