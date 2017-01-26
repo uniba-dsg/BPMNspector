@@ -53,4 +53,21 @@ public final class Violation implements Comparable<Violation> {
 		}
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Violation violation = (Violation) o;
+		return Objects.equals(constraint, violation.constraint) && Objects.equals(message, violation.message) && Objects
+				.equals(location, violation.location);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(constraint, message, location);
+	}
 }

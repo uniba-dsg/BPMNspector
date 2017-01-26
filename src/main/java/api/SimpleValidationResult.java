@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class SimpleValidationResult implements ValidationResult {
 
@@ -58,5 +59,19 @@ public class SimpleValidationResult implements ValidationResult {
         return new ArrayList<>(files);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        SimpleValidationResult that = (SimpleValidationResult) o;
+        return Objects.equals(violations, that.violations) && Objects.equals(warnings, that.warnings) && Objects
+                .equals(files, that.files) && Objects.equals(resources, that.resources);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(violations, warnings, files, resources);
+    }
 }

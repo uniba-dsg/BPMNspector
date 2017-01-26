@@ -38,4 +38,22 @@ public final class Warning implements Comparable<Warning> {
             return getMessage().compareTo(o.getMessage());
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Warning warning = (Warning) o;
+        return Objects.equals(message, warning.message) && Objects.equals(location, warning.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message, location);
+    }
+
 }

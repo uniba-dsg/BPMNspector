@@ -3,6 +3,7 @@ package api;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UnsortedValidationResult implements ValidationResult {
 
@@ -38,4 +39,21 @@ public class UnsortedValidationResult implements ValidationResult {
         return new ArrayList<>(resources);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UnsortedValidationResult that = (UnsortedValidationResult) o;
+        return Objects.equals(violations, that.violations) && Objects.equals(warnings, that.warnings) && Objects
+                .equals(resources, that.resources);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(violations, warnings, resources);
+    }
 }
