@@ -1,10 +1,27 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
-import api.*;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.xml.transform.dom.DOMSource;
+
+import api.Location;
+import api.LocationCoordinate;
+import api.UnsortedValidationResult;
+import api.ValidationException;
+import api.ValidationResult;
+import api.Violation;
+import api.Warning;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
 import com.phloc.schematron.pure.SchematronResourcePure;
+import de.uniba.dsg.bpmnspector.BpmnProcessValidator;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
@@ -20,15 +37,6 @@ import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import javax.xml.transform.dom.DOMSource;
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Does the validation process of the xsd and the schematron validation and
  * returns the results of the validation
@@ -37,7 +45,7 @@ import java.util.regex.Pattern;
  * @author Matthias Geiger
  * @version 1.0
  */
-public class SchematronBPMNValidator {
+public class SchematronBPMNValidator implements BpmnProcessValidator {
 
     private final PreProcessor preProcessor;
     private final ProcessImporter bpmnImporter;
@@ -88,7 +96,7 @@ public class SchematronBPMNValidator {
 
     }
 
-    public ValidationResult validate(BPMNProcess process, ValidationResult validationResult)
+    public void validate(BPMNProcess process, ValidationResult validationResult)
             throws ValidationException {
         final List<ISchematronResource> schemaToCheck = loadAndValidateSchematronFiles();
 
@@ -106,9 +114,10 @@ public class SchematronBPMNValidator {
                 DOMOutputter domOutputter = new DOMOutputter();
                 Document w3cDoc = domOutputter
                         .output(documentToCheck);
+                DOMSource domSource = new DOMSource(w3cDoc);
                 for(ISchematronResource schematronFile : schemaToCheck) {
                     SchematronOutputType schematronOutputType = schematronFile
-                            .applySchematronValidationToSVRL(new DOMSource(w3cDoc));
+                            .applySchematronValidationToSVRL(domSource);
 
                     schematronOutputType.getActivePatternAndFiredRuleAndFailedAssert().stream()
                             .filter(obj -> obj instanceof FailedAssert)
@@ -122,8 +131,6 @@ public class SchematronBPMNValidator {
 
         LOGGER.info("Validating process successfully done, file is valid: {}",
                 validationResult.isValid());
-
-        return validationResult;
     }
 
 
@@ -237,9 +244,13 @@ public class SchematronBPMNValidator {
         }
 
         LOGGER.info(logText);
-
-        Violation violation = new Violation(violationLocation, errorMessage, constraint);
-        validationResult.addViolation(violation);
+        if("EXT.076".equals(constraint)) {
+            Warning warning = new Warning(errorMessage, violationLocation);
+            validationResult.addWarning(warning);
+        } else {
+            Violation violation = new Violation(violationLocation, errorMessage, constraint);
+            validationResult.addViolation(violation);
+        }
     }
 
     /**

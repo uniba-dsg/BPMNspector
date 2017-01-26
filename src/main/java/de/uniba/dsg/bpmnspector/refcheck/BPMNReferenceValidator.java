@@ -1,8 +1,15 @@
 package de.uniba.dsg.bpmnspector.refcheck;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import api.ValidationException;
 import api.ValidationResult;
 import api.Violation;
+import de.uniba.dsg.bpmnspector.BpmnProcessValidator;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.refcheck.utils.JDOMUtils;
 import org.jdom2.Document;
@@ -14,8 +21,6 @@ import org.jdom2.located.LocatedElement;
 import org.jdom2.util.IteratorIterable;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
-
 /**
  * @author Andreas Vorndran
  * @author Matthias Geiger
@@ -24,7 +29,7 @@ import java.util.*;
  * @see ValidationException
  *
  */
-public class BPMNReferenceValidator {
+public class BPMNReferenceValidator implements BpmnProcessValidator {
 
 	private Map<String, BPMNElement> bpmnRefElements;
 
@@ -60,6 +65,7 @@ public class BPMNReferenceValidator {
 	 *  @throws NullPointerException
 	 *  		if one of the parameters is <code>null</code>
 	 */
+	@Override
 	public void validate(BPMNProcess process, ValidationResult validationResult) throws ValidationException {
 		Objects.requireNonNull(process, "process must not be null.");
 		Objects.requireNonNull(validationResult, "validationResult must not be null.");

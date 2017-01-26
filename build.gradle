@@ -73,10 +73,10 @@ dependencies {
 	compile 'jaxen:jaxen:1.1.6'
 	compile 'ch.qos.logback:logback-core:1.1.7'
 	compile 'ch.qos.logback:logback-classic:1.1.7'
-	compile 'org.slf4j:slf4j-api:1.7.20'
-	compile 'com.phloc:phloc-commons:4.4.4'
+	compile 'org.slf4j:slf4j-api:1.7.21'
+	compile 'com.phloc:phloc-commons:4.4.6'
 	compile 'commons-cli:commons-cli:1.3.1'
-	compile 'commons-io:commons-io:2.4'
+	compile 'commons-io:commons-io:2.5'
 	compile 'org.apache.velocity:velocity:1.7'
 
 	external files(fileTree(dir: "lib", includes: ['*.jar']))
@@ -103,7 +103,7 @@ run {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.7'
+    gradleVersion = '3.2.1'
 }
 
 
