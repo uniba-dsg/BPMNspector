@@ -66,6 +66,9 @@ configurations {
 
 repositories {
     jcenter()
+    maven {
+        url "https://maven.alfresco.com/nexus/content/repositories/activiti/"
+    }
 }
 
 dependencies {
@@ -78,6 +81,9 @@ dependencies {
 	compile 'commons-cli:commons-cli:1.4'
 	compile 'commons-io:commons-io:2.5'
 	compile 'org.apache.velocity:velocity:1.7'
+    compile 'org.activiti.designer:org.activiti.designer.model:5.10.0'
+    compile 'org.apache.logging.log4j:log4j-api:2.7'
+    compile 'org.apache.logging.log4j:log4j-core:2.7'
 
 	external files(fileTree(dir: "lib", includes: ['*.jar']))
 
