@@ -1,10 +1,18 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
+import java.util.ArrayList;
+import java.util.List;
+
+import api.Location;
+import api.LocationCoordinate;
 import api.ValidationException;
-import api.Violation;
+import api.ValidationResult;
+import api.Warning;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for testing Constraint EXT.076
@@ -17,32 +25,44 @@ public class Ext076 extends TestCase {
 
     @Test
     public void testConstraintFail1() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
-                createFile("Fail_1.bpmn"), 1);
-        assertViolation(result.getViolations().get(0));
+
+        List<Warning> expectedWarnings = new ArrayList<>();
+        expectedWarnings.add(new Warning(getErrorMessage(), new Location(createFile("Fail_1.bpmn").toPath(),
+                new LocationCoordinate(5,79), "//bpmn:dataObjectReference[@name][0]")));
+
+        ValidationResult result = validator.validate(createFile("Fail_1.bpmn"));
+
+        assertTrue(result.isValid());
+        assertEquals(expectedWarnings, result.getWarnings());
     }
 
     @Test
     public void testConstraintFail2() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
-                createFile("Fail_2.bpmn"), 1);
-        assertViolation(result.getViolations().get(0));
+        List<Warning> expectedWarnings = new ArrayList<>();
+        expectedWarnings.add(new Warning(getErrorMessage(), new Location(createFile("Fail_2.bpmn").toPath(),
+                new LocationCoordinate(5,88), "//bpmn:dataObjectReference[@name][0]")));
+
+        ValidationResult result = validator.validate(createFile("Fail_2.bpmn"));
+
+        assertTrue(result.isValid());
+        assertEquals(expectedWarnings, result.getWarnings());
     }
 
     @Test
     public void testConstraintFail3() throws ValidationException {
-        ValidationResult result = verifyInvalidResult(
-                createFile("Fail_3.bpmn"), 1);
-        assertViolation(result.getViolations().get(0));
+        List<Warning> expectedWarnings = new ArrayList<>();
+        expectedWarnings.add(new Warning(getErrorMessage(), new Location(createFile("Fail_3.bpmn").toPath(),
+                new LocationCoordinate(5,74), "//bpmn:dataObjectReference[@name][0]")));
+
+        ValidationResult result = validator.validate(createFile("Fail_3.bpmn"));
+
+        assertTrue(result.isValid());
+        assertEquals(expectedWarnings, result.getWarnings());
     }
 
     @Test
     public void testConstraintSuccess() throws ValidationException {
-        verifyValidResult(createFile("Success.bpmn"));
-    }
-
-    private void assertViolation(Violation v) {
-        assertViolation(v, "//bpmn:dataObjectReference[@name][0]", 5);
+        assertValidValidationResultForFile("Success.bpmn");
     }
 
     @Override

@@ -51,4 +51,6 @@ public final class LocationCoordinate {
                 ", column=" + column +
                 '}';
     }
+
+
 }

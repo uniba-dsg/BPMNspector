@@ -50,17 +50,17 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
     private final PreProcessor preProcessor;
     private final ProcessImporter bpmnImporter;
     private final Ext002Checker ext002Checker;
-    private final static Logger LOGGER;
 
-    static {
-        LOGGER = (Logger) LoggerFactory.getLogger(SchematronBPMNValidator.class
+    private final List<ISchematronResource> schemaToCheck;
+    private final static Logger LOGGER = (Logger) LoggerFactory.getLogger(SchematronBPMNValidator.class
                 .getSimpleName());
-    }
 
-    {
+    public SchematronBPMNValidator() throws ValidationException {
         preProcessor = new PreProcessor();
         bpmnImporter = new ProcessImporter();
         ext002Checker = new Ext002Checker();
+
+        schemaToCheck = loadAndValidateSchematronFiles();
     }
 
     public Level getLogLevel() {
@@ -98,7 +98,6 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
 
     public void validate(BPMNProcess process, ValidationResult validationResult)
             throws ValidationException {
-        final List<ISchematronResource> schemaToCheck = loadAndValidateSchematronFiles();
 
         LOGGER.info("Validating {}", process.getBaseURI());
 
@@ -135,6 +134,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
 
 
     private List<ISchematronResource> loadAndValidateSchematronFiles() throws ValidationException {
+        long start = System.currentTimeMillis();
         List<ISchematronResource> schemasToCheck = new ArrayList<>();
 
         final ISchematronResource schematronSchemaDescriptive = SchematronResourcePure
@@ -169,7 +169,6 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
         } else {
             schemasToCheck.add(schematronSchemaFull);
         }
-
         return schemasToCheck;
     }
 

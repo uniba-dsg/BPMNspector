@@ -1,14 +1,20 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.List;
+
+import api.UnsortedValidationResult;
 import api.ValidationException;
 import api.ValidationResult;
 import api.Violation;
+import api.Warning;
 import ch.qos.logback.classic.Level;
+import org.junit.BeforeClass;
 
-import java.io.File;
-import java.nio.file.Paths;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Abstract test class for all tests of the BPMN Validator to simplify testing
@@ -20,9 +26,10 @@ import static org.junit.Assert.*;
  */
 public class TestCase {
 
-    protected final SchematronBPMNValidator validator;
+    protected static SchematronBPMNValidator validator;
 
-    {
+    @BeforeClass
+    public static void setUp() throws ValidationException {
         validator = new SchematronBPMNValidator();
         validator.setLogLevel(Level.OFF);
     }
@@ -40,6 +47,25 @@ public class TestCase {
 
     protected ValidationResult validate(File f) throws ValidationException {
         return validator.validate(f);
+    }
+
+    private ValidationResult validValidationResultForFile(String filename) {
+        ValidationResult result = new UnsortedValidationResult();
+        result.addFile(createFile(filename).toPath());
+        return result;
+    }
+
+    protected void assertValidValidationResultForFile(String filename) throws ValidationException {
+        ValidationResult expected = validValidationResultForFile(filename);
+        ValidationResult result = validator.validate(createFile(filename));
+
+        assertEquals(expected, result);
+    }
+
+    protected ValidationResult createValidationResultWithWarnings(String filename, List<Warning> warningList) {
+        ValidationResult result = validValidationResultForFile(filename);
+        warningList.forEach(result::addWarning);
+        return result;
     }
 
     protected void verifyValidResult(File f) throws ValidationException {

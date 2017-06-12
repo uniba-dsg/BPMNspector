@@ -9,34 +9,38 @@ public class Resource implements Comparable<Resource> {
 
     private final String resourceName;
 
-    private final Optional<URL> url;
+    private final URL url;
 
-    private final Optional<Path> path;
+    private final Path path;
 
     private final ResourceType type;
 
     public Resource(Path path) {
-        this.path = Optional.of(path);
+        Objects.requireNonNull(path);
+
+        this.path = path;
         resourceName = path.toAbsolutePath().toString();
         type = ResourceType.FILE;
 
-        url = Optional.empty();
+        url = null;
     }
 
     public Resource(URL url) {
-        this.url = Optional.of(url);
+        Objects.requireNonNull(url);
+
+        this.url = url;
         this.resourceName = url.toString();
         this.type = ResourceType.URL;
 
-        path = Optional.empty();
+        path = null;
     }
 
     public Resource(String resourceName) {
         this.resourceName = resourceName;
         this.type = ResourceType.STREAM;
 
-        this.path = Optional.empty();
-        this.url = Optional.empty();
+        this.path = null;
+        this.url = null;
     }
 
     public String getResourceName() {
@@ -44,11 +48,11 @@ public class Resource implements Comparable<Resource> {
     }
 
     public Optional<URL> getUrl() {
-        return url;
+        return Optional.ofNullable(url);
     }
 
     public Optional<Path> getPath() {
-        return path;
+        return Optional.ofNullable(path);
     }
 
     public ResourceType getType() {

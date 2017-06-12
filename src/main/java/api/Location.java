@@ -72,4 +72,26 @@ public final class Location implements Comparable<Location> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Location{" + "location=" + location + ", xpath=" + xpath + ", resource=" + resource + '}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Location location1 = (Location) o;
+		return Objects.equals(location, location1.location) && Objects.equals(xpath, location1.xpath) && Objects
+				.equals(resource, location1.resource);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(location, xpath, resource);
+	}
 }
