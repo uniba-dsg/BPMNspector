@@ -10,6 +10,13 @@ import api.ValidationException;
 import api.ValidationResult;
 import api.Violation;
 import api.Warning;
+import de.jena.uni.mojo.Mojo;
+import de.jena.uni.mojo.analysis.information.AnalysisInformation;
+import de.jena.uni.mojo.error.AbundanceAnnotation;
+import de.jena.uni.mojo.error.Annotation;
+import de.jena.uni.mojo.error.DeadlockAnnotation;
+import de.jena.uni.mojo.error.EAlarmCategory;
+import de.jena.uni.mojo.interpreter.AbstractEdge;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.activiti.designer.bpmn2.model.BaseElement;
@@ -19,13 +26,6 @@ import org.jdom2.filter.Filters;
 import org.jdom2.located.LocatedElement;
 import org.jdom2.output.XMLOutputter;
 import org.jdom2.xpath.XPathFactory;
-import org.mojo.Mojo;
-import org.mojo.analysis.information.AnalysisInformation;
-import org.mojo.error.AbundanceAnnotation;
-import org.mojo.error.Annotation;
-import org.mojo.error.DeadlockAnnotation;
-import org.mojo.error.EAlarmCategory;
-import org.mojo.interpreter.AbstractEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,37 +45,37 @@ public class MojoValidator implements BpmnProcessValidator {
         LOGGER.debug(processAsString);
         AnalysisInformation analysisInformation = new AnalysisInformation();
         // FIXME Use processAsString information as soon as Mojo is capable to do this
-        List<Annotation> mojoResult = mojo.verify(process.getBaseURI(), processAsString, analysisInformation, StandardCharsets.UTF_8);
+        List<Annotation> mojoResult = mojo.verify(process.getBaseURI(), processAsString, "bpmn.xml", analysisInformation, StandardCharsets.UTF_8);
         //List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
         addMojoResultToValidationResult(mojoResult, result, process);
     }
 
     private void addMojoResultToValidationResult(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess)
             throws ValidationException {
-        if(!mojoResult.isEmpty()) {
-            for(Annotation annotation : mojoResult) {
+        if (!mojoResult.isEmpty()) {
+            for (Annotation annotation : mojoResult) {
                 annotation.printInformation(null);
-                System.out.println("Annotation class: "+annotation.getClass()+" AlarmCategory: "+annotation.getAlarmCategory());
-                if(annotation instanceof DeadlockAnnotation) {
+                System.out.println("Annotation class: " + annotation.getClass() + " AlarmCategory: " + annotation.getAlarmCategory());
+                if (annotation instanceof DeadlockAnnotation) {
                     String message = "Mojo: Process contains a deadlock.\nPaths to deadlock:\n";
                     List<List<AbstractEdge>> listOfPaths = ((DeadlockAnnotation) annotation).getListOfFailurePaths();
-                    for(List<AbstractEdge> path : listOfPaths) {
+                    for (List<AbstractEdge> path : listOfPaths) {
                         message += "Path: ";
-                        for(int i=0; i<path.size(); i++) {
+                        for (int i = 0; i < path.size(); i++) {
                             AbstractEdge edge = path.get(i);
-                            if(edge.source instanceof BaseElement) {
-                                message += edge.source.getClass().getSimpleName()+"["+((BaseElement) edge.source).getId()+"] \u2192 ";
+                            if (edge.source instanceof BaseElement) {
+                                message += edge.source.getClass().getSimpleName() + "[" + ((BaseElement) edge.source).getId() + "] \u2192 ";
                             }
                         }
-                        Object lastTarget = path.get(path.size()-1).target;
-                        message += lastTarget.getClass().getSimpleName()+"["+((BaseElement) lastTarget).getId()+"])";
+                        Object lastTarget = path.get(path.size() - 1).target;
+                        message += lastTarget.getClass().getSimpleName() + "[" + ((BaseElement) lastTarget).getId() + "])";
                         message += "\n";
                     }
                     String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
                     Location locationOfViolation = searchForViolationFile(bpmnId, baseProcess);
                     Violation violation = new Violation(locationOfViolation, message, "Deadlock");
                     validationResult.addViolation(violation);
-                } else if(annotation instanceof AbundanceAnnotation) {
+                } else if (annotation instanceof AbundanceAnnotation) {
                     String message = "Mojo: Process contains a lack of synchronization.";
                     String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
                     Location locationOfViolation = searchForViolationFile(bpmnId, baseProcess);
@@ -84,8 +84,13 @@ public class MojoValidator implements BpmnProcessValidator {
                 } else if (EAlarmCategory.ERROR.equals(annotation.getAlarmCategory())) {
                     throw new ValidationException("Unknown error during mojo execution.");
                 } else if (EAlarmCategory.WARNING.equals(annotation.getAlarmCategory())) {
-                    String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
-                    Location locationOfWarning = searchForViolationFile(bpmnId, baseProcess);
+                    Location locationOfWarning;
+                    if (annotation.getInterpretedPrintableNodes().isEmpty()) {
+                        locationOfWarning = new Location(Paths.get(baseProcess.getBaseURI()).toAbsolutePath(), LocationCoordinate.EMPTY);
+                    } else {
+                        String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
+                        locationOfWarning = searchForViolationFile(bpmnId, baseProcess);
+                    }
                     Warning warning = new Warning(annotation.getDescription(), locationOfWarning);
                     validationResult.addWarning(warning);
                 }
@@ -127,8 +132,7 @@ public class MojoValidator implements BpmnProcessValidator {
     /**
      * creates a xpath expression for finding the id
      *
-     * @param id
-     *            the id, to which the expression should refer
+     * @param id the id, to which the expression should refer
      * @return the xpath expression, which refers the given id
      */
     private static String createIdBpmnExpression(String id) {
