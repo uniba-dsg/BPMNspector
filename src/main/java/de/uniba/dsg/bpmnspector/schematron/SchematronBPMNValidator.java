@@ -1,22 +1,6 @@
 package de.uniba.dsg.bpmnspector.schematron;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.transform.dom.DOMSource;
-
-import api.Location;
-import api.LocationCoordinate;
-import api.UnsortedValidationResult;
-import api.ValidationException;
-import api.ValidationResult;
-import api.Violation;
-import api.Warning;
+import api.*;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.phloc.schematron.ISchematronResource;
@@ -37,6 +21,15 @@ import org.oclc.purl.dsdl.svrl.SchematronOutputType;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import javax.xml.transform.dom.DOMSource;
+import java.io.File;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Does the validation process of the xsd and the schematron validation and
  * returns the results of the validation
@@ -50,6 +43,8 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
     private final PreProcessor preProcessor;
     private final ProcessImporter bpmnImporter;
     private final Ext002Checker ext002Checker;
+
+    private static final Pattern XPATH_ELEM_NUMBER_REGEX = Pattern.compile("(.*)\\[(\\d*)\\]");
 
     private final List<ISchematronResource> schemaToCheck;
     private final static Logger LOGGER = (Logger) LoggerFactory.getLogger(SchematronBPMNValidator.class
@@ -190,33 +185,19 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
 
         Location violationLocation = null;
 
-        String location = "";
-
-        // direct usage of xpath expression failedAssert.getLocation() not possible
-        // when using JDOM - predicates are not supported correctly.
-        // Instead: determine the index of the element to be found and use this
-        // accessor in the list of found elements
-        Pattern p = Pattern.compile("\\[\\d+\\]");
-        Matcher m = p.matcher(failedAssert.getLocation());
-        int xpathIndex = 0;
-        if(m.find()) {
-            xpathIndex = Integer.parseInt(
-                    m.group(0).replace("[", "").replace("]", ""));
-            location = failedAssert.getLocation().replace(m.group(0), "");
-        }
+        String location = fixXPathExpression(failedAssert.getLocation());
 
         LOGGER.debug("XPath to evaluate: "+location);
         XPathFactory fac = XPathFactory.instance();
-        List<Element> elems = fac.compile(location, Filters.element(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluate(
+        Element foundElem = fac.compile(location, Filters.element(), null,
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluateFirst(
                 baseProcess.getProcessAsDoc());
-        LOGGER.debug("Number of found elems: "+elems.size());
+
         String logText;
-        if(elems.size()>=xpathIndex+1) {
-            int line = ((LocatedElement) elems.get(xpathIndex)).getLine();
-            int column = ((LocatedElement) elems.get(xpathIndex)).getColumn();
+        if(foundElem != null) {
+            int line = ((LocatedElement) foundElem).getLine();
+            int column = ((LocatedElement) foundElem).getColumn();
             String fileName = baseProcess.getBaseURI();
-            location = failedAssert.getLocation();
             violationLocation = new Location(
                     Paths.get(fileName).toAbsolutePath(),
                     new LocationCoordinate(line, column), location);
@@ -250,6 +231,27 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
             Violation violation = new Violation(violationLocation, errorMessage, constraint);
             validationResult.addViolation(violation);
         }
+    }
+
+    /**
+     * direct usage of XPath expression failedAssert.getLocation() not possible as the implementation wrongly
+     * starts counting with 0
+     * Thus, the index of the determined location must be increased by 1 first
+     * moreover, the general syntax is not correct as the XPath must be put in brackets
+     *
+     * Example: {@code //startEvent[1] --> (//startEvent)[2]}
+     *
+     * @param location the wrong XPath expression produced by phloc schematron
+     * @return the fixed expression
+     */
+    private String fixXPathExpression(String location) {
+
+        Matcher matcher = XPATH_ELEM_NUMBER_REGEX.matcher(location);
+        if(matcher.find()) {
+            int wrongXPathIndex = Integer.parseInt(matcher.group(2));
+            location = matcher.replaceFirst("("+matcher.group(1)+")[" + (wrongXPathIndex+1) + "]");
+        }
+        return location;
     }
 
     /**
