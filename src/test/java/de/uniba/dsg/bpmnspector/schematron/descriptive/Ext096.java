@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext096 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "A Start Event must not have an incoming sequence flow",
-                "//bpmn:startEvent[0]", 4);
+                "(//bpmn:startEvent)[1]", 4);
     }
 
     @Override

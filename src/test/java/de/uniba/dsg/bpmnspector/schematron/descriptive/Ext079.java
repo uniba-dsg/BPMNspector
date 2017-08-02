@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext079 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "InputOutputSpecifications are not allowed in SubProcesses",
-                "//bpmn:subProcess[0]", 7);
+                "(//bpmn:subProcess)[1]", 7);
     }
 
     @Test

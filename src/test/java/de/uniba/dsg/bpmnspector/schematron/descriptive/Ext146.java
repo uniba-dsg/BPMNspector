@@ -1,13 +1,10 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for testing Constraint EXT.146
@@ -19,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class Ext146 extends TestCase {
 
     private final static String ERRORMESSAGE = "Only messageEventDefininitions, escalationEventDefinitions, errorEventDefinitions, cancelEventDefinitions, compensationEventDefinitions, signalEventDefinitions and terminateEventDefinitions are allowed for end events";
-    private final static String XPATHSTRING = "//bpmn:endEvent[0]";
+    private final static String XPATHSTRING = "(//bpmn:endEvent)[1]";
 
     @Test
     public void testConstraintLinkFail() throws ValidationException {

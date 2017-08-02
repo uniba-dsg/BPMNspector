@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext100 extends TestCase {
                 createFile("fail_event.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                "//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]",
+                "(//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent)[1]",
                 10);
     }
 
@@ -30,7 +30,7 @@ public class Ext100 extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_event_transaction.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:transaction/bpmn:startEvent[0]", 10);
+                "(//bpmn:transaction/bpmn:startEvent)[1]", 10);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class Ext100 extends TestCase {
                 createFile("fail_event_ref.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                "//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent[0]",
+                "(//bpmn:subProcess[@triggeredByEvent = 'false']/bpmn:startEvent)[1]",
                 11);
     }
 

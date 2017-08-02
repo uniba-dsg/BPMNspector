@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class Ext022 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target",
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process][0]", 7);
+                "(//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process])[1]", 7);
     }
 
     @Test

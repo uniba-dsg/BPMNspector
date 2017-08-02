@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -15,7 +15,10 @@ import org.junit.Test;
  */
 public class Ext025 extends TestCase {
 
-    private static final String XPATHSTRING = "//bpmn:sequenceFlow[bpmn:conditionExpression] [not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] [not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] [not(@sourceRef = //bpmn:eventBasedGateway/@id)][0]";
+    private static final String XPATHSTRING = "(//bpmn:sequenceFlow[bpmn:conditionExpression] " +
+            "[not(@sourceRef = //bpmn:exclusiveGateway/@id)] [not(@sourceRef = //bpmn:parallelGateway/@id)] " +
+            "[not(@sourceRef = //bpmn:inclusiveGateway/@id)] [not(@sourceRef = //bpmn:complexGateway/@id)] " +
+            "[not(@sourceRef = //bpmn:eventBasedGateway/@id)])[1]";
 
     @Test
     public void testConstraintNoIncomingFail() throws ValidationException {

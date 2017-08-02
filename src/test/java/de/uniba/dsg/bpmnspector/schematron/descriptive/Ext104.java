@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext104 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "An End Event must not have an outgoing sequence flow",
-                "//bpmn:endEvent[0]", 7);
+                "(//bpmn:endEvent)[1]", 7);
     }
 
     @Test

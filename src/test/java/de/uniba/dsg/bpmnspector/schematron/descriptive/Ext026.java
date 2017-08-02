@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class Ext026 extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_activity.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:task[@default][0]");
+                "(//bpmn:task[@default])[1]");
     }
 
     @Test
@@ -28,7 +28,7 @@ public class Ext026 extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_gateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:exclusiveGateway[@default][0]");
+                "(//bpmn:exclusiveGateway[@default])[1]");
     }
 
     @Test

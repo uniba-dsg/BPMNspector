@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class Ext103 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "If a Start Event is target of a MessageFlow definition, at least one messageEventDefinition must be present",
-                "//bpmn:startEvent[@id = //bpmn:messageFlow/@targetRef][0]", 13);
+                "(//bpmn:startEvent[@id = //bpmn:messageFlow/@targetRef])[1]", 13);
     }
 
     @Test

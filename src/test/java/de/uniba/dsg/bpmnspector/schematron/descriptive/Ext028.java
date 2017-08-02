@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext028 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "A Sequence Flow must not cross the border of a Pool",
-                "//bpmn:sequenceFlow[0]", 16);
+                "(//bpmn:sequenceFlow)[1]", 16);
     }
 
     @Test

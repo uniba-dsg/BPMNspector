@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -25,11 +25,11 @@ public class Ext150 extends TestCase {
                 createFile("fail_normal_sequence_flow_missing_1.bpmn"), 2);
         assertFirstViolation(
                 result.getViolations().get(0),
-                "//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][4]",
+                "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:startEvent])[5]",
                 55);
         assertSecondViolation(
                 result.getViolations().get(1),
-                "//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent][0]",
+                "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:endEvent])[1]",
                 7);
     }
 
@@ -40,11 +40,11 @@ public class Ext150 extends TestCase {
                 createFile("fail_normal_sequence_flow_missing_2.bpmn"), 2);
         assertFirstViolation(
                 result.getViolations().get(0),
-                "//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent][0]",
+                "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent])[1]",
                 8);
         assertSecondViolation(
                 result.getViolations().get(1),
-                "//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent][3]",
+                "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent])[4]",
                 49);
     }
 
@@ -55,10 +55,10 @@ public class Ext150 extends TestCase {
                 createFile("fail_sequence_flow_in_sub_process_missing_1.bpmn"),
                 2);
         assertFirstViolation(result.getViolations().get(0),
-                "//bpmn:parallelGateway[parent::*/bpmn:startEvent][0]", 13);
+                "(//bpmn:parallelGateway[parent::*/bpmn:startEvent])[1]", 13);
         assertSecondViolation(
                 result.getViolations().get(1),
-                "//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent][0]",
+                "(//bpmn:task[@isForCompensation = 'false'] [parent::*/bpmn:endEvent])[1]",
                 10);
     }
 
@@ -71,10 +71,10 @@ public class Ext150 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A Gateway MUST have either multiple incoming Sequence Flows or multiple outgoing Sequence Flows",
-                "//bpmn:parallelGateway[0]", 14);
+                "(//bpmn:parallelGateway)[1]", 14);
         assertFirstViolation(
                 result.getViolations().get(1),
-                "//bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent][0]",
+                "(//bpmn:callActivity[@isForCompensation = 'false'] [parent::*/bpmn:startEvent])[1]",
                 38);
     }
 

@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ public class Ext095 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("Fail.bpmn"),
                 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition[0]",
+                "(//bpmn:intermediateThrowEvent/bpmn:messageEventDefinition)[1]",
                 14);
     }
 
@@ -28,7 +28,7 @@ public class Ext095 extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_end.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:endEvent/bpmn:messageEventDefinition[0]", 10);
+                "(//bpmn:endEvent/bpmn:messageEventDefinition)[1]", 10);
     }
 
     @Test

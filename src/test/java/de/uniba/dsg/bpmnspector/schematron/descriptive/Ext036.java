@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -38,12 +38,12 @@ public class Ext036 extends TestCase {
     private void assertTests(String fileName) throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile(fileName), 3);
         assertViolation(result.getViolations().get(0), ERRORMESSAGESOURCE,
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef and ancestor::bpmn:process][1]", 10);
+                "(//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef and ancestor::bpmn:process])[2]", 10);
         assertViolation(result.getViolations().get(1), ERRORMESSAGETARGET,
-                "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process][1]", 10);
+                "(//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process])[2]", 10);
         assertViolation(result.getViolations().get(2),
                 "A Process must not contain Choreography Activities",
-                "//bpmn:process[0]", 3);
+                "(//bpmn:process)[1]", 3);
     }
 
     @Override

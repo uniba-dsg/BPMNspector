@@ -1,15 +1,11 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import api.Location;
-import api.LocationCoordinate;
-import api.ValidationException;
-import api.ValidationResult;
-import api.Warning;
+import api.*;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -28,7 +24,7 @@ public class Ext076 extends TestCase {
 
         List<Warning> expectedWarnings = new ArrayList<>();
         expectedWarnings.add(new Warning(getErrorMessage(), new Location(createFile("Fail_1.bpmn").toPath(),
-                new LocationCoordinate(5,79), "//bpmn:dataObjectReference[@name][0]")));
+                new LocationCoordinate(5,79), "(//bpmn:dataObjectReference[@name])[1]")));
 
         ValidationResult result = validator.validate(createFile("Fail_1.bpmn"));
 
@@ -40,7 +36,7 @@ public class Ext076 extends TestCase {
     public void testConstraintFail2() throws ValidationException {
         List<Warning> expectedWarnings = new ArrayList<>();
         expectedWarnings.add(new Warning(getErrorMessage(), new Location(createFile("Fail_2.bpmn").toPath(),
-                new LocationCoordinate(5,88), "//bpmn:dataObjectReference[@name][0]")));
+                new LocationCoordinate(5,88), "(//bpmn:dataObjectReference[@name])[1]")));
 
         ValidationResult result = validator.validate(createFile("Fail_2.bpmn"));
 
@@ -52,7 +48,7 @@ public class Ext076 extends TestCase {
     public void testConstraintFail3() throws ValidationException {
         List<Warning> expectedWarnings = new ArrayList<>();
         expectedWarnings.add(new Warning(getErrorMessage(), new Location(createFile("Fail_3.bpmn").toPath(),
-                new LocationCoordinate(5,74), "//bpmn:dataObjectReference[@name][0]")));
+                new LocationCoordinate(5,74), "(//bpmn:dataObjectReference[@name])[1]")));
 
         ValidationResult result = validator.validate(createFile("Fail_3.bpmn"));
 

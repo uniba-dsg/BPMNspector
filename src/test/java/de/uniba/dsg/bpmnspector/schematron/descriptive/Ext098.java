@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import org.junit.Test;
 public class Ext098 extends TestCase {
 
     private final static String ERRORMESSAGE = "Only messageEventDefininitions, timerEventDefinitions, conditionalEventDefinitions and signalEventDefinitions are allowed for top-level process start events";
-    private final static String XPATHSTRING = "//bpmn:startEvent[parent::bpmn:process][0]";
+    private final static String XPATHSTRING = "(//bpmn:startEvent[parent::bpmn:process])[1]";
 
     @Test
     public void testConstraintCancelFail() throws ValidationException {

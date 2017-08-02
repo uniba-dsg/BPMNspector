@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -21,10 +21,10 @@ public class Ext102 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "A message flow must connect 'InteractionNodes' from different Pools",
-                "//bpmn:messageFlow[0]", 7);
+                "(//bpmn:messageFlow)[1]", 7);
         assertViolation(result.getViolations().get(1),
                 "A Start Event MUST NOT be a source for a message flow",
-                "//bpmn:messageFlow[@sourceRef][0]", 7);
+                "(//bpmn:messageFlow[@sourceRef])[1]", 7);
     }
 
     @Override

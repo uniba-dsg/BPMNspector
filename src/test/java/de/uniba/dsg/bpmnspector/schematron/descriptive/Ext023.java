@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class Ext023 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                "//bpmn:sequenceFlow[@targetRef][0]", 10);
+                "(//bpmn:sequenceFlow[@targetRef])[1]", 10);
 
     }
 
@@ -32,7 +32,7 @@ public class Ext023 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
-                "//bpmn:sequenceFlow[@sourceRef][0]", 10);
+                "(//bpmn:sequenceFlow[@sourceRef])[1]", 10);
     }
 
     @Test

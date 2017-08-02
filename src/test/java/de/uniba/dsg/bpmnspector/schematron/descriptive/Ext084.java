@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext084 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "A DataInput must be referenced by at least one InputSet",
-                "//bpmn:dataInput[0]", 5);
+                "(//bpmn:dataInput)[1]", 5);
     }
 
     @Test

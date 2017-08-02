@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class Ext105 extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_end_without_sub-events.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "//bpmn:startEvent[0]",
+        assertViolation(result.getViolations().get(0), "(//bpmn:startEvent)[1]",
                 4);
     }
 
@@ -26,7 +26,7 @@ public class Ext105 extends TestCase {
     public void testConstraintSubFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_with_sub-startevent.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), "//bpmn:startEvent[1]",
+        assertViolation(result.getViolations().get(0), "(//bpmn:startEvent)[2]",
                 10);
     }
 

@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -21,10 +21,10 @@ public class Ext101 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The source element of the sequence flow must reference the SequenceFlow definition using their outgoing attribute.",
-                "//bpmn:sequenceFlow[@sourceRef][0]", 9);
+                "(//bpmn:sequenceFlow[@sourceRef])[1]", 9);
         assertViolation(result.getViolations().get(1),
                 "A startEvent must have a outgoing subelement",
-                "//bpmn:startEvent[0]", 4);
+                "(//bpmn:startEvent)[1]", 4);
     }
 
     @Test

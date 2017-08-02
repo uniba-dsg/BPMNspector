@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.junit.Test;
 public class Ext031 extends TestCase {
 
     private final static String ERRORMESSAGE = "A message flow must connect 'InteractionNodes' from different Pools";
-    private final static String XPATHSTRING = "//bpmn:messageFlow[0]";
+    private final static String XPATHSTRING = "(//bpmn:messageFlow)[1]";
 
     @Test
     public void testConstraintCircleFail() throws ValidationException {
@@ -62,13 +62,13 @@ public class Ext031 extends TestCase {
     private void assertSourceViolation(Violation v) {
         assertViolation(v,
                 "A Start Event MUST NOT be a source for a message flow",
-                "//bpmn:messageFlow[@sourceRef][0]", 7);
+                "(//bpmn:messageFlow[@sourceRef])[1]", 7);
     }
 
     private void assertTargetViolation(Violation v) {
         assertViolation(v,
                 "An End Event MUST NOT be a target for a message flow",
-                "//bpmn:messageFlow[@targetRef][0]", 7);
+                "(//bpmn:messageFlow[@targetRef])[1]", 7);
     }
 
     @Override

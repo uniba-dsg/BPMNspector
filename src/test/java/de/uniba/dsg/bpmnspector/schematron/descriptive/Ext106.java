@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class Ext106 extends TestCase {
     }
 
     private void assertViolation(Violation v, int line) {
-        assertViolation(v, "//bpmn:endEvent[./bpmn:cancelEventDefinition][0]", line);
+        assertViolation(v, "(//bpmn:endEvent[./bpmn:cancelEventDefinition])[1]", line);
     }
 
     @Override

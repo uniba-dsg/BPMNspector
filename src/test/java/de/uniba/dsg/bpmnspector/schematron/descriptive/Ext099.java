@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class Ext099 extends TestCase {
                 createFile("fail_event.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                "//bpmn:process[./@id = //bpmn:callActivity/@calledElement][0]",
+                "(//bpmn:process[./@id = //bpmn:callActivity/@calledElement])[1]",
                 6);
     }
 
@@ -30,7 +30,7 @@ public class Ext099 extends TestCase {
                 createFile("fail_eventref.bpmn"), 1);
         assertViolation(
                 result.getViolations().get(0),
-                "//bpmn:process[./@id = //bpmn:callActivity/@calledElement][0]",
+                "(//bpmn:process[./@id = //bpmn:callActivity/@calledElement])[1]",
                 7);
     }
 

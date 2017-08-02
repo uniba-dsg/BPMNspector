@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -21,9 +21,9 @@ public class Ext135 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("fail.bpmn"),
                 2);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:parallelGateway[0]", 10);
+                "(//bpmn:parallelGateway)[1]", 10);
         assertViolation(result.getViolations().get(1),
-                "//bpmn:parallelGateway[1]", 20);
+                "(//bpmn:parallelGateway)[2]", 20);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class Ext135 extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:parallelGateway[0]", 4);
+                "(//bpmn:parallelGateway)[1]", 4);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class Ext135 extends TestCase {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_ex_no_connection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
-                "//bpmn:exclusiveGateway[0]", 4);
+                "(//bpmn:exclusiveGateway)[1]", 4);
     }
 
     @Test

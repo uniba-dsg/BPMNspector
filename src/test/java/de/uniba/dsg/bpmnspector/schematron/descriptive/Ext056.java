@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -17,32 +17,32 @@ public class Ext056 extends TestCase {
     private final static String ERRORMESSAGETARGET = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the target. However, Activities that are Event SubProcesses are not allowed to be a target";
     private final static String ERRORMESSAGECOREGRAPHY = "A SubProcess must not contain Choreography Activities";
     private final static String ERRORMESSAGESOURCE = "For a Process: Of the types of FlowNode, only Activities, Gateways, and Events can be the source. However, Activities that are Event SubProcesses are not allowed to be a source";
-    private final static String XPATHSTRINGTARGET = "//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process][1]";
-    private final static String XPATHSTRINGSOURCE = "//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef and ancestor::bpmn:process][1]";
+    private final static String XPATHSTRINGTARGET = "(//bpmn:*[./@id = //bpmn:sequenceFlow/@targetRef and ancestor::bpmn:process])[2]";
+    private final static String XPATHSTRINGSOURCE = "(//bpmn:*[./@id = //bpmn:sequenceFlow/@sourceRef and ancestor::bpmn:process])[2]";
 
     @Test
     public void testConstraintCallChoreographyFail()
             throws ValidationException {
-        assertTests("fail_call_choreography.bpmn", "//bpmn:subProcess[0]");
+        assertTests("fail_call_choreography.bpmn", "(//bpmn:subProcess)[1]");
     }
 
     @Test
     public void testConstraintChoreographyTaskFail()
             throws ValidationException {
-        assertTests("fail_choreography_task.bpmn", "//bpmn:subProcess[0]");
+        assertTests("fail_choreography_task.bpmn", "(//bpmn:subProcess)[1]");
     }
 
     @Test
     public void testConstraintChoreographyTaskTransactionFail()
             throws ValidationException {
         assertTests("fail_choreography_task_transaction.bpmn",
-                "//bpmn:transaction[0]");
+                "(//bpmn:transaction)[1]");
     }
 
     @Test
     public void testConstraintSubChoreographyFail()
             throws ValidationException {
-        assertTests("fail_sub_choreography.bpmn", "//bpmn:subProcess[0]");
+        assertTests("fail_sub_choreography.bpmn", "(//bpmn:subProcess)[1]");
     }
 
     private void assertTests(String fileName, String xpath)

@@ -1,7 +1,7 @@
 package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
-import api.ValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -21,10 +21,10 @@ public class Ext107 extends TestCase {
         assertViolation(
                 result.getViolations().get(0),
                 "The target element of the sequence flow must reference the SequenceFlow definition using their incoming attribute.",
-                "//bpmn:sequenceFlow[@targetRef][0]", 9);
+                "(//bpmn:sequenceFlow[@targetRef])[1]", 9);
         assertViolation(result.getViolations().get(1),
                 "An End Event MUST have at least one incoming Sequence Flow",
-                "//bpmn:endEvent[0]", 4);
+                "(//bpmn:endEvent)[1]", 4);
     }
 
     @Test
