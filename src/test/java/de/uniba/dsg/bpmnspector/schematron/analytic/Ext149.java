@@ -23,40 +23,40 @@ public class Ext149 extends TestCase {
     public void testConstraintFailCancelThrow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_cancelThrow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
-                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
+                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]", 7);
     }
 
     @Test
     public void testConstraintFailConditionalThrow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_conditionalThrow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
-                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
+                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]", 7);
     }
 
     @Test
     public void testConstraintFailErrorThrow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_errorThrow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
-                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or" +
+                        " bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]", 7);
     }
 
     @Test
     public void testConstraintFailTerminateThrow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_terminateThrow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
-                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
+                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]", 7);
     }
 
     @Test
     public void testConstraintFailTimerThrow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT149_failure_timerThrow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
-                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:timerEventDefinition or bpmn:errorEventDefinition or " +
+                        "bpmn:cancelEventDefinition or bpmn:conditionalEventDefinition or bpmn:terminateEventDefinition])[1]", 7);
     }
 
     @Override

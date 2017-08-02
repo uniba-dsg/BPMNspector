@@ -21,7 +21,7 @@ public class Ext091 extends TestCase {
     public void testConstraintFailDifferentStructureRef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT091_failure_differentStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:dataInputAssociation[not(./bpmn:transformation)][0]", 14);
+                "(//bpmn:dataInputAssociation[not(./bpmn:transformation)])[1]", 14);
     }
 
     @Test

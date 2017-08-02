@@ -21,14 +21,14 @@ public class Ext117 extends TestCase {
     public void testConstraintFailThrowOutgoing() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT117_failure_throwOutgoing.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[bpmn:linkEventDefinition and bpmn:outgoing][0]", 11);
+                "(//bpmn:intermediateThrowEvent[bpmn:linkEventDefinition and bpmn:outgoing])[1]", 11);
     }
 
     @Test
     public void testConstraintFailCatchIncoming() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT117_failure_catchIncoming.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateCatchEvent[bpmn:linkEventDefinition and bpmn:incoming][0]", 19);
+                "(//bpmn:intermediateCatchEvent[bpmn:linkEventDefinition and bpmn:incoming])[1]", 19);
     }
 
     @Test

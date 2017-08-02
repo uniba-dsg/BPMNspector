@@ -22,28 +22,28 @@ public class Ext119 extends TestCase {
     public void testConstraintFailCatchInOut() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_catchInOut.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_CATCH,
-                "//bpmn:intermediateCatchEvent[bpmn:messageEventDefinition][0]", 10);
+                "(//bpmn:intermediateCatchEvent[bpmn:messageEventDefinition])[1]", 10);
     }
 
     @Test
     public void testConstraintFailCatchOutgoing() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_catchOutgoing.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_CATCH,
-                "//bpmn:intermediateCatchEvent[bpmn:messageEventDefinition][0]", 10);
+                "(//bpmn:intermediateCatchEvent[bpmn:messageEventDefinition])[1]", 10);
     }
 
     @Test
     public void testConstraintFailThrowInOut() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_throwInOut.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_THROW,
-                "//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition])[1]", 7);
     }
 
     @Test
     public void testConstraintFailThrowIncoming() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT119_failure_throwIncoming.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_THROW,
-                "//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition][0]", 7);
+                "(//bpmn:intermediateThrowEvent[bpmn:messageEventDefinition])[1]", 7);
     }
 
     @Test

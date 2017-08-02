@@ -22,14 +22,14 @@ public class Ext123 extends TestCase {
     public void testConstraintFailEmptyCondition() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT123_failure_emptyCondition.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 7);
+                "(//bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 7);
     }
 
     @Test
     public void testConstraintFailNoFormalCondition() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT123_failure_noFormalCondition.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 7);
+                "(//bpmn:conditionalEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 7);
     }
 
     @Test

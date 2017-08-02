@@ -21,7 +21,7 @@ public class Ext114 extends TestCase {
     public void testConstraintFailCompensateSeqFlow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT114_failure_compensateSeqFlow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:boundaryEvent[bpmn:compensateEventDefinition][0]", 16);
+                "(//bpmn:boundaryEvent[bpmn:compensateEventDefinition])[1]", 16);
     }
 
     @Test

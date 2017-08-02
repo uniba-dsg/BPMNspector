@@ -22,7 +22,7 @@ public class Ext140 extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT140_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:receiveTask[@id=//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing]/@targetRef][0]", 19);
+                "(//bpmn:receiveTask[@id=//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing]/@targetRef])[1]", 19);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Ext118 extends TestCase {
     public void testConstraintFailNoTarget() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT118_failure_wrongTarget.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:linkEventDefinition[bpmn:target][1]", 19);
+                "(//bpmn:linkEventDefinition[bpmn:target])[2]", 19);
     }
 
     @Test

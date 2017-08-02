@@ -21,7 +21,7 @@ public class Ext137 extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT137_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing][0]", 18);
+                "(//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing])[1]", 18);
     }
 
     @Override

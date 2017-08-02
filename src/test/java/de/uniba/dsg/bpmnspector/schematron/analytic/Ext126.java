@@ -21,7 +21,7 @@ public class Ext126 extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT126_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:linkEventDefinition[parent::bpmn:intermediateThrowEvent and bpmn:target][0]", 19);
+                "(//bpmn:linkEventDefinition[parent::bpmn:intermediateThrowEvent and bpmn:target])[1]", 19);
     }
 
     @Test

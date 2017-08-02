@@ -21,7 +21,7 @@ public class Ext136 extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT136_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:eventBasedGateway[0]", 4);
+                "(//bpmn:eventBasedGateway)[1]", 4);
     }
 
     @Test

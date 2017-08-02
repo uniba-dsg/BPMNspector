@@ -21,14 +21,14 @@ public class Ext111 extends TestCase {
     public void testConstraintFailCancelSubProcess() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT111_failure_cancel_subprocess.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:boundaryEvent[bpmn:cancelEventDefinition][0]", 16);
+                "(//bpmn:boundaryEvent[bpmn:cancelEventDefinition])[1]", 16);
     }
 
     @Test
     public void testConstraintFailCancelTask() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT111_failure_cancel_task.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:boundaryEvent[bpmn:cancelEventDefinition][0]", 16);
+                "(//bpmn:boundaryEvent[bpmn:cancelEventDefinition])[1]", 16);
     }
 
 

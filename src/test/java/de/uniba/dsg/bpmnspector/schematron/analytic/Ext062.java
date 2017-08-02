@@ -22,21 +22,21 @@ public class Ext062 extends TestCase {
     public void testConstraintFailStartEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(result.getViolations().get(1), ERR_MSG,
-                "//bpmn:adHocSubProcess[0]", 7);
+                "(//bpmn:adHocSubProcess)[1]", 7);
     }
 
     @Test
     public void testConstraintFailEndEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(result.getViolations().get(1), ERR_MSG,
-                "//bpmn:adHocSubProcess[0]", 7);
+                "(//bpmn:adHocSubProcess)[1]", 7);
     }
 
     @Test
     public void testConstraintFailChorActivity() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT062_failure_StartEvent.bpmn"), 2);
         assertViolation(result.getViolations().get(1), ERR_MSG,
-                "//bpmn:adHocSubProcess[0]", 7);
+                "(//bpmn:adHocSubProcess)[1]", 7);
     }
     @Test
     public void testConstraintSuccess() throws ValidationException {

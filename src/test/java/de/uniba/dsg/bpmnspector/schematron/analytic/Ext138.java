@@ -23,21 +23,21 @@ public class Ext138 extends TestCase {
     public void testConstraintFailInvalidEventType() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT138_failure_invalidEventType.bpmn"), 2);
         assertViolation(result.getViolations().get(1), ERR_MSG,
-                "//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing][1]", 45);
+                "(//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing])[2]", 45);
     }
 
     @Test
     public void testConstraintFailThrowEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT138_failure_invalidThrowEvent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing][1]", 24);
+                "(//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing])[2]", 24);
     }
 
     @Test
     public void testConstraintFailInvalidTaskType() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT138_failure_invalidTaskType.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing][1]", 24);
+                "(//bpmn:sequenceFlow[@id=//bpmn:eventBasedGateway/bpmn:outgoing])[2]", 24);
     }
 
     @Test

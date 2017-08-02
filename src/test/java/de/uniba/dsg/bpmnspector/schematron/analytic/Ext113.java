@@ -21,7 +21,7 @@ public class Ext113 extends TestCase {
     public void testConstraintFailNoSeqFlow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT113_failure_noSeqFlow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:boundaryEvent[not(bpmn:outgoing)][0]", 16);
+                "(//bpmn:boundaryEvent[not(bpmn:outgoing)])[1]", 16);
     }
 
 

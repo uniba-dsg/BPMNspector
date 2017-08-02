@@ -21,7 +21,7 @@ public class Ext124 extends TestCase {
     public void testConstraintFailNoSource() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT124_failure_noSource.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:linkEventDefinition[parent::bpmn:intermediateCatchEvent][0]", 9);
+                "(//bpmn:linkEventDefinition[parent::bpmn:intermediateCatchEvent])[1]", 9);
     }
 
 

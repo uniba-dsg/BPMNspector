@@ -22,7 +22,7 @@ public class Ext144 extends TestCase {
     public void testConstraintFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT144_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:boundaryEvent[bpmn:compensateEventDefinition][0]", 5);
+                "(//bpmn:boundaryEvent[bpmn:compensateEventDefinition])[1]", 5);
     }
 
     @Override

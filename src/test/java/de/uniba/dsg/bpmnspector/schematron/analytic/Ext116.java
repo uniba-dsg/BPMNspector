@@ -21,14 +21,14 @@ public class Ext116 extends TestCase {
     public void testConstraintFailNoOutgoing() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT116_failure_noOutgoing.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateThrowEvent[not(bpmn:linkEventDefinition) and not(bpmn:outgoing)][0]", 11);
+                "(//bpmn:intermediateThrowEvent[not(bpmn:linkEventDefinition) and not(bpmn:outgoing)])[1]", 11);
     }
 
     @Test
     public void testConstraintFailNoOutgoingCatch() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT116_failure_noOutgoingCatch.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:intermediateCatchEvent[not(bpmn:outgoing)][0]", 11);
+                "(//bpmn:intermediateCatchEvent[not(bpmn:outgoing)])[1]", 11);
     }
 
 
