@@ -29,42 +29,42 @@ public class Ext059 extends TestCase {
     public void testConstraintFailNoEventDef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_no_eventDef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT,
-                "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[0]", 28);
+                "(//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent)[1]", 28);
     }
 
     @Test
     public void testConstraintFailIllegalCancelEventDef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_cancelEventDef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT+ERR_CANCEL,
-                "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[0]", 28);
+                "(//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent)[1]", 28);
     }
 
     @Test
     public void testConstraintFailIllegalLinkEventDef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_linkEventDef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT+ERR_LINK,
-                "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[0]", 28);
+                "(//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent)[1]", 28);
     }
 
     @Test
     public void testConstraintFailIllegalTerminateEventDef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_illegal_terminateEventDef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT+ERR_TERMINATE,
-                "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[0]", 28);
+                "(//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent)[1]", 28);
     }
 
     @Test
     public void testConstraintFailNonInterruptingIllegalCompensateEventDef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_nonInterrupting_illegal_compensateEventDef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT+ERR_NONINTERRUPTING_COMPENSATE,
-                "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[@isInterrupting='false'][0]", 28);
+                "(//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[@isInterrupting='false'])[1]", 28);
     }
 
     @Test
     public void testConstraintFailNonInterruptingIllegalErrorEventDef() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT059_fail_nonInterrupting_illegal_errorEventDef.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG_DEFAULT+ERR_NONINTERRUPTING_ERROR,
-                "//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[@isInterrupting='false'][0]", 28);
+                "(//bpmn:subProcess[@triggeredByEvent='true']/bpmn:startEvent[@isInterrupting='false'])[1]", 28);
     }
 
     @Test

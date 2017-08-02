@@ -22,7 +22,7 @@ public class Ext057 extends TestCase {
                 2);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,
-                "//bpmn:subProcess[@triggeredByEvent='true'][0]", 30);
+                "(//bpmn:subProcess[@triggeredByEvent='true'])[1]", 30);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class Ext057 extends TestCase {
                 2);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,
-                "//bpmn:subProcess[@triggeredByEvent='true'][0]", 30);
+                "(//bpmn:subProcess[@triggeredByEvent='true'])[1]", 30);
     }
 
     @Test

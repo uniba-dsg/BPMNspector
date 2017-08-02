@@ -22,7 +22,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_adHocSubProcess.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:adHocSubProcess[bpmn:completionCondition and ancestor::bpmn:process[@isExecutable='true']][0]", 7);
+                "(//bpmn:adHocSubProcess[bpmn:completionCondition and ancestor::bpmn:process[@isExecutable='true']])[1]", 7);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_assignment.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:assignment[ancestor::bpmn:process[@isExecutable='true']][0]", 21);
+                "(//bpmn:assignment[ancestor::bpmn:process[@isExecutable='true']])[1]", 21);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_complexGateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:complexGateway[bpmn:activationCondition and ancestor::bpmn:process[@isExecutable='true']][0]", 18);
+                "(//bpmn:complexGateway[bpmn:activationCondition and ancestor::bpmn:process[@isExecutable='true']])[1]", 18);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_multiInstanceLoopCharacteristics_invalidCardinality.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:multiInstanceLoopCharacteristics[bpmn:loopCardinality and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
+                "(//bpmn:multiInstanceLoopCharacteristics[bpmn:loopCardinality and ancestor::bpmn:process[@isExecutable='true']])[1]", 10);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_multiInstanceLoopCharacteristics_invalidCompletionCondition.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:multiInstanceLoopCharacteristics[bpmn:completionCondition and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
+                "(//bpmn:multiInstanceLoopCharacteristics[bpmn:completionCondition and ancestor::bpmn:process[@isExecutable='true']])[1]", 10);
     }
 
     @Test
@@ -88,7 +88,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_sequenceFlow.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:sequenceFlow[bpmn:conditionExpression and ancestor::bpmn:process[@isExecutable='true']][0]", 16);
+                "(//bpmn:sequenceFlow[bpmn:conditionExpression and ancestor::bpmn:process[@isExecutable='true']])[1]", 16);
     }
 
     @Test
@@ -101,7 +101,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_standardLoopCharacteristics.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:standardLoopCharacteristics[bpmn:loopCondition and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
+                "(//bpmn:standardLoopCharacteristics[bpmn:loopCondition and ancestor::bpmn:process[@isExecutable='true']])[1]", 10);
     }
 
     @Test
@@ -114,7 +114,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeCycle.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
+                "(//bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']])[1]", 10);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeDate.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
+                "(//bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']])[1]", 10);
     }
 
     @Test
@@ -140,7 +140,7 @@ public class Ext012 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT012_failure_timerEvent_timeDuration.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']][0]", 10);
+                "(//bpmn:timerEventDefinition[(bpmn:timeDate or bpmn:timeDuration or bpmn:timeCycle) and ancestor::bpmn:process[@isExecutable='true']])[1]", 10);
     }
 
     @Test
