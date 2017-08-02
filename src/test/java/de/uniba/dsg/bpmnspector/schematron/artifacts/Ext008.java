@@ -13,7 +13,7 @@ public class Ext008 extends AbstractArtifactTest {
 
     @Override
     protected void assertViolation(Violation v) {
-        assertViolation(v, "//bpmn:messageFlow[@targetRef][0]", 7);
+        assertViolation(v, "(//bpmn:messageFlow[@targetRef])[1]", 7);
     }
 
     @Override
