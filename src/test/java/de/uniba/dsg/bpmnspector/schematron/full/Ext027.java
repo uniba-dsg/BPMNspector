@@ -21,7 +21,7 @@ public class Ext027 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT027_failure_choreography.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:choreography[bpmn:choreographyRef][0]", 3);
+                "(//bpmn:choreography[bpmn:choreographyRef])[1]", 3);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext027 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT027_failure_globalConversation.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:globalConversation[bpmn:choreographyRef][0]", 14);
+                "(//bpmn:globalConversation[bpmn:choreographyRef])[1]", 14);
     }
 
     @Test

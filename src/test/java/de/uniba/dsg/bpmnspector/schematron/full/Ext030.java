@@ -21,7 +21,7 @@ public class Ext030 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT030_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:participantMultiplicity[1]", 8);
+                "(//bpmn:participantMultiplicity)[2]", 8);
     }
 
     @Test

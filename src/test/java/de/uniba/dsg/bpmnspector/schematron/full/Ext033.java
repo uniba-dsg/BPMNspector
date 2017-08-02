@@ -22,7 +22,7 @@ public class Ext033 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT033_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:collaboration[bpmn:choreographyRef][0]", 29);
+                "(//bpmn:collaboration[bpmn:choreographyRef])[1]", 29);
     }
 
     @Test

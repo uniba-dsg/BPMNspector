@@ -21,7 +21,7 @@ public class Ext038 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT038_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[@completionQuantity][0]", 7);
+                "(//bpmn:*[@completionQuantity])[1]", 7);
     }
 
     @Test

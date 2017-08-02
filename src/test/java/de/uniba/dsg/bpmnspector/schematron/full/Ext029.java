@@ -21,7 +21,7 @@ public class Ext029 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT029_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:participantMultiplicity[@minimum][1]", 8);
+                "(//bpmn:participantMultiplicity[@minimum])[2]", 8);
     }
 
     @Test

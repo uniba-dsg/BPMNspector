@@ -22,7 +22,7 @@ public class Ext032 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT032_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:globalConversation[0]", 3);
+                "(//bpmn:globalConversation)[1]", 3);
     }
 
     @Test
