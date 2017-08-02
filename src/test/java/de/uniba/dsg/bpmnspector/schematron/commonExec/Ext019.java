@@ -21,7 +21,7 @@ public class Ext019 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT019_failure_exclusiveDiverging.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[@gatewayDirection='Mixed'][0]", 12);
+                "(//bpmn:*[@gatewayDirection='Mixed'])[1]", 12);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext019 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT019_failure_parallelConverging.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[@gatewayDirection='Mixed'][0]", 18);
+                "(//bpmn:*[@gatewayDirection='Mixed'])[1]", 18);
     }
 
     @Test

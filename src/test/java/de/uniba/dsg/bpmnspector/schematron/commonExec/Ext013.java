@@ -22,7 +22,7 @@ public class Ext013 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_timerEvent_timeDate_noBody.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[contains(@*[local-name()='type'],'tFormalExpression')][0]", 11);
+                "(//bpmn:*[contains(@*[local-name()='type'],'tFormalExpression')])[1]", 11);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class Ext013 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_transformation.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:transformation[0]", 21);
+                "(//bpmn:transformation)[1]", 21);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class Ext013 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_complexBehaviorDefinition.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:condition[parent::bpmn:complexBehaviorDefinition][0]", 15);
+                "(//bpmn:condition[parent::bpmn:complexBehaviorDefinition])[1]", 15);
     }
 
     @Test
@@ -56,10 +56,10 @@ public class Ext013 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT013_failure_correlation.bpmn"), 2);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,
-                "//bpmn:messagePath[0]", 9);
+                "(//bpmn:messagePath)[1]", 9);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:dataPath[0]", 21);
+                "(//bpmn:dataPath)[1]", 21);
     }
 
     @Test

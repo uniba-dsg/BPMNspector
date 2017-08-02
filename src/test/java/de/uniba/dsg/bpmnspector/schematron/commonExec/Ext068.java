@@ -22,8 +22,7 @@ public class Ext068 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT068_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:multiInstanceLoopCharacteristics[bpmn:loopDataInputRef and not(parent::bpmn:subProcess) and " +
-                        "ancestor::bpmn:process[@isExecutable='true']][0]", 18);
+                "(//bpmn:multiInstanceLoopCharacteristics[bpmn:loopDataInputRef and not(parent::bpmn:subProcess) and ancestor::bpmn:process[@isExecutable='true']])[1]", 18);
     }
 
     @Override

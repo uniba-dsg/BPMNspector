@@ -21,7 +21,7 @@ public class Ext018 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT018_failure_exclusiveGateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[@gatewayDirection='Diverging'][1]", 13);
+                "(//bpmn:*[@gatewayDirection='Diverging'])[2]", 13);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext018 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT018_failure_parallelGateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[@gatewayDirection='Diverging'][1]", 13);
+                "(//bpmn:*[@gatewayDirection='Diverging'])[2]", 13);
     }
 
 

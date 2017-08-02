@@ -24,7 +24,7 @@ public class Ext063 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_additionalInput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:callActivity[@calledElement][0]", 62);
+                "(//bpmn:callActivity[@calledElement])[1]", 62);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class Ext063 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_inputMissing.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:callActivity[@calledElement][0]", 62);
+                "(//bpmn:callActivity[@calledElement])[1]", 62);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class Ext063 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_outputMissing.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:callActivity[@calledElement][0]", 62);
+                "(//bpmn:callActivity[@calledElement])[1]", 62);
     }
 
     @Test
@@ -48,10 +48,10 @@ public class Ext063 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_itemsNotMatching.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:outputSet[ancestor::bpmn:callActivity and node()][0]", 73);
+                "(//bpmn:outputSet[ancestor::bpmn:callActivity and node()])[1]", 73);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,
-                "//bpmn:dataOutput[ancestor::bpmn:callActivity][0]", 69);
+                "(//bpmn:dataOutput[ancestor::bpmn:callActivity])[1]", 69);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class Ext063 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledGlobalTask_additionalOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:callActivity[@calledElement][0]", 16);
+                "(//bpmn:callActivity[@calledElement])[1]", 16);
     }
     
     @Test

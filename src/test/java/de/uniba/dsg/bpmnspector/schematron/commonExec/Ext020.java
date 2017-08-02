@@ -21,7 +21,7 @@ public class Ext020 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataInput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:dataInput[@itemSubjectRef][0]", 12);
+                "(//bpmn:dataInput[@itemSubjectRef])[1]", 12);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext020 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataInput_defaultValue.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:dataInput[@itemSubjectRef][0]", 12);
+                "(//bpmn:dataInput[@itemSubjectRef])[1]", 12);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class Ext020 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataOutput.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:dataOutput[@itemSubjectRef][0]", 12);
+                "(//bpmn:dataOutput[@itemSubjectRef])[1]", 12);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class Ext020 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT020_failure_dataObject.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:dataObject[@itemSubjectRef][0]", 32);
+                "(//bpmn:dataObject[@itemSubjectRef])[1]", 32);
     }
 
     @Test

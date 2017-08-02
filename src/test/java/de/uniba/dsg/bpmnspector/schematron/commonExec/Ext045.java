@@ -22,7 +22,7 @@ public class Ext045 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT045_failure_differentItemDef_noStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:serviceTask[@operationRef][0]", 17);
+                "(//bpmn:serviceTask[@operationRef])[1]", 17);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class Ext045 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT045_failure_differentItemDef_unequalStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:serviceTask[@operationRef][0]", 17);
+                "(//bpmn:serviceTask[@operationRef])[1]", 17);
     }
 
     @Test

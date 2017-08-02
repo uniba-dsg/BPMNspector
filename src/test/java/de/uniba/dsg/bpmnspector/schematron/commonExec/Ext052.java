@@ -21,7 +21,7 @@ public class Ext052 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT052_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput][0]", 9);
+                "(//bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput])[1]", 9);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext052 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT052_failure_differentItemDef_unequalStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput][0]", 10);
+                "(//bpmn:receiveTask[bpmn:ioSpecification/bpmn:dataOutput])[1]", 10);
     }
 
     @Test

@@ -21,7 +21,7 @@ public class Ext049 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT049_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:receiveTask[@instantiate='true'][0]", 4);
+                "(//bpmn:receiveTask[@instantiate='true'])[1]", 4);
     }
 
     @Test

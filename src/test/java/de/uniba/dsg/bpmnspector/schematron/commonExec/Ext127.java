@@ -20,35 +20,35 @@ public class Ext127 extends TestCase {
     public void testConstraintFailBoundary() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT127_failure_boundary.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 25);
+                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 25);
     }
 
     @Test
     public void testConstraintFailEndEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT127_failure_endEvent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 16);
+                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 16);
     }
 
     @Test
     public void testConstraintFailIntCatch() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT127_failure_intCatch.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 20);
+                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 20);
     }
 
     @Test
     public void testConstraintFailIntThrow() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT127_failure_intThrow.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 20);
+                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 20);
     }
 
     @Test
     public void testConstraintFailStartEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT127_failure_startEvent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']][0]", 13);
+                "(//bpmn:messageEventDefinition[ancestor::bpmn:process[@isExecutable='true']])[1]", 13);
     }
 
     @Test

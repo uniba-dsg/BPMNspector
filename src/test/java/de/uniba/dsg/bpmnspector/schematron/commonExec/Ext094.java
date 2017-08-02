@@ -21,28 +21,28 @@ public class Ext094 extends TestCase {
     public void testConstraintFailMultiple() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT094_failure_multiple.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:signalEventDefinition[preceding-sibling::bpmn:dataInput][0]", 36);
+                "(//bpmn:signalEventDefinition[preceding-sibling::bpmn:dataInput])[1]", 36);
     }
 
     @Test
     public void testConstraintFailSingleErrorEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT094_failure_singleErrorEvent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:errorEventDefinition[preceding-sibling::bpmn:dataInput][0]", 24);
+                "(//bpmn:errorEventDefinition[preceding-sibling::bpmn:dataInput])[1]", 24);
     }
 
     @Test
     public void testConstraintFailSingleEscalationEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT094_failure_singleEscalationEvent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:escalationEventDefinition[preceding-sibling::bpmn:dataInput][0]", 24);
+                "(//bpmn:escalationEventDefinition[preceding-sibling::bpmn:dataInput])[1]", 24);
     }
 
     @Test
     public void testConstraintFailSingleMessageEvent() throws ValidationException {
         ValidationResult result = verifyInvalidResult(createFile("EXT094_failure_singleMessageEvent.bpmn"), 1);
         assertViolation(result.getViolations().get(0), ERR_MSG,
-                "//bpmn:messageEventDefinition[preceding-sibling::bpmn:dataOutput][0]", 22);
+                "(//bpmn:messageEventDefinition[preceding-sibling::bpmn:dataOutput])[1]", 22);
     }
 
     @Test

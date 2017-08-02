@@ -21,7 +21,7 @@ public class Ext017 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT017_failure_exclusiveGateway.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[@gatewayDirection='Converging'][0]", 7);
+                "(//bpmn:*[@gatewayDirection='Converging'])[1]", 7);
     }
 
     @Test

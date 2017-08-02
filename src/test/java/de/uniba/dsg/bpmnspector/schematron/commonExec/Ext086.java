@@ -20,7 +20,7 @@ public class Ext086 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "A whileExecutingInputRef must be listed as dataInputRef.",
-                "//bpmn:inputSet[bpmn:whileExecutingInputRefs][0]", 7);
+                "(//bpmn:inputSet[bpmn:whileExecutingInputRefs])[1]", 7);
     }
 
     @Test

@@ -21,7 +21,7 @@ public class Ext069 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT069_failure_isCollection.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataOutputRef and bpmn:outputDataItem][0]", 19);
+                "(//bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataOutputRef and bpmn:outputDataItem])[1]", 19);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext069 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT069_failure_unequalStructureRef.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataOutputRef and bpmn:outputDataItem][0]", 19);
+                "(//bpmn:multiInstanceLoopCharacteristics[ancestor::bpmn:process[@isExecutable='true'] and bpmn:loopDataOutputRef and bpmn:outputDataItem])[1]", 19);
     }
 
     @Test

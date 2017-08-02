@@ -21,7 +21,7 @@ public class Ext064 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT064_failure_calledProcess.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[bpmn:supportedInterfaceRef][0]", 21);
+                "(//bpmn:*[bpmn:supportedInterfaceRef])[1]", 21);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class Ext064 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT064_failure_calledGlobalTask.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[bpmn:supportedInterfaceRef][0]", 54);
+                "(//bpmn:*[bpmn:supportedInterfaceRef])[1]", 54);
     }
     
     @Test

@@ -21,7 +21,7 @@ public class Ext053 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT053_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:scriptTask[bpmn:script][0]", 7);
+                "(//bpmn:scriptTask[bpmn:script])[1]", 7);
     }
 
     @Test

@@ -21,7 +21,7 @@ public class Ext035 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT035_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:process[@processType='Public'][0]", 3);
+                "(//bpmn:process[@processType='Public'])[1]", 3);
     }
 
     @Test

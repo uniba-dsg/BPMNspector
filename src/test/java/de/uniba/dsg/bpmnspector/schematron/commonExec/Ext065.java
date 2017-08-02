@@ -22,7 +22,7 @@ public class Ext065 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT065_failure_calledProcess_wrongInputData.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding][0]", 19);
+                "(//bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding])[1]", 19);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class Ext065 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT065_failure_calledGlobalTask_wrongOutputData.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding][0]", 14);
+                "(//bpmn:*[bpmn:supportedInterfaceRef and bpmn:ioBinding])[1]", 14);
     }
 
 

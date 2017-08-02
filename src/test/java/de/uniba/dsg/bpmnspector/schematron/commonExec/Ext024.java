@@ -21,7 +21,7 @@ public class Ext024 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT024_failure.bpmn"), 1);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "//bpmn:sequenceFlow[@isImmediate='false'][0]", 10);
+                "(//bpmn:sequenceFlow[@isImmediate='false'])[1]", 10);
     }
 
     @Test

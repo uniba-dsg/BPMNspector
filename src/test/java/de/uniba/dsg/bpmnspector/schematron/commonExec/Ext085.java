@@ -20,7 +20,7 @@ public class Ext085 extends TestCase {
                 1);
         assertViolation(result.getViolations().get(0),
                 "An optionalInputRef must be listed as dataInputRef.",
-                "//bpmn:inputSet[bpmn:optionalInputRefs][0]", 7);
+                "(//bpmn:inputSet[bpmn:optionalInputRefs])[1]", 7);
     }
 
     @Test
