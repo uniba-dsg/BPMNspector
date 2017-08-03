@@ -4,6 +4,7 @@ import org.jdom2.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -94,5 +95,21 @@ public class BPMNProcess {
     private String createPrefixForProcess() {
 
         return "ns"+(this.namespace+this.baseURI).hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BPMNProcess that = (BPMNProcess) o;
+        System.out.println(processAsDoc.toString());
+        return  Objects.equals(baseURI, that.baseURI) &&
+                Objects.equals(namespace, that.namespace) &&
+                processAsDoc.toString().equals(that.processAsDoc.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(baseURI, namespace);
     }
 }

@@ -47,17 +47,26 @@ public class ProcessImporter {
         wsdlValidator = new WsdlValidator();
     }
 
-    public BPMNProcess importProcessFromPath(Path path, ValidationResult result)
+    public BPMNProcess importProcessFromPath(Path path, ValidationResult result) throws ValidationException {
+        return importProcessFromPath(path, result, true);
+    }
+
+    public BPMNProcess importProcessFromPath(Path path, ValidationResult result, boolean removeDI)
             throws ValidationException {
         if(Files.notExists(path) || !Files.isRegularFile(path)) {
             String msg = "BPMNProcess cannot be created: Path "+path+" is invalid.";
             throw new ValidationException(msg);
         }
         Resource resource = new Resource(path);
-        return importProcessRecursively(resource, null, null, result);
+        return importProcessRecursively(resource, null, null, result, removeDI);
     }
 
     public BPMNProcess importProcessFromStreamSource(InputStream src, String resourceName, ValidationResult result)
+            throws ValidationException {
+        return importProcessFromStreamSource(src, resourceName, result, true);
+    }
+
+    public BPMNProcess importProcessFromStreamSource(InputStream src, String resourceName, ValidationResult result, boolean removeDI)
             throws ValidationException {
         try {
             Resource resource = new Resource(resourceName);
@@ -71,8 +80,10 @@ public class ProcessImporter {
 
                 BPMNProcess process = new BPMNProcess(processAsDoc, resourceName, processNamespace, null);
 
-                // remove BPMNDI information
-                processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
+                if(removeDI) {
+                    // remove BPMNDI information
+                    processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
+                }
 
                 return process;
             } else {
@@ -90,7 +101,7 @@ public class ProcessImporter {
         }
     }
 
-    private BPMNProcess importProcessRecursively(Resource resource, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result)
+    private BPMNProcess importProcessRecursively(Resource resource, BPMNProcess parent, BPMNProcess rootProcess, ValidationResult result, boolean removeDI)
             throws ValidationException {
         result.addResource(resource);
         try (InputStream stream = openStreamToResource(resource)) {
@@ -104,13 +115,15 @@ public class ProcessImporter {
 
                     BPMNProcess process = new BPMNProcess(processAsDoc, resource.getResourceName(), processNamespace, parent);
 
-                    // remove BPMNDI information
-                    processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
+                    if(removeDI) {
+                        // remove BPMNDI information
+                        processAsDoc.getRootElement().removeChildren("BPMNDiagram", getBPMNDINamespace());
+                    }
 
                     if (rootProcess == null) {
-                        resolveAndAddImports(process, process, result);
+                        resolveAndAddImports(process, process, result, removeDI);
                     } else {
-                        resolveAndAddImports(process, rootProcess, result);
+                        resolveAndAddImports(process, rootProcess, result, removeDI);
                     }
                     return process;
                 } else {
@@ -132,7 +145,7 @@ public class ProcessImporter {
         }
     }
 
-    private void resolveAndAddImports(BPMNProcess process, BPMNProcess rootProcess, ValidationResult result)
+    private void resolveAndAddImports(BPMNProcess process, BPMNProcess rootProcess, ValidationResult result, boolean removeDI)
             throws ValidationException {
 
         List<Element> importElements = process.getProcessAsDoc().getRootElement().getChildren("import", getBPMNNamespace());
@@ -195,7 +208,7 @@ public class ProcessImporter {
                     if (!isFileAlreadyImported(resource.getResourceName(), rootProcess)) {
                         try {
                             BPMNProcess importedProcess = importProcessRecursively(resource, process, rootProcess,
-                                    result);
+                                    result, removeDI);
 
                             if (importedProcess != null) {
                                 process.getChildren().add(importedProcess);
