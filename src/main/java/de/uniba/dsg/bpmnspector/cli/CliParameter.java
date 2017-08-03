@@ -1,5 +1,6 @@
 package de.uniba.dsg.bpmnspector.cli;
 
+import de.uniba.dsg.bpmnspector.FixOption;
 import de.uniba.dsg.bpmnspector.ReportOption;
 import de.uniba.dsg.bpmnspector.ValidationOption;
 
@@ -31,4 +32,8 @@ public interface CliParameter {
     }
 
     default boolean showHelpOnly() { return true; }
+
+    default FixOption getFixOption() {
+        return FixOption.NONE;
+    }
 }

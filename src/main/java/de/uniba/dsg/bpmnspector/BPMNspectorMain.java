@@ -3,6 +3,8 @@ package de.uniba.dsg.bpmnspector;
 
 import api.ValidationException;
 import api.ValidationResult;
+import de.uniba.dsg.bpmnspector.autofix.FixReport;
+import de.uniba.dsg.bpmnspector.cli.AutoFixController;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliException;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
@@ -52,6 +54,7 @@ public class BPMNspectorMain {
                         } else {
                             ValidationResult result = inspector.inspectFile(path,
                                     params.getValidationOptions());
+                            FixReport fixReport = fixProblems(result, params.getFixOption(), path);
                             createReport(result, params.getReportOption(), params.isOpenReport());
                         }
 
@@ -68,6 +71,11 @@ public class BPMNspectorMain {
             LOGGER.error(e.getMessage());
             cli.printUsageInformation();
         }
+    }
+
+    private static FixReport fixProblems(ValidationResult result, FixOption fixOption, Path path) throws ValidationException {
+        AutoFixController controller = new AutoFixController();
+        return controller.fixProblems(result, fixOption, path);
     }
 
     private static void setDebugLevel() {

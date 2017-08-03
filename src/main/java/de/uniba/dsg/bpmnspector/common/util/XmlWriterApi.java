@@ -3,6 +3,7 @@ package de.uniba.dsg.bpmnspector.common.util;
 import api.ValidationResult;
 import api.Violation;
 import api.Warning;
+import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import org.jdom2.*;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -11,7 +12,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 
 /**
@@ -29,6 +34,16 @@ public class XmlWriterApi {
 
     private final JDOMFactory factory = new DefaultJDOMFactory();
     private final Namespace nsp = Namespace.getNamespace(ConstantHelper.PINAMESPACE);
+
+    public static void writeBPMNProcess(BPMNProcess process, Path targetPath) throws IOException {
+        XMLOutputter outputter = new XMLOutputter();
+        outputter.setFormat(Format.getPrettyFormat());
+
+        try (Writer writer = Files.newBufferedWriter(targetPath, StandardCharsets.UTF_8, StandardOpenOption.CREATE)) {
+            outputter.output(process.getProcessAsDoc(), writer);
+        }
+
+    }
 
     public static Path createXmlReport(ValidationResult result) {
         try {

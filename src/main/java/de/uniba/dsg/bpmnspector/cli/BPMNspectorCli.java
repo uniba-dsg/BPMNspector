@@ -1,5 +1,6 @@
 package de.uniba.dsg.bpmnspector.cli;
 
+import de.uniba.dsg.bpmnspector.FixOption;
 import de.uniba.dsg.bpmnspector.ReportOption;
 import de.uniba.dsg.bpmnspector.ValidationOption;
 import org.apache.commons.cli.*;
@@ -22,10 +23,12 @@ public class BPMNspectorCli {
 
     private final Map<String, String> checkOptions;
     private final Map<String, String> reportOptions;
+    private final Map<String, String> fixOptions;
 
     public BPMNspectorCli() {
         checkOptions = createCheckOptions();
         reportOptions = createReportOptions();
+        fixOptions = createFixOptions();
     }
 
     private Options createCliOptions() {
@@ -60,6 +63,19 @@ public class BPMNspectorCli {
                 .longOpt(CHECKS)
                 .build();
 
+        StringBuilder fixOptionsDescBuilder = new StringBuilder(400)
+                .append("configures automated fixing options.\nAllowed values:\n");
+
+        for(Map.Entry entry : fixOptions.entrySet()) {
+            fixOptionsDescBuilder.append(entry.getKey()).append(" - ")
+                    .append(entry.getValue()).append('\n');
+        }
+
+        Option fixOps = Option.builder("f").desc(fixOptionsDescBuilder.toString())
+                .hasArg()
+                .argName("NONE | AUTO | INTERACTIVE")
+                .build();
+
         Option help = new Option("h", HELP, false, "prints this usage information");
 
         Option open = new Option("o", OPEN, false, "open the report file upon completion");
@@ -70,6 +86,7 @@ public class BPMNspectorCli {
         options.addOption(reportFormat);
         options.addOption(open);
         options.addOption(checks);
+        options.addOption(fixOps);
 
         return options;
     }
@@ -96,6 +113,7 @@ public class BPMNspectorCli {
                 } else if(cl.getArgs().length==1) {//NOPMD
                     ReportOption reportOption = validateAndCreateReportOption(cl.getOptionValue("r", "HTML"));
                     List<ValidationOption> validationOptions = validateAndCreateValidationOptions(cl.getOptionValue(CHECKS, CHECK_ALL));
+                    FixOption fixOption = validateAndCreateFixOption(cl.getOptionValue("f", "NONE"));
                     return new CliParameter() {
                         @Override
                         public boolean isDebug() {
@@ -125,6 +143,11 @@ public class BPMNspectorCli {
                         @Override
                         public boolean showHelpOnly() {
                             return false;
+                        }
+
+                        @Override
+                        public FixOption getFixOption() {
+                            return fixOption;
                         }
                     };
                 } else {
@@ -169,6 +192,15 @@ public class BPMNspectorCli {
         }
     }
 
+    private FixOption validateAndCreateFixOption(String fixOptionString) throws ParseException {
+        try {
+            return FixOption.valueOf(fixOptionString);
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(
+                    "Fix option "+fixOptionString+" is not valid.");
+        }
+    }
+
     private Map<String, String> createCheckOptions() {
         Map<String, String> checkOptions = new HashMap<>();
         for(ValidationOption option : ValidationOption.values()) {
@@ -186,5 +218,13 @@ public class BPMNspectorCli {
             reportOptions.put(option.toString(), option.getDescription());
         }
         return reportOptions;
+    }
+
+    private Map<String, String> createFixOptions() {
+        Map<String, String> fixOptions = new HashMap<>();
+        for(FixOption option : FixOption.values()) {
+            fixOptions.put(option.toString(), option.getDescription());
+        }
+        return fixOptions;
     }
 }
