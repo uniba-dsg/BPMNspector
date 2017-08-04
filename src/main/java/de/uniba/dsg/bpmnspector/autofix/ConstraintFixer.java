@@ -37,13 +37,13 @@ public class ConstraintFixer {
     }
 
     public void fixAllPossibleIssues() {
-        List<AbstractFixer> usedFixers = foundViolations.entrySet().stream()
+        List<ViolationFixer> usedFixers = foundViolations.entrySet().stream()
                 .filter(e -> fixerRepository.getFixerForConstraintAndStrategy(e.getKey().getConstraint(), e.getValue()).isPresent())
                 .map(e -> fixerRepository.getFixerForConstraintAndStrategy(e.getKey().getConstraint(), e.getValue()).get())
                 .collect(Collectors.toList());
 
-        Map<AbstractFixer, List<Violation>> fixerViolationMap = new HashMap<>();
-        for (AbstractFixer fixer : usedFixers) {
+        Map<ViolationFixer, List<Violation>> fixerViolationMap = new HashMap<>();
+        for (ViolationFixer fixer : usedFixers) {
             List<Violation> matchingViolations = foundViolations.entrySet().stream()
                     .filter(e -> e.getKey().getConstraint().equals(fixer.getConstraintId()))
                     .filter(e -> e.getValue().equals(fixer.getSupportedStrategy()))

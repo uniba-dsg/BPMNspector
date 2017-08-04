@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class FixerRepository {
 
-    private final Map<String, AbstractFixer> availableFixes;
+    private final Map<FixerIdentifier, ViolationFixer> availableFixes;
 
     public FixerRepository() {
         this.availableFixes = new HashMap<>();
@@ -14,14 +14,13 @@ public class FixerRepository {
     }
 
     private void registerExistingFixers() {
-        availableFixes.put(EXT128AutoFixer.CONSTRAINT_ID_EXT128, new EXT128AutoFixer());
+        availableFixes.put(EXT128AutoFixer.getFixerIdentifier(), new EXT128AutoFixer());
+        availableFixes.put(EXT012FirstOptionNotExecutableFixer.getFixerIdentifier(), new EXT012FirstOptionNotExecutableFixer());
+        availableFixes.put(EXT012SecondOptionMarkFormalExpFixer.getFixerIdentifier(), new EXT012SecondOptionMarkFormalExpFixer());
     }
 
-    public Optional<AbstractFixer> getFixerForConstraintAndStrategy(String constraintId, FixingStrategy strategy) {
-        return availableFixes.entrySet().stream()
-                .filter(e -> e.getKey().equals(constraintId))
-                .filter(e -> e.getValue().getSupportedStrategy() == strategy)
-                .map(Map.Entry::getValue)
-                .findFirst();
+    public Optional<ViolationFixer> getFixerForConstraintAndStrategy(String constraintId, FixingStrategy strategy) {
+        FixerIdentifier identifier = new FixerIdentifier(constraintId, strategy);
+        return Optional.ofNullable(availableFixes.get(identifier));
     }
 }

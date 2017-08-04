@@ -45,11 +45,14 @@ public class AutoFixController {
 
         ConstraintFixer fixer = new ConstraintFixer(processToFix, violationFixingStrategyMap);
         fixer.fixAllPossibleIssues();
-        Path targetPath = path.getParent().resolve("fixed_"+ path.getFileName().toString());
-        try {
-            XmlWriterApi.writeBPMNProcess(fixer.getFixedProcess(), targetPath);
-        } catch (IOException e) {
-            throw new ValidationException("Writing fixed process failed."+e);
+
+        if(fixer.getGlobalFixReport().violationsHaveBeenFixed()) {
+            Path targetPath = path.getParent().resolve("fixed_" + path.getFileName().toString());
+            try {
+                XmlWriterApi.writeBPMNProcess(fixer.getFixedProcess(), targetPath);
+            } catch (IOException e) {
+                throw new ValidationException("Writing fixed process failed." + e);
+            }
         }
 
         return fixer.getGlobalFixReport();

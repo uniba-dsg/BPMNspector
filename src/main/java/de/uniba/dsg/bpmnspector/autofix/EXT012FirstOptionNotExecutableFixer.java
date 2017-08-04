@@ -11,11 +11,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class EXT128AutoFixer implements ViolationFixer {
+/**
+ * Implements the first potential fix for EXT.012 violations, i.e., marking the process as not executable
+ */
+public class EXT012FirstOptionNotExecutableFixer implements ViolationFixer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EXT128AutoFixer.class.getSimpleName());
-    private static final String CONSTRAINT_ID = "EXT.128";
-    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.AUTO_FIX;
+    private static final Logger LOGGER = LoggerFactory.getLogger(EXT012FirstOptionNotExecutableFixer.class.getSimpleName());
+
+    private static final String CONSTRAINT_ID = "EXT.012";
+    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.FIRST_OPTION;
 
     private final XPathFactory xPathFactory = XPathFactory.instance();
 
@@ -35,12 +39,12 @@ public class EXT128AutoFixer implements ViolationFixer {
     }
 
     @Override
-    public boolean fixSingleViolation(Document processAsDoc, String xPath) {
+    public boolean fixSingleViolation(Document docToFix, String xPath) {
         XPathExpression<Element> expression = xPathFactory.compile(xPath, Filters.element(), null,
                 Namespace.getNamespace("bpmn", "http://www.omg.org/spec/BPMN/20100524/MODEL"));
-        List<Element> foundElements = expression.evaluate(processAsDoc);
+        List<Element> foundElements = expression.evaluate(docToFix);
         if(foundElements.isEmpty()) {
-            LOGGER.warn("Could not fix EXT.128 violation: affected MessageEventDefiniton was not found");
+            LOGGER.warn("Could not fix EXT.012 violation: affected Element was not found");
             return false;
         }
         Element elem = foundElements.get(0);

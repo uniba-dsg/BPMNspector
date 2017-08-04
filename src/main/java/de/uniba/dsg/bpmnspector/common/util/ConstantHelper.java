@@ -14,6 +14,7 @@ public class ConstantHelper {
     public final static String BPMNDINAMESPACE = "http://www.omg.org/spec/BPMN/20100524/DI";
     public final static String WSDL2NAMESPACE = "http://www.w3.org/TR/wsdl20/";
     public final static String XSDNAMESPACE = "http://www.w3.org/2001/XMLSchema";
+    public final static String XSI_NAMESPACE = "http://www.w3.org/2001/XMLSchema-instance";
 
 
 }
