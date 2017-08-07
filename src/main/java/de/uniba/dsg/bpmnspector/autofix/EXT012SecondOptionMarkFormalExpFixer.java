@@ -4,13 +4,11 @@ import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.filter.Filters;
-import org.jdom2.xpath.XPathExpression;
-import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implements the second potential fix for EXT.012 violations, i.e., marking the a Condition as a "FormalExpression"
@@ -22,7 +20,7 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
     private static final String CONSTRAINT_ID = "EXT.012";
     private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.SECOND_OPTION;
 
-    private final XPathFactory xPathFactory = XPathFactory.instance();
+    private final BpmnXPathHelper bpmnXPathHelper = new BpmnXPathHelper();
 
     @Override
     public String getConstraintId() {
@@ -41,15 +39,13 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
 
     @Override
     public boolean fixSingleViolation(Document docToFix, String xPath) {
-        XPathExpression<Element> expression = xPathFactory.compile(xPath, Filters.element(), null,
-                Namespace.getNamespace("bpmn", "http://www.omg.org/spec/BPMN/20100524/MODEL"));
-        List<Element> foundElements = expression.evaluate(docToFix);
-        if(foundElements.isEmpty()) {
+        Optional<Element> elementOptional = bpmnXPathHelper.findSingleElementForXPath(docToFix, xPath);
+        if (!elementOptional.isPresent()) {
             LOGGER.warn("Could not fix EXT.012 violation: affected Element was not found");
             return false;
         }
 
-        Element affectedElement = foundElements.get(0);
+        Element affectedElement = elementOptional.get();
         String elementName = affectedElement.getName();
         String usedBpmnNspPrefix = affectedElement.getNamespacePrefix();
         switch (elementName) {
@@ -84,12 +80,12 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
 
     private void addAttributeToTimerEventDef(Element affectedElement) {
         List<Element> children = affectedElement.getChildren();
-        for(Element child : children) {
-            if("timeCycle".equals(child.getName())) {
+        for (Element child : children) {
+            if ("timeCycle".equals(child.getName())) {
                 addAttributeToChild(affectedElement, "timeCycle");
-            } else if("timeDate".equals(child.getName())) {
+            } else if ("timeDate".equals(child.getName())) {
                 addAttributeToChild(affectedElement, "timeDate");
-            } else if("timeDuration".equals(child.getName())) {
+            } else if ("timeDuration".equals(child.getName())) {
                 addAttributeToChild(affectedElement, "timeDuration");
             }
         }
@@ -97,11 +93,11 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
 
     private void addAttributeToMultiLoopCharacteristics(Element affectedElement) {
         List<Element> children = affectedElement.getChildren();
-        for(Element child : children) {
-            if("completionCondition".equals(child.getName())) {
+        for (Element child : children) {
+            if ("completionCondition".equals(child.getName())) {
                 addAttributeToChild(affectedElement, "loopCardinality");
             }
-            if("loopCardinality".equals(child.getName())) {
+            if ("loopCardinality".equals(child.getName())) {
                 addAttributeToChild(affectedElement, "completionCondition");
             }
 
@@ -114,17 +110,17 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
 
     private void addAttributeToChild(Element elementToUse, String nameOfChild) {
         Element childToUse = elementToUse.getChild(nameOfChild, Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE));
-        if(childToUse!=null) {
+        if (childToUse != null) {
             childToUse.setAttribute("type",
-                    childToUse.getNamespacePrefix()+"tFormalExpression",
+                    childToUse.getNamespacePrefix() + "tFormalExpression",
                     getXSINamespace(childToUse));
         }
     }
 
     private Namespace getXSINamespace(Element element) {
         List<Namespace> allNamespaces = element.getAdditionalNamespaces();
-        for(Namespace nsp : allNamespaces) {
-            if(ConstantHelper.XSI_NAMESPACE.equals(nsp.getURI())) {
+        for (Namespace nsp : allNamespaces) {
+            if (ConstantHelper.XSI_NAMESPACE.equals(nsp.getURI())) {
                 return nsp;
             }
         }
