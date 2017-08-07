@@ -276,7 +276,7 @@ public class PreProcessor {
     }
 
     private Namespace getBpmnNamespace() {
-        return Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE);
+        return Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE);
     }
 
 }

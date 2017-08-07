@@ -98,7 +98,7 @@ class Ext002Checker {
         Map<String, Attribute> map = new HashMap<>();
         String expStr = "//bpmn:*/@id";
         org.jdom2.xpath.XPathExpression<Attribute> exp = xPathFactory.compile(expStr, Filters.attribute(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE));
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE));
         List<Attribute> attributes = exp.evaluate(process.getProcessAsDoc());
         attributes.forEach(x -> map.put(x.getValue(), x));
         return map;

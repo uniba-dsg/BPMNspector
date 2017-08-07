@@ -33,7 +33,7 @@ public class XmlWriterApi {
             .getSimpleName());
 
     private final JDOMFactory factory = new DefaultJDOMFactory();
-    private final Namespace nsp = Namespace.getNamespace(ConstantHelper.PINAMESPACE);
+    private final Namespace nsp = Namespace.getNamespace(ConstantHelper.PI_NAMESPACE);
 
     public static void writeBPMNProcess(BPMNProcess process, Path targetPath) throws IOException {
         XMLOutputter outputter = new XMLOutputter();

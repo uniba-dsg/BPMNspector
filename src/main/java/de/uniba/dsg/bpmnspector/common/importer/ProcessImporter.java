@@ -74,7 +74,7 @@ public class ProcessImporter {
             bpmnXsdValidator
                     .validateAgainstXsd(new ByteArrayInputStream(streamContent), resource, result);
             Document processAsDoc = builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
-            if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMNNAMESPACE
+            if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMN_NAMESPACE
                     .equals(processAsDoc.getRootElement().getNamespaceURI())) {
                 String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
 
@@ -109,7 +109,7 @@ public class ProcessImporter {
                 byte[] streamContent = IOUtils.toByteArray(stream);
                 bpmnXsdValidator.validateAgainstXsd(new ByteArrayInputStream(streamContent), resource, result);
                 Document processAsDoc = builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
-                if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMNNAMESPACE
+                if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMN_NAMESPACE
                         .equals(processAsDoc.getRootElement().getNamespaceURI())) {
                     String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
 
@@ -154,8 +154,8 @@ public class ProcessImporter {
             String importType = elem.getAttributeValue("importType");
 
             // fail fast if import type is not supported
-            if (!(ConstantHelper.BPMNNAMESPACE.equals(importType) || ConstantHelper.WSDL2NAMESPACE.equals(importType)
-                    || ConstantHelper.XSDNAMESPACE.equals(importType))) {
+            if (!(ConstantHelper.BPMN_NAMESPACE.equals(importType) || ConstantHelper.WSDL2_NAMESPACE.equals(importType)
+                    || ConstantHelper.XSD_NAMESPACE.equals(importType))) {
 
                 int line = ((LocatedElement) elem).getLine();
                 int column = ((LocatedElement) elem).getColumn();
@@ -204,7 +204,7 @@ public class ProcessImporter {
             }
 
             if (resource != null) {
-                if (ConstantHelper.BPMNNAMESPACE.equals(importType)) {
+                if (ConstantHelper.BPMN_NAMESPACE.equals(importType)) {
                     if (!isFileAlreadyImported(resource.getResourceName(), rootProcess)) {
                         try {
                             BPMNProcess importedProcess = importProcessRecursively(resource, process, rootProcess,
@@ -217,7 +217,7 @@ public class ProcessImporter {
                             result.addViolation(createViolation(process, elem, e.getMessage()));
                         }
                     }
-                } else if (ConstantHelper.WSDL2NAMESPACE.equals(importType)) {
+                } else if (ConstantHelper.WSDL2_NAMESPACE.equals(importType)) {
                     try (InputStream stream = openStreamToResource(resource)) {
 
                         result.addResource(resource);
@@ -234,7 +234,7 @@ public class ProcessImporter {
                         throw new ValidationException(
                                 "WSDL validation of file " + resource.getResourceName() + " failed.", e);
                     }
-                } else if (ConstantHelper.XSDNAMESPACE.equals(importType)) {
+                } else if (ConstantHelper.XSD_NAMESPACE.equals(importType)) {
                     try (InputStream stream = openStreamToResource(resource)) {
                         result.addResource(resource);
                         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -255,11 +255,11 @@ public class ProcessImporter {
     }
 
     private Namespace getBPMNNamespace() {
-        return Namespace.getNamespace(ConstantHelper.BPMNNAMESPACE);
+        return Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE);
     }
 
     private Namespace getBPMNDINamespace() {
-        return Namespace.getNamespace(ConstantHelper.BPMNDINAMESPACE);
+        return Namespace.getNamespace(ConstantHelper.BPMNDI_NAMESPACE);
     }
 
     private Violation createViolation(BPMNProcess parent, Element importElement, String msg) {
