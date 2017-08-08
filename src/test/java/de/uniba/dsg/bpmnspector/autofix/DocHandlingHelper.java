@@ -2,6 +2,8 @@ package de.uniba.dsg.bpmnspector.autofix;
 
 import api.SimpleValidationResult;
 import api.ValidationException;
+import api.ValidationResult;
+import de.uniba.dsg.bpmnspector.BPMNspector;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import org.jdom2.Document;
@@ -10,13 +12,14 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class DocHandlingHelper {
 
@@ -52,6 +55,19 @@ public class DocHandlingHelper {
     public static Document loadResourceAsDoc(String path) throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
         return builder.build(new File(PATH_PREFIX + File.separator + path));
+    }
+
+    public static void assertValidBPMNspectorResult(Document docToCheck) throws ValidationException, IOException {
+        XMLOutputter outputter = new XMLOutputter();
+        outputter.setFormat(Format.getPrettyFormat());
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        outputter.output(docToCheck, bos);
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        BPMNspector inspector = new BPMNspector();
+        ValidationResult result = inspector.validate(bis, "name");
+        assertTrue(result.isValid());
     }
 
 }
