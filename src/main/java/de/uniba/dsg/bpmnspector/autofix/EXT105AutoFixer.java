@@ -71,4 +71,8 @@ public class EXT105AutoFixer implements ViolationFixer {
 
         return true;
     }
+
+    public static FixerIdentifier getFixerIdentifier() {
+        return new FixerIdentifier(CONSTRAINT_ID, SUPPORTED_STRATEGY);
+    }
 }
