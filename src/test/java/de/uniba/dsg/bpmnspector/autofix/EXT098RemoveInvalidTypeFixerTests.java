@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class EXT098AutoFixerTests {
+public class EXT098RemoveInvalidTypeFixerTests {
 
     private static Document fixedVersionOfDoc;
     private static Document defaultDocToFix;
@@ -82,49 +82,49 @@ public class EXT098AutoFixerTests {
     @Test
     public void fixingEXT098RemovesInvalidCancelEventDef() throws IOException, ValidationException, JDOMException {
 
-        Document invalidMultiple = DocHandlingHelper.loadResourceAsDoc("098/fail_cancel.bpmn");
+        Document invalidCancel = DocHandlingHelper.loadResourceAsDoc("098/fail_cancel.bpmn");
 
-        assertCorrectnessOfFix(invalidMultiple);
+        assertCorrectnessOfFix(invalidCancel);
     }
 
     @Test
     public void fixingEXT098RemovesInvalidCompensateEventDef() throws IOException, ValidationException, JDOMException {
 
-        Document invalidMultiple = DocHandlingHelper.loadResourceAsDoc("098/fail_compensate.bpmn");
+        Document invalidCompensate = DocHandlingHelper.loadResourceAsDoc("098/fail_compensate.bpmn");
 
-        assertCorrectnessOfFix(invalidMultiple);
+        assertCorrectnessOfFix(invalidCompensate);
     }
 
     @Test
     public void fixingEXT098RemovesInvalidErrorEventDef() throws IOException, ValidationException, JDOMException {
 
-        Document invalidMultiple = DocHandlingHelper.loadResourceAsDoc("098/fail_error.bpmn");
+        Document invalidError = DocHandlingHelper.loadResourceAsDoc("098/fail_error.bpmn");
 
-        assertCorrectnessOfFix(invalidMultiple);
+        assertCorrectnessOfFix(invalidError);
     }
 
     @Test
     public void fixingEXT098RemovesInvalidEscalationEventDef() throws IOException, ValidationException, JDOMException {
 
-        Document invalidMultiple = DocHandlingHelper.loadResourceAsDoc("098/fail_escalation.bpmn");
+        Document invalidEscalation = DocHandlingHelper.loadResourceAsDoc("098/fail_escalation.bpmn");
 
-        assertCorrectnessOfFix(invalidMultiple);
+        assertCorrectnessOfFix(invalidEscalation);
     }
 
     @Test
     public void fixingEXT098RemovesInvalidLinkEventDef() throws IOException, ValidationException, JDOMException {
 
-        Document invalidMultiple = DocHandlingHelper.loadResourceAsDoc("098/fail_link.bpmn");
+        Document invalidLink = DocHandlingHelper.loadResourceAsDoc("098/fail_link.bpmn");
 
-        assertCorrectnessOfFix(invalidMultiple);
+        assertCorrectnessOfFix(invalidLink);
     }
 
     @Test
     public void fixingEXT098RemovesInvalidTerminateEventDef() throws IOException, ValidationException, JDOMException {
 
-        Document invalidMultiple = DocHandlingHelper.loadResourceAsDoc("098/fail_terminate.bpmn");
+        Document invalidTerminate = DocHandlingHelper.loadResourceAsDoc("098/fail_terminate.bpmn");
 
-        assertCorrectnessOfFix(invalidMultiple);
+        assertCorrectnessOfFix(invalidTerminate);
     }
 
     private void assertCorrectnessOfFix(Document docToFix) throws IOException, ValidationException {
