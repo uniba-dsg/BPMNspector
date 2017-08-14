@@ -14,11 +14,12 @@ public class FixerRepository {
     }
 
     private void registerExistingFixers() {
-        availableFixes.put(EXT128AutoFixer.getFixerIdentifier(), new EXT128AutoFixer());
         availableFixes.put(EXT012FirstOptionNotExecutableFixer.getFixerIdentifier(), new EXT012FirstOptionNotExecutableFixer());
         availableFixes.put(EXT012SecondOptionMarkFormalExpFixer.getFixerIdentifier(), new EXT012SecondOptionMarkFormalExpFixer());
-        availableFixes.put(EXT105AutoFixer.getFixerIdentifier(), new EXT105AutoFixer());
         availableFixes.put(EXT098RemoveInvalidTypeFixer.getFixerIdentifier(), new EXT098RemoveInvalidTypeFixer());
+        availableFixes.put(EXT105AutoFixer.getFixerIdentifier(), new EXT105AutoFixer());
+        availableFixes.put(EXT106RemoveInvalidTypeFixer.getFixerIdentifier(), new EXT098RemoveInvalidTypeFixer());
+        availableFixes.put(EXT128AutoFixer.getFixerIdentifier(), new EXT128AutoFixer());
     }
 
     public Optional<ViolationFixer> getFixerForConstraintAndStrategy(String constraintId, FixingStrategy strategy) {
