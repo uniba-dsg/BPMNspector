@@ -19,6 +19,7 @@ BPMNspector checks single files - or complete directories - of BPMN files and re
     - 45 (of 49) constraints for the "common executable conformance sub class" are checked
     - 8 (of 12) further constraints for "full conformance sub class" are checked
 - **Support of imports:** (resolvable) imports of processes, WSDL and XSD files are also checked
+- **Automated fixes of various violations:** Fix found violations automatically
 
 This software is licensed under the LGPL Version 3 Open Source License.
 
@@ -50,31 +51,41 @@ $ BPMNspector -h
 or here:
 
 ```
-usage: BPMNspector <file or directory> [-c <[opt1[,opt2]...>] [-d] [-h]
-       [-o] [-r <ALL | XML | HTML | NONE>]
+usage: BPMNspector <file or directory> [-c <[opt1[,opt2]...>] [-d] [-f
+       <NONE | AUTO | INTERACTIVE>] [-h] [-o] [-r <ALL | XML | HTML |
+       NONE>]
 Options:
- -c,--checks <[opt1[,opt2]...>   defines which checks should be performed.
-                                 Allowed values:
-                                 EXT - checks conformance to EXT rules
-                                 ALL - performs all checks (default)
-                                 REF - checks the correctness of
-                                 references
-                                 XSD - performs an XML schema validation
- -d,--debug                      run BPMNspector in debug mode
- -h,--help                       prints this usage information
- -o,--open                       open the report file upon completion
- -r <ALL | XML | HTML | NONE>    defines which report type should be
-                                 generated.
-                                 Allowed values:
-                                 ALL - create all report types
-                                 XML - create XML reports
-                                 HTML - create HTML reports (default)
-                                 NONE - No report files should be created
+ -c,--checks <[opt1[,opt2]...>    defines which checks should be
+                                  performed.
+                                  Allowed values:
+                                  EXT - checks conformance to EXT rules
+                                  ALL - performs all checks (default)
+                                  REF - checks the correctness of
+                                  references
+                                  XSD - performs an XML schema validation
+ -d,--debug                       run BPMNspector in debug mode
+ -f <NONE | AUTO | INTERACTIVE>   configures automated fixing options.
+                                  Allowed values:
+                                  AUTO - all fixable violations will be
+                                  fixed automatically
+                                  NONE - No fixes should be performed
+                                  (default)
+                                  INTERACTIVE - ask for each violation
+ -h,--help                        prints this usage information
+ -o,--open                        open the report file upon completion
+ -r <ALL | XML | HTML | NONE>     defines which report type should be
+                                  generated.
+                                  Allowed values:
+                                  ALL - create all report types
+                                  XML - create XML reports
+                                  HTML - create HTML reports (default)
+                                  NONE - No report files should be created
 
 Examples:
 		BPMNspector myfile.bpmn
 		BPMNspector c:\absolute\path\to\folder -c REF -d
 		BPMNspector c:\absolute\path\to\file.bpmn -o -r HTML
+
 ```
 
 ## How can I use BPMNspector as a developer? || Development
