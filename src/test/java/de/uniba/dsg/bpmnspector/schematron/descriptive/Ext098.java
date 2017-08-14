@@ -66,7 +66,7 @@ public class Ext098 extends TestCase {
     public void testConstraintMultipleFail() throws ValidationException {
         ValidationResult result = verifyInvalidResult(
                 createFile("fail_multiple.bpmn"), 1);
-        assertViolation(result.getViolations().get(0), 4);
+        assertViolation(result.getViolations().get(0), 10);
     }
 
     @Test

@@ -10,7 +10,6 @@
     <startEvent id="_2" isInterrupting="true" name="Start Event" parallelMultiple="false">
       <outgoing>_14</outgoing>
       <timerEventDefinition id="_2_ED_1"/>
-	  <escalationEventDefinition id="_2_ED_2"/>
     </startEvent>
     <endEvent id="_6" name="End Event">
       <incoming>_14</incoming>
