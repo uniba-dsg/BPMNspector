@@ -30,6 +30,11 @@ public class EXT105AutoFixer implements ViolationFixer {
     }
 
     @Override
+    public String getDescription() {
+        return "creates and links to a new EndEvent for the unconnected Element";
+    }
+
+    @Override
     public Logger getLogger() {
         return LOGGER;
     }

@@ -12,6 +12,8 @@ public interface ViolationFixer {
 
     FixingStrategy getSupportedStrategy();
 
+    String getDescription();
+
     Logger getLogger();
 
     boolean fixSingleViolation(Document processAsDoc, String xPath);

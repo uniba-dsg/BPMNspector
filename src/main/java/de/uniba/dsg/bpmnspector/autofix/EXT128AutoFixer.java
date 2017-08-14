@@ -26,6 +26,11 @@ public class EXT128AutoFixer implements ViolationFixer {
     }
 
     @Override
+    public String getDescription() {
+        return "sets the 'isExecutable' attribute of the process to false";
+    }
+
+    @Override
     public Logger getLogger() {
         return LOGGER;
     }

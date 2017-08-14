@@ -19,10 +19,6 @@ public class EXT106RemoveInvalidTypeFixer implements ViolationFixer {
 
     private final BpmnXPathHelper bpmnXPathHelper = new BpmnXPathHelper();
 
-    private final List<String> INVALID_START_EVENT_DEFINITIONS = Arrays.asList("cancelEventDefinition",
-            "escalationEventDefinition", "errorEventDefinition", "compensateEventDefinition",
-            "linkEventDefinition", "terminateEventDefinition");
-
     @Override
     public String getConstraintId() {
         return CONSTRAINT_ID;
@@ -31,6 +27,11 @@ public class EXT106RemoveInvalidTypeFixer implements ViolationFixer {
     @Override
     public FixingStrategy getSupportedStrategy() {
         return SUPPORTED_STRATEGY;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Removes the invalid cancel event definition - resulting in a 'None EndEvent'";
     }
 
     @Override

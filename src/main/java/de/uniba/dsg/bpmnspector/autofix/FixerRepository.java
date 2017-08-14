@@ -1,8 +1,10 @@
 package de.uniba.dsg.bpmnspector.autofix;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class FixerRepository {
 
@@ -25,5 +27,12 @@ public class FixerRepository {
     public Optional<ViolationFixer> getFixerForConstraintAndStrategy(String constraintId, FixingStrategy strategy) {
         FixerIdentifier identifier = new FixerIdentifier(constraintId, strategy);
         return Optional.ofNullable(availableFixes.get(identifier));
+    }
+
+    public List<ViolationFixer> getAllFixersForConstraint(String constraintId) {
+        return availableFixes.entrySet().stream()
+                .filter(entry -> entry.getKey().constraintId.equals(constraintId))
+                .map(entry -> entry.getValue())
+                .collect(Collectors.toList());
     }
 }

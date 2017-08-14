@@ -33,6 +33,11 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
     }
 
     @Override
+    public String getDescription() {
+        return "Marks the affected expression as a 'FormalExpression'";
+    }
+
+    @Override
     public Logger getLogger() {
         return LOGGER;
     }

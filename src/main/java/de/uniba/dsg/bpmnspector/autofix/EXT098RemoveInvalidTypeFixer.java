@@ -35,6 +35,11 @@ public class EXT098RemoveInvalidTypeFixer implements ViolationFixer {
     }
 
     @Override
+    public String getDescription() {
+        return "Removes the invalid EventDefinition - resulting in a 'None StartEvent'";
+    }
+
+    @Override
     public Logger getLogger() {
         return LOGGER;
     }

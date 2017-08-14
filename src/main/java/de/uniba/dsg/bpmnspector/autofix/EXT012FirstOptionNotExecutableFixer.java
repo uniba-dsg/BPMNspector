@@ -30,6 +30,11 @@ public class EXT012FirstOptionNotExecutableFixer implements ViolationFixer {
     }
 
     @Override
+    public String getDescription() {
+        return "Sets the attribute 'isExecutable' of the process to false";
+    }
+
+    @Override
     public Logger getLogger() {
         return LOGGER;
     }

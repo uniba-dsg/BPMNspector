@@ -5,22 +5,21 @@ import api.ValidationException;
 import api.ValidationResult;
 import api.Violation;
 import de.uniba.dsg.bpmnspector.FixOption;
-import de.uniba.dsg.bpmnspector.autofix.ConstraintFixer;
-import de.uniba.dsg.bpmnspector.autofix.FixReport;
-import de.uniba.dsg.bpmnspector.autofix.FixingStrategy;
+import de.uniba.dsg.bpmnspector.autofix.*;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AutoFixController {
+
+    FixerRepository fixerRepository = new FixerRepository();
+
+    FixStrategySelectorUI selectorUI = new FixStrategySelectorUI();
 
     public FixReport fixProblems(ValidationResult result, FixOption fixOption, Path path) throws ValidationException {
         Objects.requireNonNull(result);
@@ -34,8 +33,7 @@ public class AutoFixController {
 
         Map<Violation, FixingStrategy> violationFixingStrategyMap;
         if (fixOption == FixOption.INTERACTIVE) {
-            // TODO determine issues to be fixed
-            violationFixingStrategyMap = Collections.emptyMap();
+            violationFixingStrategyMap = determineFixingStrategies(result.getViolations());
         } else {
             violationFixingStrategyMap = createAllAutoFixingMap(result.getViolations());
         }
@@ -56,6 +54,18 @@ public class AutoFixController {
         }
 
         return fixer.getGlobalFixReport();
+    }
+
+    private Map<Violation,FixingStrategy> determineFixingStrategies(List<Violation> violations) {
+        Map<Violation, FixingStrategy> strategyMap = new HashMap<>();
+        for(Violation violation : violations) {
+            List<ViolationFixer> availableFixers = fixerRepository.getAllFixersForConstraint(violation.getConstraint());
+            if(!availableFixers.isEmpty()) {
+                FixingStrategy chosenStrategy = selectorUI.determineStragegyForViolation(violation, availableFixers);
+                strategyMap.put(violation, chosenStrategy);
+            }
+        }
+        return strategyMap;
     }
 
     private static Map<Violation, FixingStrategy> createAllAutoFixingMap(List<Violation> violations) {
