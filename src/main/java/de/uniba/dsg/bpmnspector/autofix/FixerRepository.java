@@ -19,6 +19,7 @@ public class FixerRepository {
         availableFixes.put(EXT012FirstOptionNotExecutableFixer.getFixerIdentifier(), new EXT012FirstOptionNotExecutableFixer());
         availableFixes.put(EXT012SecondOptionMarkFormalExpFixer.getFixerIdentifier(), new EXT012SecondOptionMarkFormalExpFixer());
         availableFixes.put(EXT098RemoveInvalidTypeFixer.getFixerIdentifier(), new EXT098RemoveInvalidTypeFixer());
+        availableFixes.put(EXT097AutoFixer.getFixerIdentifier(), new EXT097AutoFixer());
         availableFixes.put(EXT105AutoFixer.getFixerIdentifier(), new EXT105AutoFixer());
         availableFixes.put(EXT106RemoveInvalidTypeFixer.getFixerIdentifier(), new EXT098RemoveInvalidTypeFixer());
         availableFixes.put(EXT128AutoFixer.getFixerIdentifier(), new EXT128AutoFixer());
