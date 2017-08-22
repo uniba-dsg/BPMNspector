@@ -8,6 +8,7 @@ import de.uniba.dsg.bpmnspector.cli.AutoFixController;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliException;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
+import de.uniba.dsg.bpmnspector.common.util.FileUtils;
 import de.uniba.dsg.bpmnspector.common.util.HtmlReportGenerator;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
 import org.slf4j.Logger;
@@ -17,7 +18,9 @@ import java.awt.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class BPMNspectorMain {
@@ -49,7 +52,7 @@ public class BPMNspectorMain {
                             List<ValidationResult> results = inspector
                                     .inspectDirectory(path,
                                             params.getValidationOptions());
-
+                            List<FixReport> reports = fixProblemsInFolder(results, params.getFixOption(), path);
                             createFolderReports(path, results, params.getReportOption(), params.isOpenReport());
                         } else {
                             ValidationResult result = inspector.inspectFile(path,
@@ -76,6 +79,23 @@ public class BPMNspectorMain {
     private static FixReport fixProblems(ValidationResult result, FixOption fixOption, Path path) throws ValidationException {
         AutoFixController controller = new AutoFixController();
         return controller.fixProblems(result, fixOption, path);
+    }
+
+    private static List<FixReport> fixProblemsInFolder(List<ValidationResult> results, FixOption fixOption, Path path) {
+        List<FixReport> reports = new ArrayList<>(results.size());
+        List<Path> allRelevantFiles = FileUtils.getAllBpmnFileFromDirectory(path);
+        for(Path singleFile : allRelevantFiles) {
+            Optional<ValidationResult> resultOptional = results.stream().filter(r -> r.getFilesWithViolations().contains(singleFile)).findAny();
+            if(resultOptional.isPresent()) {
+                try {
+                    reports.add(fixProblems(resultOptional.get(), fixOption, singleFile));
+                } catch (ValidationException e) {
+                    LOGGER.warn("Fixing failed for file "+singleFile, e);
+                }
+            }
+        }
+
+        return reports;
     }
 
     private static void setDebugLevel() {
