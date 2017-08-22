@@ -113,6 +113,22 @@ public class BpmnXPathHelper {
         }
     }
 
+    public Element createSequenceFlow(String sourceRefID, String targetRefId) {
+        Element sequenceFlow = new Element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE);
+        sequenceFlow.setAttribute("id", createRandomUniqueId());
+        sequenceFlow.setAttribute("sourceRef", sourceRefID);
+        sequenceFlow.setAttribute("targetRef", targetRefId);
+        return sequenceFlow;
+    }
+
+    public void createAndAddSequenceFlow(Element processToUse, Element source, Element target) {
+        Element sequenceFlow = createSequenceFlow(source.getAttributeValue("id"), target.getAttributeValue("id"));
+        processToUse.addContent(sequenceFlow);
+
+        insertOutgoingElementToFlowNode(source, sequenceFlow.getAttributeValue("id"));
+        insertIncomingElementToFlowNode(target, sequenceFlow.getAttributeValue("id"));
+    }
+
     private int determineIndexForElementInsertion(Element parent) {
         // Caution: Order in list is important: new Elem must be placed after last incoming element - if not present:
         // after last categoryValueRef, etc.
