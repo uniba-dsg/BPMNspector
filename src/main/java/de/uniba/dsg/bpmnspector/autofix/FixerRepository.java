@@ -23,6 +23,7 @@ public class FixerRepository {
         availableFixes.put(EXT105AutoFixer.getFixerIdentifier(), new EXT105AutoFixer());
         availableFixes.put(EXT106RemoveInvalidTypeFixer.getFixerIdentifier(), new EXT098RemoveInvalidTypeFixer());
         availableFixes.put(EXT128AutoFixer.getFixerIdentifier(), new EXT128AutoFixer());
+        availableFixes.put(EXT151AutoFixer.getFixerIdentifier(), new EXT151AutoFixer());
     }
 
     public Optional<ViolationFixer> getFixerForConstraintAndStrategy(String constraintId, FixingStrategy strategy) {
