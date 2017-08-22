@@ -2,7 +2,6 @@ package de.uniba.dsg.bpmnspector.schematron.descriptive;
 
 import api.ValidationException;
 import api.ValidationResult;
-import api.Violation;
 import de.uniba.dsg.bpmnspector.schematron.TestCase;
 import org.junit.Test;
 
@@ -38,7 +37,7 @@ public class Ext150 extends TestCase {
                 result.getViolations().get(0),
                 ERRORMESSAGEONE,
                 "(//bpmn:subProcess[@isForCompensation = 'false' and @triggeredByEvent = 'false'] [parent::*/bpmn:startEvent])[1]",
-                15);
+                14);
     }
 
     @Test
