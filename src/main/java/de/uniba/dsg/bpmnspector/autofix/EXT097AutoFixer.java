@@ -63,14 +63,7 @@ public class EXT097AutoFixer implements ViolationFixer {
         parentProcessElement.addContent(parallelGateway);
 
         // connect new Start to parallel Gateway
-        Element startParallelSeqFlow = new Element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE);
-        startParallelSeqFlow.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
-        startParallelSeqFlow.setAttribute("sourceRef", newStart.getAttributeValue("id"));
-        startParallelSeqFlow.setAttribute("targetRef", parallelGateway.getAttributeValue("id"));
-        parentProcessElement.addContent(startParallelSeqFlow);
-
-        bpmnXPathHelper.insertOutgoingElementToFlowNode(newStart, startParallelSeqFlow.getAttributeValue("id"));
-        bpmnXPathHelper.insertIncomingElementToFlowNode(parallelGateway, startParallelSeqFlow.getAttributeValue("id"));
+        bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, newStart, parallelGateway);
 
 
         // find all unconnected Elems in parent i.e., they have no incoming element
@@ -80,15 +73,7 @@ public class EXT097AutoFixer implements ViolationFixer {
                 .collect(Collectors.toList());
 
         for (Element unconnected : unconnectedElems) {
-            Element newSeqFlow = new Element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE);
-            newSeqFlow.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
-            newSeqFlow.setAttribute("sourceRef", parallelGateway.getAttributeValue("id"));
-            newSeqFlow.setAttribute("targetRef", unconnected.getAttributeValue("id"));
-            parentProcessElement.addContent(newSeqFlow);
-
-            bpmnXPathHelper.insertOutgoingElementToFlowNode(parallelGateway, newSeqFlow.getAttributeValue("id"));
-
-            bpmnXPathHelper.insertIncomingElementToFlowNode(unconnected, newSeqFlow.getAttributeValue("id"));
+            bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, parallelGateway, unconnected);
         }
 
         return true;

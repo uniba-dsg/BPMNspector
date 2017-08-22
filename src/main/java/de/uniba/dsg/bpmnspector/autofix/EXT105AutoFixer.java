@@ -63,15 +63,7 @@ public class EXT105AutoFixer implements ViolationFixer {
                 .collect(Collectors.toList());
 
         for(Element unconnected : unconnectedElems) {
-            Element newSeqFlow = new Element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE);
-            newSeqFlow.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
-            newSeqFlow.setAttribute("sourceRef", unconnected.getAttributeValue("id"));
-            newSeqFlow.setAttribute("targetRef", newEnd.getAttributeValue("id"));
-            parentProcessElement.addContent(newSeqFlow);
-
-            bpmnXPathHelper.insertOutgoingElementToFlowNode(unconnected, newSeqFlow.getAttributeValue("id"));
-
-            bpmnXPathHelper.insertIncomingElementToFlowNode(newEnd, newSeqFlow.getAttributeValue("id"));
+            bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, unconnected, newEnd);
         }
 
         return true;
