@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<iso:schema xmlns="http://purl.oclc.org/dsdl/schematron" 
-    xmlns:iso="http://purl.oclc.org/dsdl/schematron" 
-    xmlns:ppn="http://ppn.lspi.uni-bamberg.de" 
-    queryBinding="xslt2" schemaVersion="ISO19757-3">
+<iso:schema xmlns="http://purl.oclc.org/dsdl/schematron"
+            xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+            queryBinding="xslt2" schemaVersion="ISO19757-3">
     <iso:title>ISO schematron validation file for descriptive extended constraints</iso:title>
     <iso:ns prefix='bpmn' uri='http://www.omg.org/spec/BPMN/20100524/MODEL'/>
     <let name="eventDefinitions" value="bpmn:eventDefinitionRef | bpmn:messageEventDefinition | bpmn:timerEventDefinition | bpmn:escalationEventDefinition | bpmn:conditionalEventDefinition | bpmn:linkEventDefinition | bpmn:errorEventDefinition | bpmn:cancelEventDefinition | bpmn:compensateEventDefinition | bpmn:signalEventDefinition | bpmn:terminateEventDefinition" />
@@ -282,7 +281,7 @@
     
     <iso:pattern name="EXT.097">
         <iso:rule context="bpmn:endEvent">
-            <iso:assert test="parent::*/bpmn:startEvent" diagnostics="id">EXT.097|A Start event must be present when an End event is used in the same process level</iso:assert>
+            <iso:assert test="parent::*/bpmn:startEvent or parent::*/bpmn:receiveTask[@instantiate='true']" diagnostics="id">EXT.097|A Start event (or an instantiating ReceiveTask) must be present when an End event is used in the same process level</iso:assert>
         </iso:rule>
     </iso:pattern>
     
