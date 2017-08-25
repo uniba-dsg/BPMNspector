@@ -50,21 +50,11 @@ public class EXT097AutoFixer implements ViolationFixer {
         // getParent which should be process/subProcess
         Element parentProcessElement = elementOptional.get().getParentElement();
 
-        // add EndEvent to parent
+        // add StartEvent to parent
         Element newStart = new Element("startEvent", ConstantHelper.BPMN_NAMESPACE);
         newStart.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
         newStart.setAttribute("name", "Auto-created StartEvent");
         parentProcessElement.addContent(newStart);
-
-        // add new ParallelGateway to parent
-        Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE);
-        parallelGateway.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
-        parallelGateway.setAttribute("name", "Auto-created StartEvent");
-        parentProcessElement.addContent(parallelGateway);
-
-        // connect new Start to parallel Gateway
-        bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, newStart, parallelGateway);
-
 
         // find all unconnected Elems in parent i.e., they have no incoming element
         List<Element> childrenWithNeededIncomingSeqFlow = bpmnXPathHelper.determineFlowNodesWithNeededIncomingFlow(parentProcessElement);
@@ -72,8 +62,27 @@ public class EXT097AutoFixer implements ViolationFixer {
                 .filter(e -> e.getChild("incoming", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE)) == null)
                 .collect(Collectors.toList());
 
-        for (Element unconnected : unconnectedElems) {
-            bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, parallelGateway, unconnected);
+
+        if(unconnectedElems.size()==1) {
+            // if exactly one unconncected Element is found, it can be directly connected to the StartEvent
+            bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, newStart, unconnectedElems.get(0));
+        } else if (unconnectedElems.size()>1) {
+            // if more than one unconnected Element is found, a parallel Gateway is needed
+            // add new ParallelGateway to parent
+            Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE);
+            parallelGateway.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
+            parallelGateway.setAttribute("name", "Auto-created Gateway");
+            parentProcessElement.addContent(parallelGateway);
+
+            // connect new Start to parallel Gateway
+            bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, newStart, parallelGateway);
+
+            for (Element unconnected : unconnectedElems) {
+                bpmnXPathHelper.createAndAddSequenceFlow(parentProcessElement, parallelGateway, unconnected);
+            }
+        } else {
+            LOGGER.warn("No unconnected element found.");
+            return false;
         }
 
         return true;

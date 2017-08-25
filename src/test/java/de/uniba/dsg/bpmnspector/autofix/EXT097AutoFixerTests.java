@@ -21,6 +21,7 @@ public class EXT097AutoFixerTests {
 
     private static Document docToFix;
     private static Violation testViolation;
+    private static EXT097AutoFixer fixer;
 
     private List<Violation> violationList;
 
@@ -36,6 +37,7 @@ public class EXT097AutoFixerTests {
                         "(//bpmn:endEvent)[1]"),
                 "msg",
                 "EXT.097");
+        fixer = new EXT097AutoFixer();
     }
 
     @Before
@@ -46,7 +48,6 @@ public class EXT097AutoFixerTests {
     @Test
     public void emptyViolationListDoesNotChangeDocument() {
         violationList = Collections.emptyList();
-        EXT097AutoFixer fixer = new EXT097AutoFixer();
 
         FixReport report = fixer.fixIssues(clonedDoc, violationList);
 
@@ -58,7 +59,6 @@ public class EXT097AutoFixerTests {
     public void otherConstraintViolationShouldNotBeFixed() {
         Violation otherViolation = new Violation(new Location(Paths.get("empty"), LocationCoordinate.EMPTY), "Should not be used", "OTHER");
         violationList = Collections.singletonList(otherViolation);
-        EXT097AutoFixer fixer = new EXT097AutoFixer();
 
         FixReport report = fixer.fixIssues(clonedDoc, violationList);
 
@@ -67,9 +67,21 @@ public class EXT097AutoFixerTests {
     }
 
     @Test
-    public void fixAddsAdditionalStartEventParallelGatewayAndConnections() throws IOException, ValidationException {
+    public void fixAddsAdditionalStartEventParallelGatewayAndConnectionsIfMultipleElemsAreUnconnected() throws IOException, ValidationException {
         violationList = Collections.singletonList(testViolation);
-        EXT097AutoFixer fixer = new EXT097AutoFixer();
+
+        FixReport report = fixer.fixIssues(clonedDoc, violationList);
+
+        assertTrue(report.violationsHaveBeenFixed());
+        assertEquals(violationList, report.getFixedViolations());
+
+        DocHandlingHelper.assertValidBPMNspectorResult(clonedDoc);
+    }
+
+    @Test
+    public void fixAddsAdditionalStartEventIfSingleElemIsUnconnected() throws IOException, ValidationException, JDOMException {
+        violationList = Collections.singletonList(testViolation);
+        docToFix = DocHandlingHelper.loadResourceAsDoc("097/single_task_with_no_start.bpmn");
 
         FixReport report = fixer.fixIssues(clonedDoc, violationList);
 
