@@ -46,7 +46,7 @@ public class Ext097 extends TestCase {
 
     @Override
     protected String getErrorMessage() {
-        return "A Start event must be present when an End event is used in the same process level";
+        return "A Start event (or an instantiating ReceiveTask) must be present when an End event is used in the same process level";
     }
 
     @Override
