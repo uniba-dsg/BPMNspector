@@ -18,7 +18,8 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
     private static final Logger LOGGER = LoggerFactory.getLogger(EXT012SecondOptionMarkFormalExpFixer.class.getSimpleName());
 
     private static final String CONSTRAINT_ID = "EXT.012";
-    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.SECOND_OPTION;
+    //private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.SECOND_OPTION;
+    private static final FixingStrategy SUPPORTED_STRATEGY = FixingStrategy.AUTO_FIX;
 
     private final BpmnXPathHelper bpmnXPathHelper = new BpmnXPathHelper();
 

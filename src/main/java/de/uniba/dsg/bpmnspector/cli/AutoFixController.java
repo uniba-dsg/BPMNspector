@@ -11,8 +11,13 @@ import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AutoFixController {
@@ -42,12 +47,17 @@ public class AutoFixController {
         BPMNProcess processToFix = importer.importProcessFromPath(path, new SimpleValidationResult(), false);
 
         ConstraintFixer fixer = new ConstraintFixer(processToFix, violationFixingStrategyMap);
-        fixer.fixAllPossibleIssues();
+        try {
+            fixer.fixAllPossibleIssues();
+        } catch (IllegalStateException e) {
+            System.out.println("Fixing "+path+" failed: "+e);
+        }
 
         if(fixer.getGlobalFixReport().violationsHaveBeenFixed()) {
             Path targetPath = path.getParent().resolve("fixed_" + path.getFileName().toString());
             try {
                 XmlWriterApi.writeBPMNProcess(fixer.getFixedProcess(), targetPath);
+                Files.move(path, path.getParent().resolve("bak").resolve(path.getFileName()), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 throw new ValidationException("Writing fixed process failed." + e);
             }
