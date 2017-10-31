@@ -147,7 +147,7 @@ public class MojoValidator implements BpmnProcessValidator {
         LOGGER.debug("Expression to evaluate: " + xpathObjectId);
         XPathFactory fac = XPathFactory.instance();
         List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMNNAMESPACE)).evaluate(baseProcess.getProcessAsDoc());
+                Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE)).evaluate(baseProcess.getProcessAsDoc());
 
         if (elems.size() == 1) {
             line = ((LocatedElement) elems.get(0)).getLine();
