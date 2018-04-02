@@ -22,13 +22,17 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.*;
 
 public class MojoValidator implements BpmnProcessValidator {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(MojoValidator.class.getSimpleName());
 
     private final String MOJO_MESSAGE_PREFIX = "mojo";
+
+    private final String UNSUPPORTED_STRING = "The marked bpmn element is not supported yet. It will be handled as a task.";
+
+
 
     private final Mojo mojo;
     private final XMLOutputter xmlOutputter = new XMLOutputter();
@@ -41,9 +45,16 @@ public class MojoValidator implements BpmnProcessValidator {
         String processAsString = xmlOutputter.outputString(process.getProcessAsDoc());
         LOGGER.debug(processAsString);
         AnalysisInformation analysisInformation = new AnalysisInformation();
-        // FIXME Use processAsString information as soon as Mojo is capable to do this
-        List<Annotation> mojoResult = mojo.verify(process.getBaseURI(), processAsString, "bpmn.xml", analysisInformation, StandardCharsets.UTF_8);
-        //List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
+        List<Annotation> mojoResult = Collections.emptyList();
+        try {
+            // FIXME Use processAsString information as soon as Mojo is capable to do this
+            mojoResult = mojo.verify(process.getBaseURI(), processAsString, "bpmn.xml", analysisInformation, StandardCharsets.UTF_8);
+            //List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
+        } catch (Exception e) { // FIXME just to make sure failing mojo validation does not kill the whole validation proces
+            LOGGER.warn("Validation of process " + process.getBaseURI() + " failed due to internal problems in mojo: ", e);
+            result.addWarning(createMojoWarning("Mojo validation failed due to internal problems.", process));
+        }
+
         if (!mojoResult.isEmpty()) {
             addMojoResultToValidationResult(mojoResult, result, process);
         }
@@ -52,6 +63,49 @@ public class MojoValidator implements BpmnProcessValidator {
 
     private void addMojoResultToValidationResult(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess)
             throws ValidationException {
+
+        boolean containsUnsupportedElems = checkAndHandleUnsupportedElements(mojoResult, validationResult, baseProcess);
+
+        if(containsUnsupportedElems) {
+            handleFurtherElements(mojoResult, validationResult, baseProcess, FindingType.WARNING);
+        } else {
+            handleFurtherElements(mojoResult, validationResult, baseProcess, FindingType.VIOLATION);
+        }
+
+    }
+
+
+    private boolean checkAndHandleUnsupportedElements(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess) throws ValidationException {
+        if (mojoResult.isEmpty()) {
+            return false;
+        }
+
+        SortedSet<String> unsupportedElements = new TreeSet<>();
+        Iterator<Annotation> iterator = mojoResult.iterator();
+        while (iterator.hasNext()) {
+            Annotation annotation = iterator.next();
+            if (EAlarmCategory.WARNING.equals(annotation.getAlarmCategory())
+                    && UNSUPPORTED_STRING.equals(annotation.getDescription())) {
+                BaseElement problematicElement = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0));
+                unsupportedElements.add(problematicElement.getClass().getSimpleName());
+
+                // remove Unsupported Element warning from mojoResult
+                iterator.remove();
+            }
+        }
+
+        if (!unsupportedElements.isEmpty()) {
+            Warning warning = createMojoWarning("Unable to perform valid mojo execution. The following elements are unsupported: "
+                    + String.join(", ", unsupportedElements),
+                    baseProcess);
+            validationResult.addWarning(warning);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void handleFurtherElements(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess, FindingType findingType) throws ValidationException {
         for (Annotation annotation : mojoResult) {
 
             LOGGER.debug("Found an mojo annotation: Class: " + annotation.getClass() + " AlarmCategory: " + annotation.getAlarmCategory());
@@ -60,9 +114,9 @@ public class MojoValidator implements BpmnProcessValidator {
             }
 
             if (annotation instanceof DeadlockAnnotation) {
-                handleDeadlockAnnotation(validationResult, baseProcess, annotation);
+                handleDeadlockAnnotation(validationResult, baseProcess, annotation, findingType);
             } else if (annotation instanceof AbundanceAnnotation) {
-                handleAbundanceAnnotation(validationResult, baseProcess, annotation);
+                handleAbundanceAnnotation(validationResult, baseProcess, annotation, findingType);
             } else if (EAlarmCategory.WARNING.equals(annotation.getAlarmCategory())) {
                 handleWarningAnnotation(validationResult, baseProcess, annotation);
             } else if (EAlarmCategory.ERROR.equals(annotation.getAlarmCategory())) {
@@ -71,7 +125,8 @@ public class MojoValidator implements BpmnProcessValidator {
         }
     }
 
-    private void handleDeadlockAnnotation(ValidationResult validationResult, BPMNProcess baseProcess, Annotation annotation) throws ValidationException {
+    private void handleDeadlockAnnotation(ValidationResult validationResult, BPMNProcess baseProcess,
+                                          Annotation annotation, FindingType findingType) throws ValidationException {
         StringBuilder builder = new StringBuilder(MOJO_MESSAGE_PREFIX);
         builder.append(": Process contains a deadlock.\nPaths to deadlock:\n");
         List<List<AbstractEdge>> listOfPaths = ((DeadlockAnnotation) annotation).getListOfFailurePaths();
@@ -92,19 +147,34 @@ public class MojoValidator implements BpmnProcessValidator {
         }
         String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
         Location locationOfViolation = determineLocationByXPath(bpmnId, baseProcess);
-        Violation violation = new Violation(locationOfViolation, builder.toString(), "Deadlock");
-        validationResult.addViolation(violation);
+
+        if(findingType.equals(FindingType.WARNING)) {
+            Warning warning = new Warning("Potential Deadlock: "+builder.toString(), locationOfViolation);
+            validationResult.addWarning(warning);
+        } else {
+            Violation violation = new Violation(locationOfViolation, builder.toString(), "Deadlock");
+            validationResult.addViolation(violation);
+        }
     }
 
-    private void handleAbundanceAnnotation(ValidationResult validationResult, BPMNProcess baseProcess, Annotation annotation) throws ValidationException {
-        String message = MOJO_MESSAGE_PREFIX+"Process contains a lack of synchronization.";
+    private void handleAbundanceAnnotation(ValidationResult validationResult, BPMNProcess baseProcess,
+                                           Annotation annotation, FindingType findingType) throws ValidationException {
+
+        String message = MOJO_MESSAGE_PREFIX + "Process contains a lack of synchronization.";
         String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
         Location locationOfViolation = determineLocationByXPath(bpmnId, baseProcess);
-        Violation violation = new Violation(locationOfViolation, message, "LackOfSync");
-        validationResult.addViolation(violation);
+
+        if(findingType.equals(FindingType.WARNING)) {
+            Warning warning = new Warning("Potential LackOfSync: "+message, locationOfViolation);
+            validationResult.addWarning(warning);
+        } else {
+            Violation violation = new Violation(locationOfViolation, message, "LackOfSync");
+            validationResult.addViolation(violation);
+        }
     }
 
-    private void handleWarningAnnotation(ValidationResult validationResult, BPMNProcess baseProcess, Annotation annotation) throws ValidationException {
+    private void handleWarningAnnotation(ValidationResult validationResult, BPMNProcess baseProcess,
+                                         Annotation annotation) throws ValidationException {
         if (annotation.getInterpretedPrintableNodes().isEmpty()) {
             validationResult.addWarning(createMojoWarning(annotation.getDescription(), baseProcess));
         } else {
@@ -113,7 +183,8 @@ public class MojoValidator implements BpmnProcessValidator {
         }
     }
 
-    private Warning createMojoWarning(String message, BPMNProcess affectedProcess, BaseElement affectedElement) throws ValidationException {
+    private Warning createMojoWarning(String message, BPMNProcess affectedProcess, BaseElement affectedElement)
+            throws ValidationException {
         String fullMessage;
         Location locationOfWarning;
 
@@ -174,4 +245,5 @@ public class MojoValidator implements BpmnProcessValidator {
         return String.format("//bpmn:*[@id = '%s']", id);
     }
 
+    public enum FindingType { WARNING, VIOLATION }
 }

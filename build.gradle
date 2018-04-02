@@ -84,7 +84,8 @@ dependencies {
 	compile 'org.apache.velocity:velocity:1.7'
     compile 'org.apache.logging.log4j:log4j-api:2.7'
     compile 'org.apache.logging.log4j:log4j-core:2.7'
-    compile 'com.github.guybrushPrince:mojo.core:master-SNAPSHOT'
+    //compile 'com.github.guybrushPrince:mojo.core:master-SNAPSHOT'
+    compile 'com.github.matthiasgeiger:mojo.core:master-SNAPSHOT'
     compile 'com.github.guybrushPrince:mojo.reader.bpmn:master-SNAPSHOT'
 
 	external files(fileTree(dir: "lib", includes: ['*.jar']))
