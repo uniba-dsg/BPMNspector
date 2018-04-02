@@ -55,6 +55,7 @@ public class HtmlReportGenerator {
 
             int checkedFilesSum = 0;
             int validResults = 0;
+            int validWithWarnings = 0;
 
             List<SingleValidationSummary> summaries = new LinkedList<>();
 
@@ -67,6 +68,9 @@ public class HtmlReportGenerator {
                 checkedFilesSum += singleResult.getFoundFiles().size();
                 if(singleResult.isValid()) {
                     validResults++;
+                    if(!singleResult.getWarnings().isEmpty()) {
+                        validWithWarnings++;
+                    }
                 }
 
                 // update violationsByConstraintCount
@@ -79,7 +83,7 @@ public class HtmlReportGenerator {
                 summaries.add(summary);
             }
 
-            createSummaryHtml(baseFolder.toString(), summaryFile, checkedFilesSum, validResults,  violationsByConstraintCount, summaries);
+            createSummaryHtml(baseFolder.toString(), summaryFile, checkedFilesSum, validResults, validWithWarnings, violationsByConstraintCount, summaries);
 
             return summaryFile;
         } catch ( IOException ioe) {
@@ -89,7 +93,7 @@ public class HtmlReportGenerator {
     }
 
     private static void createSummaryHtml(String baseFolder, Path summaryFile, int checkedFilesSum, int validResults,
-                                   Map<String, Integer> violationsByConstraintCount,
+                                   int validWithWarnings, Map<String, Integer> violationsByConstraintCount,
                                    List<SingleValidationSummary> summaries) {
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         Velocity.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
@@ -104,6 +108,8 @@ public class HtmlReportGenerator {
             context.put("directlyChecked", summaries.size());
             context.put("importedFilesChecked", checkedFilesSum-summaries.size());
             context.put("validResults", validResults);
+            context.put("validWithWarnings", validWithWarnings);
+            context.put("completelyValid", validResults-validWithWarnings);
             context.put("invalidResults", summaries.size()-validResults);
             context.put("violationsByConstraintCount", violationsByConstraintCount);
             context.put("summaries", summaries);
