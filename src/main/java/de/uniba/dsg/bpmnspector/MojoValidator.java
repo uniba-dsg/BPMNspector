@@ -9,14 +9,8 @@ import de.jena.uni.mojo.error.DeadlockAnnotation;
 import de.jena.uni.mojo.error.EAlarmCategory;
 import de.jena.uni.mojo.interpreter.AbstractEdge;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
-import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.activiti.designer.bpmn2.model.BaseElement;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
-import org.jdom2.filter.Filters;
-import org.jdom2.located.LocatedElement;
 import org.jdom2.output.XMLOutputter;
-import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +26,6 @@ public class MojoValidator implements BpmnProcessValidator {
 
     private final String UNSUPPORTED_STRING = "The marked bpmn element is not supported yet. It will be handled as a task.";
 
-
-
     private final Mojo mojo;
     private final XMLOutputter xmlOutputter = new XMLOutputter();
 
@@ -44,6 +36,14 @@ public class MojoValidator implements BpmnProcessValidator {
     public void validate(BPMNProcess process, ValidationResult result) throws ValidationException {
         String processAsString = xmlOutputter.outputString(process.getProcessAsDoc());
         LOGGER.debug(processAsString);
+
+        if (process.hasConditionalSeqFlowTasks()) {
+            result.addWarning(createMojoWarning("Unable to perform valid mojo execution. " +
+                    "Conditional sequence flows attached to tasks are not supported.", process));
+
+            return;
+        }
+
         AnalysisInformation analysisInformation = new AnalysisInformation();
         List<Annotation> mojoResult = Collections.emptyList();
         try {
@@ -66,7 +66,7 @@ public class MojoValidator implements BpmnProcessValidator {
 
         boolean containsUnsupportedElems = checkAndHandleUnsupportedElements(mojoResult, validationResult, baseProcess);
 
-        if(containsUnsupportedElems) {
+        if (containsUnsupportedElems) {
             handleFurtherElements(mojoResult, validationResult, baseProcess, FindingType.WARNING);
         } else {
             handleFurtherElements(mojoResult, validationResult, baseProcess, FindingType.VIOLATION);
@@ -96,7 +96,7 @@ public class MojoValidator implements BpmnProcessValidator {
 
         if (!unsupportedElements.isEmpty()) {
             Warning warning = createMojoWarning("Unable to perform valid mojo execution. The following elements are unsupported: "
-                    + String.join(", ", unsupportedElements),
+                            + String.join(", ", unsupportedElements),
                     baseProcess);
             validationResult.addWarning(warning);
             return true;
@@ -132,8 +132,7 @@ public class MojoValidator implements BpmnProcessValidator {
         List<List<AbstractEdge>> listOfPaths = ((DeadlockAnnotation) annotation).getListOfFailurePaths();
         for (List<AbstractEdge> path : listOfPaths) {
             builder.append("Path: ");
-            for (int i = 0; i < path.size(); i++) {
-                AbstractEdge edge = path.get(i);
+            for (AbstractEdge edge : path) {
                 if (edge.source instanceof BaseElement) {
                     String edgeString = String.format("%s[%s] \u2192", edge.source.getClass().getSimpleName(), ((BaseElement) edge.source).getId());
                     builder.append(edgeString);
@@ -146,10 +145,10 @@ public class MojoValidator implements BpmnProcessValidator {
             builder.append(lastTargetString);
         }
         String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
-        Location locationOfViolation = determineLocationByXPath(bpmnId, baseProcess);
+        Location locationOfViolation = baseProcess.determineLocationByXPath(bpmnId);
 
-        if(findingType.equals(FindingType.WARNING)) {
-            Warning warning = new Warning("Potential Deadlock: "+builder.toString(), locationOfViolation);
+        if (findingType.equals(FindingType.WARNING)) {
+            Warning warning = new Warning("Potential Deadlock: " + builder.toString(), locationOfViolation);
             validationResult.addWarning(warning);
         } else {
             Violation violation = new Violation(locationOfViolation, builder.toString(), "Deadlock");
@@ -162,10 +161,10 @@ public class MojoValidator implements BpmnProcessValidator {
 
         String message = MOJO_MESSAGE_PREFIX + "Process contains a lack of synchronization.";
         String bpmnId = ((BaseElement) annotation.getInterpretedPrintableNodes().get(0)).getId();
-        Location locationOfViolation = determineLocationByXPath(bpmnId, baseProcess);
+        Location locationOfViolation = baseProcess.determineLocationByXPath(bpmnId);
 
-        if(findingType.equals(FindingType.WARNING)) {
-            Warning warning = new Warning("Potential LackOfSync: "+message, locationOfViolation);
+        if (findingType.equals(FindingType.WARNING)) {
+            Warning warning = new Warning("Potential LackOfSync: " + message, locationOfViolation);
             validationResult.addWarning(warning);
         } else {
             Violation violation = new Violation(locationOfViolation, message, "LackOfSync");
@@ -193,7 +192,7 @@ public class MojoValidator implements BpmnProcessValidator {
             fullMessage = String.format("%s: %s", MOJO_MESSAGE_PREFIX, message);
         } else {
             String bpmnId = affectedElement.getId();
-            locationOfWarning = determineLocationByXPath(bpmnId, affectedProcess);
+            locationOfWarning = affectedProcess.determineLocationByXPath(bpmnId);
             fullMessage = String.format("%s: %s: %s", MOJO_MESSAGE_PREFIX, affectedElement.getClass().getSimpleName(), message);
         }
 
@@ -204,46 +203,5 @@ public class MojoValidator implements BpmnProcessValidator {
         return createMojoWarning(message, affectedProcess, null);
     }
 
-    private Location determineLocationByXPath(String xpathExpression, BPMNProcess baseProcess)
-            throws ValidationException {
-
-        LOGGER.debug("Found ID:" + xpathExpression);
-
-        int line = -1;
-        int column = -1;
-
-        // use ID with generated prefix for lookup
-        String xpathObjectId = createIdBpmnExpression(xpathExpression);
-
-        LOGGER.debug("Expression to evaluate: " + xpathObjectId);
-        XPathFactory fac = XPathFactory.instance();
-        List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE)).evaluate(baseProcess.getProcessAsDoc());
-
-        if (elems.size() == 1) {
-            line = ((LocatedElement) elems.get(0)).getLine();
-            column = ((LocatedElement) elems.get(0)).getColumn();
-            //use ID without prefix  (=original ID) as Violation xPath
-            xpathObjectId = createIdBpmnExpression(xpathExpression.substring(xpathExpression.indexOf('_') + 1));
-        }
-
-        if (line == -1 || column == -1) {
-            throw new ValidationException("BPMN Element couldn't be found in file '" + baseProcess.getBaseURI() + "'!");
-        }
-
-        return new Location(Paths.get(baseProcess.getBaseURI()).toAbsolutePath(), new LocationCoordinate(line, column),
-                xpathObjectId);
-    }
-
-    /**
-     * creates a xpath expression for finding the id
-     *
-     * @param id the id, to which the expression should refer
-     * @return the xpath expression, which refers the given id
-     */
-    private static String createIdBpmnExpression(String id) {
-        return String.format("//bpmn:*[@id = '%s']", id);
-    }
-
-    public enum FindingType { WARNING, VIOLATION }
+    public enum FindingType {WARNING, VIOLATION}
 }
