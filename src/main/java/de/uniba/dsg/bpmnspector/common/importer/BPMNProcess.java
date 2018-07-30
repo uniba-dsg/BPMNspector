@@ -180,6 +180,34 @@ public class BPMNProcess {
         return false;
     }
 
+    public boolean hasBoundaryEvents() {
+        IteratorIterable<Element> it = processAsDoc.getRootElement().getDescendants(Filters.element("boundaryEvent", BPMN_NAMESPACE));
+        return it.hasNext();
+    }
+
+    /**
+     * Method to determine whether the BPMN process contains more than one process definition
+     *
+     * @return true iff more than one participant or process is defined in the process document
+     */
+    public boolean isMultiProcessModel() {
+
+        // Case 1: Multiple processes within one BPMN file
+        List<Element> processElems = processAsDoc.getRootElement().getChildren("process", BPMN_NAMESPACE);
+        if(processElems.size() > 1) {
+            return true;
+        }
+
+        // case 2: only one process, but collaboration contains two or more participants (--> blackbox pools)
+        Element collaboration = processAsDoc.getRootElement().getChild("collaboration", BPMN_NAMESPACE);
+        if(collaboration != null) {
+            List<Element> participants = collaboration.getChildren("participant", BPMN_NAMESPACE);
+            return participants.size() > 1;
+        }
+
+        return false;
+    }
+
     /**
      * creates an xpath expression for finding the id
      *

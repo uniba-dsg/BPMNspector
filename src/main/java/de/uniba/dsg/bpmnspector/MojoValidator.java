@@ -45,6 +45,20 @@ public class MojoValidator implements BpmnProcessValidator {
             return;
         }
 
+        if (process.isMultiProcessModel()) {
+            result.addWarning(createMojoWarning("Unable to perform valid mojo execution. " +
+                    "BPMN model contains more than one participant or process definition.", process));
+
+            return;
+        }
+
+        if (process.hasBoundaryEvents()) {
+            result.addWarning(createMojoWarning("Unable to perform valid mojo execution. " +
+                    "Boundary Events attached to tasks are not supported.", process));
+
+            return;
+        }
+
         AnalysisInformation analysisInformation = new AnalysisInformation();
         List<Annotation> mojoResult = Collections.emptyList();
         try {
@@ -96,7 +110,8 @@ public class MojoValidator implements BpmnProcessValidator {
         }
 
         if (!unsupportedElements.isEmpty()) {
-            Warning warning = createMojoWarning("Unable to perform valid mojo execution. The following elements are unsupported: "
+            Warning warning = createMojoWarning("Mojo checks have been performed but results might be wrong as " +
+                            "the following elements are unsupported: "
                             + String.join(", ", unsupportedElements),
                     baseProcess);
             validationResult.addWarning(warning);
