@@ -67,7 +67,12 @@
         <tr>
             <td>$foreach.count</td>
             <td>$violation.getLocation().getResource().getResourceName()</td>
+        #if($violation.getLocation().getLocation().getRow() == -1)
+            <td>&mdash;</td>
+        #else
             <td>$violation.getLocation().getLocation().getRow()</td>
+        #end
+
         #if($violation.getConstraint().contains("EXT"))
             #set( $ExtNo = $violation.getConstraint().replace(".",""))
             <td><a href="http://bpmnspector.org/ConstraintList_EXT.html#title$ExtNo" title="Click for description">$violation.getConstraint()</a></td>
@@ -99,7 +104,11 @@
                     <tr>
                         <td>$foreach.count</td>
                         <td>$warning.getLocation().getResource().getResourceName()</td>
-                        <td>$warning.getLocation().getLocation().getRow()</td>
+                        #if($warning.getLocation().getLocation().getRow() == -1)
+                            <td>&mdash;</td>
+                        #else
+                            <td>$warning.getLocation().getLocation().getRow()</td>
+                        #end
                         <td>$warning.getMessage()</td>
                     </tr>
                     #end
