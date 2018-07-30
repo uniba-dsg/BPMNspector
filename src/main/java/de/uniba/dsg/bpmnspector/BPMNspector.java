@@ -77,6 +77,7 @@ public class BPMNspector implements Validator {
         }
 
         String resultString = result.isValid() ? "valid" : "invalid";
+        resultString += result.getWarnings().isEmpty() ? "" : " with warnings";
         LOGGER.info("Overall result for '{}': {}", file.getFileName().toString(), resultString);
 
         return result;
