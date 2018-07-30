@@ -10,6 +10,7 @@ import de.jena.uni.mojo.error.EAlarmCategory;
 import de.jena.uni.mojo.interpreter.AbstractEdge;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import org.activiti.designer.bpmn2.model.BaseElement;
+import org.activiti.designer.bpmn2.model.FlowElement;
 import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -134,8 +135,15 @@ public class MojoValidator implements BpmnProcessValidator {
             builder.append("Path: ");
             for (AbstractEdge edge : path) {
                 if (edge.source instanceof BaseElement) {
-                    String edgeString = String.format("%s[%s] \u2192", edge.source.getClass().getSimpleName(), ((BaseElement) edge.source).getId());
-                    builder.append(edgeString);
+                    if(edge.source instanceof FlowElement && ((FlowElement) edge.source).getName() != null
+                            && (!"".equals(((FlowElement) edge.source).getName()))) {
+                        String edgeString = String.format("%s[id: %s; name: %s] \u2192", edge.source.getClass().getSimpleName(),
+                                ((BaseElement) edge.source).getId(), ((FlowElement) edge.source).getName());
+                        builder.append(edgeString);
+                    } else {
+                        String edgeString = String.format("%s[id: %s] \u2192", edge.source.getClass().getSimpleName(), ((BaseElement) edge.source).getId());
+                        builder.append(edgeString);
+                    }
                 }
             }
             Object lastTarget = path.get(path.size() - 1).target;
