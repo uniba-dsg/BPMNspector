@@ -9,8 +9,12 @@ import de.jena.uni.mojo.error.DeadlockAnnotation;
 import de.jena.uni.mojo.error.EAlarmCategory;
 import de.jena.uni.mojo.interpreter.AbstractEdge;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
+import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.activiti.designer.bpmn2.model.BaseElement;
 import org.activiti.designer.bpmn2.model.FlowElement;
+import org.jdom2.Comment;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.jdom2.output.XMLOutputter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,13 +49,6 @@ public class MojoValidator implements BpmnProcessValidator {
             return;
         }
 
-        if (process.isMultiProcessModel()) {
-            result.addWarning(createMojoWarning("Unable to perform valid mojo execution. " +
-                    "BPMN model contains more than one participant or process definition.", process));
-
-            return;
-        }
-
         if (process.hasBoundaryEvents()) {
             result.addWarning(createMojoWarning("Unable to perform valid mojo execution. " +
                     "Boundary Events attached to tasks are not supported.", process));
@@ -59,6 +56,21 @@ public class MojoValidator implements BpmnProcessValidator {
             return;
         }
 
+        if (process.isMultiProcessModel()) {
+            result.addWarning(createMojoWarning("BPMN model contains more than one participant or process definition." +
+                    "mojo is not capable of analyzing collaborations or BPMN files containing more than one process correctly." +
+                    "Processes have been checked singularly instead.", process));
+
+            handleMultiProcessModel(process, result);
+
+            return;
+        }
+
+        performValidation(process, result, processAsString);
+
+    }
+
+    private void performValidation(BPMNProcess process, ValidationResult result, String processAsString) throws ValidationException {
         AnalysisInformation analysisInformation = new AnalysisInformation();
         List<Annotation> mojoResult = Collections.emptyList();
         try {
@@ -73,8 +85,54 @@ public class MojoValidator implements BpmnProcessValidator {
         if (!mojoResult.isEmpty()) {
             addMojoResultToValidationResult(mojoResult, result, process);
         }
+    }
+
+    private void handleMultiProcessModel(BPMNProcess process, ValidationResult result) throws ValidationException {
+        XMLOutputter outputter = new XMLOutputter();
+
+        // if process contains a collaboration - comment it out
+        Document doc = process.getProcessAsDoc();
+        Element rootElem = doc.getRootElement();
+        Element collaboration = rootElem.getChild("collaboration", ConstantHelper.BPMN_NAMESPACE);
+        if (collaboration != null) {
+            Comment commentedOutCollaboration = new Comment(commentOutElement(collaboration));
+            rootElem.setContent(rootElem.indexOf(collaboration), commentedOutCollaboration);
+
+            LOGGER.debug(outputter.outputString(doc));
+        }
+
+        // for each process in the file
+        List<Element> processElems = rootElem.getChildren("process", ConstantHelper.BPMN_NAMESPACE);
+        for (int i = 0; i < processElems.size(); i++) {
+            Element processElem = processElems.get(i);
+            int indexOfCurrentProcessElem = rootElem.indexOf(processElem);
+            Document clonedDoc = doc.clone();
+            Element clonedRoot = clonedDoc.getRootElement();
+            // result of clonedRoot.getChildren() gets modified - so copy in new List is needed
+            List<Element> clonedProcessElems = new ArrayList<>(clonedRoot.getChildren("process", ConstantHelper.BPMN_NAMESPACE));
+
+            for (int j = 0; j < clonedProcessElems.size(); j++) {
+                if (i != j) {
+                    Element currentProcess = clonedProcessElems.get(j);
+                    Comment commentedOutCurrentProcess = new Comment(commentOutElement(currentProcess));
+                    clonedRoot.setContent(clonedRoot.indexOf(currentProcess), commentedOutCurrentProcess);
+                }
+            }
+
+            // perform mojo validation on cloned process doc with commented out information
+            LOGGER.debug("Process " + i + " will be validated: \n" + xmlOutputter.outputString(clonedDoc));
+            performValidation(process, result, outputter.outputString(clonedDoc));
+        }
+
 
     }
+
+    private String commentOutElement(Element element) {
+        String elementString = xmlOutputter.outputString(element);
+        String replacedCommentDashes = elementString.replaceAll("--", "- -");
+        return replacedCommentDashes;
+    }
+
 
     private void addMojoResultToValidationResult(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess)
             throws ValidationException {
@@ -150,7 +208,7 @@ public class MojoValidator implements BpmnProcessValidator {
             builder.append("Path: ");
             for (AbstractEdge edge : path) {
                 if (edge.source instanceof BaseElement) {
-                    if(edge.source instanceof FlowElement && ((FlowElement) edge.source).getName() != null
+                    if (edge.source instanceof FlowElement && ((FlowElement) edge.source).getName() != null
                             && (!"".equals(((FlowElement) edge.source).getName()))) {
                         String edgeString = String.format("%s[id: %s; name: %s] \u2192", edge.source.getClass().getSimpleName(),
                                 ((BaseElement) edge.source).getId(), ((FlowElement) edge.source).getName());
