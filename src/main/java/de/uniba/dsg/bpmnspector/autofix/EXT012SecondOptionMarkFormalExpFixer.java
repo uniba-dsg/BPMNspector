@@ -114,7 +114,7 @@ public class EXT012SecondOptionMarkFormalExpFixer implements ViolationFixer {
     }
 
     private void addAttributeToChild(Element elementToUse, String nameOfChild) {
-        Element childToUse = elementToUse.getChild(nameOfChild, Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE));
+        Element childToUse = elementToUse.getChild(nameOfChild, Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING));
         if (childToUse != null) {
             childToUse.setAttribute("type",
                     childToUse.getNamespacePrefix() + "tFormalExpression",

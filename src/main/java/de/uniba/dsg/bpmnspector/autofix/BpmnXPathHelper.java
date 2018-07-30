@@ -90,7 +90,7 @@ public class BpmnXPathHelper {
     }
 
     public void insertOutgoingElementToFlowNode(Element flownode, String outgoingIDREF) {
-        Element newSubElem = new Element("outgoing", ConstantHelper.BPMN_NAMESPACE);
+        Element newSubElem = new Element("outgoing", ConstantHelper.BPMN_NAMESPACE_STRING);
         newSubElem.setText(outgoingIDREF);
 
         int index = determineIndexForElementInsertion(flownode);
@@ -102,7 +102,7 @@ public class BpmnXPathHelper {
     }
 
     public void insertIncomingElementToFlowNode(Element flownode, String incomingIDREF) {
-        Element newSubElem = new Element("incoming", ConstantHelper.BPMN_NAMESPACE);
+        Element newSubElem = new Element("incoming", ConstantHelper.BPMN_NAMESPACE_STRING);
         newSubElem.setText(incomingIDREF);
 
         int index = determineIndexForElementInsertion(flownode);
@@ -114,7 +114,7 @@ public class BpmnXPathHelper {
     }
 
     public Element createSequenceFlow(String sourceRefID, String targetRefId) {
-        Element sequenceFlow = new Element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE);
+        Element sequenceFlow = new Element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE_STRING);
         sequenceFlow.setAttribute("id", createRandomUniqueId());
         sequenceFlow.setAttribute("sourceRef", sourceRefID);
         sequenceFlow.setAttribute("targetRef", targetRefId);

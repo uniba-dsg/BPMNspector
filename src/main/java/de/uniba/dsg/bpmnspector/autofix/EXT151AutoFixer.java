@@ -50,7 +50,7 @@ public class EXT151AutoFixer implements ViolationFixer {
         Element parentProcessElement = unconnectedElem.getParentElement();
 
         // add EndEvent to parent
-        Element newEnd = new Element("endEvent", ConstantHelper.BPMN_NAMESPACE);
+        Element newEnd = new Element("endEvent", ConstantHelper.BPMN_NAMESPACE_STRING);
         newEnd.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
         newEnd.setAttribute("name", "Auto-created EndEvent");
         parentProcessElement.addContent(newEnd);

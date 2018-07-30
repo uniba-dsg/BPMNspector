@@ -238,7 +238,7 @@ public class PreProcessor {
     private XPathExpression<Attribute> createXPathExpressionForAllQNameAttributes() {
 
         return xPathFactory.compile(ALL_QNAME_ATTRIBUTES, Filters.attribute(), null,
-                getBpmnNamespace());
+                ConstantHelper.BPMN_NAMESPACE);
     }
 
     /**
@@ -247,7 +247,7 @@ public class PreProcessor {
     private XPathExpression<Element> createXPathExpressionForAllQNameElements() {
 
         return xPathFactory.compile(ALL_QNAME_ELEMENTS, Filters.element(), null,
-                getBpmnNamespace());
+                ConstantHelper.BPMN_NAMESPACE);
     }
     
 
@@ -260,7 +260,7 @@ public class PreProcessor {
         String expStr = "//bpmn:*/@id | " + ALL_IDREF_ATTRIBUTES +" | "+ ALL_QNAME_ATTRIBUTES;
 
         return xPathFactory.compile(expStr, Filters.attribute(), null,
-                getBpmnNamespace());
+                ConstantHelper.BPMN_NAMESPACE);
     }
 
     /**
@@ -272,11 +272,8 @@ public class PreProcessor {
         String expStr = ALL_IDREF_ELEMENTS + " | " + ALL_QNAME_ELEMENTS;
 
         return xPathFactory.compile(expStr, Filters.element(), null,
-                getBpmnNamespace());
+                ConstantHelper.BPMN_NAMESPACE);
     }
 
-    private Namespace getBpmnNamespace() {
-        return Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE);
-    }
 
 }

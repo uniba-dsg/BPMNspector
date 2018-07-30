@@ -190,7 +190,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
         LOGGER.debug("XPath to evaluate: "+location);
         XPathFactory fac = XPathFactory.instance();
         Element foundElem = fac.compile(location, Filters.element(), null,
-                Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE)).evaluateFirst(
+                ConstantHelper.BPMN_NAMESPACE).evaluateFirst(
                 baseProcess.getProcessAsDoc());
 
         String logText;
@@ -285,7 +285,7 @@ public class SchematronBPMNValidator implements BpmnProcessValidator {
             LOGGER.debug("Expression to evaluate: "+xpathObjectId);
             XPathFactory fac = XPathFactory.instance();
             List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,
-                    Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE)).evaluate(optional.get().getProcessAsDoc());
+                    ConstantHelper.BPMN_NAMESPACE).evaluate(optional.get().getProcessAsDoc());
 
             if(elems.size()==1) {
                 line = ((LocatedElement) elems.get(0)).getLine();

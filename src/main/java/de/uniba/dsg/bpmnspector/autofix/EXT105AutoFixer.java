@@ -51,7 +51,7 @@ public class EXT105AutoFixer implements ViolationFixer {
         Element parentProcessElement = elementOptional.get().getParentElement();
 
         // add EndEvent to parent
-        Element newEnd = new Element("endEvent", ConstantHelper.BPMN_NAMESPACE);
+        Element newEnd = new Element("endEvent", ConstantHelper.BPMN_NAMESPACE_STRING);
         newEnd.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
         newEnd.setAttribute("name", "Auto-created EndEvent");
         parentProcessElement.addContent(newEnd);
@@ -59,7 +59,7 @@ public class EXT105AutoFixer implements ViolationFixer {
         // find all unconnected Elems in parent i.e., they have no outgoing element
         List<Element> childrenWithNeededOutgoingSeqFlow = bpmnXPathHelper.determineFlowNodesWithNeededOutgoingFlow(parentProcessElement);
         List<Element> unconnectedElems = childrenWithNeededOutgoingSeqFlow.stream()
-                .filter(e -> e.getChild("outgoing", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE)) == null)
+                .filter(e -> e.getChild("outgoing", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING)) == null)
                 .collect(Collectors.toList());
 
         for(Element unconnected : unconnectedElems) {

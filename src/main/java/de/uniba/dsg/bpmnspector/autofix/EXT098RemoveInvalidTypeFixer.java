@@ -57,7 +57,7 @@ public class EXT098RemoveInvalidTypeFixer implements ViolationFixer {
                 .filter(e -> INVALID_START_EVENT_DEFINITIONS.contains(e.getName()))
                 .collect(Collectors.toList());
 
-        elemsToRemove.forEach(e -> affectedStartEvent.removeChild(e.getName(), Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE)));
+        elemsToRemove.forEach(e -> affectedStartEvent.removeChild(e.getName(), Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING)));
 
         return true;
     }

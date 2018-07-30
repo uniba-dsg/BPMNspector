@@ -7,7 +7,6 @@ import de.uniba.dsg.bpmnspector.common.util.ConstantHelper;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.Namespace;
 import org.jdom2.filter.Filters;
 import org.jdom2.located.LocatedElement;
 import org.jdom2.util.IteratorIterable;
@@ -38,7 +37,6 @@ public class BPMNProcess {
     private final List<Document> xsds = new ArrayList<>();
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(BPMNProcess.class.getSimpleName());
-    private static final Namespace BPMN_NAMESPACE = Namespace.getNamespace("bpmn", ConstantHelper.BPMN_NAMESPACE);
 
     public BPMNProcess(Document processAsDoc, String baseURI, String namespace) {
         this(processAsDoc, baseURI, namespace, null);
@@ -141,7 +139,7 @@ public class BPMNProcess {
         LOGGER.debug("Expression to evaluate: " + xpathObjectId);
         XPathFactory fac = XPathFactory.instance();
         List<Element> elems = fac.compile(xpathObjectId, Filters.element(), null,
-                BPMN_NAMESPACE).evaluate(processAsDoc);
+                ConstantHelper.BPMN_NAMESPACE).evaluate(processAsDoc);
 
         if (elems.size() == 1) {
             line = ((LocatedElement) elems.get(0)).getLine();
@@ -159,10 +157,10 @@ public class BPMNProcess {
     }
 
     public boolean hasConditionalSeqFlowTasks() {
-        IteratorIterable<Element> it = processAsDoc.getRootElement().getDescendants(Filters.element("sequenceFlow", BPMN_NAMESPACE));
+        IteratorIterable<Element> it = processAsDoc.getRootElement().getDescendants(Filters.element("sequenceFlow", ConstantHelper.BPMN_NAMESPACE));
         while (it.hasNext()) {
             Element seqFlow = it.next();
-            if (seqFlow.getChild("conditionExpression", BPMN_NAMESPACE) != null) {
+            if (seqFlow.getChild("conditionExpression", ConstantHelper.BPMN_NAMESPACE) != null) {
                 Attribute sourceRefAttribute = seqFlow.getAttribute("sourceRef");
                 if (sourceRefAttribute != null) {
                     String sourceId = sourceRefAttribute.getValue();
@@ -181,7 +179,7 @@ public class BPMNProcess {
     }
 
     public boolean hasBoundaryEvents() {
-        IteratorIterable<Element> it = processAsDoc.getRootElement().getDescendants(Filters.element("boundaryEvent", BPMN_NAMESPACE));
+        IteratorIterable<Element> it = processAsDoc.getRootElement().getDescendants(Filters.element("boundaryEvent", ConstantHelper.BPMN_NAMESPACE));
         return it.hasNext();
     }
 
@@ -193,15 +191,15 @@ public class BPMNProcess {
     public boolean isMultiProcessModel() {
 
         // Case 1: Multiple processes within one BPMN file
-        List<Element> processElems = processAsDoc.getRootElement().getChildren("process", BPMN_NAMESPACE);
+        List<Element> processElems = processAsDoc.getRootElement().getChildren("process", ConstantHelper.BPMN_NAMESPACE);
         if(processElems.size() > 1) {
             return true;
         }
 
         // case 2: only one process, but collaboration contains two or more participants (--> blackbox pools)
-        Element collaboration = processAsDoc.getRootElement().getChild("collaboration", BPMN_NAMESPACE);
+        Element collaboration = processAsDoc.getRootElement().getChild("collaboration", ConstantHelper.BPMN_NAMESPACE);
         if(collaboration != null) {
-            List<Element> participants = collaboration.getChildren("participant", BPMN_NAMESPACE);
+            List<Element> participants = collaboration.getChildren("participant", ConstantHelper.BPMN_NAMESPACE);
             return participants.size() > 1;
         }
 

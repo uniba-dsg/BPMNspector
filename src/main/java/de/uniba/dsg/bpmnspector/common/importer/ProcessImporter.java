@@ -74,7 +74,8 @@ public class ProcessImporter {
             bpmnXsdValidator
                     .validateAgainstXsd(new ByteArrayInputStream(streamContent), resource, result);
             Document processAsDoc = builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
-            if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMN_NAMESPACE
+
+            if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMN_NAMESPACE_STRING
                     .equals(processAsDoc.getRootElement().getNamespaceURI())) {
                 String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
 
@@ -109,7 +110,7 @@ public class ProcessImporter {
                 byte[] streamContent = IOUtils.toByteArray(stream);
                 bpmnXsdValidator.validateAgainstXsd(new ByteArrayInputStream(streamContent), resource, result);
                 Document processAsDoc = builder.build(new ByteArrayInputStream(streamContent), resource.getResourceName());
-                if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMN_NAMESPACE
+                if ("definitions".equals(processAsDoc.getRootElement().getName()) && ConstantHelper.BPMN_NAMESPACE_STRING
                         .equals(processAsDoc.getRootElement().getNamespaceURI())) {
                     String processNamespace = processAsDoc.getRootElement().getAttributeValue("targetNamespace");
 
@@ -154,7 +155,7 @@ public class ProcessImporter {
             String importType = elem.getAttributeValue("importType");
 
             // fail fast if import type is not supported
-            if (!(ConstantHelper.BPMN_NAMESPACE.equals(importType) || ConstantHelper.WSDL2_NAMESPACE.equals(importType)
+            if (!(ConstantHelper.BPMN_NAMESPACE_STRING.equals(importType) || ConstantHelper.WSDL2_NAMESPACE.equals(importType)
                     || ConstantHelper.XSD_NAMESPACE.equals(importType))) {
 
                 int line = ((LocatedElement) elem).getLine();
@@ -204,7 +205,7 @@ public class ProcessImporter {
             }
 
             if (resource != null) {
-                if (ConstantHelper.BPMN_NAMESPACE.equals(importType)) {
+                if (ConstantHelper.BPMN_NAMESPACE_STRING.equals(importType)) {
                     if (!isFileAlreadyImported(resource.getResourceName(), rootProcess)) {
                         try {
                             BPMNProcess importedProcess = importProcessRecursively(resource, process, rootProcess,
@@ -255,7 +256,7 @@ public class ProcessImporter {
     }
 
     private Namespace getBPMNNamespace() {
-        return Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE);
+        return Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING);
     }
 
     private Namespace getBPMNDINamespace() {
