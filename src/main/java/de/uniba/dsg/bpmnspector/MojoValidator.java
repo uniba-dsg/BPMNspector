@@ -168,11 +168,23 @@ public class MojoValidator implements BpmnProcessValidator {
         }
 
         if (!unsupportedElements.isEmpty()) {
-            Warning warning = createMojoWarning("Mojo checks have been performed but results might be wrong as " +
-                            "the following elements are unsupported: "
-                            + String.join(", ", unsupportedElements),
-                    baseProcess);
-            validationResult.addWarning(warning);
+            if(unsupportedElements.contains("SubProcess")) {
+                String message = "The process contains at least one SubProcess element that," +
+                        " has been treated as a simple Task. Therefore, potential problems within the SubProcess" +
+                        " are not detected.";
+                unsupportedElements.remove("SubProcess");
+                if(!unsupportedElements.isEmpty()) {
+                    message += "\nFurther unsupported Elements: "+String.join(", ", unsupportedElements);
+                }
+                Warning warning = createMojoWarning(message, baseProcess);
+                validationResult.addWarning(warning);
+            } else {
+                Warning warning = createMojoWarning("Mojo checks have been performed but results might be wrong as " +
+                                "the following elements are unsupported: "
+                                + String.join(", ", unsupportedElements),
+                        baseProcess);
+                validationResult.addWarning(warning);
+            }
             return true;
         }
 
