@@ -113,6 +113,8 @@ public class BPMNProcess {
     }
 
     public Optional<Element> findElementById(String id) {
+        Objects.requireNonNull(id, "id must not be null.");
+
         IteratorIterable<Element> it = processAsDoc.getRootElement().getDescendants(Filters.element());
         while (it.hasNext()) {
             Element nextElem = it.next();
