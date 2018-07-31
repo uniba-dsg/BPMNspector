@@ -23,7 +23,9 @@
                         <div class="list-group-item"><strong>Number of checked files</strong> <span class="badge">$checkedFilesSum</span></div>
                         <div class="list-group-item"><em>- directly checked</em> <span class="badge">$directlyChecked</span></div>
                         <div class="list-group-item"><em>- imported files</em><span class="badge text-right">$importedFilesChecked</span></div>
-                        <div class="list-group-item"><strong>Valid validations</strong> <span class="badge progress-bar-success">$validResults</span></div>
+                       <div class="list-group-item"><strong>Valid validations</strong> <span class="badge progress-bar-success">$validResults</span></div>
+                        <div class="list-group-item"><em>- with warnings</em><span class="badge text-right progress-bar-warning">$validWithWarnings</span></div>
+                        <div class="list-group-item"><em>- completely valid</em> <span class="badge progress-bar-success">$completelyValid</span></div>
                         <div class="list-group-item"><strong>Invalid validations</strong> <span class="badge  progress-bar-danger">$invalidResults</span></div>
                     </div>
                 </div>

@@ -59,14 +59,14 @@ public class EXT150AutoFixer implements ViolationFixer {
 
         for (Element startEvent : startEvents) {
             List<String> outgoingSeqFlowIds = startEvent
-                    .getChildren("outgoing", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE))
+                    .getChildren("outgoing", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING))
                     .stream().map(Element::getText).collect(Collectors.toList());
 
             // Remove old outgoing elements
-            startEvent.removeChildren("outgoing", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE));
+            startEvent.removeChildren("outgoing", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING));
 
             // add parallel gateway to process
-            Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE);
+            Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE_STRING);
             parallelGateway.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
             parallelGateway.setAttribute("gatewayDirection", "Diverging");
             parallelGateway.setAttribute("name", "Auto-created Parallel Gateway");
@@ -80,7 +80,7 @@ public class EXT150AutoFixer implements ViolationFixer {
 
             // replace existing connections
             for (String seqFlowId : outgoingSeqFlowIds) {
-                Element oldSeqFlow = parentProcessElement.getChildren("sequenceFlow", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE)).stream()
+                Element oldSeqFlow = parentProcessElement.getChildren("sequenceFlow", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING)).stream()
                         .filter(e -> seqFlowId.equals(e.getAttributeValue("id")))
                         .findFirst()
                         .orElseThrow(() -> new IllegalStateException("ID '"+seqFlowId+"' does not exist."));

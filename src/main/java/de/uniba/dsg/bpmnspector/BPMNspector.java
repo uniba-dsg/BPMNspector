@@ -1,5 +1,10 @@
 package de.uniba.dsg.bpmnspector;
 
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 import api.UnsortedValidationResult;
 import api.ValidationException;
 import api.ValidationResult;
@@ -12,11 +17,6 @@ import de.uniba.dsg.bpmnspector.schematron.SchematronBPMNValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Matthias Geiger
@@ -28,11 +28,15 @@ public class BPMNspector implements Validator {
 
     private final SchematronBPMNValidator extValidator;
     private final BPMNReferenceValidator refValidator;
+    private final MojoValidator mojoValidator;
+
     private final ProcessImporter bpmnImporter;
 
     public BPMNspector() throws ValidationException {
         extValidator = new SchematronBPMNValidator();
         refValidator = new BPMNReferenceValidator();
+        mojoValidator = new MojoValidator();
+
         bpmnImporter = new ProcessImporter();
     }
 
@@ -66,9 +70,14 @@ public class BPMNspector implements Validator {
             if (validationOptions.contains(ValidationOption.EXT)) {
                 extValidator.validate(process, result);
             }
+            if(validationOptions.contains(ValidationOption.MOJO)) {
+                mojoValidator.validate(process, result);
+            }
+
         }
 
         String resultString = result.isValid() ? "valid" : "invalid";
+        resultString += result.getWarnings().isEmpty() ? "" : " with warnings";
         LOGGER.info("Overall result for '{}': {}", file.getFileName().toString(), resultString);
 
         return result;

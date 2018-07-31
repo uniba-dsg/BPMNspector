@@ -7,8 +7,6 @@ import org.jdom2.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 public class EXT106RemoveInvalidTypeFixer implements ViolationFixer {
@@ -46,7 +44,7 @@ public class EXT106RemoveInvalidTypeFixer implements ViolationFixer {
         if (!elementOptional.isPresent()) {
             return false;
         }
-        elementOptional.get().removeChild("cancelEventDefinition", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE));
+        elementOptional.get().removeChild("cancelEventDefinition", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING));
 
         return true;
     }

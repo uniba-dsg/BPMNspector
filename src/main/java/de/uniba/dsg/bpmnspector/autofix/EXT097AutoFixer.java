@@ -51,7 +51,7 @@ public class EXT097AutoFixer implements ViolationFixer {
         Element parentProcessElement = elementOptional.get().getParentElement();
 
         // add StartEvent to parent
-        Element newStart = new Element("startEvent", ConstantHelper.BPMN_NAMESPACE);
+        Element newStart = new Element("startEvent", ConstantHelper.BPMN_NAMESPACE_STRING);
         newStart.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
         newStart.setAttribute("name", "Auto-created StartEvent");
         parentProcessElement.addContent(newStart);
@@ -59,7 +59,7 @@ public class EXT097AutoFixer implements ViolationFixer {
         // find all unconnected Elems in parent i.e., they have no incoming element
         List<Element> childrenWithNeededIncomingSeqFlow = bpmnXPathHelper.determineFlowNodesWithNeededIncomingFlow(parentProcessElement);
         List<Element> unconnectedElems = childrenWithNeededIncomingSeqFlow.stream()
-                .filter(e -> e.getChild("incoming", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE)) == null)
+                .filter(e -> e.getChild("incoming", Namespace.getNamespace(ConstantHelper.BPMN_NAMESPACE_STRING)) == null)
                 .collect(Collectors.toList());
 
 
@@ -69,7 +69,7 @@ public class EXT097AutoFixer implements ViolationFixer {
         } else if (unconnectedElems.size()>1) {
             // if more than one unconnected Element is found, a parallel Gateway is needed
             // add new ParallelGateway to parent
-            Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE);
+            Element parallelGateway = new Element("parallelGateway", ConstantHelper.BPMN_NAMESPACE_STRING);
             parallelGateway.setAttribute("id", bpmnXPathHelper.createRandomUniqueId());
             parallelGateway.setAttribute("name", "Auto-created Gateway");
             parentProcessElement.addContent(parallelGateway);

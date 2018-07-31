@@ -4,7 +4,8 @@ public enum ValidationOption {
 
     XSD("performs an XML schema validation"),
     REF("checks the correctness of references"),
-    EXT("checks conformance to EXT rules");
+    EXT("checks conformance to EXT rules"),
+    MOJO("checks soundness using mojo");
 
 
     private final String description;
