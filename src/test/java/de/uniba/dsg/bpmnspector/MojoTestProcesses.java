@@ -5,6 +5,7 @@ import api.ValidationException;
 import api.ValidationResult;
 import de.uniba.dsg.bpmnspector.common.importer.BPMNProcess;
 import de.uniba.dsg.bpmnspector.common.importer.ProcessImporter;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.nio.file.Path;
@@ -182,6 +183,30 @@ public class MojoTestProcesses {
         assertTrue(result.isValid());
         assertEquals(1, result.getWarnings().size());
         assertEquals(expectedWarning, result.getWarnings().get(0).getMessage());
+    }
+
+    @Test
+    @Ignore("Ignore: Mojo is not capable of detecting Deadlocks within SubProcesses")
+    public void processWithSubProcessContainsDeadlockInSubProcess() throws ValidationException {
+        String fileToValidate = "failure_no-detection-deadlock-in-subprocess.bpmn";
+
+        ValidationResult result = validateFile(fileToValidate);
+
+        assertFalse(result.isValid());
+        assertEquals(1, result.getViolations().size());
+        assertEquals("Deadlock", result.getViolations().get(0).getConstraint());
+    }
+
+    @Test
+    @Ignore("Ignore: Mojo is not capable of detecting Deadlocks in inter-process communication")
+    public void collaborationContainsDeadlock() throws ValidationException {
+        String fileToValidate = "failure_collaboration_deadlock.bpmn";
+
+        ValidationResult result = validateFile(fileToValidate);
+
+        assertFalse(result.isValid());
+        assertEquals(1, result.getViolations().size());
+        assertEquals("Deadlock", result.getViolations().get(0).getConstraint());
     }
 
     private ValidationResult validateFile(String filepath) throws ValidationException {
