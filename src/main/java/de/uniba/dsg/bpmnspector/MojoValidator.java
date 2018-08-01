@@ -74,9 +74,7 @@ public class MojoValidator implements BpmnProcessValidator {
         AnalysisInformation analysisInformation = new AnalysisInformation();
         List<Annotation> mojoResult = Collections.emptyList();
         try {
-            // FIXME Use processAsString information as soon as Mojo is capable to do this
             mojoResult = mojo.verify(process.getBaseURI(), processAsString, "bpmn.xml", analysisInformation, StandardCharsets.UTF_8);
-            //List<Annotation> mojoResult = mojo.verify(new File(process.getBaseURI()), analysisInformation);
         } catch (Exception e) { // FIXME just to make sure failing mojo validation does not kill the whole validation proces
             LOGGER.warn("Validation of process " + process.getBaseURI() + " failed due to internal problems in mojo: ", e);
             result.addWarning(createMojoWarning("Mojo validation failed due to internal problems.", process));
