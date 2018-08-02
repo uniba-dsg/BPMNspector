@@ -8,6 +8,7 @@ import de.uniba.dsg.bpmnspector.cli.AutoFixController;
 import de.uniba.dsg.bpmnspector.cli.BPMNspectorCli;
 import de.uniba.dsg.bpmnspector.cli.CliException;
 import de.uniba.dsg.bpmnspector.cli.CliParameter;
+import de.uniba.dsg.bpmnspector.common.util.CsvReportGenerator;
 import de.uniba.dsg.bpmnspector.common.util.FileUtils;
 import de.uniba.dsg.bpmnspector.common.util.HtmlReportGenerator;
 import de.uniba.dsg.bpmnspector.common.util.XmlWriterApi;
@@ -145,5 +146,8 @@ public class BPMNspectorMain {
                 // ignore any exceptions
             }
         }
+
+        // CSV report for dissertation
+        CsvReportGenerator.createCsvReport(baseFolder, results);
     }
 }
