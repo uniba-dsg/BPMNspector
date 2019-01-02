@@ -81,7 +81,7 @@ public class MojoValidator implements BpmnProcessValidator {
         }
 
         if (!mojoResult.isEmpty()) {
-            addMojoResultToValidationResult(mojoResult, result, process);
+            addMojoResultToVerificationResult(mojoResult, result, process);
         }
     }
 
@@ -132,7 +132,7 @@ public class MojoValidator implements BpmnProcessValidator {
     }
 
 
-    private void addMojoResultToValidationResult(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess)
+    private void addMojoResultToVerificationResult(List<Annotation> mojoResult, ValidationResult validationResult, BPMNProcess baseProcess)
             throws ValidationException {
 
         boolean containsUnsupportedElems = checkAndHandleUnsupportedElements(mojoResult, validationResult, baseProcess);
