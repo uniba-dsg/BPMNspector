@@ -67,7 +67,7 @@ configurations {
 repositories {
     jcenter()
     maven {
-        url "https://maven.alfresco.com/nexus/content/repositories/activiti/"
+        url "https://artefacts.alfresco.com/nexus/content/repositories/activiti-releases/"
     }
     maven { url 'https://jitpack.io' }
 }
