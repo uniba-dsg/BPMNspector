@@ -367,7 +367,7 @@
         <!-- For each InputSet which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
         (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
-        <iso:rule context="bpmn:inputSet[ancestor::bpmn:callActivity and node()]">
+        <iso:rule context="bpmn:inputSet[ancestor::bpmn:callActivity/bpmn:ioSpecification/bpmn:dataInput[@itemSubjectRef] and node()]">
             <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataInput[@id=current()/bpmn:dataInputRefs]/@itemSubjectRef]/@structureRef =
         //bpmn:itemDefinition[@id=//bpmn:dataInput[@id=//bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:inputSet=current()]
                 /@calledElement]/bpmn:ioSpecification/bpmn:inputSet/bpmn:dataInputRefs]/@itemSubjectRef]/@structureRef" diagnostics="id">
@@ -380,7 +380,7 @@
         <!-- For each OutputSet which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
         (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
-        <iso:rule context="bpmn:outputSet[ancestor::bpmn:callActivity and node()]">
+        <iso:rule context="bpmn:outputSet[ancestor::bpmn:callActivity/bpmn:ioSpecification/bpmn:dataOutput[@itemSubjectRef] and node()]">
             <iso:assert test="//bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=current()/bpmn:dataOutputRefs]/@itemSubjectRef]/@structureRef =
         //bpmn:itemDefinition[@id=//bpmn:dataOutput[@id=//bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:outputSet=current()]
                 /@calledElement]/bpmn:ioSpecification/bpmn:outputSet/bpmn:dataOutputRefs]/@itemSubjectRef]/@structureRef" diagnostics="id">
@@ -393,7 +393,7 @@
         <!-- For each dataInput which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
         (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
-        <iso:rule context="bpmn:dataInput[ancestor::bpmn:callActivity]">
+        <iso:rule context="bpmn:dataInput[ancestor::bpmn:callActivity and @itemSubjectRef]">
             <iso:assert test="//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@structureRef =
         //bpmn:itemDefinition[@id=
                 //bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataInput=current()]/@calledElement]
@@ -407,7 +407,7 @@
         <!-- For each dataOutput which is a child of a callActivity applies: -->
         <!-- The structureRef of the (indirectly) referenced ItemDefinition must be the same as the structureRef of the
         (indirectly) referenced itemDefinition of the called Process/GlobalTask -->
-        <iso:rule context="bpmn:dataOutput[ancestor::bpmn:callActivity]">
+        <iso:rule context="bpmn:dataOutput[ancestor::bpmn:callActivity and @itemSubjectRef]">
             <iso:assert test="//bpmn:itemDefinition[@id=current()/@itemSubjectRef]/@structureRef =
         //bpmn:itemDefinition[@id=
                 //bpmn:*[@id=//bpmn:callActivity[bpmn:ioSpecification/bpmn:dataOutput=current()]/@calledElement]
