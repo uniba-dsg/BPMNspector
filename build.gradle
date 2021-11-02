@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -65,9 +65,9 @@ configurations {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     maven {
-        url "https://maven.alfresco.com/nexus/content/repositories/activiti/"
+        url "https://artefacts.alfresco.com/nexus/content/repositories/activiti-releases/"
     }
     maven { url 'https://jitpack.io' }
 }
@@ -88,7 +88,7 @@ dependencies {
     compile 'com.github.matthiasgeiger:mojo.core:master-SNAPSHOT'
     compile 'com.github.guybrushPrince:mojo.reader.bpmn:master-SNAPSHOT'
 
-	external files(fileTree(dir: "lib", includes: ['*.jar']))
+    external files(fileTree(dir: "lib", includes: ['*.jar']))
 
 	testCompile 'junit:junit:4.+'
 

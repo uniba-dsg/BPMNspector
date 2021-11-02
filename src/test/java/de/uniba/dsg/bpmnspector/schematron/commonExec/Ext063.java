@@ -48,10 +48,10 @@ public class Ext063 extends TestCase {
         ValidationResult result = verifyInvalidResult(createFile("EXT063_failure_calledProcess_itemsNotMatching.bpmn"), 2);
         assertViolation(result.getViolations().get(0),
                 ERR_MSG,
-                "(//bpmn:outputSet[ancestor::bpmn:callActivity and node()])[1]", 73);
+                "(//bpmn:outputSet[ancestor::bpmn:callActivity/bpmn:ioSpecification/bpmn:dataOutput[@itemSubjectRef] and node()])[1]", 73);
         assertViolation(result.getViolations().get(1),
                 ERR_MSG,
-                "(//bpmn:dataOutput[ancestor::bpmn:callActivity])[1]", 69);
+                "(//bpmn:dataOutput[ancestor::bpmn:callActivity and @itemSubjectRef])[1]", 69);
     }
 
     @Test
